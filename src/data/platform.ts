@@ -272,4 +272,194 @@ export const platformData: ProductData[] = [
     relatedProducts: ["rainbow", "omniswitch", "stellar-wifi"],
     category: "communications",
   },
+
+  /* ------------------------------------------------------------------ */
+  /*  OmniPCX Enterprise — Communication Server                         */
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "omnipcx-enterprise",
+    name: "OmniPCX Enterprise",
+    tagline: "Enterprise communication server for mission-critical unified communications",
+    description:
+      "OmniPCX Enterprise is ALE's flagship communication server, delivering carrier-grade unified communications for large enterprises and mission-critical environments. Deployed in over 100 countries, OmniPCX Enterprise provides voice, video, messaging, and collaboration services with 99.999% availability — available on-premises, in the cloud, or as a hybrid deployment.",
+    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    features: [
+      {
+        title: "Carrier-Grade Reliability",
+        description: "99.999% availability with redundant architecture, automatic failover, and hot standby capabilities designed for mission-critical enterprise and government environments.",
+      },
+      {
+        title: "Unified Communications",
+        description: "Integrated voice, video, messaging, conferencing, and presence in a single platform. Native integration with Rainbow for cloud collaboration and mobility.",
+      },
+      {
+        title: "Flexible Deployment",
+        description: "Deploy on-premises, in private cloud, or hybrid. Supports virtualized environments with VMware and Hyper-V. Purple on Demand subscription model available.",
+      },
+      {
+        title: "Defense & Government Certified",
+        description: "Common Criteria, NATO, NIST, JITC, and FIPS 140-2 certifications. SIP perimeter defense and encrypted communications for classified environments.",
+      },
+    ],
+    highlights: [
+      { stat: "99.999%", label: "uptime availability" },
+      { stat: "100+", label: "countries deployed" },
+      { stat: "300K", label: "users per system" },
+      { stat: "Defense", label: "grade certifications" },
+    ],
+    relatedProducts: ["rainbow", "desk-phones", "omniswitch"],
+    category: "communications",
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  OXO Connect — SMB Communication Server                            */
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "oxo-connect",
+    name: "OXO Connect",
+    tagline: "All-in-one communication server designed for small and medium businesses",
+    description:
+      "OXO Connect is a powerful yet simple communication server purpose-built for SMBs. It combines enterprise-grade telephony, unified communications, and contact center capabilities in a single compact platform. With built-in Rainbow integration, OXO Connect gives small businesses access to the same collaboration tools used by large enterprises — at a fraction of the cost and complexity.",
+    heroImage: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=80",
+    features: [
+      {
+        title: "All-in-One Platform",
+        description: "Voice, messaging, mobility, and basic contact center in a single box. No additional servers required — reducing infrastructure costs and management complexity.",
+      },
+      {
+        title: "Rainbow Integration",
+        description: "Built-in Rainbow collaboration extends OXO Connect with cloud-based team messaging, video conferencing, file sharing, and mobile app access for employees on the go.",
+      },
+      {
+        title: "Scalable Growth",
+        description: "Start small and grow without replacing your system. OXO Connect scales from 10 to 300 users with simple license upgrades and modular expansion.",
+      },
+      {
+        title: "Easy Management",
+        description: "Web-based administration interface with intuitive wizards and auto-configuration. Remote management capabilities reduce the need for on-site IT expertise.",
+      },
+    ],
+    highlights: [
+      { stat: "300", label: "maximum users" },
+      { stat: "All-in-1", label: "voice, UC, CC" },
+      { stat: "Simple", label: "web management" },
+      { stat: "SMB", label: "purpose-built" },
+    ],
+    relatedProducts: ["rainbow", "desk-phones", "stellar-wifi"],
+    category: "communications",
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  ALE Connect — Contact Center                                      */
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "ale-connect",
+    name: "ALE Connect",
+    tagline: "Omnichannel contact center solution for superior customer experiences",
+    description:
+      "ALE Connect is a comprehensive omnichannel contact center solution that enables organizations to deliver exceptional customer experiences across voice, email, chat, social media, and messaging channels. Available as cloud (CCaaS) or on-premises deployment, ALE Connect provides intelligent routing, real-time supervision, and detailed analytics to optimize agent productivity and customer satisfaction.",
+    heroImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+    features: [
+      {
+        title: "Omnichannel Engagement",
+        description: "Handle customer interactions across voice, email, web chat, social media, and messaging from a single unified agent desktop — ensuring consistent service quality.",
+      },
+      {
+        title: "Intelligent Routing",
+        description: "Skills-based routing, priority queuing, and AI-assisted distribution ensure every customer reaches the right agent at the right time for first-contact resolution.",
+      },
+      {
+        title: "Real-Time Analytics",
+        description: "Live dashboards, historical reporting, and conversation analytics provide actionable insights into agent performance, customer satisfaction, and contact center efficiency.",
+      },
+      {
+        title: "Cloud or On-Premises",
+        description: "Deploy as CCaaS in the cloud or on-premises for full control. Hybrid models support gradual cloud migration while maintaining existing infrastructure investments.",
+      },
+    ],
+    highlights: [
+      { stat: "Omnichannel", label: "voice, chat, email, social" },
+      { stat: "AI", label: "assisted routing" },
+      { stat: "CCaaS", label: "cloud deployment" },
+      { stat: "Real-time", label: "analytics & reporting" },
+    ],
+    relatedProducts: ["rainbow", "omnipcx-enterprise", "desk-phones"],
+    category: "communications",
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  OmniVista Network Management                                      */
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "omnivista",
+    name: "OmniVista Network Management",
+    tagline: "Unified network management platform for ALE infrastructure",
+    description:
+      "OmniVista Network Management Platform provides comprehensive visibility, control, and automation for your entire ALE network infrastructure. From device discovery and configuration management to security policy enforcement and performance monitoring, OmniVista simplifies day-to-day network operations while ensuring compliance and optimal performance.",
+    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+    features: [
+      {
+        title: "Unified Dashboard",
+        description: "Single pane of glass for managing switches, access points, and communications infrastructure. Real-time topology maps, device inventory, and health monitoring.",
+      },
+      {
+        title: "Automated Provisioning",
+        description: "Zero-touch provisioning with template-based configuration deployment. Bulk updates, scheduled maintenance windows, and rollback capabilities reduce manual effort.",
+      },
+      {
+        title: "Security & Compliance",
+        description: "BYOD and IoT device profiling with automatic policy application. Guest network management, access control lists, and compliance reporting.",
+      },
+      {
+        title: "Cloud & On-Premises Options",
+        description: "OmniVista Cirrus cloud management for distributed sites. On-premises OmniVista 2500 for organizations requiring local control. Both options with REST API integration.",
+      },
+    ],
+    highlights: [
+      { stat: "Single", label: "pane of glass" },
+      { stat: "Zero-touch", label: "provisioning" },
+      { stat: "IoT", label: "device profiling" },
+      { stat: "REST API", label: "integration" },
+    ],
+    relatedProducts: ["omniswitch", "stellar-wifi", "ai-ops"],
+    category: "management",
+  },
+
+  /* ------------------------------------------------------------------ */
+  /*  Stellar Asset Tracking                                            */
+  /* ------------------------------------------------------------------ */
+  {
+    slug: "asset-tracking",
+    name: "OmniAccess Stellar Asset Tracking",
+    tagline: "Real-time location and asset tracking for enterprise environments",
+    description:
+      "OmniAccess Stellar Asset Tracking provides real-time visibility into the location and status of equipment, people, and inventory across your facility. Using Bluetooth Low Energy (BLE) beacons and the Stellar Wi-Fi infrastructure, the solution delivers accurate indoor positioning without additional overlay networks — reducing search time, improving asset utilization, and enhancing workplace safety.",
+    heroImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1400&q=80",
+    features: [
+      {
+        title: "Real-Time Location",
+        description: "Track assets, people, and equipment in real time using BLE beacons integrated with OmniAccess Stellar access points. No separate location infrastructure required.",
+      },
+      {
+        title: "Healthcare Applications",
+        description: "Locate medical equipment, track patient flow, enable nurse call integration, and support staff safety with location-aware alerting and geofencing.",
+      },
+      {
+        title: "Warehouse & Logistics",
+        description: "Improve warehouse efficiency with real-time inventory location, automated zone monitoring, and movement analytics for optimization.",
+      },
+      {
+        title: "Workplace Analytics",
+        description: "Understand space utilization, occupancy patterns, and traffic flow to optimize workplace design, enhance safety compliance, and reduce real estate costs.",
+      },
+    ],
+    highlights: [
+      { stat: "BLE", label: "beacon technology" },
+      { stat: "Real-time", label: "location tracking" },
+      { stat: "No overlay", label: "uses existing Wi-Fi" },
+      { stat: "Analytics", label: "space utilization" },
+    ],
+    relatedProducts: ["stellar-wifi", "omnivista", "ai-ops"],
+    category: "connectivity",
+  },
 ];

@@ -29,11 +29,12 @@ export const primaryNav: NavItem[] = [
       { label: "Energy & Utilities", href: "/industries/energy", description: "Critical infrastructure networks" },
       { label: "Manufacturing", href: "/industries/manufacturing", description: "Industry 4.0 connectivity" },
       { label: "Smart Buildings", href: "/industries/smart-buildings", description: "Intelligent workspaces" },
+      { label: "Small & Medium Business", href: "/industries/smb", description: "Enterprise tech for SMBs" },
     ],
     featured: {
       title: "How ALE transforms hospitals",
       description: "40% faster response times at CHU Lyon",
-      href: "/customers/case-studies/chu-lyon",
+      href: "/customers/case-studies",
     },
   },
   {
@@ -46,6 +47,10 @@ export const primaryNav: NavItem[] = [
       { label: "Move to Cloud", href: "/solutions/move-to-cloud", description: "XaaS, migration, hybrid deployment" },
       { label: "Enable Hybrid Work", href: "/solutions/enable-hybrid-work", description: "Collaboration from anywhere" },
       { label: "Connect Everything", href: "/solutions/connect-everything", description: "Private 5G, IoT, asset tracking" },
+      { label: "Business Continuity", href: "/solutions/business-continuity", description: "Resilience for any disruption" },
+      { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase", description: "Smart WAN with cloud security" },
+      { label: "Network Security", href: "/solutions/network-security", description: "Zero-trust & segmentation" },
+      { label: "All Solutions", href: "/solutions", description: "Browse all solutions" },
     ],
     featured: {
       title: "Move to the cloud with XaaS",
@@ -62,7 +67,9 @@ export const primaryNav: NavItem[] = [
       { label: "Stellar Wi-Fi", href: "/platform/stellar-wifi", description: "Enterprise wireless" },
       { label: "AI Ops", href: "/platform/ai-ops", description: "AI-driven network intelligence" },
       { label: "Private 5G", href: "/platform/private-5g", description: "Dedicated wireless networks" },
-      { label: "All Products", href: "/platform/all-products", description: "Browse the full portfolio" },
+      { label: "OmniPCX Enterprise", href: "/platform/omnipcx-enterprise", description: "Enterprise comm server" },
+      { label: "ALE Connect", href: "/platform/ale-connect", description: "Omnichannel contact center" },
+      { label: "Full Product Catalog", href: "/products", description: "Browse all products by category" },
     ],
     featured: {
       title: "One platform. Every connection.",
@@ -71,14 +78,24 @@ export const primaryNav: NavItem[] = [
     },
   },
   {
+    label: "Services",
+    href: "/services",
+    children: [
+      { label: "Support Services", href: "/services/support-services", description: "24/7 technical support" },
+      { label: "Training Services", href: "/services/training-services", description: "Certification & learning" },
+      { label: "Professional Services", href: "/services/professional-managed-services", description: "Deployment & managed ops" },
+      { label: "Success Management", href: "/services/success-management", description: "Adoption & best practices" },
+      { label: "Industry Services", href: "/services/industry-services", description: "Vertical expertise" },
+    ],
+  },
+  {
     label: "Partners",
     href: "/partners",
     children: [
-      { label: "Become a Partner", href: "/partners/become-a-partner", description: "Grow with ALE" },
-      { label: "Find a Partner", href: "/partners/find-a-partner", description: "Locate a certified partner" },
-      { label: "Partner Success", href: "/partners/partner-success", description: "Partner stories & results" },
-      { label: "Developers", href: "/developers", description: "Build on the ALE platform" },
-      { label: "Partner Portal", href: "/partners/portal", description: "Access your portal" },
+      { label: "Business Partners", href: "/partners/business-partners", description: "Join our partner network" },
+      { label: "Consultants", href: "/partners/consultants", description: "Advisory program" },
+      { label: "Technology Partners", href: "/partners/technology-partners", description: "Build on ALE platform" },
+      { label: "Developers", href: "/developers", description: "APIs & SDKs" },
     ],
   },
   {
@@ -86,8 +103,11 @@ export const primaryNav: NavItem[] = [
     href: "/company",
     children: [
       { label: "About ALE", href: "/company/about", description: "Our mission & values" },
+      { label: "Executive Team", href: "/company/executive-team", description: "Leadership team" },
       { label: "Innovation", href: "/company/innovation", description: "R&D and technology vision" },
       { label: "Newsroom", href: "/company/newsroom", description: "Press releases & media" },
+      { label: "Blog", href: "/blog", description: "Insights & expertise" },
+      { label: "Events", href: "/company/events", description: "Events & webinars" },
       { label: "Careers", href: "/company/careers", description: "Join our team" },
       { label: "ESG", href: "/company/esg", description: "Sustainability & responsibility" },
       { label: "Contact", href: "/company/contact", description: "Get in touch" },

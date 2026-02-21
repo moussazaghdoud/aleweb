@@ -323,4 +323,40 @@ export const industriesData: IndustryData[] = [
     ],
     products: ["OmniSwitch", "OmniAccess Stellar", "OmniVista Cirrus", "IoT Location Services", "Rainbow"],
   },
+  {
+    slug: "smb",
+    name: "Small & Medium Business",
+    tagline: "Enterprise-grade technology scaled for SMBs",
+    description:
+      "Small and medium businesses need enterprise-grade communications and networking to compete effectively, but without the complexity and cost of large-scale deployments. ALE offers purpose-built solutions that deliver powerful collaboration, reliable connectivity, and professional customer service — all designed for simplicity, affordability, and rapid deployment.",
+    heroImage: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=80",
+    solutions: [
+      {
+        title: "Unified Communications",
+        description:
+          "OXO Connect delivers enterprise telephony features scaled for SMBs, with Rainbow collaboration built in for chat, video, and file sharing.",
+      },
+      {
+        title: "Professional Customer Service",
+        description:
+          "Omnichannel contact center capabilities enable small teams to deliver big-company customer experiences across phone, email, chat, and social media.",
+      },
+      {
+        title: "Reliable Networking",
+        description:
+          "OmniSwitch smart managed switches and OmniAccess Stellar Wi-Fi provide robust, secure connectivity that grows with your business.",
+      },
+      {
+        title: "Cloud-First Deployment",
+        description:
+          "Purple on Demand and Rainbow cloud services eliminate upfront infrastructure costs with subscription-based, pay-as-you-grow models.",
+      },
+    ],
+    customers: [
+      { name: "Regional Law Firm", detail: "Unified communications for 50 employees" },
+      { name: "Boutique Hotel Group", detail: "Guest Wi-Fi and staff collaboration" },
+      { name: "Medical Practice", detail: "HIPAA-compliant communications" },
+    ],
+    products: ["OXO Connect", "Rainbow", "OmniSwitch 2360", "OmniAccess Stellar", "Purple on Demand"],
+  },
 ];

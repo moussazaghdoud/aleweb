@@ -16,6 +16,20 @@ const solutionIconMap: Record<string, React.ComponentType<{ className?: string }
   "move-to-cloud": IconCloud,
   "enable-hybrid-work": IconGlobe,
   "connect-everything": IconSignal,
+  "business-continuity": IconShield,
+  "sd-wan-sase": IconSignal,
+  "cpaas": IconChat,
+  "unified-communications": IconChat,
+  "iot-networks": IconSignal,
+  "network-as-a-service": IconCloud,
+  "digital-age-communications": IconChat,
+  "digital-age-networking": IconSignal,
+  "network-security": IconShield,
+  "autonomous-network": IconAI,
+  "data-center-networking": IconSignal,
+  "industrial-networks": IconShield,
+  "video-surveillance-networking": IconGlobe,
+  "purple-on-demand": IconCloud,
 };
 
 const industryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {

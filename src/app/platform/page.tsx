@@ -136,6 +136,22 @@ export default function PlatformPage() {
           </div>
         </div>
       </section>
+
+      {/* Full catalog CTA */}
+      <section className="py-12 bg-light-50 border-t border-light-200">
+        <div className="mx-auto max-w-[1320px] px-6 text-center">
+          <h2 className="text-xl font-extrabold text-text mb-3">Looking for a specific product?</h2>
+          <p className="text-sm text-text-secondary mb-5 max-w-md mx-auto">
+            Browse our complete catalog of 50+ products across switches, wireless APs, phones, applications, and more.
+          </p>
+          <Link
+            href="/products"
+            className="inline-flex items-center h-11 px-6 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-colors"
+          >
+            Browse Full Product Catalog
+          </Link>
+        </div>
+      </section>
     </>
   );
 }

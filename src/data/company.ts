@@ -334,4 +334,124 @@ export const companyData: CompanyPageData[] = [
       { city: "Thousand Oaks", country: "United States", address: "2000 Corporate Center Drive, Thousand Oaks CA 91320", phone: "+1 818-880-3500" },
     ],
   },
+  {
+    slug: "events",
+    name: "Events & Webinars",
+    tagline: "Find out where we will be exhibiting, speaking, or participating in panel discussions",
+    description:
+      "ALE participates in industry events, trade shows, and webinars worldwide. Join us to see live demonstrations, hear from our experts, and connect with partners and customers who are transforming their businesses with ALE solutions.",
+    heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=80",
+    sections: [
+      {
+        title: "Upcoming Events",
+        content:
+          "ALE participates in major industry events including Mobile World Congress, Enterprise Connect, GITEX Global, and regional partner conferences. Visit our booth for live product demonstrations and expert consultations.",
+      },
+      {
+        title: "Webinars & Digital Events",
+        content:
+          "Join our on-demand and live webinar series covering topics from AI Ops and Private 5G to cloud migration strategies and industry-specific solutions. Register for upcoming sessions or watch recordings at your convenience.",
+      },
+      {
+        title: "ALE Connect Partner Conference",
+        content:
+          "Our annual partner conference brings together business partners, developers, and solution integrators from around the world for training, networking, and product roadmap previews.",
+      },
+      {
+        title: "Executive Briefing Center",
+        content:
+          "Schedule a visit to our Executive Briefing Center for an immersive, interactive experience. See ALE solutions in action through live demonstrations and hands-on labs tailored to your business needs.",
+      },
+    ],
+  },
+  {
+    slug: "video-library",
+    name: "Video Library",
+    tagline: "Watch the latest ALE videos to find a solution for your business",
+    description:
+      "Explore our collection of product demonstrations, customer testimonials, technical tutorials, and virtual tours. Our video library showcases real-world implementations and expert insights across industries and solutions.",
+    heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1400&q=80",
+    sections: [
+      {
+        title: "Product Demonstrations",
+        content:
+          "See ALE solutions in action with detailed product demonstrations covering Rainbow collaboration, OmniSwitch networking, Stellar Wi-Fi, AI Ops, Private 5G, and our full device portfolio.",
+      },
+      {
+        title: "Customer Testimonials",
+        content:
+          "Hear directly from customers about how ALE technology has transformed their operations. Video testimonials from healthcare, education, hospitality, government, and transportation organizations.",
+      },
+      {
+        title: "Technical Tutorials",
+        content:
+          "Step-by-step video tutorials for system administrators and network engineers covering deployment, configuration, troubleshooting, and best practices for the ALE portfolio.",
+      },
+      {
+        title: "Virtual Tours",
+        content:
+          "Take a virtual tour of our Executive Briefing Center and explore ALE solutions in an immersive 360-degree environment — from anywhere in the world.",
+      },
+    ],
+  },
+  {
+    slug: "analyst-reports",
+    name: "Analyst & Market Reports",
+    tagline: "Third-party industry analysis and market research featuring ALE solutions",
+    description:
+      "Independent analysts and consulting firms regularly evaluate ALE solutions. Access reports from Gartner, IDC, Frost & Sullivan, Forrester, and other leading research firms to understand how ALE technology compares in the market.",
+    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+    sections: [
+      {
+        title: "Gartner",
+        content:
+          "ALE is recognized in Gartner Magic Quadrant and Critical Capabilities assessments for unified communications, contact center, and enterprise networking. Access the latest Gartner evaluations to inform your technology decisions.",
+      },
+      {
+        title: "IDC",
+        content:
+          "IDC MarketScape reports evaluate ALE's position in enterprise communications and networking markets. Read IDC's assessment of our competitive strengths and market strategy.",
+      },
+      {
+        title: "Frost & Sullivan",
+        content:
+          "Frost & Sullivan Radar reports recognize ALE for innovation and growth in cloud communications platforms. Learn how ALE compares against global competitors in communications technology.",
+      },
+      {
+        title: "Forrester & Others",
+        content:
+          "Additional evaluations from Forrester, ABI Research, GlobalData, and other firms cover ALE's wireless LAN, IoT, and enterprise networking solutions with competitive analysis and market positioning.",
+      },
+    ],
+  },
+  {
+    slug: "executive-team",
+    name: "Executive Team",
+    tagline: "Meet the leadership team driving ALE's innovation and growth",
+    description:
+      "Alcatel-Lucent Enterprise is led by an experienced team of technology executives committed to delivering digital-age solutions for enterprises worldwide. Our leadership team brings decades of experience in networking, communications, cloud technology, and enterprise transformation.",
+    heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=80",
+    sections: [
+      {
+        title: "CEO & Executive Leadership",
+        content:
+          "Our CEO and executive leadership team set the strategic direction for ALE, driving innovation across our portfolio of networking, communications, and cloud solutions while maintaining our commitment to customer success and partner growth.",
+      },
+      {
+        title: "Technology & Innovation",
+        content:
+          "Our CTO and R&D leadership oversee the development of next-generation solutions including Rainbow cloud communications, AI Ops, Private 5G, and Wi-Fi 7 — investing in the technologies that will define enterprise connectivity for the next decade.",
+      },
+      {
+        title: "Sales & Partners",
+        content:
+          "Our global sales and partner leadership manage relationships with 3,400+ business partners across 50+ countries, ensuring customers receive best-in-class solutions tailored to their industry and business needs.",
+      },
+      {
+        title: "Operations & Finance",
+        content:
+          "Our operations and finance leadership ensures ALE maintains financial strength, operational efficiency, and the supply chain resilience needed to serve over one million customers worldwide.",
+      },
+    ],
+  },
 ];

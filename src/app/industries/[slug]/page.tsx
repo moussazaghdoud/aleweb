@@ -5,6 +5,7 @@ import { industriesData } from "@/data/industries";
 import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
+  IconSMB,
 } from "@/components/primitives/Icons";
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -16,6 +17,7 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   energy: IconEnergy,
   manufacturing: IconManufacturing,
   "smart-buildings": IconSmartBuildings,
+  smb: IconSMB,
 };
 
 // Generate static paths for all industries
