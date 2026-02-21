@@ -1,25 +1,27 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { blogData } from "@/data/blog";
+import { getBlogData } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const blogData = await getBlogData();
   return blogData.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const post = blogData.find((p) => p.slug === slug);
-    if (!post) return { title: "Not Found" };
-    return {
-      title: `${post.title} | Blog`,
-      description: post.excerpt,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const blogData = await getBlogData();
+  const post = blogData.find((p) => p.slug === slug);
+  if (!post) return { title: "Not Found" };
+  return {
+    title: `${post.title} | Blog`,
+    description: post.excerpt,
+  };
 }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const blogData = await getBlogData();
   const post = blogData.find((p) => p.slug === slug);
   if (!post) notFound();
 

@@ -6,12 +6,27 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "migrate": "curl -s -X POST http://localhost:3000/api/seed -H \"x-seed-secret: $PAYLOAD_SECRET\" | node -e \"process.stdin.on('data',d=>{const r=JSON.parse(d);console.log(r.message+': '+r.created+' created, '+r.skipped+' skipped, '+r.errors+' errors')})\"",
+    "start:prod": "NODE_ENV=production node .next/standalone/server.js",
+    "docker:build": "docker compose build",
+    "docker:up": "docker compose up -d",
+    "docker:down": "docker compose down",
+    "payload:generate-types": "payload generate:types"
   },
   "dependencies": {
-    "next": "16.1.6",
-    "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "@payloadcms/db-postgres": "^3.77.0",
+    "@payloadcms/db-sqlite": "^3.77.0",
+    "@payloadcms/next": "^3.77.0",
+    "@payloadcms/richtext-lexical": "^3.77.0",
+    "@payloadcms/storage-s3": "^3.77.0",
+    "dotenv": "^17.3.1",
+    "graphql": "^16.12.0",
+    "next": "^16.2.0-canary.56",
+    "payload": "^3.77.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "sharp": "^0.34.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

@@ -3,9 +3,14 @@
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import { blogData, blogCategories } from "@/data/blog";
+import type { BlogPost } from "@/lib/cms";
 
-export default function BlogClient() {
+interface BlogClientProps {
+  blogData: BlogPost[];
+  blogCategories: string[];
+}
+
+export default function BlogClient({ blogData, blogCategories }: BlogClientProps) {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered =

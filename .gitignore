@@ -39,3 +39,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# payload cms
+/public/media
+/data/
+*.db
+src/app/(payload)/admin/\[\[...segments\]\]/importMap.js

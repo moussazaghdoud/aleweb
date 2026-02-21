@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/navigation/Footer";
+import { PreviewBanner } from "@/components/PreviewBanner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -35,11 +37,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const { isEnabled: isPreview } = await draftMode();
+
   return (
     <html lang="en">
       <head>
@@ -50,7 +54,8 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans antialiased bg-light text-text">
+      <body className={`font-sans antialiased bg-light text-text${isPreview ? ' pt-10' : ''}`}>
+        {isPreview && <PreviewBanner />}
         <Navbar />
         <main>{children}</main>
         <Footer />

@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { resourcesData, typeLabels } from "@/data/resources";
+import { getResourcesData } from "@/lib/cms";
+import { typeLabels } from "@/data/resources";
 
 const typeColors: Record<string, string> = {
   whitepaper: "bg-blue-50 text-blue-700",
@@ -14,7 +15,8 @@ export const metadata = {
   description: "Whitepapers, case studies, webinars, guides, and datasheets from Alcatel-Lucent Enterprise.",
 };
 
-export default function ResourcesPage() {
+export default async function ResourcesPage() {
+  const resourcesData = await getResourcesData();
   return (
     <>
       {/* Hero */}

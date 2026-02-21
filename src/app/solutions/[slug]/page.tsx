@@ -1,8 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { solutionsData } from "@/data/solutions";
-import { industriesData } from "@/data/industries";
+import { getSolutionsData, getIndustriesData } from "@/lib/cms";
 import {
   IconChat, IconShield, IconAI, IconCloud, IconGlobe, IconSignal,
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
@@ -43,23 +42,26 @@ const industryIconMap: Record<string, React.ComponentType<{ className?: string }
   "smart-buildings": IconSmartBuildings,
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const solutionsData = await getSolutionsData();
   return solutionsData.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const solution = solutionsData.find((s) => s.slug === slug);
-    if (!solution) return { title: "Solution Not Found" };
-    return {
-      title: `${solution.name} | Solutions`,
-      description: solution.tagline,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const solutionsData = await getSolutionsData();
+  const solution = solutionsData.find((s) => s.slug === slug);
+  if (!solution) return { title: "Solution Not Found" };
+  return {
+    title: `${solution.name} | Solutions`,
+    description: solution.tagline,
+  };
 }
 
 export default async function SolutionPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const solutionsData = await getSolutionsData();
+  const industriesData = await getIndustriesData();
   const solution = solutionsData.find((s) => s.slug === slug);
   if (!solution) notFound();
 

@@ -1,12 +1,13 @@
 import Link from "next/link";
-import { legalData } from "@/data/legal";
+import { getLegalData } from "@/lib/cms";
 
 export const metadata = {
   title: "Legal",
   description: "Legal information, privacy policy, terms of use, and cookie policy for Alcatel-Lucent Enterprise.",
 };
 
-export default function LegalPage() {
+export default async function LegalPage() {
+  const legalData = await getLegalData();
   return (
     <>
       <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">

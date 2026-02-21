@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { industriesData } from "@/data/industries";
+import { getIndustriesData } from "@/lib/cms";
 import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
@@ -22,7 +22,9 @@ export const metadata = {
   description: "ALE delivers tailored enterprise technology solutions across healthcare, education, hospitality, government, transportation, energy, manufacturing, and smart buildings.",
 };
 
-export default function IndustriesPage() {
+export default async function IndustriesPage() {
+  const industriesData = await getIndustriesData();
+
   return (
     <>
       {/* Hero */}

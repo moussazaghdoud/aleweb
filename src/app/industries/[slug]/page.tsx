@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { industriesData } from "@/data/industries";
+import { getIndustriesData } from "@/lib/cms";
 import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
@@ -21,25 +21,26 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
 };
 
 // Generate static paths for all industries
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const industriesData = await getIndustriesData();
   return industriesData.map((industry) => ({ slug: industry.slug }));
 }
 
 // Dynamic metadata
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  // Next.js 16 async params workaround for generateMetadata
-  return params.then(({ slug }) => {
-    const industry = industriesData.find((i) => i.slug === slug);
-    if (!industry) return { title: "Industry Not Found" };
-    return {
-      title: `${industry.name} Solutions`,
-      description: industry.description,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const industriesData = await getIndustriesData();
+  const industry = industriesData.find((i) => i.slug === slug);
+  if (!industry) return { title: "Industry Not Found" };
+  return {
+    title: `${industry.name} Solutions`,
+    description: industry.description,
+  };
 }
 
 export default async function IndustryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
+  const industriesData = await getIndustriesData();
   const industry = industriesData.find((i) => i.slug === slug);
   if (!industry) notFound();
 

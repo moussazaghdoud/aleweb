@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { platformData } from "@/data/platform";
+import { getPlatformData } from "@/lib/cms";
 import {
   IconChat, IconShield, IconAI, IconSignal, IconGlobe,
 } from "@/components/primitives/Icons";
@@ -26,7 +26,8 @@ export const metadata = {
   description: "The ALE technology platform: Rainbow communications, OmniSwitch networking, Stellar Wi-Fi, AI Ops, Private 5G, and enterprise phones.",
 };
 
-export default function PlatformPage() {
+export default async function PlatformPage() {
+  const platformData = await getPlatformData();
   return (
     <>
       {/* Hero */}

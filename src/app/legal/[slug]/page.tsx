@@ -1,23 +1,25 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { legalData } from "@/data/legal";
+import { getLegalData } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const legalData = await getLegalData();
   return legalData.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const page = legalData.find((p) => p.slug === slug);
-    if (!page) return { title: "Not Found" };
-    return {
-      title: page.name,
-      description: `${page.name} for Alcatel-Lucent Enterprise`,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const legalData = await getLegalData();
+  const { slug } = await params;
+  const page = legalData.find((p) => p.slug === slug);
+  if (!page) return { title: "Not Found" };
+  return {
+    title: page.name,
+    description: `${page.name} for Alcatel-Lucent Enterprise`,
+  };
 }
 
 export default async function LegalDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const legalData = await getLegalData();
   const { slug } = await params;
   const page = legalData.find((p) => p.slug === slug);
   if (!page) notFound();

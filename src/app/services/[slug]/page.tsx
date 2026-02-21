@@ -1,24 +1,26 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { servicesData } from "@/data/services";
+import { getServicesData } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const servicesData = await getServicesData();
   return servicesData.map((s) => ({ slug: s.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const service = servicesData.find((s) => s.slug === slug);
-    if (!service) return { title: "Not Found" };
-    return {
-      title: `${service.name} | Services`,
-      description: service.tagline,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const servicesData = await getServicesData();
+  const { slug } = await params;
+  const service = servicesData.find((s) => s.slug === slug);
+  if (!service) return { title: "Not Found" };
+  return {
+    title: `${service.name} | Services`,
+    description: service.tagline,
+  };
 }
 
 export default async function ServiceDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const servicesData = await getServicesData();
   const { slug } = await params;
   const service = servicesData.find((s) => s.slug === slug);
   if (!service) notFound();

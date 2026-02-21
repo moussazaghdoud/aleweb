@@ -1,6 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
-import { solutionsData } from "@/data/solutions";
+import { getSolutionsData } from "@/lib/cms";
 import {
   IconChat, IconShield, IconAI, IconCloud, IconGlobe, IconSignal,
 } from "@/components/primitives/Icons";
@@ -19,7 +19,9 @@ export const metadata = {
   description: "ALE enterprise solutions: cloud communications, secure networking, AI operations, hybrid work, IoT connectivity, and everything as a service.",
 };
 
-export default function SolutionsPage() {
+export default async function SolutionsPage() {
+  const solutionsData = await getSolutionsData();
+
   return (
     <>
       {/* Hero */}

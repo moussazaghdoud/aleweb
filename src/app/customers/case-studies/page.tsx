@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { industriesData } from "@/data/industries";
+import { getIndustriesData } from "@/lib/cms";
 import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
@@ -16,17 +16,18 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "smart-buildings": IconSmartBuildings,
 };
 
-// Aggregate all customers from industries data
-const allCustomers = industriesData.flatMap((ind) =>
-  ind.customers.map((c) => ({ ...c, industry: ind.name, industrySlug: ind.slug }))
-);
-
 export const metadata = {
   title: "Customer Stories",
   description: "See how organizations worldwide use ALE enterprise technology to transform their operations.",
 };
 
-export default function CaseStudiesPage() {
+export default async function CaseStudiesPage() {
+  const industriesData = await getIndustriesData();
+
+  // Aggregate all customers from industries data
+  const allCustomers = industriesData.flatMap((ind) =>
+    ind.customers.map((c) => ({ ...c, industry: ind.name, industrySlug: ind.slug }))
+  );
   return (
     <>
       {/* Hero */}

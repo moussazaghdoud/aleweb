@@ -1,24 +1,25 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { productCategories, catalogProducts } from "@/data/products-catalog";
+import { getProductCategories, getCatalogProducts } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const productCategories = await getProductCategories();
   return productCategories.map((c) => ({ category: c.slug }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ category: string }>;
 }) {
-  return params.then(({ category }) => {
-    const cat = productCategories.find((c) => c.slug === category);
-    if (!cat) return { title: "Category Not Found" };
-    return {
-      title: `${cat.name} | Products`,
-      description: cat.description,
-    };
-  });
+  const { category } = await params;
+  const productCategories = await getProductCategories();
+  const cat = productCategories.find((c) => c.slug === category);
+  if (!cat) return { title: "Category Not Found" };
+  return {
+    title: `${cat.name} | Products`,
+    description: cat.description,
+  };
 }
 
 export default async function CategoryPage({
@@ -27,6 +28,8 @@ export default async function CategoryPage({
   params: Promise<{ category: string }>;
 }) {
   const { category } = await params;
+  const productCategories = await getProductCategories();
+  const catalogProducts = await getCatalogProducts();
   const cat = productCategories.find((c) => c.slug === category);
   if (!cat) notFound();
 

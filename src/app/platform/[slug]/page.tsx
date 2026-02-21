@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { platformData } from "@/data/platform";
+import { getPlatformData } from "@/lib/cms";
 import {
   IconChat, IconShield, IconAI, IconSignal, IconGlobe,
 } from "@/components/primitives/Icons";
@@ -15,22 +15,24 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "desk-phones": IconGlobe,
 };
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const platformData = await getPlatformData();
   return platformData.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const product = platformData.find((p) => p.slug === slug);
-    if (!product) return { title: "Product Not Found" };
-    return {
-      title: `${product.name} | Platform`,
-      description: product.tagline,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const platformData = await getPlatformData();
+  const { slug } = await params;
+  const product = platformData.find((p) => p.slug === slug);
+  if (!product) return { title: "Product Not Found" };
+  return {
+    title: `${product.name} | Platform`,
+    description: product.tagline,
+  };
 }
 
 export default async function ProductPage({ params }: { params: Promise<{ slug: string }> }) {
+  const platformData = await getPlatformData();
   const { slug } = await params;
   const product = platformData.find((p) => p.slug === slug);
   if (!product) notFound();

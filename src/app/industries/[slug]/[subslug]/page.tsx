@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { industriesData } from "@/data/industries";
+import { getIndustriesData } from "@/lib/cms";
 import { industrySubPagesData } from "@/data/industry-subpages";
 
 export function generateStaticParams() {
@@ -34,6 +34,7 @@ export default async function IndustrySubPage({
   params: Promise<{ slug: string; subslug: string }>;
 }) {
   const { slug, subslug } = await params;
+  const industriesData = await getIndustriesData();
   const parent = industriesData.find((i) => i.slug === slug);
   const subPage = industrySubPagesData.find(
     (sp) => sp.parentSlug === slug && sp.slug === subslug

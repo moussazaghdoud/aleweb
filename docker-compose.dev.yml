@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      DATABASE_URI: file:./data/payload.db
+      PAYLOAD_SECRET: ale-cms-dev-secret
+      NEXT_PUBLIC_URL: http://localhost:3000
+      NODE_ENV: development
+    volumes:
+      - ./data:/app/data
+      - media_uploads:/app/public/media
+
+volumes:
+  media_uploads:

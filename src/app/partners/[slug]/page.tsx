@@ -1,24 +1,26 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { partnersData } from "@/data/partners";
+import { getPartnersData } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const partnersData = await getPartnersData();
   return partnersData.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const page = partnersData.find((p) => p.slug === slug);
-    if (!page) return { title: "Not Found" };
-    return {
-      title: `${page.name} | Partners`,
-      description: page.tagline,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const partnersData = await getPartnersData();
+  const { slug } = await params;
+  const page = partnersData.find((p) => p.slug === slug);
+  if (!page) return { title: "Not Found" };
+  return {
+    title: `${page.name} | Partners`,
+    description: page.tagline,
+  };
 }
 
 export default async function PartnerDetailPage({ params }: { params: Promise<{ slug: string }> }) {
+  const partnersData = await getPartnersData();
   const { slug } = await params;
   const page = partnersData.find((p) => p.slug === slug);
   if (!page) notFound();

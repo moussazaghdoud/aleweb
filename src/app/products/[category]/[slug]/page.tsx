@@ -1,30 +1,28 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import {
-  productCategories,
-  catalogProducts,
-} from "@/data/products-catalog";
+import { getProductCategories, getCatalogProducts } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const catalogProducts = await getCatalogProducts();
   return catalogProducts.map((p) => ({
     category: p.category,
     slug: p.slug,
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ category: string; slug: string }>;
 }) {
-  return params.then(({ slug }) => {
-    const product = catalogProducts.find((p) => p.slug === slug);
-    if (!product) return { title: "Product Not Found" };
-    return {
-      title: `${product.name} | Products`,
-      description: product.tagline,
-    };
-  });
+  const { slug } = await params;
+  const catalogProducts = await getCatalogProducts();
+  const product = catalogProducts.find((p) => p.slug === slug);
+  if (!product) return { title: "Product Not Found" };
+  return {
+    title: `${product.name} | Products`,
+    description: product.tagline,
+  };
 }
 
 export default async function ProductDetailPage({
@@ -33,6 +31,8 @@ export default async function ProductDetailPage({
   params: Promise<{ category: string; slug: string }>;
 }) {
   const { category, slug } = await params;
+  const productCategories = await getProductCategories();
+  const catalogProducts = await getCatalogProducts();
   const product = catalogProducts.find(
     (p) => p.slug === slug && p.category === category
   );

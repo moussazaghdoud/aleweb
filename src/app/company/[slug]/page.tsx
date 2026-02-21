@@ -1,23 +1,25 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { companyData } from "@/data/company";
+import { getCompanyData } from "@/lib/cms";
 
-export function generateStaticParams() {
+export async function generateStaticParams() {
+  const companyData = await getCompanyData();
   return companyData.map((p) => ({ slug: p.slug }));
 }
 
-export function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
-  return params.then(({ slug }) => {
-    const page = companyData.find((p) => p.slug === slug);
-    if (!page) return { title: "Not Found" };
-    return {
-      title: `${page.name} | Company`,
-      description: page.tagline,
-    };
-  });
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const companyData = await getCompanyData();
+  const { slug } = await params;
+  const page = companyData.find((p) => p.slug === slug);
+  if (!page) return { title: "Not Found" };
+  return {
+    title: `${page.name} | Company`,
+    description: page.tagline,
+  };
 }
 
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
+  const companyData = await getCompanyData();
   const { slug } = await params;
   const page = companyData.find((p) => p.slug === slug);
   if (!page) notFound();
