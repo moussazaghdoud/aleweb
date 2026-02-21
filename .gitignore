@@ -44,4 +44,3 @@ next-env.d.ts
 /public/media
 /data/
 *.db
-src/app/(payload)/admin/\[\[...segments\]\]/importMap.js
