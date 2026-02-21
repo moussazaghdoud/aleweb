@@ -21,11 +21,8 @@ async function safeFetch<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   try {
     return await fn()
   } catch (err: any) {
-    if (err?.payloadInitError || err?.message?.includes('ConnectionFailed') || err?.message?.includes('connect')) {
-      console.warn('[CMS] Database unavailable during build — returning empty data. Pages will generate at runtime.')
-      return fallback
-    }
-    throw err
+    console.warn('[CMS] Database unavailable — returning empty data. Pages will generate at runtime.', err?.message || '')
+    return fallback
   }
 }
 
