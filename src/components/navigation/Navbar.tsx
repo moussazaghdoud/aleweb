@@ -68,7 +68,7 @@ export function Navbar() {
               </svg>
             </button>
             <Link
-              href="/contact"
+              href="/company/contact"
               className="hidden sm:inline-flex items-center h-9 px-5 text-[13px] font-semibold bg-ale text-white rounded-full hover:bg-ale-dark transition-colors"
             >
               Contact Us
@@ -103,7 +103,7 @@ export function Navbar() {
             ))}
             <div className="pt-6 mt-4 border-t border-light-200">
               <Link
-                href="/contact"
+                href="/company/contact"
                 className="flex items-center justify-center h-11 w-full bg-ale text-white font-semibold rounded-full"
                 onClick={() => setMobileOpen(false)}
               >

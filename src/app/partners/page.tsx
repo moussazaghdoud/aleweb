@@ -3,21 +3,21 @@ import { IconHandshake, IconGlobe, IconClipboard, IconCode } from "@/components/
 
 const partnerPages = [
   {
-    slug: "become-a-partner",
-    name: "Become a Partner",
+    slug: "business-partners",
+    name: "Business Partners",
     description: "Join our global network of 3,400+ certified business partners. Access training, certifications, and go-to-market resources to grow your business with ALE solutions.",
     Icon: IconHandshake,
   },
   {
-    slug: "find-a-partner",
-    name: "Find a Partner",
-    description: "Locate a certified ALE partner near you for design, deployment, and ongoing support of networking and communications solutions.",
+    slug: "consultants",
+    name: "Consultants",
+    description: "Partner with ALE as a trusted advisor — help your clients design, evaluate, and deploy enterprise networking and communications solutions.",
     Icon: IconGlobe,
   },
   {
-    slug: "partner-success",
-    name: "Partner Success Stories",
-    description: "See how ALE partners are driving customer outcomes across industries — from healthcare to education, hospitality, and government.",
+    slug: "technology-partners",
+    name: "Technology Partners",
+    description: "Build on the ALE platform. Integrate your solutions with Rainbow, OmniSwitch, and OmniAccess Stellar to deliver joint value to enterprise customers.",
     Icon: IconClipboard,
   },
 ];
