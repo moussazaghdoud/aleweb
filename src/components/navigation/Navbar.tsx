@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { primaryNav } from "@/data/navigation";
 
 export function Navbar() {
@@ -13,14 +14,15 @@ export function Navbar() {
       <div className="mx-auto max-w-[1320px] px-6">
         <div className="flex h-[60px] items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 shrink-0">
-            <div className="w-8 h-8 rounded-lg bg-ale flex items-center justify-center">
-              <span className="text-white font-extrabold text-[10px] tracking-tight">ALE</span>
-            </div>
-            <div className="hidden sm:block leading-none">
-              <span className="text-[13px] font-bold text-text block">Alcatel-Lucent</span>
-              <span className="text-[10px] font-semibold text-ale tracking-wider uppercase">Enterprise</span>
-            </div>
+          <Link href="/" className="shrink-0">
+            <Image
+              src="/ale-logo.png"
+              alt="Alcatel-Lucent Enterprise"
+              width={160}
+              height={40}
+              className="h-[36px] w-auto"
+              priority
+            />
           </Link>
 
           {/* Desktop nav — simple links with clean dropdowns */}
