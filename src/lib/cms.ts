@@ -12,6 +12,23 @@
 
 import { getPayload } from './payload'
 
+/**
+ * Safe wrapper for CMS queries — returns fallback value if database is unavailable.
+ * This allows `npm run build` to succeed on Railway/Docker where the DB
+ * may not be accessible at build time. Pages will be generated on-demand at runtime.
+ */
+async function safeFetch<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
+  try {
+    return await fn()
+  } catch (err: any) {
+    if (err?.payloadInitError || err?.message?.includes('ConnectionFailed') || err?.message?.includes('connect')) {
+      console.warn('[CMS] Database unavailable during build — returning empty data. Pages will generate at runtime.')
+      return fallback
+    }
+    throw err
+  }
+}
+
 // ── Types matching existing interfaces ──────────────────────
 
 // These mirror src/data/*.ts interfaces exactly
@@ -33,73 +50,79 @@ export type { SolutionData, IndustryData, IndustrySubPageData, CatalogProduct, P
 // ── Solutions ───────────────────────────────────────────────
 
 export async function getSolutionsData(options?: { draft?: boolean }): Promise<SolutionData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'solutions',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    capabilities: doc.capabilities || [],
-    products: (doc.productNames || []).map((p: any) => p.name),
-    benefits: doc.benefits || [],
-    industries: [], // Will be populated if relationships are set
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'solutions',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      capabilities: doc.capabilities || [],
+      products: (doc.productNames || []).map((p: any) => p.name),
+      benefits: doc.benefits || [],
+      industries: [],
+    }))
+  }, [])
 }
 
 // ── Industries ──────────────────────────────────────────────
 
 export async function getIndustriesData(options?: { draft?: boolean }): Promise<IndustryData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'industries',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    icon: doc.icon || doc.slug,
-    solutions: doc.solutions || [],
-    customers: doc.customers || [],
-    products: (doc.productNames || []).map((p: any) => p.name),
-    subPages: doc.subPages || [],
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'industries',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      icon: doc.icon || doc.slug,
+      solutions: doc.solutions || [],
+      customers: doc.customers || [],
+      products: (doc.productNames || []).map((p: any) => p.name),
+      subPages: doc.subPages || [],
+    }))
+  }, [])
 }
 
 // ── Products ────────────────────────────────────────────────
 
 export async function getCatalogProducts(options?: { draft?: boolean }): Promise<CatalogProduct[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'products',
-    limit: 500,
-    pagination: false,
-    sort: 'name',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    category: doc.category,
-    subcategory: doc.subcategory || undefined,
-    features: doc.features || [],
-    highlights: doc.highlights || [],
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'products',
+      limit: 500,
+      pagination: false,
+      sort: 'name',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      category: doc.category,
+      subcategory: doc.subcategory || undefined,
+      features: doc.features || [],
+      highlights: doc.highlights || [],
+    }))
+  }, [])
 }
 
 export async function getProductCategories(): Promise<ProductCategory[]> {
@@ -130,129 +153,139 @@ function lexicalToStrings(richText: any): string[] {
 }
 
 export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPost[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'blog-posts',
-    limit: 500,
-    pagination: false,
-    sort: '-publishedDate',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    title: doc.title,
-    excerpt: doc.excerpt,
-    category: doc.category,
-    author: doc.author,
-    date: doc.publishedDate,
-    heroImage: doc.heroImage?.url || '',
-    content: lexicalToStrings(doc.content),
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'blog-posts',
+      limit: 500,
+      pagination: false,
+      sort: '-publishedDate',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      title: doc.title,
+      excerpt: doc.excerpt,
+      category: doc.category,
+      author: doc.author,
+      date: doc.publishedDate,
+      heroImage: doc.heroImage?.url || '',
+      content: lexicalToStrings(doc.content),
+    }))
+  }, [])
 }
 
 // ── Platforms ────────────────────────────────────────────────
 
 export async function getPlatformData(options?: { draft?: boolean }): Promise<ProductData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'platforms',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    category: (doc.category || 'communications') as ProductData['category'],
-    features: doc.features || [],
-    highlights: doc.highlights || [],
-    relatedProducts: [],
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'platforms',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      category: (doc.category || 'communications') as ProductData['category'],
+      features: doc.features || [],
+      highlights: doc.highlights || [],
+      relatedProducts: [],
+    }))
+  }, [])
 }
 
 // ── Services ────────────────────────────────────────────────
 
 export async function getServicesData(options?: { draft?: boolean }): Promise<ServiceData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'services',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    features: doc.offerings || [],
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'services',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      features: doc.offerings || [],
+    }))
+  }, [])
 }
 
 // ── Partners ────────────────────────────────────────────────
 
 export async function getPartnersData(options?: { draft?: boolean }): Promise<PartnerPageData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'partners',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.name,
-    tagline: doc.tagline,
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    features: doc.benefits || [],
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'partners',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.name,
+      tagline: doc.tagline,
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      features: doc.benefits || [],
+    }))
+  }, [])
 }
 
 // ── Company ─────────────────────────────────────────────────
 
 export async function getCompanyData(options?: { draft?: boolean }): Promise<CompanyPageData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'company-pages',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.title,
-    tagline: doc.tagline || '',
-    description: doc.description,
-    heroImage: doc.heroImage?.url || '',
-    sections: (doc.contentSections || []).map((s: any) => ({
-      title: s.title || '',
-      content: s.content || '',
-    })),
-    stats: doc.stats?.length ? doc.stats.map((s: any) => ({
-      label: s.label || '',
-      value: s.value || '',
-    })) : undefined,
-    offices: doc.offices?.length ? doc.offices.map((o: any) => ({
-      city: o.city || '',
-      country: o.country || '',
-      address: o.address || '',
-      phone: o.phone,
-    })) : undefined,
-    pressReleases: doc.pressReleases?.length ? doc.pressReleases.map((pr: any) => ({
-      title: pr.title || '',
-      date: pr.date || '',
-      summary: pr.summary || '',
-    })) : undefined,
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'company-pages',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.title,
+      tagline: doc.tagline || '',
+      description: doc.description,
+      heroImage: doc.heroImage?.url || '',
+      sections: (doc.contentSections || []).map((s: any) => ({
+        title: s.title || '',
+        content: s.content || '',
+      })),
+      stats: doc.stats?.length ? doc.stats.map((s: any) => ({
+        label: s.label || '',
+        value: s.value || '',
+      })) : undefined,
+      offices: doc.offices?.length ? doc.offices.map((o: any) => ({
+        city: o.city || '',
+        country: o.country || '',
+        address: o.address || '',
+        phone: o.phone,
+      })) : undefined,
+      pressReleases: doc.pressReleases?.length ? doc.pressReleases.map((pr: any) => ({
+        title: pr.title || '',
+        date: pr.date || '',
+        summary: pr.summary || '',
+      })) : undefined,
+    }))
+  }, [])
 }
 
 // ── Legal ───────────────────────────────────────────────────
@@ -282,67 +315,73 @@ function lexicalToSections(richText: any): { title: string; content: string }[] 
 }
 
 export async function getLegalData(options?: { draft?: boolean }): Promise<LegalPageData[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'legal-pages',
-    limit: 500,
-    pagination: false,
-    sort: 'createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    name: doc.title,
-    lastUpdated: doc.lastUpdated || '',
-    sections: lexicalToSections(doc.content),
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'legal-pages',
+      limit: 500,
+      pagination: false,
+      sort: 'createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      name: doc.title,
+      lastUpdated: doc.lastUpdated || '',
+      sections: lexicalToSections(doc.content),
+    }))
+  }, [])
 }
 
 // ── Resources ───────────────────────────────────────────────
 
 export async function getResourcesData(options?: { draft?: boolean }): Promise<Resource[]> {
-  const payload = await getPayload()
-  const { docs } = await payload.find({
-    collection: 'resources',
-    limit: 500,
-    pagination: false,
-    sort: '-createdAt',
-    draft: options?.draft,
-  })
-  return docs.map((doc: any) => ({
-    slug: doc.slug,
-    title: doc.title,
-    type: (doc.type || 'whitepaper') as Resource['type'],
-    summary: doc.description,
-    date: doc.createdAt?.split('T')[0] || '',
-    industry: undefined,
-    solution: undefined,
-  }))
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const { docs } = await payload.find({
+      collection: 'resources',
+      limit: 500,
+      pagination: false,
+      sort: '-createdAt',
+      draft: options?.draft,
+    })
+    return docs.map((doc: any) => ({
+      slug: doc.slug,
+      title: doc.title,
+      type: (doc.type || 'whitepaper') as Resource['type'],
+      summary: doc.description,
+      date: doc.createdAt?.split('T')[0] || '',
+      industry: undefined,
+      solution: undefined,
+    }))
+  }, [])
 }
 
 // ── Navigation ──────────────────────────────────────────────
 
 export async function getNavigationData() {
-  const payload = await getPayload()
-  const nav = await payload.findGlobal({ slug: 'navigation' })
-  return {
-    primaryNav: (nav.primaryNav || []).map((item: any) => ({
-      label: item.label,
-      href: item.href,
-      children: (item.children || []).map((child: any) => ({
-        label: child.label,
-        href: child.href,
-        description: child.description,
+  return safeFetch(async () => {
+    const payload = await getPayload()
+    const nav = await payload.findGlobal({ slug: 'navigation' })
+    return {
+      primaryNav: (nav.primaryNav || []).map((item: any) => ({
+        label: item.label,
+        href: item.href,
+        children: (item.children || []).map((child: any) => ({
+          label: child.label,
+          href: child.href,
+          description: child.description,
+        })),
+        featured: item.featured?.title ? {
+          title: item.featured.title,
+          description: item.featured.description || '',
+          href: item.featured.href || '',
+        } : undefined,
       })),
-      featured: item.featured?.title ? {
-        title: item.featured.title,
-        description: item.featured.description || '',
-        href: item.featured.href || '',
-      } : undefined,
-    })),
-    utilityNav: (nav.utilityNav || []).map((item: any) => ({
-      label: item.label,
-      href: item.href,
-    })),
-  }
+      utilityNav: (nav.utilityNav || []).map((item: any) => ({
+        label: item.label,
+        href: item.href,
+      })),
+    }
+  }, { primaryNav: [], utilityNav: [] })
 }
