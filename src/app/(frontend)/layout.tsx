@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { draftMode } from "next/headers";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/navigation/Footer";
-import { LayoutShell } from "@/components/LayoutShell";
 import { PreviewBanner } from "@/components/PreviewBanner";
 import "./globals.css";
 
@@ -57,9 +56,9 @@ export default async function RootLayout({
       </head>
       <body className={`font-sans antialiased bg-light text-text${isPreview ? ' pt-10' : ''}`}>
         {isPreview && <PreviewBanner />}
-        <LayoutShell navbar={<Navbar />} footer={<Footer />}>
-          {children}
-        </LayoutShell>
+        <Navbar />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );
