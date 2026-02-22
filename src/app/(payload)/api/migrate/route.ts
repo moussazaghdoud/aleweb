@@ -25,19 +25,21 @@ export async function POST(request: Request) {
   try {
     const payload = await getPayload({ config })
 
+    const db = payload.db as any
+
     // Push schema to database (creates/updates all tables)
-    if (typeof payload.db.push === 'function') {
-      await payload.db.push({ forceAcceptWarning: true })
+    if (typeof db.push === 'function') {
+      await db.push({ forceAcceptWarning: true })
       return NextResponse.json({ message: 'Schema pushed successfully via push()' })
     }
 
     // Fallback: try running migrations
-    if (typeof payload.db.migrate === 'function') {
-      await payload.db.migrate()
+    if (typeof db.migrate === 'function') {
+      await db.migrate()
       return NextResponse.json({ message: 'Migrations completed successfully' })
     }
 
-    return NextResponse.json({ error: 'No push or migrate method available on db adapter' }, { status: 500 })
+    return NextResponse.json({ error: 'No push or migrate method available on db adapter', methods: Object.keys(db) }, { status: 500 })
   } catch (err: any) {
     return NextResponse.json({
       error: 'Migration failed',
