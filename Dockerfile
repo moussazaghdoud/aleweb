@@ -18,6 +18,10 @@ ARG NEXT_PUBLIC_URL
 ENV DATABASE_URI=${DATABASE_URI}
 ENV PAYLOAD_SECRET=${PAYLOAD_SECRET}
 ENV NEXT_PUBLIC_URL=${NEXT_PUBLIC_URL}
+# Push database schema to PostgreSQL before building the app.
+# drizzle-kit is available here (full node_modules) but NOT in standalone output.
+RUN npx payload migrate:create --name init 2>&1 || echo "[migrate:create skipped]"
+RUN npx payload migrate 2>&1 || echo "[migrate skipped]"
 RUN npm run build
 
 # Stage 3: Production
