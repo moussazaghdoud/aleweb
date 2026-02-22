@@ -5,9 +5,8 @@
  * This creates all tables needed by the collections and globals.
  * Protected: requires the seed secret.
  *
- * Usage:
- *   curl -X POST https://your-app.up.railway.app/api/migrate \
- *     -H "x-seed-secret: <PAYLOAD_SECRET>"
+ * Payload's built-in push only runs in development (NODE_ENV !== 'production'),
+ * so this endpoint calls drizzle-kit's pushSchema() directly.
  */
 
 import { NextResponse } from 'next/server'
@@ -24,22 +23,33 @@ export async function POST(request: Request) {
 
   try {
     const payload = await getPayload({ config })
-
     const db = payload.db as any
 
-    // Push schema to database (creates/updates all tables)
-    if (typeof db.push === 'function') {
-      await db.push({ forceAcceptWarning: true })
-      return NextResponse.json({ message: 'Schema pushed successfully via push()' })
+    // Get drizzle-kit's pushSchema function via the adapter
+    const { pushSchema } = db.requireDrizzleKit()
+
+    // Push schema to database (creates/alters all tables)
+    const result = await pushSchema(
+      db.schema,
+      db.drizzle,
+      db.schemaName ? [db.schemaName] : undefined,
+      undefined,
+      undefined,
+    )
+
+    if (result.warnings?.length) {
+      console.warn('[migrate] Warnings:', result.warnings)
     }
 
-    // Fallback: try running migrations
-    if (typeof db.migrate === 'function') {
-      await db.migrate()
-      return NextResponse.json({ message: 'Migrations completed successfully' })
-    }
+    // Apply the schema changes
+    await result.apply()
 
-    return NextResponse.json({ error: 'No push or migrate method available on db adapter', methods: Object.keys(db) }, { status: 500 })
+    return NextResponse.json({
+      message: 'Schema pushed successfully',
+      statements: result.statementsToExecute?.length || 0,
+      warnings: result.warnings || [],
+      hasDataLoss: result.hasDataLoss || false,
+    })
   } catch (err: any) {
     return NextResponse.json({
       error: 'Migration failed',
