@@ -44,6 +44,11 @@ export async function POST(request: Request) {
     // Apply the schema changes
     await result.apply()
 
+    // Promote user ID 1 to admin (bypasses access control via local API)
+    try {
+      await payload.update({ collection: 'users', id: 1, data: { role: 'admin' } as any, overrideAccess: true })
+    } catch { /* ignore if no user yet */ }
+
     return NextResponse.json({
       message: 'Schema pushed successfully',
       statements: result.statementsToExecute?.length || 0,
