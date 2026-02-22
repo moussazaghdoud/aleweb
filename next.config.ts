@@ -4,6 +4,7 @@ import { withPayload } from "@payloadcms/next/withPayload";
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
+  serverExternalPackages: ["drizzle-kit"],
   images: {
     remotePatterns: [
       {
