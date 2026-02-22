@@ -1,6 +1,6 @@
 const config = {
   plugins: {
-    "./postcss-tailwind-skip-payload.cjs": {},
+    "@tailwindcss/postcss": {},
   },
 };
 
