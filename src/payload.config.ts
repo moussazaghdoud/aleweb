@@ -102,6 +102,7 @@ export default buildConfig({
   db: process.env.DATABASE_URI?.startsWith('postgresql')
     ? postgresAdapter({
         pool: { connectionString: process.env.DATABASE_URI },
+        push: true, // Auto-create tables on startup (needed for first deploy)
       })
     : sqliteAdapter({
         client: {
