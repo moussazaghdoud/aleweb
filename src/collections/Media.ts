@@ -9,7 +9,7 @@ export const Media: CollectionConfig = {
   },
   access: editorAccess,
   upload: {
-    staticDir: '../public/media',
+    staticDir: 'public/media',
     mimeTypes: ['image/*', 'application/pdf'],
     imageSizes: [
       { name: 'thumbnail', width: 300, height: 200, position: 'centre' },

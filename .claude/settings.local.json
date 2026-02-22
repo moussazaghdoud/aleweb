@@ -71,7 +71,8 @@
       "Bash(curl -s https://stunning-compassion-production-4d44.up.railway.app/api/debug/schema-push?action=schema-sql 2>&1 | python3 -c \"import sys,json; data=json.load\\(sys.stdin\\); [print\\(t['name'], [c['name']+':'+c['type'] for c in t['columns']]\\) for t in data.get\\('tables',[]\\) if t['name'] in \\('payload_locked_documents','payload_preferences','pages_blocks_code','pages_blocks_hero_ctas','pages_blocks_cta_buttons','pages_blocks_feature_grid_features','homepage_blocks_code','homepage_blocks_hero_ctas','homepage_blocks_cta_buttons','homepage_blocks_feature_grid_features'\\)]\" 2>&1)",
       "Bash(cd C:/Users/zaghdoud/aleweb && git push origin master 2>&1)",
       "Bash(cd C:/Users/zaghdoud/aleweb && git add src/app/\\\\\\(frontend\\\\\\)/api/debug-upload/route.ts && git commit -m \"$\\(cat <<'EOF'\nAdd temporary debug endpoint for media upload diagnostics\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\" && git push origin master 2>&1)",
-      "Bash(cd C:/Users/zaghdoud/aleweb && git add -A && git commit -m \"$\\(cat <<'EOF'\nMove debug endpoint outside /api/ to avoid Payload route interception\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\" && git push origin master 2>&1)"
+      "Bash(cd C:/Users/zaghdoud/aleweb && git add -A && git commit -m \"$\\(cat <<'EOF'\nMove debug endpoint outside /api/ to avoid Payload route interception\n\nCo-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>\nEOF\n\\)\" && git push origin master 2>&1)",
+      "Bash(cd C:/Users/zaghdoud/aleweb && npx next dev --turbopack -p 3001 2>&1)"
     ]
   }
 }

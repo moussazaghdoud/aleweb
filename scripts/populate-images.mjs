@@ -150,9 +150,10 @@ async function downloadImage(url) {
 
 async function uploadMedia(imageBuffer, filename, alt) {
   const formData = new FormData();
-  const blob = new Blob([imageBuffer], { type: filename.endsWith('.png') ? 'image/png' : 'image/jpeg' });
-  formData.append('file', blob, filename);
-  formData.append('alt', alt);
+  const mimeType = filename.endsWith('.png') ? 'image/png' : 'image/jpeg';
+  const file = new File([imageBuffer], filename, { type: mimeType });
+  formData.append('file', file);
+  formData.append('_payload', JSON.stringify({ alt }));
 
   const res = await fetch(`${API}/api/media`, {
     method: 'POST',
