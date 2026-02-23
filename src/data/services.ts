@@ -14,7 +14,7 @@ export const servicesData: ServiceData[] = [
     tagline: "24/7 technical support with remote diagnostics by phone and online",
     description:
       "ALE Support Services ensure maximum uptime and swift issue resolution for your networking and communications infrastructure. With 24/7 access to certified engineers, remote diagnostics, firmware updates, and hardware replacement, you get the peace of mind that comes from knowing expert help is always available.",
-    heroImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/services-header-image-1440x600-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "24/7 Technical Assistance",
@@ -44,7 +44,7 @@ export const servicesData: ServiceData[] = [
     tagline: "Broaden your team's skills with expert-led training and certification programs",
     description:
       "ALE Training Services provide comprehensive education programs for IT professionals, system administrators, and network engineers. From instructor-led courses to self-paced digital learning, our curriculum covers the full ALE portfolio — networking, communications, and cloud platforms — with globally recognized certifications.",
-    heroImage: "https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/services-header-image-1440x600-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "Instructor-Led Training",
@@ -74,7 +74,7 @@ export const servicesData: ServiceData[] = [
     tagline: "Move your digital transformation from ideas to reality",
     description:
       "ALE Professional and Managed Services provide end-to-end project delivery — from initial assessment and solution design through deployment, migration, and ongoing management. Our experienced consultants and project managers ensure your technology investments deliver maximum business value with minimal disruption.",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/support-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     features: [
       {
         title: "Assessment & Design",
@@ -104,7 +104,7 @@ export const servicesData: ServiceData[] = [
     tagline: "Best practices and guidance to maximize adoption of new technologies",
     description:
       "ALE Success Management assigns a dedicated Customer Success Manager (CSM) to guide your organization through technology adoption. Your CSM provides best practices, usage analytics, adoption strategies, and executive business reviews to ensure your teams fully leverage ALE solutions for measurable business outcomes.",
-    heroImage: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/services-header-image-1440x600-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "Dedicated Success Manager",
@@ -134,7 +134,7 @@ export const servicesData: ServiceData[] = [
     tagline: "Solutions tailored to meet the unique needs of your industry",
     description:
       "ALE Industry Services deliver specialized expertise for vertical markets including healthcare, education, hospitality, government, and transportation. Our industry consultants understand your unique regulatory, operational, and technology requirements — designing and delivering solutions that address industry-specific challenges.",
-    heroImage: "https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/services-header-image-1440x600-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "Healthcare Solutions Design",

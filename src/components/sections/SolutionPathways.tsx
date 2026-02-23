@@ -4,12 +4,12 @@ import { solutionPathways } from "@/data/homepage";
 import { IconChat, IconShield, IconAI, IconCloud, IconGlobe, IconSignal } from "@/components/primitives/Icons";
 
 const solutionImages: Record<string, string> = {
-  "Modernize Communications": "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&q=80",
-  "Secure Your Network": "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=600&q=80",
-  "Optimize with AI": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&q=80",
-  "Move to Cloud": "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=600&q=80",
-  "Enable Hybrid Work": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=600&q=80",
-  "Connect Everything": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600&q=80",
+  "Modernize Communications": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/team-co-working-open-space-rainbow-web-page-header-1785x725.jpg?h=600&w=1440",
+  "Secure Your Network": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
+  "Optimize with AI": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
+  "Move to Cloud": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/converged-everthing-aas-solution-1140x600-banner.jpg?h=600&w=1440",
+  "Enable Hybrid Work": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hybrid-workplace-header-l2-3-1440x280-72dpi.jpg?h=600&w=1440",
+  "Connect Everything": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/header-banner-solutions-iot-1440x600-v2.jpg?h=600&w=1440",
 };
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {

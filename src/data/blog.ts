@@ -33,7 +33,7 @@ export const blogData: BlogPost[] = [
     category: "Digital Age Networking",
     author: "ALE Blog Team",
     date: "2026-02-15",
-    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-digital-age-networking-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     content: [
       "In enterprise networking, we often talk about resilience in theoretical terms — failover times, redundancy ratios, uptime SLAs. But when a real crisis hits, theory meets reality in the most demanding way possible.",
       "This is the story of how a well-designed ALE network infrastructure proved its worth during an actual emergency, keeping critical communications flowing when it mattered most.",
@@ -49,7 +49,7 @@ export const blogData: BlogPost[] = [
     category: "Artificial Intelligence",
     author: "ALE Blog Team",
     date: "2026-02-08",
-    heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
     content: [
       "The era of reactive network management is ending. With AI Ops, enterprise IT teams are shifting from firefighting to prevention — using artificial intelligence and machine learning to anticipate network issues before they impact users.",
       "OmniVista Network Advisor represents ALE's vision for autonomous network operations. By continuously analyzing network telemetry data, the platform builds behavioral baselines and detects anomalies in real time.",
@@ -65,7 +65,7 @@ export const blogData: BlogPost[] = [
     category: "Rainbow",
     author: "ALE Blog Team",
     date: "2026-01-28",
-    heroImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/top-web-banner-rainbow-1440x660.jpg?h=600&w=1440",
     content: [
       "The way enterprises collaborate is evolving rapidly. With hybrid work now the norm, organizations need communications platforms that do more than connect — they need platforms that enhance productivity through intelligent automation.",
       "Rainbow's latest AI-powered features address this need directly. Smart meeting summaries automatically generate actionable notes from every conference call. Real-time transcription makes meetings accessible and searchable. And intelligent workflow automation connects conversations to business processes.",
@@ -81,7 +81,7 @@ export const blogData: BlogPost[] = [
     category: "Digital Age Networking",
     author: "ALE Blog Team",
     date: "2026-01-18",
-    heroImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/industrial-networks-header-image-v1.jpg?h=600&w=1440",
     content: [
       "Manufacturing is undergoing its most significant transformation since the assembly line. Industry 4.0 demands real-time connectivity for robots, automated guided vehicles (AGVs), quality inspection systems, and digital twins — and traditional Wi-Fi often can't deliver the reliability these applications require.",
       "Private 5G changes the equation. With sub-10ms latency, interference-free spectrum, and SIM-based zero trust security, Private 5G provides the deterministic connectivity that mission-critical manufacturing operations demand.",
@@ -97,7 +97,7 @@ export const blogData: BlogPost[] = [
     category: "Healthcare",
     author: "ALE Blog Team",
     date: "2026-01-10",
-    heroImage: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440",
     content: [
       "Healthcare technology is advancing at an unprecedented pace. The convergence of IoT medical devices, AI-assisted diagnostics, telehealth, and smart hospital infrastructure is creating new possibilities for patient care — and new demands on healthcare IT infrastructure.",
       "In 2026, we're seeing three major trends: First, the explosion of connected medical devices (IoMT) is putting enormous pressure on hospital networks. Second, AI is moving from experimental to operational in clinical settings. Third, patient expectations for digital services are now matching those in consumer technology.",
@@ -113,7 +113,7 @@ export const blogData: BlogPost[] = [
     category: "Education",
     author: "ALE Blog Team",
     date: "2025-12-20",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440",
     content: [
       "The modern campus is a connected campus. From lecture halls to dormitories, from research labs to sports facilities, students and staff expect seamless connectivity everywhere. For education IT teams, delivering this connectivity reliably and securely is a growing challenge.",
       "ALE's smart campus solutions provide the foundation. High-performance OmniSwitch networking with OmniAccess Stellar Wi-Fi 6/7 delivers the bandwidth and coverage density that modern campuses demand, while zero-trust security ensures that thousands of student devices don't compromise the network.",
@@ -129,7 +129,7 @@ export const blogData: BlogPost[] = [
     category: "Hospitality",
     author: "ALE Blog Team",
     date: "2025-12-05",
-    heroImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-header-bar-image-l2-l3.jpg?h=600&w=1440",
     content: [
       "Today's hotel guests arrive with higher expectations than ever. They want seamless Wi-Fi from the moment they step into the lobby. They expect digital check-in, mobile room keys, and in-room streaming. And they increasingly expect personalized services delivered through their own devices.",
       "For hospitality operators, meeting these expectations requires more than a fast Wi-Fi network — it requires a complete digital infrastructure that connects guest services, staff operations, and property management into a unified platform.",
@@ -145,7 +145,7 @@ export const blogData: BlogPost[] = [
     category: "ESG",
     author: "ALE Blog Team",
     date: "2025-11-20",
-    heroImage: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-csr-page-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     content: [
       "Environmental, Social, and Governance (ESG) commitments are no longer optional for enterprise technology companies. Customers, investors, and regulators increasingly demand transparency on environmental impact, social responsibility, and governance practices.",
       "At ALE, ESG is embedded into everything we do — from sustainable product design through our MakCCIng Durable initiative, to carbon reduction targets across our value chain, to our commitment to the UN Global Compact's Ten Principles.",
@@ -161,7 +161,7 @@ export const blogData: BlogPost[] = [
     category: "Digital Age Networking",
     author: "ALE Blog Team",
     date: "2025-11-05",
-    heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-unified-access-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     content: [
       "Distributed enterprises face a growing challenge: connecting branch offices, remote workers, and cloud applications while maintaining consistent security policies. Traditional WAN architectures with expensive MPLS circuits and hardware-centric security appliances can't keep pace.",
       "SD-WAN and SASE (Secure Access Service Edge) represent the next evolution. By combining intelligent traffic routing with cloud-delivered security, these solutions provide faster application performance, simplified operations, and comprehensive protection — all at lower cost.",
@@ -177,7 +177,7 @@ export const blogData: BlogPost[] = [
     category: "Government",
     author: "ALE Blog Team",
     date: "2025-10-15",
-    heroImage: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
     content: [
       "Cities worldwide are investing in digital infrastructure to improve citizen services, enhance public safety, and drive sustainable urban development. The foundation of every smart city initiative is a resilient, secure network that connects people, devices, and services at scale.",
       "ALE's connected city solutions provide this foundation. High-density outdoor Wi-Fi 6 coverage, IoT-ready network infrastructure, automated device onboarding, and centralized management tools enable municipalities to deploy smart city services efficiently and securely.",

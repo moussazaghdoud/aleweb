@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getCompanyData } from "@/lib/cms";
 
 export async function generateStaticParams() {
@@ -27,8 +28,18 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
-        <div className="mx-auto max-w-[1320px] px-6">
+      <section className="relative pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark overflow-hidden">
+        {page.heroImage && (
+          <Image
+            src={page.heroImage}
+            alt={page.name}
+            width={1440}
+            height={600}
+            className="absolute inset-0 w-full h-full object-cover opacity-30"
+            priority
+          />
+        )}
+        <div className="relative mx-auto max-w-[1320px] px-6">
           <Link
             href="/company"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/40 hover:text-white/70 transition-colors mb-5"
@@ -175,6 +186,34 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             </section>
           )}
         </>
+      )}
+
+      {/* Executive Team (Executive Team page only) */}
+      {page.executives && page.executives.length > 0 && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
+              Leadership Team
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+              {page.executives.map((exec) => (
+                <div key={exec.name} className="text-center">
+                  <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden bg-light-200 border-4 border-white shadow-lg">
+                    <Image
+                      src={exec.image}
+                      alt={exec.name}
+                      width={160}
+                      height={160}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <h3 className="text-base font-bold text-text">{exec.name}</h3>
+                  <p className="text-sm text-text-secondary mt-1 leading-relaxed">{exec.title}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
       )}
 
       {/* CTA */}

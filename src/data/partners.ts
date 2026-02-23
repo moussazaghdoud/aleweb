@@ -14,7 +14,7 @@ export const partnersData: PartnerPageData[] = [
     tagline: "Join our global network of 3,400+ partners delivering enterprise solutions",
     description:
       "ALE Business Partners form the backbone of our go-to-market strategy. Through our 360 Partner Experience (360PX) program, partners gain access to world-class training, marketing resources, technical support, and competitive margins. Whether you are a distributor, reseller, service partner, or system integrator, ALE provides the tools and support you need to grow your business and deliver exceptional customer outcomes.",
-    heroImage: "https://images.unsplash.com/photo-1521791136064-7986c2920216?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/business-partner-360-header-v3.jpg?h=600&w=1440",
     features: [
       {
         title: "360 Partner Experience (360PX)",
@@ -40,7 +40,7 @@ export const partnersData: PartnerPageData[] = [
     tagline: "Expand your advisory expertise with the ALE Consultants Program",
     description:
       "The ALE Consultants Program is designed for technology consultants who advise enterprises on networking, communications, and digital transformation strategies. As a member, you gain access to dedicated regional contacts, exclusive events, industry insights, and the technical knowledge assets needed to confidently recommend ALE solutions to your clients.",
-    heroImage: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/partners-directory-page-homepage-header-image-495x275.jpg?h=600&w=1440",
     features: [
       {
         title: "Expert Knowledge Access",
@@ -66,7 +66,7 @@ export const partnersData: PartnerPageData[] = [
     tagline: "Build certified, interoperable applications on the ALE platform",
     description:
       "The Developer and Solution Partner Program (DSPP) enables technology companies to develop certified, interoperable applications that extend ALE solutions. Partners gain access to standards-based APIs, technical documentation, development labs, certification testing, and promotional support — creating a thriving ecosystem of integrated solutions for enterprise customers.",
-    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/partners-directory-page-homepage-header-image-495x275.jpg?h=600&w=1440",
     features: [
       {
         title: "APIs & Development Resources",

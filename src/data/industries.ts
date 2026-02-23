@@ -17,7 +17,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Optimizing the care pathway for better outcomes",
     description:
       "ALE enables healthcare providers to deliver connected digital experiences through simplified, efficient, and secure communications that help clinicians collaborate and optimize patient care pathways — from admission through discharge.",
-    heroImage: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Patient Experience",
@@ -59,7 +59,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Empowering student success through innovative learning experiences",
     description:
       "ALE helps schools and universities succeed by enabling student-centered learning, managing secure high-performance network infrastructure, providing crisis coordination tools, and ensuring learning continuity with secure remote communications.",
-    heroImage: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Student Centered Learning",
@@ -100,7 +100,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Empowering staff to deliver enhanced guest experiences",
     description:
       "ALE helps hotels, cruise ships, and restaurants create safe, mobile, and unique guest experiences through efficient team communications, cloud-based network management, and digital amenities that blend technology with human service.",
-    heroImage: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-header-bar-image-l2-l3.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Guest Experience",
@@ -137,7 +137,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Optimizing government efficiency and public safety",
     description:
       "ALE helps municipalities and government agencies provide connected digital services for citizens, sustainable smart cities, emergency preparedness for public safety, and mission-critical defense operations.",
-    heroImage: "https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Connected Cities",
@@ -179,7 +179,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Connecting rail, air, ports and logistics for smarter mobility",
     description:
       "ALE connects transportation subsystems to enable superior passenger experiences, increase safety and security for passengers, staff and assets, and improve operational efficiency across rail, aviation, ports, and logistics.",
-    heroImage: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Smart Airports",
@@ -222,7 +222,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Reliable networks for critical energy infrastructure",
     description:
       "ALE provides secure, resilient communications and networking for energy producers, distributors, and utility companies operating in mission-critical environments — from power plants and substations to remote field operations.",
-    heroImage: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440",
     solutions: [
       {
         title: "SCADA & OT Connectivity",
@@ -257,7 +257,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Secure, seamless technology for connected manufacturing",
     description:
       "Modern manufacturing requires connected, secure, intelligent operations. ALE securely connects people, machines, objects and processes for real-time, data-driven production that drives faster decisions and increased agility.",
-    heroImage: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Autonomous Production",
@@ -294,7 +294,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Intelligent networks for modern workspaces",
     description:
       "ALE transforms buildings into smart, connected environments that optimize energy consumption, enhance occupant comfort, and streamline facility management through unified networking, IoT integration, and AI-driven building analytics.",
-    heroImage: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-banner-image-1440x600-v2.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Building Automation",
@@ -329,7 +329,7 @@ export const industriesData: IndustryData[] = [
     tagline: "Enterprise-grade technology scaled for SMBs",
     description:
       "Small and medium businesses need enterprise-grade communications and networking to compete effectively, but without the complexity and cost of large-scale deployments. ALE offers purpose-built solutions that deliver powerful collaboration, reliable connectivity, and professional customer service — all designed for simplicity, affordability, and rapid deployment.",
-    heroImage: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smb-image-headerbanner-1200x299.jpg?h=600&w=1440",
     solutions: [
       {
         title: "Unified Communications",

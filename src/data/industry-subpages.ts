@@ -21,7 +21,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE digital healthcare solutions enable caregivers to focus on patient care rather than technology challenges. By integrating with existing hospital systems — nurse call, EHR/HIS, patient terminals, and room control — ALE delivers communication, collaboration, notification, and location services through mobile applications at the bedside and throughout the ward. The result is reduced walking time for nurses, faster equipment location, fewer false alarms, and more time dedicated to meaningful patient interactions.",
     heroImage:
-      "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Nurse Digital Workplace",
@@ -78,7 +78,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "Caring for seniors requires moving beyond basic safety to maximize functional abilities while enabling autonomy and dignity. ALE reshapes senior care delivery through digital transformation, making services more relevant with dependable infrastructure, connectivity, and collaboration tools that benefit residents, clinicians, and caregivers. From assisted living facilities to nursing homes, ALE solutions connect staff in real-time, locate people and equipment instantly, and empower residents with the autonomy they desire.",
     heroImage:
-      "https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Dependable Infrastructure",
@@ -134,7 +134,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE empowers universities and colleges to deliver the immersive, borderless digital experience students expect. Through cognitive communications and pervasive connectivity, institutions can support students' entire journeys — from applicants to alumni — enhancing success, retention, and enrollment. Nudge technologies such as AI-enabled chatbots, virtual assistants, and cognitive communications drive personalized learning, while seamless integration with LMS, ITSM, and SIS platforms creates friction-free campus environments.",
     heroImage:
-      "https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Smart Campus Networking",
@@ -187,7 +187,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE helps school districts create safe, connected learning environments where teachers can share resources, communicate with students, and develop personalized learning plans. With growing device counts and evolving security requirements, K-12 institutions need intelligent campus solutions combining emergency notification, unified communications, and crisis management infrastructure. ALE integrates awareness, coordination, collaboration, and notification capabilities to reduce response times and ensure continuity of learning whether in-class, remote, or hybrid.",
     heroImage:
-      "https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Safe & Secure Campus",
@@ -240,7 +240,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE provides resilient, secure Digital Age Networking and Communications for the defense sector. Solutions support modern warfare requirements including Multi-Domain Operations (MDO), enabling information sharing, interconnected operations, and real-time coordination. Available on-premises, in the cloud, or hybrid, ALE defense solutions deliver 99.999% availability with end-to-end multi-layer protection, real-time field analytics, and ruggedized equipment resistant to shock, humidity, and extreme temperatures — including navy-specific devices with anti-roll features.",
     heroImage:
-      "https://images.unsplash.com/photo-1579912437766-7896df6d3cd3?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Smart Base",
@@ -290,7 +290,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "Modern technologies — intelligent networks, IoT data, and AI — enable organizations to protect people and manage emergencies more effectively. ALE public safety solutions improve collaboration and situational awareness to support quicker decision-making among first responders. By integrating multiple channels including radio, SMS, chat, calls, email, and video, ALE connects responders, agencies, and authorities through real-time information sharing with resilient, secure network infrastructure.",
     heroImage:
-      "https://images.unsplash.com/photo-1582139329536-e7284fece509?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Emergency Number Handling",
@@ -344,7 +344,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE enables cities to deliver secure, resilient connectivity infrastructure that connects people, devices, machines, and processes. The platform supports high-density Wi-Fi 6 deployment, IoT enablement, automated network management, and smart building services. By reducing complexity, automating operations, and enabling sustainable growth through a Digital Age Network foundation, ALE helps municipalities deliver 24/7 digital citizen services while managing vast numbers of connected urban devices securely.",
     heroImage:
-      "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Resilient Network Foundation",
@@ -401,7 +401,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE provides the Air Transportation Industry (ATI) with smart airport solutions connecting subsystems including IT networks, voice communications, and cloud services. The offering spans design through implementation, incorporating indoor geolocation technology, IoT communications, and cloud workflows to support new interactions between people and business processes. ALE smart airports exceed passenger expectations, optimize operational efficiency, and proactively protect passengers, staff, and assets.",
     heroImage:
-      "https://images.unsplash.com/photo-1436491865332-7a61a109db05?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Passenger Experience",
@@ -456,7 +456,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "Railway operators are modernizing through IP connectivity, IoT, Bluetooth Low Energy, and cloud multimedia. ALE accelerates the industry toward SmartRail 4.0 by enabling multimodal transport services for connected passengers across light-rail to high-speed rail operations. From enhanced passenger services and real-time safety systems to predictive maintenance and unified WAN/WLAN infrastructure, ALE connects every aspect of modern rail operations.",
     heroImage:
-      "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Enhanced Passenger Services",
@@ -509,7 +509,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE addresses seaport operational challenges through digital transformation, connecting subsystems via IT networks, voice communications, cloud solutions, and professional services. Technology components including indoor geolocation, IoT communication, and cloud workflows enable interaction between people, business processes, and IoT devices. From terminal automation and cargo tracking to stakeholder collaboration and operations control, ALE transforms connected ports into truly smart ports.",
     heroImage:
-      "https://images.unsplash.com/photo-1494412574643-ff11b0a5eb19?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Port Automation",
@@ -562,7 +562,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "Road operators are leveraging digital technology to create safer, greener transportation networks. ALE provides IoT-ready network infrastructure enabling road operators to optimize next-generation Intelligent Transportation Systems that deliver safer, less congested, and eco-friendly roadways. From congestion monitoring and automated speed reduction to predictive incident detection and centralized provisioning, ALE ITS solutions support millions of IoT devices across mission-critical road networks.",
     heroImage:
-      "https://images.unsplash.com/photo-1506521781263-d8422e82f27a?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Congestion Management & Monitoring",

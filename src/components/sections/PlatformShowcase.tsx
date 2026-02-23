@@ -8,7 +8,7 @@ const platforms = [
     category: "Cloud Communications",
     description: "Unified communications, messaging, and video — cloud-native, scalable, secure.",
     href: "/platform/rainbow",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&q=80",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/top-web-banner-rainbow-1440x660.jpg?h=600&w=1440",
     Icon: IconChat,
   },
   {
@@ -16,7 +16,7 @@ const platforms = [
     category: "Communications Server",
     description: "Enterprise-grade telephony platform for large-scale voice, mobility, and unified communications.",
     href: "/platform/omnipcx",
-    image: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=800&q=80",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     Icon: IconSignal,
   },
   {
@@ -24,7 +24,7 @@ const platforms = [
     category: "Network Fabric",
     description: "Enterprise switching from edge to data center with autonomous networking intelligence.",
     href: "/platform/omniswitch",
-    image: "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=800&q=80",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-switches-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     Icon: IconShield,
   },
   {
@@ -32,7 +32,7 @@ const platforms = [
     category: "Endpoints & Devices",
     description: "Desk phones, DECT handsets, conference devices, and headsets for every workspace.",
     href: "/platform/terminals",
-    image: "https://images.unsplash.com/photo-1596524430615-b46475ddff6e?w=800&q=80",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/phone-directory-pageheader-1200x299.jpg?h=600&w=1440",
     Icon: IconCloud,
   },
   {
@@ -40,7 +40,7 @@ const platforms = [
     category: "Network Intelligence",
     description: "AI-driven analytics, predictive operations, and automated troubleshooting.",
     href: "/platform/ai-ops",
-    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&q=80",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
     Icon: IconAI,
   },
 ];

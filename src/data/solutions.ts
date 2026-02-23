@@ -19,7 +19,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "Our innovative communications portfolio allows organizations of all sizes to choose the best options for their digital transformation. From unified communications as a service to omnichannel contact centers, ALE delivers cloud-based communications and collaboration solutions that support remote work, conferencing, IoT, AI, and enhanced customer experiences — all with GDPR compliance, ISO 27001 certification, and data sovereignty guarantees not subject to the Cloud Act or Patriot Act.",
     heroImage:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/team-co-working-open-space-rainbow-web-page-header-1785x725.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Unified Communications as a Service",
@@ -75,7 +75,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "Digital age technologies take organizations into the new digital era with a network foundation that delivers the services needed to grow your business. ALE's autonomous networking solutions integrate mobility, data analytics, cloud, and IoT innovations into operations — with automation as the key to reducing workloads, boosting efficiency, and minimizing human error. A streamlined portfolio with a unified OS across edge-to-core infrastructure provides flexible deployment for office, outdoor, and industrial environments.",
     heroImage:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Autonomous Network Fabric",
@@ -130,7 +130,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "OmniVista Network Advisor is an autonomous platform leveraging artificial intelligence and machine learning to minimize network downtime and enhance Quality of Experience. The system anticipates and resolves network problems proactively — sometimes before end users even detect issues. Combined with real-time IoT analytics and workflow automation, ALE's AI Ops solutions transform raw sensor data into actionable business intelligence that drives smarter decisions across your entire operation.",
     heroImage:
-      "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Predictive Network Intelligence",
@@ -184,7 +184,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "ALE's XaaS solutions provide subscription-based services enabling organizations to shift from traditional upfront purchases to flexible, pay-as-you-go models. Whether you need UCaaS, CCaaS, NaaS, or CPaaS, our portfolio delivers greater budget control, enhanced business agility, and the ability to quickly adjust services based on evolving needs — with secure deployment options spanning public cloud, private cloud, and on-premises hybrid environments. Rainbow Edge provides a private cloud option with local data center hosting for organizations requiring data sovereignty.",
     heroImage:
-      "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/converged-everthing-aas-solution-1140x600-banner.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "UCaaS & CCaaS",
@@ -239,7 +239,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "The hybrid work model combining in-office, remote, and mobile work is here to stay. Organizations implementing flexible communications technologies gain competitive advantage by keeping employees connected and empowered to deliver customer excellence. ALE provides enterprise-grade solutions with security, resilience, and mobility — from cloud collaboration with Rainbow to intelligent desk phones and softphones — enabling efficient, universal solutions that leverage existing investments for fast benefits and reduced risk.",
     heroImage:
-      "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hybrid-workplace-header-l2-3-1440x280-72dpi.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Cloud Collaboration",
@@ -293,7 +293,7 @@ export const solutionsData: SolutionData[] = [
     description:
       "ALE supports billions of connected devices across industries with automated, secure device onboarding and network integration through a Zero Trust architecture. From automatic device discovery and classification using a 29+ million device database, to virtual segmentation that isolates services into separate network containers, to continuous real-time behavior monitoring — ALE's IoT and connectivity solutions transform how organizations connect people, places, and things to drive operational intelligence and sustainability.",
     heroImage:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/header-banner-solutions-iot-1440x600-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "IoT Device Discovery & Classification",
@@ -347,7 +347,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Achieve operational continuity while building toward your future with proven, efficient, and secure solutions",
     description:
       "Business disruptions — from natural disasters to pandemics — demand organizations maintain operations, protect employees, and serve customers without interruption. ALE business continuity solutions provide resilient communications, secure remote access, and rapid deployment capabilities that keep your business running through any crisis.",
-    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-business-continuity-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Remote Work Enablement",
@@ -380,7 +380,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Combine smart networking and advanced security into a single solution for fast, safe, seamless access",
     description:
       "ALE SD-WAN and SASE solutions simplify how distributed enterprises connect branch offices, remote workers, and cloud applications. By combining intelligent traffic routing with cloud-delivered security, organizations get faster application performance, simplified operations, and comprehensive threat protection — all at lower cost than traditional MPLS-based WAN architectures.",
-    heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-unified-access-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Intelligent Traffic Routing",
@@ -413,7 +413,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Embed real-time communications into business applications and processes with Communications Platform as a Service",
     description:
       "Rainbow CPaaS (Communications Platform as a Service) enables organizations to embed real-time communications — voice, video, messaging, and presence — directly into business applications through APIs and SDKs. From automated notifications and IoT workflow integration to AI-powered chatbots and vertical solutions, CPaaS transforms how businesses interact with customers, employees, and connected devices.",
-    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/team-co-working-open-space-rainbow-web-page-header-1785x725.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "APIs & SDKs",
@@ -446,7 +446,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Connect offices from anywhere with secure, reliable unified communications solutions",
     description:
       "ALE's unified communications solutions bring together voice, video, messaging, conferencing, and presence into seamless experiences that keep employees productive regardless of location. From enterprise-grade telephony with OmniPCX Enterprise to cloud collaboration with Rainbow, ALE provides the full spectrum of UC capabilities with flexible deployment options and industry-leading security certifications.",
-    heroImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-collaboration-solutions-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Enterprise Telephony",
@@ -479,7 +479,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Support extensive IoT use with secure connectivity through a Zero Trust Network",
     description:
       "ALE IoT networking solutions provide the secure, scalable infrastructure needed to connect billions of devices across enterprise environments. From automatic device discovery and classification to virtual segmentation and continuous monitoring, ALE ensures every IoT device is securely onboarded, properly isolated, and continuously monitored — all through an automated Zero Trust architecture.",
-    heroImage: "https://images.unsplash.com/photo-1518770660439-4636190af475?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/header-banner-solutions-iot-1440x600-v2.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Automatic Device Discovery",
@@ -512,7 +512,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Empower your organization with intelligent, cloud-ready communications for the digital age",
     description:
       "Digital age communications combine unified communications, cloud collaboration, and CPaaS capabilities to transform how organizations connect with employees, customers, and partners. ALE delivers a complete communications portfolio — from enterprise telephony and contact center to team collaboration and embedded communications — all with flexible deployment options spanning public cloud, private cloud, and on-premises.",
-    heroImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/team-co-working-open-space-rainbow-web-page-header-1785x725.jpg?h=600&w=1440",
     capabilities: [
       { title: "Cloud-Native UCaaS", description: "Rainbow delivers enterprise-grade voice, video, messaging, and conferencing from the cloud with GDPR compliance and data sovereignty guarantees." },
       { title: "Omnichannel Contact Center", description: "ALE Connect CCaaS handles customer interactions across email, chat, social media, and telephone in a unified agent experience." },
@@ -533,7 +533,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Build an autonomous, self-healing network that adapts to your business needs",
     description:
       "Digital age networking delivers an intelligent, automated network infrastructure that reduces complexity, enhances security, and adapts to evolving business requirements. With a unified operating system across the entire switching portfolio, AI-driven analytics, and automated IoT onboarding, ALE networks are designed for the demands of modern enterprise environments.",
-    heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-digital-age-networking-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     capabilities: [
       { title: "Unified Network Fabric", description: "A single hardened operating system from edge to core with Shortest Path Bridging creates an automated, self-forming network fabric." },
       { title: "AI-Driven Operations", description: "OmniVista Network Advisor uses AI/ML to anticipate issues, automate remediation, and optimize network performance proactively." },
@@ -554,7 +554,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Protect your infrastructure with zero-trust architecture, micro-segmentation, and automated threat response",
     description:
       "ALE network security solutions provide multi-layered protection through zero-trust architecture, automated IoT containment, and intelligent threat detection. Built into the network fabric itself, security is not an add-on but a fundamental design principle — from automatic device fingerprinting and policy application to real-time behavior monitoring and automated quarantine.",
-    heroImage: "https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
     capabilities: [
       { title: "Zero-Trust Architecture", description: "Every device and user is authenticated and authorized before accessing network resources, with continuous verification throughout the session." },
       { title: "Micro-Segmentation", description: "IoT Containment isolates device types into separate virtual segments, preventing lateral movement and limiting blast radius." },
@@ -575,7 +575,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Self-configuring, self-healing networks that reduce operational complexity",
     description:
       "ALE autonomous networking solutions leverage AI, automation, and intelligent fabric technologies to create networks that configure, monitor, and repair themselves with minimal human intervention. From zero-touch provisioning to predictive analytics and automated remediation, autonomous networking reduces operational burden while improving reliability and performance.",
-    heroImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
     capabilities: [
       { title: "Auto-Fabric", description: "SPB-based fabric automatically discovers topology, assigns addresses, and creates optimal forwarding paths — no manual VLAN configuration required." },
       { title: "Zero-Touch Provisioning", description: "New switches and access points automatically download configuration and firmware upon connection, eliminating truck rolls." },
@@ -596,7 +596,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "High-performance, low-latency switching for modern data center and AI/HPC workloads",
     description:
       "ALE data center networking solutions deliver the high-density, low-latency, lossless fabric required for modern data center environments including AI/ML training clusters, high-performance computing, and virtualized infrastructure. With 100G/400G switching, VXLAN overlay, and RoCE support, ALE provides the foundation for next-generation data centers.",
-    heroImage: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-digital-age-networking-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     capabilities: [
       { title: "Ultra-Low Latency", description: "Sub-microsecond cut-through switching optimized for AI training clusters, financial trading, and HPC interconnects." },
       { title: "Lossless Fabric", description: "RoCEv2 with Priority Flow Control and ECN ensures zero packet loss for storage and GPU interconnects." },
@@ -617,7 +617,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Ruggedized networking for harsh environments and mission-critical OT infrastructure",
     description:
       "ALE industrial networking solutions bring enterprise-grade features to the most demanding environments. Fan-less, hardened switches with extended temperature ranges, DIN rail mounting, and industrial certifications provide reliable connectivity for manufacturing floors, transportation infrastructure, utility substations, and outdoor deployments — with full IT/OT convergence capabilities.",
-    heroImage: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/industrial-networks-header-image-v1.jpg?h=600&w=1440",
     capabilities: [
       { title: "Hardened Design", description: "Fan-less operation from -40°C to +75°C with IP67 options, DIN rail mounting, and M12 connectors for extreme environments." },
       { title: "IT/OT Convergence", description: "Enterprise security and IoT containment applied to industrial control systems, SCADA, and operational technology networks." },
@@ -638,7 +638,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Purpose-built network infrastructure for reliable, high-bandwidth video surveillance",
     description:
       "ALE video surveillance networking solutions provide the reliable, high-bandwidth infrastructure required for enterprise-scale IP video surveillance deployments. With high-density PoE for powering cameras, guaranteed bandwidth for video streams, and deep integration with Milestone XProtect VMS, ALE delivers a unified surveillance and network management experience.",
-    heroImage: "https://images.unsplash.com/photo-1557597774-9d273605dfa9?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
     capabilities: [
       { title: "High-Density PoE", description: "Up to 95W per port powers PTZ cameras, fixed cameras, and analytics appliances without separate power infrastructure." },
       { title: "Guaranteed Bandwidth", description: "QoS policies ensure video streams receive consistent bandwidth even during peak network usage periods." },
@@ -659,7 +659,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Subscription-based enterprise communications — consume what you need, when you need it",
     description:
       "Purple on Demand is ALE's subscription-based communications offering that enables organizations to consume OmniPCX Enterprise and Rainbow capabilities on a flexible, pay-as-you-go basis. Shift from capital expenditure to operational expenditure with predictable monthly costs, automatic updates, and the ability to scale users up or down as business needs evolve.",
-    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/converged-everthing-aas-solution-1140x600-banner.jpg?h=600&w=1440",
     capabilities: [
       { title: "Subscription Model", description: "Consume enterprise telephony and collaboration as a monthly service — no upfront hardware or license purchases required." },
       { title: "Flexible Scaling", description: "Add or remove user licenses as your workforce changes. Pay only for what you use with no over-provisioning." },
@@ -680,7 +680,7 @@ export const solutionsData: SolutionData[] = [
     tagline: "Deliver latest network technologies with maximum agility, scalability, and flexibility through NaaS",
     description:
       "ALE Network as a Service (NaaS) enables organizations to consume enterprise networking infrastructure on a subscription basis. Instead of large upfront capital investments, NaaS delivers switches, access points, and lifecycle services at predictable monthly costs — with the flexibility to scale up or down as business needs evolve.",
-    heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/converged-everthing-aas-solution-1140x600-banner.jpg?h=600&w=1440",
     capabilities: [
       {
         title: "Subscription Networking",

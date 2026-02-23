@@ -12,7 +12,7 @@ export function InnovationSignal() {
   return (
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0">
-        <Image src="https://images.unsplash.com/photo-1635070041078-e363dbe005cb?w=1920&q=80" alt="" fill className="object-cover" />
+        <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440" alt="" fill className="object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-ale-deep/95 via-ale-900/90 to-ale-dark/80" />
       </div>
 

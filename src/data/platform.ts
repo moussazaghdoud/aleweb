@@ -21,7 +21,7 @@ export const platformData: ProductData[] = [
     description:
       "Rainbow is ALE's enterprise-grade cloud communication and collaboration platform. It enables organizations to accelerate digital transformation, keep employees connected and motivated, and deliver superior customer experiences. With flexible deployment options — on-premises, hybrid, private, or full cloud — Rainbow adapts to diverse business requirements while maintaining the highest levels of security and compliance.",
     heroImage:
-      "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/top-web-banner-rainbow-1440x660.jpg?h=600&w=1440",
     features: [
       {
         title: "Audio & Video Conferencing",
@@ -65,7 +65,7 @@ export const platformData: ProductData[] = [
     description:
       "The OmniSwitch portfolio delivers enterprise-grade Ethernet switching across every deployment scenario — from access edge and campus aggregation to core data center and harsh industrial environments. With zero-touch provisioning, advanced PoE, and OmniFabric architecture, OmniSwitch simplifies operations while delivering wire-rate, non-blocking performance at speeds up to 100 GigE.",
     heroImage:
-      "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-switches-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     features: [
       {
         title: "Data Center & Core (OS 6900/6920/9900)",
@@ -108,7 +108,7 @@ export const platformData: ProductData[] = [
     description:
       "The OmniAccess Stellar access point portfolio provides high-performance wireless connectivity across every enterprise environment. From entry-level Wi-Fi 6 to cutting-edge Wi-Fi 7 (802.11be), Stellar APs deliver reliability, low latency, and high density coverage for offices, warehouses, campuses, and harsh outdoor deployments — all managed through a single pane of glass.",
     heroImage:
-      "https://images.unsplash.com/photo-1544197150-b99a580bb7a8?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-wlan-office-homepage-header-495x275.jpg?h=600&w=1440",
     features: [
       {
         title: "Wi-Fi 7 Access Points (AP1501/1511/1521)",
@@ -152,7 +152,7 @@ export const platformData: ProductData[] = [
     description:
       "OmniVista Network Advisor is an autonomous, AI-driven companion that minimizes network downtime and enhances Quality of Experience. Through integrated AI and machine learning, it monitors the entire network — ALE infrastructure and third-party equipment alike — to anticipate problems, accelerate troubleshooting, and benchmark performance. Real-time alerts via Rainbow and Microsoft Teams keep IT teams informed instantly.",
     heroImage:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
     features: [
       {
         title: "Proactive Issue Detection",
@@ -196,7 +196,7 @@ export const platformData: ProductData[] = [
     description:
       "ALE's Private 5G solution delivers dedicated, interference-free wireless connectivity for environments where traditional Wi-Fi falls short. Purpose-built for manufacturing floors, logistics hubs, and outdoor industrial sites, it provides deterministic connectivity with SIM-based Zero Trust authentication. Combined with ALE's LAN and WLAN portfolio, Private 5G enables true end-to-end enterprise connectivity.",
     heroImage:
-      "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/industrial-networks-header-image-v1.jpg?h=600&w=1440",
     features: [
       {
         title: "Deterministic Low-Latency Connectivity",
@@ -240,7 +240,7 @@ export const platformData: ProductData[] = [
     description:
       "ALE's comprehensive portfolio of desk phones, softphones, and wireless handsets provides enterprise-grade communications for every workspace. From HD video-enabled Smart DeskPhones to ruggedized DECT and WLAN handsets for frontline workers, the range connects seamlessly with Rainbow Hub, OmniPCX, and open SIP infrastructure to meet the demands of modern hybrid work environments.",
     heroImage:
-      "https://images.unsplash.com/photo-1587560699334-bea93391dcef?w=1400&q=80",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/phone-directory-pageheader-1200x299.jpg?h=600&w=1440",
     features: [
       {
         title: "Smart DeskPhones",
@@ -282,7 +282,7 @@ export const platformData: ProductData[] = [
     tagline: "Enterprise communication server for mission-critical unified communications",
     description:
       "OmniPCX Enterprise is ALE's flagship communication server, delivering carrier-grade unified communications for large enterprises and mission-critical environments. Deployed in over 100 countries, OmniPCX Enterprise provides voice, video, messaging, and collaboration services with 99.999% availability — available on-premises, in the cloud, or as a hybrid deployment.",
-    heroImage: "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     features: [
       {
         title: "Carrier-Grade Reliability",
@@ -320,7 +320,7 @@ export const platformData: ProductData[] = [
     tagline: "All-in-one communication server designed for small and medium businesses",
     description:
       "OXO Connect is a powerful yet simple communication server purpose-built for SMBs. It combines enterprise-grade telephony, unified communications, and contact center capabilities in a single compact platform. With built-in Rainbow integration, OXO Connect gives small businesses access to the same collaboration tools used by large enterprises — at a fraction of the cost and complexity.",
-    heroImage: "https://images.unsplash.com/photo-1556761175-4b46a572b786?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     features: [
       {
         title: "All-in-One Platform",
@@ -358,7 +358,7 @@ export const platformData: ProductData[] = [
     tagline: "Omnichannel contact center solution for superior customer experiences",
     description:
       "ALE Connect is a comprehensive omnichannel contact center solution that enables organizations to deliver exceptional customer experiences across voice, email, chat, social media, and messaging channels. Available as cloud (CCaaS) or on-premises deployment, ALE Connect provides intelligent routing, real-time supervision, and detailed analytics to optimize agent productivity and customer satisfaction.",
-    heroImage: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     features: [
       {
         title: "Omnichannel Engagement",
@@ -396,7 +396,7 @@ export const platformData: ProductData[] = [
     tagline: "Unified network management platform for ALE infrastructure",
     description:
       "OmniVista Network Management Platform provides comprehensive visibility, control, and automation for your entire ALE network infrastructure. From device discovery and configuration management to security policy enforcement and performance monitoring, OmniVista simplifies day-to-day network operations while ensuring compliance and optimal performance.",
-    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-network-homepage-header-l2-l3.jpg?h=600&w=1440",
     features: [
       {
         title: "Unified Dashboard",
@@ -434,7 +434,7 @@ export const platformData: ProductData[] = [
     tagline: "Real-time location and asset tracking for enterprise environments",
     description:
       "OmniAccess Stellar Asset Tracking provides real-time visibility into the location and status of equipment, people, and inventory across your facility. Using Bluetooth Low Energy (BLE) beacons and the Stellar Wi-Fi infrastructure, the solution delivers accurate indoor positioning without additional overlay networks — reducing search time, improving asset utilization, and enhancing workplace safety.",
-    heroImage: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/header-banner-solutions-iot-1440x600-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "Real-Time Location",

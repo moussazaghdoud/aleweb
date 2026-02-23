@@ -1,3 +1,9 @@
+export interface ExecutiveMember {
+  name: string;
+  title: string;
+  image: string;
+}
+
 export interface CompanyPageData {
   slug: string;
   name: string;
@@ -8,6 +14,7 @@ export interface CompanyPageData {
   stats?: { label: string; value: string }[];
   offices?: { city: string; country: string; address: string; phone?: string }[];
   pressReleases?: { title: string; date: string; summary: string }[];
+  executives?: ExecutiveMember[];
 }
 
 export const companyData: CompanyPageData[] = [
@@ -17,7 +24,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "We make everything connect by delivering technology that works for you",
     description:
       "Alcatel-Lucent Enterprise delivers customized technology experiences that help businesses connect people, processes, and customers. With over 100 years of innovation heritage, ALE provides digital-age networking, communications, and cloud solutions with services tailored for business success — available in cloud, on-premises, and hybrid configurations.",
-    heroImage: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440",
     sections: [
       {
         title: "Who We Are",
@@ -65,7 +72,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Pioneering digital-age technology for more than a century",
     description:
       "Innovation is at the heart of everything we do at ALE. Building on over 100 years of telecommunications heritage, we invest continuously in R&D to develop next-generation networking, communications, and cloud solutions that help businesses transform and thrive in the digital age.",
-    heroImage: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ebc-header-image-v4.jpg?h=600&w=1440",
     sections: [
       {
         title: "A Legacy of Innovation",
@@ -105,7 +112,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Stay up to date with the latest ALE press releases and media announcements",
     description:
       "The ALE newsroom is your source for the latest press releases, media announcements, analyst reports, and company news. Discover how Alcatel-Lucent Enterprise is shaping the future of enterprise networking and communications.",
-    heroImage: "https://images.unsplash.com/photo-1504711434969-e33886168d6c?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/news-header-image-1440x600.jpg?h=600&w=1440",
     sections: [
       {
         title: "Latest News",
@@ -173,7 +180,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Join our team and help connect the world with customized communication and networking solutions",
     description:
       "At ALE, we are transforming how businesses buy, deploy, and use networking and communications solutions. We offer worldwide career opportunities across multiple fields and locations, with a friendly working environment, excellent benefits, and a commitment to employee development.",
-    heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-careers-page-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     sections: [
       {
         title: "Why Work at ALE",
@@ -213,7 +220,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Tech for Good — making the world better through responsible innovation",
     description:
       "ALE is dedicated to responsible business practices embedded in corporate policies that address environmental protection, labor standards, health and safety, anti-corruption, and ethics compliance. Our ESG framework guides everything we do as we work toward ambitious 2030 sustainability targets.",
-    heroImage: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-csr-page-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
     sections: [
       {
         title: "ESG: Tech for Good",
@@ -253,7 +260,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Get in touch with our global team",
     description:
       "Whether you need sales information, technical support, or want to find a local partner, ALE is here to help. Reach out through our contact form, connect via live chat, or visit one of our offices around the world.",
-    heroImage: "https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/contact-us-pageheader-1200x299.jpg?h=600&w=1440",
     sections: [
       {
         title: "Contact Sales",
@@ -340,7 +347,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Find out where we will be exhibiting, speaking, or participating in panel discussions",
     description:
       "ALE participates in industry events, trade shows, and webinars worldwide. Join us to see live demonstrations, hear from our experts, and connect with partners and customers who are transforming their businesses with ALE solutions.",
-    heroImage: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/events-pageheader-1200x299.jpg?h=600&w=1440",
     sections: [
       {
         title: "Upcoming Events",
@@ -370,7 +377,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Watch the latest ALE videos to find a solution for your business",
     description:
       "Explore our collection of product demonstrations, customer testimonials, technical tutorials, and virtual tours. Our video library showcases real-world implementations and expert insights across industries and solutions.",
-    heroImage: "https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440",
     sections: [
       {
         title: "Product Demonstrations",
@@ -400,7 +407,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Third-party industry analysis and market research featuring ALE solutions",
     description:
       "Independent analysts and consulting firms regularly evaluate ALE solutions. Access reports from Gartner, IDC, Frost & Sullivan, Forrester, and other leading research firms to understand how ALE technology compares in the market.",
-    heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440",
     sections: [
       {
         title: "Gartner",
@@ -430,7 +437,7 @@ export const companyData: CompanyPageData[] = [
     tagline: "Meet the leadership team driving ALE's innovation and growth",
     description:
       "Alcatel-Lucent Enterprise is led by an experienced team of technology executives committed to delivering digital-age solutions for enterprises worldwide. Our leadership team brings decades of experience in networking, communications, cloud technology, and enterprise transformation.",
-    heroImage: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1400&q=80",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-page-history-executive-homepage-header-l2-l3-1440x600-v3.jpg?h=600&w=1440",
     sections: [
       {
         title: "CEO & Executive Leadership",
@@ -452,6 +459,15 @@ export const companyData: CompanyPageData[] = [
         content:
           "Our operations and finance leadership ensures ALE maintains financial strength, operational efficiency, and the supply chain resilience needed to serve over one million customers worldwide.",
       },
+    ],
+    executives: [
+      { name: "Yann Zhang", title: "CEO", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/yann-zhang-headshot-web.jpg" },
+      { name: "Rasheed Mohamad", title: "Global Revenue and Operations Officer", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/rasheed-mohamad-150x160-web.jpg" },
+      { name: "Nicolas Brunel", title: "EVP, Strategy, People and Transformation Office & President of ALE International", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/nicolas-brunel-150x160-web.jpg" },
+      { name: "Stephan Robineau", title: "EVP, Product Business Group & President of ALE USA", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/stephan-robineau-150x160-web.jpg" },
+      { name: "Moussa Zaghdoud", title: "EVP, Customer Experience & Services", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/moussa-zaghdoud-150x160-web.jpg" },
+      { name: "Marc Blecken", title: "EVP, Finance", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/marc-blecken-150x160-web.jpg" },
+      { name: "Sandrine El Khodry", title: "EVP, Global Sales and Marketing", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/sandrine-headshot-72dpi.jpg" },
     ],
   },
 ];

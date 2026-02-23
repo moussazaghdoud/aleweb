@@ -22,14 +22,14 @@ const iconMap: Record<IndustryIconName, React.ComponentType<{ className?: string
 };
 
 const industryImages: Record<string, string> = {
-  healthcare: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=800&q=80",
-  education: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=800&q=80",
-  hospitality: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=80",
-  government: "https://images.unsplash.com/photo-1555848962-6e79363ec58f?w=800&q=80",
-  transportation: "https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=800&q=80",
-  energy: "https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80",
-  manufacturing: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=800&q=80",
-  "smart-buildings": "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&q=80",
+  healthcare: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440",
+  education: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440",
+  hospitality: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-header-bar-image-l2-l3.jpg?h=600&w=1440",
+  government: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440",
+  transportation: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440",
+  energy: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440",
+  manufacturing: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440",
+  "smart-buildings": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-banner-image-1440x600-v2.jpg?h=600&w=1440",
 };
 
 export function IndustrySelector() {

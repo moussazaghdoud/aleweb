@@ -178,12 +178,12 @@ const productPillarDot = {
 
 /* ── Industries ── */
 const industries = [
-  { Icon: IconHealthcare, name: "Healthcare", desc: "Connected care pathways", href: "/industries/healthcare", image: "https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?w=600&q=80" },
-  { Icon: IconEducation, name: "Education", desc: "Smart campus connectivity", href: "/industries/education", image: "https://images.unsplash.com/photo-1523050854058-8df90110c476?w=600&q=80" },
-  { Icon: IconHospitality, name: "Hospitality", desc: "Digital guest experience", href: "/industries/hospitality", image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=80" },
-  { Icon: IconGovernment, name: "Government", desc: "Secure public services", href: "/industries/government", image: "https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=600&q=80" },
-  { Icon: IconManufacturing, name: "Manufacturing", desc: "Industry 4.0 networks", href: "/industries/manufacturing", image: "https://images.unsplash.com/photo-1565043666747-69f6646db940?w=600&q=80" },
-  { Icon: IconEnergy, name: "Energy & Utilities", desc: "Ruggedized infrastructure", href: "/industries/energy", image: "https://images.unsplash.com/photo-1473116763249-2faaef81ccda?w=600&q=80" },
+  { Icon: IconHealthcare, name: "Healthcare", desc: "Connected care pathways", href: "/industries/healthcare", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg?h=600&w=1440" },
+  { Icon: IconEducation, name: "Education", desc: "Smart campus connectivity", href: "/industries/education", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-header-image-v2.jpg?h=600&w=1440" },
+  { Icon: IconHospitality, name: "Hospitality", desc: "Digital guest experience", href: "/industries/hospitality", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-header-bar-image-l2-l3.jpg?h=600&w=1440" },
+  { Icon: IconGovernment, name: "Government", desc: "Secure public services", href: "/industries/government", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440" },
+  { Icon: IconManufacturing, name: "Manufacturing", desc: "Industry 4.0 networks", href: "/industries/manufacturing", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440" },
+  { Icon: IconEnergy, name: "Energy & Utilities", desc: "Ruggedized infrastructure", href: "/industries/energy", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440" },
 ];
 
 /* ── Trust stats ── */
