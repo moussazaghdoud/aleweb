@@ -47,6 +47,9 @@ export type { SolutionData, IndustryData, IndustrySubPageData, CatalogProduct, P
 // ── Solutions ───────────────────────────────────────────────
 
 export async function getSolutionsData(options?: { draft?: boolean }): Promise<SolutionData[]> {
+  const { solutionsData: staticData } = await import('@/data/solutions')
+  const staticBySlug = Object.fromEntries(staticData.map(s => [s.slug, s]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -61,7 +64,7 @@ export async function getSolutionsData(options?: { draft?: boolean }): Promise<S
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       capabilities: doc.capabilities || [],
       products: (doc.productNames || []).map((p: any) => p.name),
       benefits: doc.benefits || [],
@@ -73,6 +76,9 @@ export async function getSolutionsData(options?: { draft?: boolean }): Promise<S
 // ── Industries ──────────────────────────────────────────────
 
 export async function getIndustriesData(options?: { draft?: boolean }): Promise<IndustryData[]> {
+  const { industriesData: staticData } = await import('@/data/industries')
+  const staticBySlug = Object.fromEntries(staticData.map(i => [i.slug, i]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -87,7 +93,7 @@ export async function getIndustriesData(options?: { draft?: boolean }): Promise<
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       icon: doc.icon || doc.slug,
       solutions: doc.solutions || [],
       customers: doc.customers || [],
@@ -150,6 +156,9 @@ function lexicalToStrings(richText: any): string[] {
 }
 
 export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPost[]> {
+  const { blogData: staticData } = await import('@/data/blog')
+  const staticBySlug = Object.fromEntries(staticData.map(b => [b.slug, b]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -166,7 +175,7 @@ export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPo
       category: doc.category,
       author: doc.author,
       date: doc.publishedDate,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       content: lexicalToStrings(doc.content),
     }))
   }, [])
@@ -175,6 +184,9 @@ export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPo
 // ── Platforms ────────────────────────────────────────────────
 
 export async function getPlatformData(options?: { draft?: boolean }): Promise<ProductData[]> {
+  const { platformData: staticData } = await import('@/data/platform')
+  const staticBySlug = Object.fromEntries(staticData.map(p => [p.slug, p]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -189,7 +201,7 @@ export async function getPlatformData(options?: { draft?: boolean }): Promise<Pr
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       category: (doc.category || 'communications') as ProductData['category'],
       features: doc.features || [],
       highlights: doc.highlights || [],
@@ -201,6 +213,9 @@ export async function getPlatformData(options?: { draft?: boolean }): Promise<Pr
 // ── Services ────────────────────────────────────────────────
 
 export async function getServicesData(options?: { draft?: boolean }): Promise<ServiceData[]> {
+  const { servicesData: staticData } = await import('@/data/services')
+  const staticBySlug = Object.fromEntries(staticData.map(s => [s.slug, s]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -215,7 +230,7 @@ export async function getServicesData(options?: { draft?: boolean }): Promise<Se
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       features: doc.offerings || [],
     }))
   }, [])
@@ -224,6 +239,9 @@ export async function getServicesData(options?: { draft?: boolean }): Promise<Se
 // ── Partners ────────────────────────────────────────────────
 
 export async function getPartnersData(options?: { draft?: boolean }): Promise<PartnerPageData[]> {
+  const { partnersData: staticData } = await import('@/data/partners')
+  const staticBySlug = Object.fromEntries(staticData.map(p => [p.slug, p]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -238,7 +256,7 @@ export async function getPartnersData(options?: { draft?: boolean }): Promise<Pa
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || '',
+      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
       features: doc.benefits || [],
     }))
   }, [])
@@ -247,6 +265,10 @@ export async function getPartnersData(options?: { draft?: boolean }): Promise<Pa
 // ── Company ─────────────────────────────────────────────────
 
 export async function getCompanyData(options?: { draft?: boolean }): Promise<CompanyPageData[]> {
+  // Import static data for fields not yet in CMS (executives, heroImage overrides)
+  const { companyData: staticCompanyData } = await import('@/data/company')
+  const staticBySlug = Object.fromEntries(staticCompanyData.map(p => [p.slug, p]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -256,32 +278,36 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
-      slug: doc.slug,
-      name: doc.title,
-      tagline: doc.tagline || '',
-      description: doc.description,
-      heroImage: doc.heroImage?.url || '',
-      sections: (doc.contentSections || []).map((s: any) => ({
-        title: s.title || '',
-        content: s.content || '',
-      })),
-      stats: doc.stats?.length ? doc.stats.map((s: any) => ({
-        label: s.label || '',
-        value: s.value || '',
-      })) : undefined,
-      offices: doc.offices?.length ? doc.offices.map((o: any) => ({
-        city: o.city || '',
-        country: o.country || '',
-        address: o.address || '',
-        phone: o.phone,
-      })) : undefined,
-      pressReleases: doc.pressReleases?.length ? doc.pressReleases.map((pr: any) => ({
-        title: pr.title || '',
-        date: pr.date || '',
-        summary: pr.summary || '',
-      })) : undefined,
-    }))
+    return docs.map((doc: any) => {
+      const staticPage = staticBySlug[doc.slug]
+      return {
+        slug: doc.slug,
+        name: doc.title,
+        tagline: doc.tagline || '',
+        description: doc.description,
+        heroImage: doc.heroImage?.url || staticPage?.heroImage || '',
+        sections: (doc.contentSections || []).map((s: any) => ({
+          title: s.title || '',
+          content: s.content || '',
+        })),
+        stats: doc.stats?.length ? doc.stats.map((s: any) => ({
+          label: s.label || '',
+          value: s.value || '',
+        })) : undefined,
+        offices: doc.offices?.length ? doc.offices.map((o: any) => ({
+          city: o.city || '',
+          country: o.country || '',
+          address: o.address || '',
+          phone: o.phone,
+        })) : undefined,
+        pressReleases: doc.pressReleases?.length ? doc.pressReleases.map((pr: any) => ({
+          title: pr.title || '',
+          date: pr.date || '',
+          summary: pr.summary || '',
+        })) : undefined,
+        executives: staticPage?.executives,
+      }
+    })
   }, [])
 }
 
