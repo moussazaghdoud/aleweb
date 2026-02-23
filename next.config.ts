@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "www.al-enterprise.com",
       },
+      {
+        protocol: "https",
+        hostname: "web-assets.al-enterprise.com",
+      },
     ],
   },
   async headers() {

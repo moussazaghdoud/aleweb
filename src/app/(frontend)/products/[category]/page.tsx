@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getProductCategories, getCatalogProducts } from "@/lib/cms";
 
 export async function generateStaticParams() {
@@ -94,8 +95,20 @@ export default async function CategoryPage({
                     <Link
                       key={product.slug}
                       href={`/products/${category}/${product.slug}`}
-                      className="group rounded-xl border border-light-200 p-6 hover:border-ale-200 hover:shadow-md transition-all"
+                      className="group rounded-xl border border-light-200 overflow-hidden hover:border-ale-200 hover:shadow-md transition-all"
                     >
+                      {product.image && (
+                        <div className="aspect-[4/3] bg-light-50 flex items-center justify-center p-4 border-b border-light-100">
+                          <Image
+                            src={product.image}
+                            alt={product.name}
+                            width={320}
+                            height={240}
+                            className="object-contain max-h-[180px] w-auto group-hover:scale-105 transition-transform duration-300"
+                          />
+                        </div>
+                      )}
+                      <div className="p-6">
                       <h3 className="text-base font-bold text-text group-hover:text-ale transition-colors mb-1.5">
                         {product.name}
                       </h3>
@@ -128,6 +141,7 @@ export default async function CategoryPage({
                           />
                         </svg>
                       </span>
+                      </div>
                     </Link>
                   ))}
                 </div>

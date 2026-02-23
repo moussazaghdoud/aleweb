@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getProductCategories, getCatalogProducts } from "@/lib/cms";
 
 export async function generateStaticParams() {
@@ -107,13 +108,28 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
-      {/* Description */}
+      {/* Description + Image */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
-          <div className="max-w-3xl">
-            <p className="text-lg text-text-secondary leading-relaxed">
-              {product.description}
-            </p>
+          <div className={`flex flex-col ${product.image ? "lg:flex-row lg:items-start lg:gap-16" : ""}`}>
+            <div className="max-w-3xl flex-1">
+              <p className="text-lg text-text-secondary leading-relaxed">
+                {product.description}
+              </p>
+            </div>
+            {product.image && (
+              <div className="mt-10 lg:mt-0 lg:w-[380px] shrink-0">
+                <div className="bg-light-50 rounded-2xl border border-light-200 p-8 flex items-center justify-center">
+                  <Image
+                    src={product.image}
+                    alt={product.name}
+                    width={400}
+                    height={400}
+                    className="object-contain max-h-[320px] w-auto"
+                  />
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>

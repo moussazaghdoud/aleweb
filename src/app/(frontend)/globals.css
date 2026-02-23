@@ -58,6 +58,15 @@ html { scroll-behavior: smooth; }
   outline-offset: 2px;
 }
 
+/* ── Mega menu entrance ── */
+@keyframes mega-enter {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-mega-enter {
+  animation: mega-enter 0.2s ease-out;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;
