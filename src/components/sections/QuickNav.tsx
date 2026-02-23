@@ -19,7 +19,7 @@ const pillars = [
   {
     id: "network" as const,
     label: "Intelligent Networks",
-    color: "blue",
+    color: "blue" as const,
     headline: "Software-defined, autonomous, secure",
     description:
       "From campus switches and Wi-Fi 7 to industrial networks and SD-WAN — a unified, AI-managed network fabric that self-heals, auto-segments, and protects.",
@@ -33,7 +33,7 @@ const pillars = [
   {
     id: "cloud" as const,
     label: "Cloud-Native Services",
-    color: "purple",
+    color: "purple" as const,
     headline: "UCaaS, CCaaS, CPaaS — everything as a service",
     description:
       "Rainbow cloud communications, OmniPCX Enterprise telephony, ALE Connect contact center, OXO Connect for SMB, and Purple on Demand subscriptions — deployed your way.",
@@ -47,7 +47,7 @@ const pillars = [
   {
     id: "ai" as const,
     label: "AI-Powered Operations",
-    color: "cyan",
+    color: "cyan" as const,
     headline: "Predictive, automated, intelligent",
     description:
       "AI isn't a product — it's an intelligence layer across the entire platform. From predictive network analytics to IoT fingerprinting and automated threat response.",
