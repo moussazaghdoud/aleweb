@@ -1,0 +1,1243 @@
+{
+  "catalog_metadata": {
+    "source": "https://www.al-enterprise.com/en/products",
+    "crawl_date": "2026-02-24",
+    "publisher": "Alcatel-Lucent Enterprise",
+    "total_categories": 8,
+    "total_products": 78
+  },
+  "products_landing_page": {
+    "url": "https://www.al-enterprise.com/en/products",
+    "title": "Products | Alcatel-Lucent Enterprise",
+    "h1": "Products",
+    "tagline": "Our wide range of products offer reliable technology solutions for your communications and infrastructure needs.",
+    "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-switches-homepage-header-l2-l3-1440x600-web.jpg",
+    "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" }
+  },
+  "categories": [
+    {
+      "category_id": "switches",
+      "category_name": "Network Ethernet Switches",
+      "category_url": "https://www.al-enterprise.com/en/products/switches",
+      "category_tagline": "Enhance office, campus, and data center connectivity with faster speeds and PoE through network ethernet and enterprise switches.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-switches-homepage-header-l2-l3-1440x600-web.jpg",
+      "hero_image_alt": "close-up of a network switch with plugs in ports",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "secondary_cta": { "text": "Compare Switches", "url": "/en/products/switches/omniswitch-comparison-tool" },
+      "subcategories": [
+        {
+          "name": "Core and Data Center",
+          "products": [
+            {
+              "product_name": "OmniSwitch 6900",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6900",
+              "page_title": "OmniSwitch 6900 Core & Data Center Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6900 Core Switch",
+              "tagline": "1RU core switch and data center switch with low-latency, wire-rate, non-blocking design, featuring 10 GigE, 25 GigE, 40 GigE, and 100 GigE interfaces.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/os6900-v48c8-t-l-480x480-v2.png",
+              "product_image_alt": "os6900-v48c8-t-l-480x480",
+              "key_features": [
+                "Meet high-demand data center/campus network requirements",
+                "Converge physical and virtualized data center operations",
+                "Autonomous Network with fully automated Layer 2-3 operations",
+                "Profile-based segmentation and traffic filtering policies",
+                "Advanced L3 routing: VRF, Multicast, IPv4/IPv6",
+                "Lossless Ethernet and VXLAN gateway hardware support",
+                "SDN programmable via OVSDB, OpenStack, RESTful API, Python, Ansible",
+                "Zero-touch provisioning and network automation",
+                "Universal Network Profiles",
+                "Automatic fabric creation, Virtual chassis, SPB-M, IP routing protocols"
+              ],
+              "models": ["OS6900-C32E", "OS6900-T24", "OS6900-T48", "OS6900-V48", "OS6900-X24", "OS6900-X48", "OS6900-X48C4E"],
+              "certifications": ["Common Criteria EAL2", "Common Criteria NDCPP", "FIPS 140-2", "JITC certified", "TAA compliant"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6900 Stackable LAN Switches", "url": "/-/media/assets/internet/documents/omniswitch-6900-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "Brochure", "title": "ALE Video Surveillance Solution", "url": "/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf" },
+                { "type": "Application Note", "title": "Intelligent Fabric visibility and control for network overlays", "url": "/-/media/assets/internet/documents/ifab-visibility-control-for-network-overlays-appnote-en.pdf" },
+                { "type": "White Paper", "title": "SPB for Mission-critical Video Surveillance Networks", "url": "/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6900-datasheet-en.pdf" },
+              "secondary_cta": { "text": "Compare Products", "url": "/en/products/switches/omniswitch-comparison-tool" }
+            },
+            {
+              "product_name": "OmniSwitch 6920",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6920",
+              "page_title": "OmniSwitch 6920 High Performance Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6920 High Performance Switch for Data Centers",
+              "tagline": "Designed for AI/HPC data centers and scalable campus networks, this high performance switch supports advanced OmniFabric architecture.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6920-product-image.png",
+              "product_image_alt": "network switch",
+              "key_features": [
+                "Ultra-high-density 400G performance with 32 QSFP-DD ports supporting 10/25/50/100/200/400G breakouts",
+                "Simplified network management via RESTful APIs, Python/Bash CLI, WebView GUI, SNMP",
+                "High availability with redundant hot-swappable power supplies and fans",
+                "Data center fabric-ready with SPB-M virtualization and RoCEv2/PFC support",
+                "Advanced security through TACACS+/RADIUS/LDAP, MAC lockdown, ACL filtering",
+                "Intelligent QoS with hardware queues, flow-based QoS, traffic policing",
+                "Comprehensive IPv4/IPv6 routing with OSPF, IS-IS, BGP, VRF, GRE tunneling"
+              ],
+              "models": ["OmniSwitch 6920-D32"],
+              "downloadable_assets": [
+                { "type": "Flyer", "title": "Portfolio overview, Cloud, Comms and Networks - interactive", "url": "/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf" },
+                { "type": "Datasheet", "title": "OmniSwitch 6920", "url": "/-/media/assets/internet/documents/omniswitch-6920-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6920-datasheet-en.pdf" },
+              "secondary_cta": { "text": "Contact Sales", "url": "/en/contact-us" }
+            },
+            {
+              "product_name": "OmniSwitch 9900",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-9900",
+              "page_title": "OmniSwitch 9900 Modular Chassis Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 9900 Modular Switch",
+              "tagline": "Deliver efficient, reliable, and high performing network architecture with modular chassis switches.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-9912-l-t-354x384.png",
+              "product_image_alt": "OmniSwitch 9912",
+              "key_features": [
+                "Stellar performance: 51.2 Tb/s switching capacity",
+                "Maximum port density: 208x100GigE, 352x25GigE, 512x10GigE, or 480x1GigE",
+                "Modular slots with versatile port options (100 GigE QSFP28, 40 GigE QSFP+, 10 GigE SFP+)",
+                "Multi-Gigabit module with 1/2.5/5/10G Base-T ports",
+                "Virtual Chassis Technology for high availability",
+                "Network virtualization with Auto-Fabric IP routing",
+                "Shortest Path Bridging (SPB) support",
+                "Zero-touch provisioning with Auto-Fabric"
+              ],
+              "models": ["OS9907", "OS9912"],
+              "certifications": ["Common Criteria EAL2", "Common Criteria NDcpp", "FIPS 140-2", "JITC certified", "TAA compliant"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 9900 Modular LAN chassis", "url": "/-/media/assets/internet/documents/omniswitch-9900-modular-lan-chassis-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "Brochure", "title": "ALE Video Surveillance Solution", "url": "/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf" },
+                { "type": "White Paper", "title": "SPB for Mission-critical Video Surveillance Networks", "url": "/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-9900-modular-lan-chassis-datasheet-en.pdf" },
+              "secondary_cta": { "text": "Compare Products", "url": "/en/products/switches/omniswitch-comparison-tool" }
+            }
+          ]
+        },
+        {
+          "name": "Access Edge",
+          "products": [
+            {
+              "product_name": "OmniSwitch 6360",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6360",
+              "page_title": "OmniSwitch 6360 Gigabit Ethernet Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6360 Stackable Gigabit Ethernet Switch",
+              "tagline": "Stackable Gigabit Ethernet switch with zero-touch provisioning, IPv4/IPv6 static routing, and IoT device security.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6360-48-tf-480x480.png",
+              "key_features": [
+                "10Gbase T ports (x-models)",
+                "IPv4/IPv6 static routing",
+                "Lightning Configuration simplifying installation",
+                "Fast, partial and perpetual PoE options",
+                "Fanless models available",
+                "High availability with virtual chassis concept",
+                "Cloud enabled with OmniVista Cirrus",
+                "Access Guardian 2.0 (IEEE 802.1x, MAC, captive portal, UNP, BYOD, IoT)",
+                "IEEE 802.3af, 802.3at, and 802.3bt PoE support"
+              ],
+              "models": ["OS6360-10", "OS6360-24", "OS6360-48", "OS6360-P10", "OS6360-P24", "OS6360-P48", "OS6360-P24X", "OS6360-P48X", "OS6360-PH24", "OS6360-PH48"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6360 Stackable Gigabit Ethernet LAN Switch Family", "url": "/-/media/assets/internet/documents/omniswitch-6360-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniSwitch deployment made easy", "url": "/-/media/assets/internet/documents/omniswitch-lightning-config-brochure-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6360-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6560(E)",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6560",
+              "page_title": "OmniSwitch 6560E Campus Access Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6560(E) Access Switch",
+              "tagline": "Next-gen multi-gigabit stackable Ethernet switch serving as an access switch, campus switch, and edge switch.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6560-p24z8-front-480x480-product-showcase.png",
+              "key_features": [
+                "24-port and 48-port configurations with PoE support",
+                "SFP+ options supporting up to 6x10G interfaces",
+                "10 GigE stacking/remote stacking or 20 GigE stacking",
+                "IEEE 802.3af, 802.3at, and 802.3bt PoE compliance",
+                "Internal modular AC redundant power supplies",
+                "Automated switch setup and configuration",
+                "Field-upgradeable solution"
+              ],
+              "models": ["OS6560-P24Z24", "OS6560E-P24Z8", "OS6560E-P48Z16", "OS6560-24X4", "OS6560-P24X4", "OS6560-48X4", "OS6560-P48X4", "OS6560-X10", "OS6560-PXZ24"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6560/E", "url": "/-/media/assets/internet/documents/omniswitch-6560-6560e-datasheet-en.pdf" },
+                { "type": "Tech Brief", "title": "Network Infrastructure Solutions: Security Best Practices", "url": "/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6560-6560e-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6570M",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6570m",
+              "page_title": "OmniSwitch 6570M Metro Ethernet Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6570M Metro Ethernet for enterprises & service providers",
+              "tagline": "Enhance flexibility and scalability with a cutting-edge enterprise and metro ethernet switch designed for next-generation networks.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6570m-u28-f-480x480.png",
+              "key_features": [
+                "Fan-less and fan designs with 0 to 50C operating temperature",
+                "256-bit MACsec encryption for network edge security",
+                "Versatile 12- and 28-port fixed configurations",
+                "10/100/1000BASE-T RJ-45 ports, 1G SFP, 10G SFP+",
+                "Metro Ethernet Service features for service provider deployments",
+                "Virtual chassis concept, redundant stacking links",
+                "OmniVista Cirrus Network Management as a Service"
+              ],
+              "models": ["OS6570M-12", "OS6570M-U28"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6570M Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6570m-datasheet-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6570m-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6860",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6860",
+              "page_title": "OmniSwitch 6860 Layer3 Multi-gigabit Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6860 Layer 3 Multi-gigabit Switch",
+              "tagline": "High-density, unified access Layer 3 switch with smart analytics to empower next-generation enterprise networks using multi-gigabit switching technology.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6860e-p48-left-4c-480x480-product-showcase.png",
+              "key_features": [
+                "Up to eight switches via Virtual Chassis technology",
+                "IEEE 802.3af/802.3at compliant PoE: 30W per port",
+                "IEEE 802.3bt compliant PoE: up to 95W per port (OS6860N models)",
+                "QoS, ACLs, Layer-2/Layer-3 switching, VLAN stacking, IPv6",
+                "SDN-ready: Programmable AOS RESTful APIs, OpenFlow, OpenStack",
+                "SPB-M for bridging/routed services, MVRP, dynamic VNP and VRF"
+              ],
+              "models": ["OS6860E-P24", "OS6860E-P48", "OS6860E-48", "OS6860E-U28", "OS6860E-24D", "OS6860E-48D", "OS6860E-U28D", "OS6860-P24", "OS6860N-P24M", "OS6860-P48", "OS6860N-PX48M", "OS6860N-P48Z", "OS6860N-PH48Z", "OS6860N-P48M", "OS6860N-PH48M", "OS6860N-U28-D", "OS6860N-P24Z"],
+              "certifications": ["Common Criteria EAL2", "Common Criteria NDcpp", "FIPS 140-2", "JITC certified", "TAA compliant"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6860 Stackable LAN Switches", "url": "/-/media/assets/internet/documents/omniswitch-6860-datasheet-en.pdf" },
+                { "type": "Tech Brief", "title": "Network infrastructure solutions: Security best practices", "url": "/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "White Paper", "title": "SPB for Mission-critical Video Surveillance Networks", "url": "/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6860-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6870",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6870",
+              "page_title": "OmniSwitch 6870 High Speed Network Switch | Alcatel-Lucent Enterprise",
+              "h1": "Stackable OmniSwitch 6870 high speed network switch",
+              "tagline": "Maximize network performance and enhance IoT connectivity with a low-latency, high speed network switch optimized for Wi-Fi 6/6E/7.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6870-48-f-l-400x300.png",
+              "key_features": [
+                "High-density Gigabit and Multi-gigabit (2.5/5/10 Gig) interface models",
+                "Virtual Chassis technology with up to 32x10G/25G, 16x40G or 8x100 Gigabit uplinks",
+                "Up to 384 Multi-gigabit ports",
+                "Internal hot-swappable power supplies with lowest power consumption in class",
+                "IEEE 802.3bt type 4 compliant PoE (up to 95W per port)",
+                "SDN ready and future proof",
+                "10/25/40/100/200G high-speed network fabric"
+              ],
+              "models": ["OS6870-24", "OS6870-48", "OS6870-P24Z", "OS6870-P48Z", "OS6870-P24M", "OS6870-P48M", "OS6870-V12"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6870", "url": "/-/media/assets/internet/documents/omniswitch-6870-datasheet-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6870-datasheet-en.pdf" }
+            }
+          ]
+        },
+        {
+          "name": "Industrial Environment",
+          "products": [
+            {
+              "product_name": "OmniSwitch 6465",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6465",
+              "page_title": "OmniSwitch 6465 Industrial Ethernet Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6465 Industrial Ethernet Switch",
+              "tagline": "Hardened, fully managed, fan-less DIN rail-mount industrial Ethernet switch designed for harsh environments and extreme temperatures, ideal for industrial applications.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/os6465-p6-photo-front-lft-4c-480-480-all.png",
+              "key_features": [
+                "Advanced Industrial PoE with 60W HPoE on all ports",
+                "Extended temperature range operation",
+                "Convection-cooled fan-less models",
+                "MACsec Support encryption",
+                "IEEE 1588v2 PTP nanosecond-precision time synchronization",
+                "Zero-touch provisioning and network automation",
+                "Virtual Chassis for multi-switch entities",
+                "Profinet capable",
+                "Alarm relays for external alarm system connections"
+              ],
+              "models": ["OS6465-P6", "OS6465-P12", "OS6465-P28", "OS6465-P28D", "OS6465H-P12"],
+              "certifications": ["TAA compliant"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6465 Compact Hardened Ethernet Switches", "url": "/-/media/assets/internet/documents/omniswitch-6465-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "Ruggedized Ethernet Switches", "url": "/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf" },
+                { "type": "Tech Brief", "title": "Network Infrastructure Solutions: Security Best Practices", "url": "/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "Datasheet", "title": "OmniSwitch 6465H-BPNS Power Supply", "url": "/-/media/assets/internet/documents/os6465h-bpnx-240w-power-supply-datasheet-en.pdf" },
+                { "type": "White Paper", "title": "Digital Age Networking for ITS", "url": "/-/media/assets/internet/documents/dan-for-its-whitepaper-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6465-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6465T",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6465t",
+              "page_title": "OmniSwitch 6465T Industrial Network Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6465T Ruggedized, Industrial Network Switch",
+              "tagline": "Ruggedized, fully managed gigabit industrial network switch tailored for residential/metro Ethernet triple-play applications, ensuring reliable performance in demanding environments.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6465t-12-tf-480x480-product-showcase.png",
+              "key_features": [
+                "Extended temperature range (-10C to +60C)",
+                "110W PoE capability",
+                "Virtual chassis configuration (up to 4 switches)",
+                "IEEE 1588v2 PTP nanosecond-level timing precision",
+                "MACsec end-to-end encryption on all ports",
+                "Zero-touch provisioning",
+                "Profinet-capable",
+                "DIN rail-mount design"
+              ],
+              "models": ["OS6465T-12", "OS6465T-P12"],
+              "downloadable_assets": [
+                { "type": "Brochure", "title": "Ruggedized Ethernet Switches", "url": "/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf" },
+                { "type": "Datasheet", "title": "OmniSwitch 6465T Extended Temperature Ethernet Switches", "url": "/-/media/assets/internet/documents/omniswitch-6465t-datasheet-en.pdf" },
+                { "type": "Tech Brief", "title": "Network Infrastructure Solutions: Security Best Practices", "url": "/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6465t-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6575",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6575",
+              "page_title": "OmniSwitch 6575 DIN Rail Ethernet Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6575 Precision Industrial Edge DIN Rail Ethernet Switch",
+              "tagline": "Rugged, fan-less DIN rail Ethernet switch designed for industrial edge deployments, delivering advanced PoE, precision timing, and secure automation for real-time and mission-critical industrial and infrastructure networks.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6575-p12-f-l-480x480.png",
+              "product_image_alt": "Omniswitch 6575 P12 front",
+              "key_features": [
+                "Compact, fanless DIN rail design; wall/panel and 19-inch rack mounting",
+                "Operating range -40C to +75C",
+                "Up to 90W PoE per port with Fast and Perpetual PoE",
+                "IEEE 1588v2 PTP, G.8275.1/.2, and SyncE compliance",
+                "MACsec-256 encryption",
+                "AOS CLI with Python/Bash scripting, WebView GUI, SNMP, REST APIs, NAPALM",
+                "Virtual Chassis up to four switches",
+                "Compliant with power substations, rail, transportation, and marine standards"
+              ],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6575", "url": "/-/media/assets/internet/documents/omniswitch-6575-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "Flyer", "title": "Portfolio overview, Cloud, Comms and Networks - interactive", "url": "/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf" }
+              ],
+              "primary_cta": { "text": "Download Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6575-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 6865",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-6865",
+              "page_title": "OmniSwitch 6865 Industrial Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 6865 Hardened PoE Industrial Switch",
+              "tagline": "Layer 3 managed industrial switch with hardened PoE capabilities, ideal for mission-critical applications operating in harsh environments and extreme temperatures.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6865-u12x-left-480x480-product-showcase.png",
+              "key_features": [
+                "Advanced industrial PoE with HPoE support (75W per port)",
+                "Dual 10 Gigabit SFP+ ports for ring redundancy",
+                "IEEE 1588v2 PTP timing",
+                "Virtual Chassis: supports up to 8 switches",
+                "Scalable network virtualization via SPB-M",
+                "Auto-fabric technology",
+                "Operating range: -40C to +74C",
+                "Fanless convection-cooled model available"
+              ],
+              "models": ["OS6865-P16X", "OS6865-U12X", "OS6865-U28X", "OS6865-P16XD", "OS6865-U12XD", "OS6865-U28XD"],
+              "certifications": ["Common Criteria EAL2", "Common Criteria NDcpp", "FIPS 140-2", "JITC certified", "TAA compliant"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 6865 Hardened Ethernet Switches", "url": "/-/media/assets/internet/documents/omniswitch-6865-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "Ruggedized Ethernet Switches", "url": "/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" },
+                { "type": "Brochure", "title": "Video Surveillance Solution", "url": "/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf" },
+                { "type": "White Paper", "title": "Digital Age Networking for ITS", "url": "/-/media/assets/internet/documents/dan-for-its-whitepaper-en.pdf" },
+                { "type": "White Paper", "title": "SPB for Mission-critical Video Networks", "url": "/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-6865-datasheet-en.pdf" }
+            }
+          ]
+        },
+        {
+          "name": "Smart Managed Edge",
+          "products": [
+            {
+              "product_name": "OmniSwitch 2260",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-2260",
+              "page_title": "OmniSwitch 2260 WebSmart Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 2260 WebSmart Switch",
+              "tagline": "The gigabit WebSmart switch family offers cost-effective and user-friendly web smart features, including secure static routing capabilities.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-2260-10-product-image-r-480x480.png",
+              "key_features": [
+                "10, 24, and 48 Gigabit Ethernet data or PoE+ ports with line-rate performance",
+                "Gigabit Ethernet SFP uplink ports",
+                "Perpetual and fast PoE+ support",
+                "Compact fan-less models",
+                "Triple speed (10/100/1G) user and fiber interfaces",
+                "Cloud-enabled with OmniVista Cirrus",
+                "Wire-rate multicast support",
+                "Simplified web management interface"
+              ],
+              "models": ["OS2260-10", "OS2260-P10", "OS2260-24", "OS2260-P24", "OS2260-48", "OS2260-P48"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 2260", "url": "/-/media/assets/internet/documents/omniswitch-2260-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "See Datasheet", "url": "/-/media/assets/internet/documents/omniswitch-2260-datasheet-en.pdf" }
+            },
+            {
+              "product_name": "OmniSwitch 2360",
+              "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-2360",
+              "page_title": "OmniSwitch 2360 Cloud-Managed Network Switch | Alcatel-Lucent Enterprise",
+              "h1": "OmniSwitch 2360 Cloud-Managed Network Switch",
+              "tagline": "Cloud-enabled managed network switch provides static routing, Quality of Service (QoS), and cost-effective wire-rate performance, suitable for managed network environments.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-2360-p48x-product-image-l-480x480.png",
+              "key_features": [
+                "Cloud enabled with OmniVista Cirrus",
+                "High-availability with virtual chassis and redundant stacking",
+                "Comprehensive 802.1X authentication",
+                "24 and 48 Gigabit Ethernet data or PoE+ ports with line-rate performance",
+                "Gigabit/10 Gigabit Ethernet SFP uplink ports",
+                "10 GigE virtual chassis bandwidth up to 4 units (216 ports max)",
+                "Perpetual and fast PoE+ support",
+                "Zero-touch provisioning"
+              ],
+              "models": ["OS2360-24", "OS2360-P24", "OS2360-48", "OS2360-P48", "OS2360-P24X", "OS2360-P48X", "OS2360-U24", "OS2360-U48", "OS2360-U24X", "OS2360-U48X", "OS2360-P24M"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniSwitch 2360", "url": "/-/media/assets/internet/documents/omniswitch-2360-datasheet-en.pdf" },
+                { "type": "Product Matrix", "title": "OmniSwitch Product Line Matrix Comparison", "url": "/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf" }
+              ],
+              "primary_cta": { "text": "Compare Products", "url": "/en/products/switches/omniswitch-comparison-tool" }
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "OmniSwitch Comparison Tool",
+          "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-comparison-tool"
+        }
+      ]
+    },
+    {
+      "category_id": "wlan",
+      "category_name": "Wireless LAN",
+      "category_url": "https://www.al-enterprise.com/en/products/wlan",
+      "category_tagline": "Indoor and outdoor access points including Wi-Fi 7 (802.11be), Wi-Fi 6/6E (802.11ax) and Wi-Fi 5 (802.11ac) technologies support versatile deployments in any size network.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-wlan-office-homepage-header-495x275.jpg",
+      "hero_image_alt": "a room with a table and chairs",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "secondary_cta": { "text": "Compare Access Points", "url": "/en/products/wlan/omniaccess-stellar-web-comparison-tool" },
+      "subcategories": [
+        {
+          "name": "Indoor Access Points",
+          "products": [
+            {
+              "product_name": "OmniAccess Stellar AP1501",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1501",
+              "h1": "OmniAccess Stellar Access Point 1501",
+              "tagline": "Deliver Wi-Fi 7 performance with reliability and low latency, optimized for cost-efficient indoor deployments.",
+              "wifi_standard": "Wi-Fi 7 (802.11be)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-stellar-ap1511.png",
+              "key_features": ["Entry-range cost effective", "Tri-radio (2.4/5/6GHz)", "Max throughput 9.33 Gbps", "1x 2.5GbE Multigig uplink", "3 management modes", "MLO, MU-MIMO", "320 MHz channel bandwidth", "WPA3 security"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1501", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1501-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar At-a-Glance Guide", "url": "/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1511",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1511",
+              "h1": "OmniAccess Stellar Access Point 1511",
+              "tagline": "Enhance connectivity and productivity with an indoor, entry-level Wi-Fi 7 access point.",
+              "wifi_standard": "Wi-Fi 7 (802.11be)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-stellar-ap1511.png",
+              "key_features": ["Tri-band radios (2.4/5/6GHz)", "Dedicated scanning radio", "Max throughput 9.22 Gbps", "1x 5GE uplink", "Integrated Bluetooth/Zigbee", "MLO, MU-MIMO, 320MHz, 4096-QAM", "Cluster up to 255 APs", "WPA3"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1511", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1511-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Product Line Matrix", "url": "/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar At-a-Glance Guide", "url": "/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1521",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1521",
+              "h1": "OmniAccess Stellar Access Point 1521",
+              "tagline": "Answer connectivity demands with an indoor, mid-range Wi-Fi 7 access point that delivers unrivalled performance.",
+              "wifi_standard": "Wi-Fi 7 (802.11be)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-stellar-ap1521.png",
+              "key_features": ["Tri-band radios (2.4/5/6GHz)", "1x 10GE + 1x 1GE uplink", "Max throughput 12.2Gbps", "Integrated Bluetooth/Zigbee", "MLO, MU-MIMO, 320MHz, 4096-QAM", "WPA3", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1521", "url": "/-/media/assets/internet/documents/alcatel-lucent-omniaccess-stellar-ap1521-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Product Line Matrix", "url": "/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar At-a-Glance Guide", "url": "/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1411",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1411",
+              "h1": "OmniAccess Stellar Access Point 1411",
+              "tagline": "A premium Wi-Fi 6E access point that delivers excellent connectivity, coverage and performance.",
+              "wifi_standard": "Wi-Fi 6E (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1411-fl-480x480-72.png",
+              "key_features": ["Dual radios: 2.4/5/6GHz", "Max throughput 3.6Gbps", "Three deployment modes", "Integrated Bluetooth/Zigbee", "WPA3, OFDMA, MU-MIMO, 1024-QAM, TWT", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1411", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1411-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1431",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1431",
+              "h1": "OmniAccess Stellar Access Point 1431",
+              "tagline": "A premium Wi-Fi 6E access point that provides high-efficiency and high-performance for high client density environments.",
+              "wifi_standard": "Wi-Fi 6E (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1431-fr-480x480.png",
+              "key_features": ["Tri-band radio (2.4/5/6GHz)", "Max throughput 4.2Gbps", "Dual 2.5Gbps multi-gigabit uplinks", "OFDMA, MU-MIMO, 1024-QAM, TWT", "WPA3, Bluetooth/Zigbee", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1431", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1431-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1451",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1451",
+              "h1": "OmniAccess Stellar Access Point 1451",
+              "tagline": "A premium high-end access point with Wi-Fi 6E technology that brings you faster speeds, wider channels and lower latency.",
+              "wifi_standard": "Wi-Fi 6E (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1351-product-image-480x480-f-l.png",
+              "key_features": ["Three radios (2.4/5/6GHz) + dedicated scanning radio", "Max throughput 10Gbps", "Dual 10Gbps uplinks", "OFDMA, DL/UL MU-MIMO, 1024-QAM, TWT", "WPA3", "Bluetooth/Zigbee", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1451", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1451-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E", "url": "/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1301",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1301",
+              "h1": "OmniAccess Stellar Access Point 1301",
+              "tagline": "An entry level Wi-Fi 6 access point ideal for enterprises of all sizes that demand simple, secure, and scalable wireless solutions.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ap1301-f-t-r-480x480.png",
+              "key_features": ["Dual radios (2.4/5GHz)", "OFDMA, MU-MIMO, TWT", "WPA3", "Three deployment modes", "RDA technology", "Built-in application intelligence"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1301", "url": "/-/media/assets/internet/documents/omniaccess-stellar-ap1301-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E", "url": "/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1301H",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1301h",
+              "h1": "OmniAccess Stellar Access Point 1301H",
+              "tagline": "A Wi-Fi 6 access point offering unparalleled connectivity, coverage and performance, ideal for in-room applications such as hotels.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1301h-product-image-f-l-480x480-web.png",
+              "key_features": ["Dual radios (2.4/5GHz)", "Integrated Bluetooth/Zigbee", "Three management modes", "Zero-touch provisioning", "Customizable captive portal", "QoS for unified communications"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1301H", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1301h-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E", "url": "/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1311",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1311",
+              "h1": "OmniAccess Stellar Access Point 1311",
+              "tagline": "A Wi-Fi 6 access point designed to accommodate diverse growing capacity needs of next generation mobility and IoT-enabled networks.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ap1311-product-image-f-480x480.png",
+              "key_features": ["4 built-in radios (dual 2.4/5GHz)", "OFDMA, DL MU-MIMO, 1024-QAM", "RDA", "TWT for battery life", "BSS Coloring", "Transmit beamforming", "Built-in application intelligence"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1311", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1311-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1320-Series",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1320",
+              "h1": "OmniAccess Stellar Access Point 1320",
+              "tagline": "An 802.11ax (Wi-Fi 6) enabled high performance indoor access point.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ap1320-2-480x480.png",
+              "key_features": ["Three Wi-Fi radios (2x client + 1x scanning)", "Integrated Bluetooth/Zigbee", "Max aggregate 3 Gbps", "OFDMA, MU-MIMO", "WPA3", "TWT", "RDA technology"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1320 series", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1320-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1331",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1331",
+              "h1": "OmniAccess Stellar Access Point 1331",
+              "tagline": "A Wi-Fi 6 premium high-end AP for dense and high capacity needs of next generation mobility and IoT-enabled networks.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1331-product-image-t-l-480x480.png",
+              "key_features": ["Four built-in Wi-Fi radios", "Max aggregate 3.55Gbps", "Three deployment modes", "WPA3", "RDA technology", "QoS support"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1331", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1331-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1351",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1351",
+              "h1": "OmniAccess Stellar Access Point 1351",
+              "tagline": "A premium, high-end WLAN indoor access point with 802.11ax technology.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1351-product-image-480x480-t-web.png",
+              "key_features": ["Next-generation 802.11ax", "WPA3 encryption", "Three deployable modes", "QoS parameters", "RDA optimization", "OmniVista compatible"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1351", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1351-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E", "url": "/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1230-Series",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1230",
+              "h1": "OmniAccess Stellar Access Point 1230 Series",
+              "tagline": "Indoor ultra-high performance 802.11ac Wave 2 wireless access points for high density deployments.",
+              "wifi_standard": "Wi-Fi 5 (802.11ac Wave 2)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-wireless-ap1232-front-480x480.png",
+              "key_features": ["Max concurrent data rate 4.266 Gb/s", "Tri-Radio configuration", "2.5 GbE + 1 GbE ports", "Integrated BLE", "Zero-touch provisioning", "MU-MIMO"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1230 Series", "url": "/-/media/assets/internet/documents/oaw-ap1230-series-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Outdoor Access Points",
+          "products": [
+            {
+              "product_name": "OmniAccess Stellar AP1561",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1561",
+              "h1": "OmniAccess Stellar Access Point 1561",
+              "tagline": "A Wi-Fi 7 outdoor entry-level access point created to thrive in harsh environments in simple and cost-effective deployments.",
+              "wifi_standard": "Wi-Fi 7 (802.11be)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-stellar-ap1561-400x400.png",
+              "key_features": ["2.4/5/6GHz simultaneous", "Max throughput 9.328 Gbps", "5 Multigig Ethernet uplink", "IP67 rated (-40C to 65C)", "6GHz with AFC support", "WPA3, MACsec", "MLO, OFDMA, MU-MIMO", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1561", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1561-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1570 Series",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1570",
+              "h1": "OmniAccess Stellar Access Point 1570 series",
+              "tagline": "A Wi-Fi 7 outdoor mid-range access point built to thrive in harsh environments, while delivering high efficiency and superior performance.",
+              "wifi_standard": "Wi-Fi 7 (802.11be)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1570-l-450x450-v2.png",
+              "key_features": ["Tri-band (2.4/5/6GHz)", "Max throughput 9.328 Gbps", "10GE Multigig uplink", "Integrated Bluetooth/Zigbee", "IP67 rated (-40C to 65C)", "WPA3, MACsec", "Dedicated scanning radio", "Cluster up to 255 APs"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1570", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1570-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1360 Series",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1360",
+              "h1": "OmniAccess Stellar Access Point 1360",
+              "tagline": "An 802.11ax (Wi-Fi 6) IP67 rated for harsh outdoor environments access point.",
+              "wifi_standard": "Wi-Fi 6 (802.11ax)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ap1360-480x480.png",
+              "key_features": ["IP67 rated", "Three radios + dedicated scanning", "Integrated Bluetooth/Zigbee", "Max 3 Gbps", "OFDMA, MU-MIMO", "WPA3", "Operating temp -40C to 65C"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1360 series", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1360-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniAccess Stellar AP1261",
+              "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-access-point-1261",
+              "h1": "OmniAccess Stellar Access Point 1261",
+              "tagline": "A high performance 802.11ac wave2 access point used in outdoor settings for enterprise deployments of all sizes.",
+              "wifi_standard": "Wi-Fi 5 (802.11ac Wave 2)",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oaw-ap1261-product-image-f-web-480x480-v2.png",
+              "key_features": ["IP67 rated", "Dual Gigabit Ethernet links", "Operating temp -20C to +55C", "Max 1.2Gbps", "Integrated wide-range antennas", "PoE and direct DC power", "RDA technology"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniAccess Stellar AP1261", "url": "/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1261-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        }
+      ],
+      "tools": [
+        {
+          "name": "Wireless Access Points Comparison Tool",
+          "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-web-comparison-tool"
+        }
+      ]
+    },
+    {
+      "category_id": "devices",
+      "category_name": "Phones, Softphones and Devices",
+      "category_url": "https://www.al-enterprise.com/en/products/devices",
+      "category_tagline": "ALE phones offer connectivity to various devices, options and applications for a communication experience that meets your industry requirements.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/phone-directory-pageheader-1200x299.jpg",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "subcategories": [
+        {
+          "name": "Deskphones and Accessories",
+          "products": [
+            {
+              "product_name": "ALE DeskPhones",
+              "url": "https://www.al-enterprise.com/en/products/devices/ale-deskphones",
+              "h1": "ALE DeskPhones",
+              "tagline": "Innovative deskphones, delivering rich communications in sleek designs, are essential for hybrid work.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-deskphones-header-image-1440x600-72dpi-v5.jpg",
+              "key_features": ["Touch screen call handling", "3D Symphonic HD super wideband sound", "USB, WLAN, Bluetooth, IP, hybrid digital/IP connectivity", "ENERGY STAR certified", "Metal and textile casing with 4 interchangeable colors", "Secure remote working (VPN, SRTP)", "Centralized cloud management"],
+              "models_basic": ["ALE-2 (SIP, 2.8 inch)", "ALE-3 (SIP, 2.8 inch color)"],
+              "models_essential": ["ALE-20 (IP, 2.8 inch)", "ALE-20h (Hybrid)", "ALE-30 (IP, 3.5 inch color)", "ALE-30h (Hybrid)"],
+              "models_enterprise": ["ALE-300 (3.5 inch color, super-wideband)", "ALE-400 (4.3 inch touch, BT handset)", "ALE-500 (5.5 inch vertical touch, BT handset)"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "ALE DeskPhone Basic range", "url": "/-/media/assets/internet/documents/ale-deskphones-basic-range-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "ALE DeskPhones Interactive catalogue", "url": "/-/media/assets/internet/documents/ale-deskphones-ecatalog-brochure-en.pdf" },
+                { "type": "Datasheet", "title": "ALE DeskPhones Enterprise range", "url": "/-/media/assets/internet/documents/ale-deskphones-enterprise-series-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "ALE DeskPhones Essential range", "url": "/-/media/assets/internet/documents/ale-deskphones-essential-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "EM200 Smart Expansion Module", "url": "/-/media/assets/internet/documents/em200-smart-expansion-module-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "ALE-120 Key Expansion Module", "url": "/-/media/assets/internet/documents/alcatel-lucent-enterprise-ale-120-key-expansion-module-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "ALE SIP DeskPhones",
+              "url": "https://www.al-enterprise.com/en/products/devices/ale-sip-deskphones",
+              "h1": "ALE SIP DeskPhones",
+              "tagline": "SIP DeskPhones provide enterprise-grade communications with Rainbow Hub or an Open SIP server.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/m8-deskphone-sip-and-single-em200-product-photo-front-right-480p.png",
+              "key_features": ["Super wideband audio", "360 Audio Tuning and Audio Hub", "Bluetooth and Wi-Fi via USB dongle", "Native BT5.2 and dual-band Wi-Fi (M7s Pro and M8)", "AES-256 encrypted calls", "Certified with 20+ platforms including Microsoft Teams"],
+              "models_myriad": ["M8 (5 inch color, BT5.2, dual Wi-Fi, 20 SIP, 12-party conf)", "M7s Pro (3.5 inch color, native BT5.2, dual Wi-Fi, 8 SIP)", "M7s (3.5 inch color, 8 SIP, 6-party conf)", "M7 (3.5 inch color, BT4.1, 8 SIP)", "M5s (2.8 inch color, 8 SIP, 6-party)", "M5 (2.8 inch color, 8 SIP)", "M3s (2.8 inch B&W, 8 SIP, 6-party)", "M3 (2.8 inch B&W, 8 SIP)"],
+              "models_halo": ["H6 (2.8 inch color, 4 SIP, 6-party conf)", "H3G (2.8 inch B&W, 3 SIP, 6-party)", "H2P (2.3 inch B&W, 2 SIP, 3-party, PoE)"],
+              "accessories": ["EM200 expansion module", "Power adaptors", "Wall mounting kit"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "M8 SIP DeskPhone", "url": "/-/media/assets/internet/documents/m8-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M7s SIP DeskPhone", "url": "/-/media/assets/internet/documents/m7s-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M7s Pro SIP DeskPhone", "url": "/-/media/assets/internet/documents/m7s-pro-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M7 SIP DeskPhone", "url": "/-/media/assets/internet/documents/m7-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M5s SIP DeskPhone", "url": "/-/media/assets/internet/documents/m5s-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M5 SIP DeskPhone", "url": "/-/media/assets/internet/documents/m5-deskphone-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "M3s SIP DeskPhone", "url": "/-/media/assets/internet/documents/m3s-deskphone-datasheet-en.pdf" },
+                { "type": "Brochure", "title": "ALE SIP DeskPhones eCatalogue", "url": "/-/media/assets/internet/documents/ale-sip-deskphones-ecatalog-brochure-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Smart DeskPhones",
+              "url": "https://www.al-enterprise.com/en/products/devices/smart-deskphones",
+              "h1": "Smart DeskPhones",
+              "tagline": "High-end IP deskphones that provide an immersive HD video experience and market-leading telephony features - all at an affordable price.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-deskphones-8088-right-4c-480x480-product-showcase.png",
+              "key_features": ["Built-in 5 megapixel camera with autofocus", "7-inch color touchscreen", "HD audio and video", "HDMI 1.4 connector", "Third-party application support", "Hospitality package available"],
+              "models": ["8088 Smart DeskPhone"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8088 Smart DeskPhone", "url": "/-/media/assets/internet/documents/8088-smart-deskphone-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Mobile Handsets",
+          "products": [
+            {
+              "product_name": "DECT Handsets",
+              "url": "https://www.al-enterprise.com/en/products/devices/dect-handsets",
+              "h1": "DECT Handsets",
+              "tagline": "Keep frontline and team workers safely connected with external contacts while improving your organization's performance.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8234-dect-handset-product-photo-product-showcase-480x480-web.png",
+              "key_features": ["Bluetooth headset support", "Handover and roaming", "Automatic Gain Control", "IP65 certification", "Lone worker protection (8262)", "Software Update Over the Air"],
+              "models_office": ["8214 (entry-level GAP)", "8234 (1.8 inch, compact)", "8244 (2.4 inch, notification/location)"],
+              "models_industrial": ["8254 (antibacterial, shock-resistant, IP65)", "8262 (ruggedized, lone worker protection)", "8262EX (ATEX-certified for hazardous environments)"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8214 DECT Handset", "url": "/-/media/assets/internet/documents/8214-dect-handset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8234 DECT Handset", "url": "/-/media/assets/internet/documents/8234-dect-handset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8244 DECT Handset", "url": "/-/media/assets/internet/documents/8244-dect-handset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8254 DECT Handset", "url": "/-/media/assets/internet/documents/8254-dect-handset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8262 DECT Handset", "url": "/-/media/assets/internet/documents/8262-dect-handset-datasheet-en.pdf" },
+                { "type": "eBook", "title": "Mobility e-catalog", "url": "/-/media/assets/internet/documents/mobility-ecatalog-ebook-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "SIP-DECT Handsets",
+              "url": "https://www.al-enterprise.com/en/products/devices/sip-dect-handsets",
+              "h1": "SIP-DECT Handsets",
+              "tagline": "Power workforce mobility and seamless connectivity with reliable SIP-DECT Handsets.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8262-sip-face-1.png",
+              "key_features": ["Bluetooth headset support", "Seamless handover/roaming via SIP-DECT base stations", "Rainbow Hub cloud connectivity", "IP65 certification", "Lone worker protection with geo-location", "Software Update Over the Air"],
+              "models": ["8214 Business DECT Handset", "8262 Industrial SIP-DECT Handset"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8262/8262Ex SIP-DECT Handsets", "url": "/-/media/assets/internet/documents/8262-8262ex-sip-dect-handset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8214 DECT Handset", "url": "/-/media/assets/internet/documents/8214-dect-handset-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "WLAN Handsets",
+              "url": "https://www.al-enterprise.com/en/products/devices/wlan-handsets",
+              "h1": "WLAN Handsets",
+              "tagline": "Increase staff mobility: leverage your existing wireless LAN to deploy voice communications over WLAN Wi-Fi handsets.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8158s-8168s-wlan-handset-f-480x480-product-showcase.png",
+              "key_features": ["OmniPCX telephony protocol", "WPA, WPA2, WEP security", "802.11 QoS for voice", "Up to 10 hours talk time", "Enhanced durability", "802.11a/b/g/n/ac compatible"],
+              "models": ["8158s WLAN handset (large color screen, alarm button)", "8168s WLAN handset (Bluetooth, push-to-talk)"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8158s and 8168s WLAN handsets", "url": "/-/media/assets/internet/documents/8158s-8168s-wlan-handsets-datasheets-en.pdf" },
+                { "type": "eBook", "title": "Mobility e-catalog", "url": "/-/media/assets/internet/documents/mobility-ecatalog-ebook-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Headsets",
+          "products": [
+            {
+              "product_name": "ALE Aries Headsets",
+              "url": "https://www.al-enterprise.com/en/products/devices/ale-aries-headsets",
+              "h1": "ALE Aries Headsets",
+              "tagline": "Superior headsets that improve communications for call centers, financial services, education and unified communications.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/aries-headset-header-image-1440x418-72dpi.jpg",
+              "key_features": ["Crystal-clear voice with neodymium speakers", "Noise-cancelling microphone", "Multiple connection interfaces (3.5mm, USB-A, USB-C, DECT, Bluetooth)", "Hearing protection above 118 dBA", "330 degree extendable boom arm", "Long-lasting battery: +45 hours (AH80)"],
+              "models_wired": ["AH11G/GA (Monaural, RJ9)", "AH12G/GA (Binaural, RJ9)", "AH21M II (Monaural, 3.5mm/USB)", "AH22M II (Binaural, 3.5mm/USB)"],
+              "models_wireless": ["AD51 (Monaural DECT/Bluetooth)", "AD52 (Binaural DECT/Bluetooth)", "AH80 (Binaural Bluetooth)"],
+              "accessories": ["AD1 (EHS/USB docking station)", "AD3 (Desktop charger)", "AW10 (Wireless charging base)"],
+              "downloadable_assets": [
+                { "type": "Brochure", "title": "ALE Headsets Brochure", "url": "/-/media/assets/internet/documents/ale-headsets-brochure-en.pdf" },
+                { "type": "Datasheet", "title": "Aries AD5x DECT Headset Series", "url": "/-/media/assets/internet/documents/aries-ad5x-dect-headset-series-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "Aries 20 Series II Headsets", "url": "/-/media/assets/internet/documents/aries-ah20-2-series-headset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "AH80 Bluetooth Headset", "url": "/-/media/assets/internet/documents/ale-ah80-bluetooth-headset-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "Aries 10 Series Headsets", "url": "/-/media/assets/internet/documents/aries-ah10-series-headset-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Softphones",
+          "products": [
+            {
+              "product_name": "ALE SoftPhone",
+              "url": "https://www.al-enterprise.com/en/products/applications/ale-softphone",
+              "h1": "ALE SoftPhone application",
+              "tagline": "Enterprise-grade SIP softphone application to manage all your business communications, everywhere.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ales-pc-android-iphone-480x480-product-showcase.png",
+              "key_features": ["Enterprise-grade SIP telephony", "Multimedia audio and video", "Encrypted communications (SIP/TLS and SRTP)", "Available on PC, iPhone, Android", "Multi-line, call transfer, three-party conferencing", "No VPN required for remote access"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "ALE SoftPhone", "url": "/-/media/assets/internet/documents/ale-softphone-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "IP Desktop Softphone",
+              "url": "https://www.al-enterprise.com/en/products/applications/ip-desktop-softphone",
+              "h1": "IP Desktop Softphone for business",
+              "tagline": "A user-friendly VoIP softphone for business that offers complete desk phone capabilities on your mobile device and desktop.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ip-desktop-softphone-laptop-480x480-product-showcase.png",
+              "key_features": ["Full desk phone functionality on computer/smartphone/tablet", "Remote access via VPN", "Windows, macOS, Android", "Compatible with OmniPCX Enterprise and OXO Connect"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "IP Desktop Softphone", "url": "/-/media/assets/internet/documents/ip-desktop-softphone-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "PIMphony",
+              "url": "https://www.al-enterprise.com/en/products/applications/pimphony",
+              "h1": "PIMphony",
+              "tagline": "This productivity-boosting application brings you powerful features to help speed up your daily telephony tasks.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/pimphony-basic-1-4c-480x480-product-showcase.png",
+              "key_features": ["Click-to-call, transfer, conference, call logs", "Multi-line management (up to 8 lines)", "50 programmable function keys", "Microsoft Outlook/ACT!/LDAP integration", "Unified messaging and visual voicemail"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "PC Telephony with PIMphony", "url": "/-/media/assets/internet/documents/pc-telephony-pimphony-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "platforms",
+      "category_name": "Communication Platforms",
+      "category_url": "https://www.al-enterprise.com/en/products/platforms",
+      "category_tagline": "Successful enterprise deployments need a solid foundation. Our communication platforms support you on premises, in the cloud or hybrid.",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "subcategories": [
+        {
+          "name": "UC Platforms",
+          "products": [
+            {
+              "product_name": "OmniPCX Enterprise Communication Server",
+              "url": "https://www.al-enterprise.com/en/products/platforms/omnipcx-enterprise-communication-server",
+              "h1": "OmniPCX Enterprise Communication Server",
+              "tagline": "A flexible enterprise phone platform that delivers reliable, high quality digital age communications to grow your business.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oxe-purple-480x480-v2.png",
+              "key_features": ["Hybrid connectivity (IP, SIP, WLAN, IP-DECT, DECT, digital, analog)", "Rainbow integration for collaboration", "Universal number across all devices", "Omnichannel contact center via ALE Connect", "Scalability up to 15,000 users per instance", "Virtualized multi-instance private cloud", "Management via OmniVista 8770 NMS"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniPCX Enterprise Communication Server", "url": "/-/media/assets/internet/documents/omnipcx-enterprise-communication-server-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OXO Connect",
+              "url": "https://www.al-enterprise.com/en/products/platforms/oxo-connect",
+              "h1": "OXO Connect",
+              "tagline": "A new generation of robust, connected and converged communication platforms, entirely dedicated to small and medium businesses.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oxo-connect-header-image-v4.jpg",
+              "key_features": ["Scalable hybrid cloud communications", "Hybrid analog, digital, IP, SIP endpoints", "Rainbow cloud service integration", "Enhanced off-site mobility", "5 to 300 users"],
+              "models": ["OXO Connect Evolution", "OXO Connect Compact", "OXO Connect Small"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OXO Connect Evolution", "url": "/-/media/assets/internet/documents/oxo-connect-evolution-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "OXO Connect", "url": "/-/media/assets/internet/documents/oxo-connect-smb-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OpenTouch Enterprise Cloud",
+              "url": "https://www.al-enterprise.com/en/products/platforms/opentouch-enterprise-cloud",
+              "h1": "OpenTouch Enterprise Cloud",
+              "tagline": "Accelerate your digital transformation with digital age communications as a service.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/opentouch-enterprise-cloud-product-image-480x480.png",
+              "key_features": ["Call management with hunting groups and call supervision", "Integration with healthcare alarms, Microsoft Teams, Google Workspace", "Contact center capabilities for remote/WFH agents", "Visual automated attendant", "Flexible subscription models", "Cloud or on-premise hosting", "Hot switching call management redundancy"],
+              "downloadable_assets": [
+                { "type": "Brochure", "title": "OpenTouch Enterprise Cloud", "url": "/-/media/assets/internet/documents/otec-economics-of-the-cloud-brochure-en.pdf" },
+                { "type": "Infographic", "title": "3 Reasons to Move to the Cloud", "url": "/-/media/assets/internet/documents/opentouch-enterprise-cloud-infographic-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OpenTouch Fax Center",
+              "url": "https://www.al-enterprise.com/en/products/applications/opentouch-fax-center",
+              "h1": "OpenTouch Fax Center",
+              "tagline": "A scalable, full software Fax over IP (FoIP) application, this is a streamlined, economical software solution to the fax problem in IP networks.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/opentouch-fax-center-1-photo-4c-480x480-all-web.png",
+              "key_features": ["Software installation on OpenTouch platforms", "SIP/T.38 support; no hardware boards required", "Virtualization and VMware HA support", "Web-based administration"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OpenTouch Fax Center", "url": "/-/media/assets/internet/documents/opentouch-fax-center-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Rainbow Cloud Communication Platform",
+              "url": "https://www.al-enterprise.com/en/rainbow",
+              "h1": "Rainbow",
+              "tagline": "Achieve your digital transformation and enhance employees productivity with a secure a-la-carte cloud communication platform.",
+              "note": "External product page at /en/rainbow - full CPaaS platform"
+            },
+            {
+              "product_name": "OmniPCX Open Gateway",
+              "url": "https://www.al-enterprise.com/en/products/platforms/omnipcx-open-gateway",
+              "h1": "OmniPCX Open Gateway",
+              "tagline": "Easily integrate business communications into your applications or processes.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnipcx-open-gateway-product-image.jpg",
+              "key_features": ["REST APIs for developers", "Advanced call control (click-to-call, visual voicemail, routing)", "System/user/device management APIs", "Analytics APIs for inventory and performance", "High-availability with secure X509 certificate access"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniPCX Open Gateway", "url": "/-/media/assets/internet/documents/omnipcx-open-gateway-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "DECT Platforms",
+          "products": [
+            {
+              "product_name": "DECT Base Stations",
+              "url": "https://www.al-enterprise.com/en/products/platforms/dect-infrastructure",
+              "h1": "DECT Base Stations",
+              "tagline": "The ALE DECT base stations indoor and outdoor models provide a robust and secure infrastructure, ensuring your mobile workers are connected everywhere.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8378-dect-base-ind-int-antenna-f-web.png",
+              "key_features": ["Automated provisioning and over-the-air synchronization", "AGAP and GAP protocol support", "Indoor and outdoor capable", "Supports up to 2032 base stations per server", "Coverage: 50m-300m radius"],
+              "models": ["8378 DECT IP-xBS (IP, up to 11 simultaneous calls)", "8379 DECT IBS (TDM, up to 6 simultaneous calls)", "8379 IBS ATEX (industrial/explosive environments)"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8378 DECT IP-xBS", "url": "/-/media/assets/internet/documents/8378-dect-ip-xbs-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8379 DECT IBS", "url": "/-/media/assets/internet/documents/8379-dect-ibs-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "SIP-DECT Base Stations",
+              "url": "https://www.al-enterprise.com/en/products/platforms/sip-dect-infrastructure",
+              "h1": "Add on-site mobility to your UCaaS solution with SIP-DECT",
+              "tagline": "ALE 8328/8368 SIP-DECT solutions enable SMB and enterprise customers to benefit from a full cloud UCaaS solution.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8328-sip-dect-single-base-station-product-image-v2.png",
+              "key_features": ["8328: up to 20 handsets, single/dual config", "8368: multi-cell up to 254 base stations, 1000 users", "CAT-iq 2.0 and TLS 1.2 security", "PoE powered"],
+              "models": ["8328 SIP-DECT Single Base Station", "8368 SIP-DECT Multi-Cell Base Station"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "8328 SIP-DECT Single Base Station", "url": "/-/media/assets/internet/documents/8328-sip-dect-single-base-station-datasheet-en.pdf" },
+                { "type": "Datasheet", "title": "8368 SIP-DECT Multi-Cell Base Station", "url": "/-/media/assets/internet/documents/ale-8368-sip-dect-multi-cell-base-station-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "applications",
+      "category_name": "Contact Center & Ecosystems Integration",
+      "category_url": "https://www.al-enterprise.com/en/products/applications",
+      "category_tagline": "Evolve your enterprise in any direction you choose, with full-featured applications that turn communications into a truly collaborative experience.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-applications-homepage-header-l2-l3.jpg",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "subcategories": [
+        {
+          "name": "Contact Center and Attendants",
+          "products": [
+            {
+              "product_name": "ALE Connect omnichannel contact center",
+              "url": "https://www.al-enterprise.com/en/products/applications/ale-connect",
+              "h1": "ALE Connect omnichannel contact center",
+              "tagline": "Streamline operations with CCaaS (Contact Center as a Service) and delight your customers through a seamless omnichannel contact center solution.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-connect-thumbnail-480-480.png",
+              "key_features": ["Omnichannel: email, live chat, social media, phone", "Web-based desktop interface", "360 degree customer context view", "Built-in knowledge base", "Real-time monitoring and reporting", "CRM/ERP integration", "ISO 27001 certified, GDPR compliant"],
+              "downloadable_assets": [
+                { "type": "Brochure", "title": "ALE Connect", "url": "/-/media/assets/internet/documents/ale-connect-brochure-en.pdf" },
+                { "type": "Datasheet", "title": "ALE Connect", "url": "/-/media/assets/internet/documents/ale-connect-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniTouch Contact Center Standard Edition",
+              "url": "https://www.al-enterprise.com/en/products/applications/omnitouch-contact-center",
+              "h1": "OmniTouch Contact Center Standard Edition",
+              "tagline": "A scalable and reliable contact center solution with automatic call distribution, designed for up to 7,000 agents.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnitouch-contact-center-photo-4c-480x480-all-web.png",
+              "key_features": ["5 to 2,800 agents per node; up to 7,000 multi-nodal", "WYSIWYG call routing strategy", "Prioritized skill mapping", "Advanced queuing with embedded announcements", "Remote agent facilities", "Branch survivability"],
+              "downloadable_assets": [
+                { "type": "Brochure", "title": "OmniTouch Contact Center Standard Edition", "url": "/-/media/assets/internet/documents/omnitouch-contact-center-brochure-en.pdf" },
+                { "type": "Datasheet", "title": "OmniTouch Contact Center Standard Edition", "url": "/-/media/assets/internet/documents/omnitouch-contact-center-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "4059 Extended Edition Attendant Console",
+              "url": "https://www.al-enterprise.com/en/products/applications/4059-extended-edition-attendant-console",
+              "h1": "4059 Extended Edition Attendant Console",
+              "tagline": "Attendant console with an easy-to-use visual interface for personalized customer welcome in medium and large enterprises.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/4059-extended-edition-ee-attendant-console-product-image-480x480-web.png",
+              "key_features": ["Manage high call volumes with one-touch operations", "Real-time presence information", "On-demand call recording", "Multi-office centralized operator support"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "4059 Extended Edition Attendant Console", "url": "/-/media/assets/internet/documents/4059-extended-edition-attendant-console-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Dispatch Console",
+              "url": "https://www.al-enterprise.com/en/products/applications/dispatch-console",
+              "h1": "Dispatch Console",
+              "tagline": "Improve call processing dispatcher efficiency in high pressure control centers, and in high call traffic administrations.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/dispatch-console-img-0.jpg",
+              "key_features": ["Visual and intuitive call routing/queue management", "APIs for third-party integration (SCADA)", "Conference capability (3 to 60 participants)", "Call prioritization rules", "Geo-redundancy and server duplication"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "Dispatch Console Solution", "url": "/-/media/assets/internet/documents/dispatch-console-solution-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "OmniPCX RECORD Suite",
+              "url": "https://www.al-enterprise.com/en/products/applications/omnipcx-record-suite",
+              "h1": "OmniPCX RECORD Suite",
+              "tagline": "Monitor, record and evaluate all employee-customer interactions with call recording, screen capture and real-time listening tools.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnipcx-record-suite-1-photo-4c-480x480-all-web.png",
+              "key_features": ["Call recording across VoIP, digital, analog, SIP", "Screen capture", "Real-time silent monitoring", "Integrated Quality Monitor", "PCI compliance alignment"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniPCX RECORD Suite", "url": "/-/media/assets/internet/documents/omnipcx-record-suite-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Soft Panel Manager",
+              "url": "https://www.al-enterprise.com/en/products/applications/soft-panel-manager",
+              "h1": "Soft Panel Manager",
+              "tagline": "Collect, combine and display business data or contact center statistics in real-time for operational monitoring.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/spm-480x480-1.jpg",
+              "key_features": ["Real-time statistics display", "Multiple formats: pie charts, graphs, gauges, etc.", "Multi-device: wallboards, LCD screens, tablets", "Web-based widget management"],
+              "downloadable_assets": [
+                { "type": "eBook", "title": "Customer Service eCatalog", "url": "/-/media/assets/internet/documents/customer-service-applications-ecatalog-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Visual Automated Attendant",
+              "url": "https://www.al-enterprise.com/en/products/applications/visual-automated-attendant",
+              "h1": "Visual Automated Attendant",
+              "tagline": "Provide your callers a great service experience by starting off with a courteous greeting and routing them directly to employees, departments or voicemail.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/vaa-situ-editor.jpg",
+              "key_features": ["Automated 24/7 call routing", "Drag-and-drop routing based on business hours", "IVR with SQL and HTTP connectors", "Text-to-Speech and ASR", "Multi-tenant and SIP-based"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "Visual Automated Attendant", "url": "/-/media/assets/internet/documents/visual-automated-attendant-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Ecosystems Integration",
+          "products": [
+            {
+              "product_name": "Microsoft Teams integration",
+              "url": "https://www.al-enterprise.com/en/products/applications/microsoft-teams-integration",
+              "h1": "Microsoft Teams integration",
+              "tagline": "Integrate your existing applications and telephony systems with Microsoft Teams for a seamless experience with Alcatel-Lucent Enterprise solutions.",
+              "key_features": ["One-click calls with external lines", "Voicemail notification", "3-way conferencing", "PABX directory search", "Cloud-based SaaS solution"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "Rainbow telephony connector for Microsoft Teams", "url": "/-/media/assets/internet/documents/ms-team-datasheet-en.pdf" },
+                { "type": "Flyer", "title": "Rainbow Telephony for Microsoft Teams", "url": "/-/media/assets/internet/documents/rainbow-telephony-for-microsoft-teams-flyer-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Visual Notification Assistant",
+              "url": "https://www.al-enterprise.com/en/products/applications/visual-notification-assistant",
+              "h1": "Visual Notification Assistant",
+              "tagline": "Provides a simple and flexible, easy-to-install, intuitive notification system.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/visual-notification-assistant-web-photo-480x480.png",
+              "key_features": ["Emergency call (911/112) management", "Conference capabilities during emergencies", "Alert/audio broadcast on IP DeskPhones", "IP multicast (up to 120 users per group)", "Rainbow instant messaging integration"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "Visual Notification Assistant", "url": "/-/media/assets/internet/documents/visual-notification-assistant-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Rainbow App Connector",
+              "url": "https://www.al-enterprise.com/en/rainbow/connectors-and-apps/app-connector",
+              "h1": "Rainbow App Connector",
+              "tagline": "Embed easy-to-use communication services in existing business applications.",
+              "note": "External product page at /en/rainbow/"
+            },
+            {
+              "product_name": "Rainbow - Developers",
+              "url": "https://www.al-enterprise.com/en/rainbow/developers",
+              "tagline": "Library of connectors to objects, processes, and applications for customized interactions.",
+              "note": "External developer portal at /en/rainbow/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "network-management-security",
+      "category_name": "Network Management & Security",
+      "category_url": "https://www.al-enterprise.com/en/products/network-management-security",
+      "category_tagline": "Always be prepared. Monitor, maintain and secure your network to reduce risk and protect your infrastructure investments.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-network-homepage-header-l2-l3.jpg",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "products": [
+        {
+          "product_name": "OmniVista Network Management Platform",
+          "url": "https://www.al-enterprise.com/en/products/network-management-security/omnivista-network-management-platform",
+          "h1": "OmniVista: Unified Network Management Platform",
+          "tagline": "OmniVista network management platform unifies LAN/WLAN management, simplifies IT operations and secures IoT in flexible cloud or on-premises deployment.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-unified-management-header2.jpg",
+          "key_features": ["Unified LAN/WLAN management", "Real-time device insights", "Zero-touch provisioning", "AI-based analytics dashboards", "Integrated NAC for guest/BYOD", "Automated IoT micro-segmentation", "Cloud-native or On-premises", "Multi-tenancy", "Wi-Fi heatmaps"],
+          "downloadable_assets": [
+            { "type": "Datasheet", "title": "OmniVista - Unified Network Management", "url": "/-/media/assets/internet/documents/omnivista-network-management-datasheet-en.pdf" }
+          ]
+        },
+        {
+          "product_name": "Network Fleet Supervision",
+          "url": "https://www.al-enterprise.com/en/products/network-management-security/fleet-supervision",
+          "h1": "Network Fleet Supervision",
+          "tagline": "Streamline device management, enhance security, and stay ahead with compliance with ALE Network Fleet Supervision - a scalable, automated solution for proactive network control.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-fleet-supervision-web-header2-1400x600.jpg",
+          "key_features": ["Inventory management for compliance", "Service entitlement and lifecycle visibility", "Software compliance monitoring", "Real-time dashboard and KPIs", "Supports up to 100,000 devices", "Cloud-hosted"],
+          "downloadable_assets": [
+            { "type": "Solution Sheet", "title": "ALE Fleet Supervision", "url": "/-/media/assets/internet/documents/ale-network-fleet-supervision-solution-sheet-en.pdf" }
+          ]
+        },
+        {
+          "product_name": "OmniSwitch Milestone Plugin",
+          "url": "https://www.al-enterprise.com/en/products/network-management-security/omniswitch-milestone-plugin",
+          "h1": "OmniSwitch Milestone Plugin",
+          "tagline": "Boost operational efficiency and improve video surveillance infrastructure security.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-milestone-plugin-banner-1440x600.jpg",
+          "key_features": ["Camera status per-port with PoE data", "One-click camera testing and reset", "Network switch info gathering", "Event transmission to alarm manager", "Port locking to prevent tampering"],
+          "downloadable_assets": [
+            { "type": "Solution Sheet", "title": "OmniSwitch Milestone Plugin", "url": "/-/media/assets/internet/documents/ale-omniswitch-milestone-plugin-solution-sheet-en.pdf" }
+          ]
+        },
+        {
+          "product_name": "OmniVista Network Advisor - AI Ops",
+          "url": "https://www.al-enterprise.com/en/products/network-management-security/omnivista-network-advisor",
+          "h1": "OmniVista Network Advisor",
+          "tagline": "Optimize IT team operations with an AI-powered companion, simplifying network tasks seamlessly.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-network-advisor-image-v6.jpg",
+          "key_features": ["AI-powered network issue detection with proposed solutions", "Troubleshooting data capture", "Security threat detection and mitigation", "Network performance benchmarking", "Health reports", "Integrates with Rainbow CPaaS and Microsoft Teams"],
+          "downloadable_assets": [
+            { "type": "Datasheet", "title": "OmniVista Network Advisor", "url": "/-/media/assets/internet/documents/alcatel-lucent-omnivista-network-advisor-datasheet-en.pdf" },
+            { "type": "Brochure", "title": "OmniVista Network Advisor Brochure", "url": "/-/media/assets/internet/documents/omnivista-network-advisor-brochure-en.pdf" }
+          ]
+        },
+        {
+          "product_name": "OmniVista Smart Tool",
+          "url": "https://www.al-enterprise.com/en/products/network-management-security/omnivista-smart-tool",
+          "h1": "OmniVista Smart Tool",
+          "tagline": "A purpose-built field utility designed to empower technicians and streamline the deployment and troubleshooting of IoT device connectivity.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/onmivista-smart-tool-product-image-01.png",
+          "key_features": ["One-button PoE Power Cycle", "PoE Wizard diagnosing issues in under 60 seconds", "Reduces truck rolls", "Resolves 90%+ of camera issues", "Port security and tamper prevention"],
+          "downloadable_assets": [
+            { "type": "Solution Sheet", "title": "OmniVista Smart Tool", "url": "/-/media/assets/internet/documents/omnivista-smart-tool-solution-sheet-en.pdf" }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "communications-management-security",
+      "category_name": "Communications Management & Security",
+      "category_url": "https://www.al-enterprise.com/en/products/communications-management-security",
+      "category_tagline": "Run your voice and rich media communications platforms smoothly and protect your enterprise by securing your infrastructure, so users only share what they intend to.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/products-communications-pageheaderbar.jpg",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "subcategories": [
+        {
+          "name": "Communications Management",
+          "products": [
+            {
+              "product_name": "OmniVista 8770 Network Management System",
+              "url": "https://www.al-enterprise.com/en/products/communications-management-security/omnivista-8770-network-management-system",
+              "h1": "OmniVista 8770 Network Management System",
+              "tagline": "A single management interface providing a unified view of OpenTouch and OmniPCX communication networks, including next-generation devices and applications.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+              "key_features": ["Unified user provisioning and service activation", "VoIP performance monitoring with alarms", "Converged SIP device management", "Multi-carrier accounting", "OmniPCX Enterprise configuration", "OXO Connect management"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OmniVista 8770 Network Management System", "url": "/-/media/assets/internet/documents/omnivista-8770-network-management-system-datasheet-en.pdf" }
+              ]
+            },
+            {
+              "product_name": "Unified Management Center",
+              "url": "https://www.al-enterprise.com/en/products/communications-management-security/unified-management-center",
+              "h1": "Unified Management Center",
+              "tagline": "Easy configuration for your next generation communications solution.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/umc-web-based-management_480p_72dpi.png",
+              "key_features": ["Web-based visual configuration for OXE Purple", "AI-assisted configuration", "Secure remote connections with encrypted traffic", "Role-based access control"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "Unified Management Center", "url": "/-/media/assets/internet/documents/unified-management-center-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Communications Security",
+          "products": [
+            {
+              "product_name": "OpenTouch Session Border Controller",
+              "url": "https://www.al-enterprise.com/en/products/communications-management-security/opentouch-session-border-controller",
+              "h1": "OpenTouch Session Border Controller",
+              "tagline": "Protect your SIP trunks and enterprise communications with a highly secure SIP perimeter defense solution.",
+              "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/opentouch-session-border-controller-3-photo-4c-480x480-all-web.png",
+              "key_features": ["Defends against malicious VoIP attacks", "Up to 6000 SIP sessions per server", "NAT traversal", "Certified with SIP service providers", "Business continuity via redundant servers", "Virtualization support"],
+              "downloadable_assets": [
+                { "type": "Datasheet", "title": "OpenTouch Session Border Controller", "url": "/-/media/assets/internet/documents/opentouch-sbc-datasheet-en.pdf" }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "category_id": "location-services",
+      "category_name": "Location Services",
+      "category_url": "https://www.al-enterprise.com/en/products/location-services",
+      "category_tagline": "Location Services offer location features to empower your company and broaden your services.",
+      "hero_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/products-location-services-header-bar-image-web.jpg",
+      "primary_cta": { "text": "Contact Sales", "url": "/en/contact-us" },
+      "products": [
+        {
+          "product_name": "OmniAccess Stellar Asset Tracking",
+          "url": "https://www.al-enterprise.com/en/products/asset-tracking",
+          "h1": "OmniAccess Stellar Asset Tracking",
+          "tagline": "Asset tracking provides smart connection to assets, so you can locate equipment and people in real-time, optimizing operations and reducing costs.",
+          "product_image": "https://web-assets.al-enterprise.com/-/media/assets/internet/images/products-asset-tracking-header-bar-image.jpg",
+          "key_features": ["Real-time location via GPS, BLE, or RFID", "Equipment usage analytics", "BLE sub-meter location accuracy", "Geofencing and automated alerts", "Contact tracing with density monitoring", "Web and smartphone app with floor plan mapping", "BLE beacon auto-calibration"],
+          "industry_applications": ["Education", "Government", "Healthcare", "Hospitality", "Transportation"],
+          "downloadable_assets": [
+            { "type": "Brochure", "title": "Asset Tracking for Healthcare", "url": "/-/media/assets/internet/documents/asset-tracking-for-healthcare-brochure-en.pdf" },
+            { "type": "Brochure", "title": "Stellar Asset Tracking for Enterprises", "url": "/-/media/assets/internet/documents/stellar-asset-tracking-for-enterprise-brochure-en.pdf" },
+            { "type": "Datasheet", "title": "OmniAccess Stellar Asset Tracking Deployment Assistance", "url": "/-/media/assets/internet/documents/ale-omniaccess-stellar-asset-tracking-deployment-assistance-datasheet-en.pdf" },
+            { "type": "Datasheet", "title": "OmniAccess Stellar IoT Gateway AP1201BG", "url": "/-/media/assets/internet/documents/oaw-ap1201bg-datasheet-en.pdf" }
+          ]
+        }
+      ]
+    }
+  ],
+  "cross_category_resources": {
+    "user_manuals_page": "https://www.al-enterprise.com/en/products/user-manuals",
+    "comparison_tools": [
+      { "name": "OmniSwitch Comparison Tool", "url": "https://www.al-enterprise.com/en/products/switches/omniswitch-comparison-tool" },
+      { "name": "Wireless Access Points Comparison Tool", "url": "https://www.al-enterprise.com/en/products/wlan/omniaccess-stellar-web-comparison-tool" }
+    ],
+    "community": {
+      "name": "ALE Network Tech Community (Spacewalkers)",
+      "url": "https://www.spacewalkers.com/"
+    },
+    "global_ctas": {
+      "contact_sales": "https://www.al-enterprise.com/en/contact-us",
+      "support": "https://www.al-enterprise.com/en/support",
+      "partner_locator": "https://www.al-enterprise.com/en/partner-locator"
+    }
+  }
+}

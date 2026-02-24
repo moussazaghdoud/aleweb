@@ -1,0 +1,343 @@
+page_url,file_url,anchor_text,document_type
+# ===== SWITCHES =====
+# OmniSwitch 6360
+/en/products/switches/omniswitch-6360,/-/media/assets/internet/documents/omniswitch-6360-datasheet-en.pdf,Alcatel-Lucent OmniSwitch 6360 Stackable Gigabit Ethernet LAN Switch,datasheet
+/en/products/switches/omniswitch-6360,/-/media/assets/internet/documents/omniswitch-lightning-config-brochure-en.pdf,OmniSwitch deployment made easy,brochure
+/en/products/switches/omniswitch-6360,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# OmniSwitch 6560
+/en/products/switches/omniswitch-6560,/-/media/assets/internet/documents/omniswitch-6560-6560e-datasheet-en.pdf,OmniSwitch 6560/E,datasheet
+/en/products/switches/omniswitch-6560,/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf,Network infrastructure solutions: Security best practices,tech-brief
+/en/products/switches/omniswitch-6560,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# OmniSwitch 6570M
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-6570m-datasheet-en.pdf,Alcatel-Lucent OmniSwitch 6570M Datasheet,datasheet
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 Network Configuration Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r3-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r3-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 Network Configuration Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6570m,/-/media/assets/internet/documents/aos-release-810r3-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 Network Configuration Guide,user-guide
+# OmniSwitch 6860
+/en/products/switches/omniswitch-6860,/-/media/assets/internet/documents/omniswitch-6860-datasheet-en.pdf,OmniSwitch 6860 Stackable LAN Switches,datasheet
+/en/products/switches/omniswitch-6860,/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf,Network infrastructure solutions: Security best practices,tech-brief
+/en/products/switches/omniswitch-6860,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-6860,/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf,SPB for Mission-critical Video Surveillance Networks,whitepaper
+# OmniSwitch 6870
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-6870-datasheet-en.pdf,Alcatel-Lucent OmniSwitch 6870,datasheet
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 Network Configuration Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r3-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r3-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r2-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R2 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 Network Configuration Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-switch-management-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 Switch Management Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/omniswitch-aos-release-810r1-cli-reference-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R1 CLI Reference Guide,user-guide
+/en/products/switches/omniswitch-6870,/-/media/assets/internet/documents/aos-release-810r3-network-configuration-user-guide-rev-a-en.zip,OmniSwitch AOS Release 8.10R3 Network Configuration Guide,user-guide
+# OmniSwitch 6900
+/en/products/switches/omniswitch-6900,/-/media/assets/internet/documents/omniswitch-6900-datasheet-en.pdf,OmniSwitch 6900 Stackable LAN Switches,datasheet
+/en/products/switches/omniswitch-6900,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-6900,/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf,ALE Video Surveillance Solution,brochure
+/en/products/switches/omniswitch-6900,/-/media/assets/internet/documents/ifab-visibility-control-for-network-overlays-appnote-en.pdf,Intelligent Fabric application visibility,application-note
+/en/products/switches/omniswitch-6900,/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf,SPB for Mission-critical Video Surveillance Networks,whitepaper
+# OmniSwitch 6920
+/en/products/switches/omniswitch-6920,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/switches/omniswitch-6920,/-/media/assets/internet/documents/omniswitch-6920-datasheet-en.pdf,OmniSwitch 6920 - High Performance AI/HPC Data Center Switch,datasheet
+/en/products/switches/omniswitch-6920,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# OmniSwitch 9900
+/en/products/switches/omniswitch-9900,/-/media/assets/internet/documents/omniswitch-9900-modular-lan-chassis-datasheet-en.pdf,OmniSwitch 9900 Modular LAN chassis,datasheet
+/en/products/switches/omniswitch-9900,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-9900,/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf,ALE Video Surveillance Solution Brochure,brochure
+/en/products/switches/omniswitch-9900,/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf,SPB for Mission-critical Video Surveillance Networks,whitepaper
+# OmniSwitch 6465
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/omniswitch-6465-datasheet-en.pdf,OmniSwitch 6465 Compact Hardened Ethernet Switches,datasheet
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf,Ruggedized Ethernet Switches,brochure
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf,Network infrastructure solutions: Security best practices,tech-brief
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/os6465h-bpnx-240w-power-supply-datasheet-en.pdf,OmniSwitch 6465H-BPNS Power Supply,datasheet
+/en/products/switches/omniswitch-6465,/-/media/assets/internet/documents/dan-for-its-whitepaper-en.pdf,Digital Age Networking for ITS,whitepaper
+# OmniSwitch 6465T
+/en/products/switches/omniswitch-6465t,/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf,Ruggedized Ethernet Switches,brochure
+/en/products/switches/omniswitch-6465t,/-/media/assets/internet/documents/omniswitch-6465t-datasheet-en.pdf,OmniSwitch 6465T Extended Temperature Ethernet Switches,datasheet
+/en/products/switches/omniswitch-6465t,/-/media/assets/internet/documents/network-infrasctructure-solution-security-tech-brief-en.pdf,Network infrastructure solutions: Security best practices,tech-brief
+/en/products/switches/omniswitch-6465t,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# OmniSwitch 6575
+/en/products/switches/omniswitch-6575,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/switches/omniswitch-6575,/-/media/assets/internet/documents/omniswitch-6575-datasheet-en.pdf,OmniSwitch 6575,datasheet
+/en/products/switches/omniswitch-6575,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# OmniSwitch 6865
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/omniswitch-6865-datasheet-en.pdf,OmniSwitch 6865 Hardened Ethernet Switches,datasheet
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/ruggedized-switches-brochure-en.pdf,Ruggedized Ethernet Switches,brochure
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/spb-video-surveillance-brochure-en.pdf,ALE Video Surveillance Solution,brochure
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/dan-for-its-whitepaper-en.pdf,Digital Age Networking for ITS,whitepaper
+/en/products/switches/omniswitch-6865,/-/media/assets/internet/documents/spb-based-video-surveillance-network-whitepaper-en.pdf,SPB for Mission-critical Video Surveillance Networks,whitepaper
+# OmniSwitch 2260
+/en/products/switches/omniswitch-2260,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+/en/products/switches/omniswitch-2260,/-/media/assets/internet/documents/omniswitch-2260-datasheet-en.pdf,Alcatel-Lucent OmniSwitch 2260,datasheet
+# OmniSwitch 2360
+/en/products/switches/omniswitch-2360,/-/media/assets/internet/documents/omniswitch-2360-datasheet-en.pdf,OmniSwitch 2360 Datasheet,datasheet
+/en/products/switches/omniswitch-2360,/-/media/assets/internet/documents/product-omniswitch-matrix-comparison-en.pdf,OmniSwitch Product Line Matrix Comparison,product-matrix
+# ===== WLAN ACCESS POINTS =====
+# AP1501
+/en/products/wlan/omniaccess-stellar-access-point-1501,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1501-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1501,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1501,/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf,OmniAccess Stellar At-a-Glance Guide,brochure
+# AP1511
+/en/products/wlan/omniaccess-stellar-access-point-1511,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1511,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1511,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1511-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1511,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1511,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1511,/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf,OmniAccess Stellar At-a-Glance Guide,brochure
+# AP1521
+/en/products/wlan/omniaccess-stellar-access-point-1521,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1521,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1521,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1521,/-/media/assets/internet/documents/omniaccess-stellar-at-a-glance-brochure-en.pdf,OmniAccess Stellar At-a-Glance Guide,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1521,/-/media/assets/internet/documents/alcatel-lucent-omniaccess-stellar-ap1521-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1521,datasheet
+# AP1411
+/en/products/wlan/omniaccess-stellar-access-point-1411,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1411,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1411,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1411-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1411,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1411,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1431-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1431,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1411,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1451-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1451,datasheet
+# AP1431
+/en/products/wlan/omniaccess-stellar-access-point-1431,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1431,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1431,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1431,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1431-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1431,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1431,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1451-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1451,datasheet
+# AP1451
+/en/products/wlan/omniaccess-stellar-access-point-1451,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1451,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1451,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1431-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1431,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1451,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1451-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1451,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1451,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1301
+/en/products/wlan/omniaccess-stellar-access-point-1301,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1301,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1301,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1301,/-/media/assets/internet/documents/omniaccess-stellar-ap1301-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1301,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1301,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1301H
+/en/products/wlan/omniaccess-stellar-access-point-1301h,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1301h,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1301h,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1301h,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1301h-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1301H,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1301h,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1311
+/en/products/wlan/omniaccess-stellar-access-point-1311,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1311,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1311,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1311,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1311-datasheet-en.pdf,OmniAccess Stellar WLAN AP1311,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1311,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1320
+/en/products/wlan/omniaccess-stellar-access-point-1320,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1320,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1320,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1320,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1320-datasheet-en.pdf,OmniAccess Stellar AP1320 series,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1320,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1331
+/en/products/wlan/omniaccess-stellar-access-point-1331,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1331,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1331,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1331,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1331-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1331,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1331,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1351
+/en/products/wlan/omniaccess-stellar-access-point-1351,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1351,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1351,/-/media/assets/internet/documents/network-portfolio-foldout-interactive-flyer-en.pdf,Interactive foldout for Network portfolio,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1351,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1351,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1351-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1351,datasheet
+# AP1561
+/en/products/wlan/omniaccess-stellar-access-point-1561,/-/media/assets/internet/documents/ale-portfolio-foldout-interactive-flyer-en.pdf,Portfolio overview Cloud Comms and Networks - interactive,flyer
+/en/products/wlan/omniaccess-stellar-access-point-1561,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1561-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1561,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1561,/-/media/assets/internet/documents/omniaccess-stellar-product-line-matrix-antenna-interactive-brochure-en.pdf,OmniAccess Stellar Product Line Matrix Brochure,brochure
+/en/products/wlan/omniaccess-stellar-access-point-1561,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1511-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1511,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1561,/-/media/assets/internet/documents/alcatel-lucent-omniaccess-stellar-ap1521-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1521,datasheet
+# AP1570
+/en/products/wlan/omniaccess-stellar-access-point-1570,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1570-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1570,datasheet
+# AP1360
+/en/products/wlan/omniaccess-stellar-access-point-1360,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1360-datasheet-en.pdf,OmniAccess Stellar AP1360 series,datasheet
+/en/products/wlan/omniaccess-stellar-access-point-1360,/-/media/assets/internet/documents/omniaccess-stellar-wi-fi6-wi-fi6e-brochure-en.pdf,OmniAccess Stellar Wi-Fi 6 and Wi-Fi 6E brochure,brochure
+# AP1261
+/en/products/wlan/omniaccess-stellar-access-point-1261,/-/media/assets/internet/documents/omniaccess-stellar-oaw-ap1261-datasheet-en.pdf,Alcatel-Lucent OmniAccess Stellar AP1261,datasheet
+# ===== DEVICES =====
+# ALE DeskPhones
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphones-basic-range-datasheet-en.pdf,ALE DeskPhone Basic range,datasheet
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphones-ecatalog-brochure-en.pdf,ALE DeskPhones Interactive catalogue,brochure
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/em200-smart-expansion-module-datasheet-en.pdf,EM200 Smart Expansion Module,datasheet
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphones-enterprise-series-datasheet-en.pdf,ALE DeskPhones Enterprise range,datasheet
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphone-enterprise-series-flyer-en.pdf,ALE DeskPhone flyer Enterprise range,flyer
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphone-essential-series-flyer-en.pdf,ALE DeskPhones flyer Essential range,flyer
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/alcatel-lucent-enterprise-ale-120-key-expansion-module-datasheet-en.pdf,ALE-120 Key Expansion Module,datasheet
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphones-essential-datasheet-en.pdf,ALE DeskPhones Essential range,datasheet
+/en/products/devices/ale-deskphones,/-/media/assets/internet/documents/ale-deskphone-basic-range-sip-series-flyer-en.pdf,ALE SIP DeskPhones Basic range series,flyer
+# ALE SIP DeskPhones
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/ale-sip-deskphones-ecatalog-brochure-en.pdf,eCatalogue,brochure
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m8-deskphone-datasheet-en.pdf,M8 DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/um-m8-8al91469enaa-2-en.pdf,M8 User Manual,user-manual
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m7s-deskphone-datasheet-en.pdf,M7s DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m7s-pro-deskphone-datasheet-en.pdf,M7s Pro DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m7-deskphone-datasheet-en.pdf,M7 DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/um-m7-m5-m3-r140-8al90382enaa-5-en.pdf,M7/M5/M3 User Manual,user-manual
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m5s-deskphone-datasheet-en.pdf,M5s DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m5-deskphone-datasheet-en.pdf,M5 DeskPhone,datasheet
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/um-m3s-m5s-m7s-m7spro-r150-8al91479enaa-1-en.pdf,M3s/M5s/M7s/M7s Pro User Manual,user-manual
+/en/products/devices/ale-sip-deskphones,/-/media/assets/internet/documents/m3s-deskphone-datasheet-en.pdf,M3s DeskPhone,datasheet
+# Smart DeskPhones
+/en/products/devices/smart-deskphones,/-/media/assets/internet/documents/healthcare-communications-solution-sheet-en.pdf,Healthcare Communications Solution Sheet,solution-sheet
+/en/products/devices/smart-deskphones,/-/media/assets/internet/documents/8088-smart-deskphone-datasheet-en.pdf,8088 Smart DeskPhone,datasheet
+# DECT Handsets
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/mobility-ecatalog-ebook-en.pdf,Mobility e-catalog,ebook
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/8244-dect-handset-datasheet-en.pdf,8244 DECT Handset,datasheet
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/8214-dect-handset-datasheet-en.pdf,8214 DECT Handset,datasheet
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/8254-dect-handset-datasheet-en.pdf,8254 DECT Handset,datasheet
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/8234-dect-handset-datasheet-en.pdf,8234 DECT Handset,datasheet
+/en/products/devices/dect-handsets,/-/media/assets/internet/documents/8262-dect-handset-datasheet-en.pdf,8262 DECT Handset,datasheet
+# SIP-DECT Handsets
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/8262-8262ex-sip-dect-handset-datasheet-en.pdf,8262/8262Ex SIP-DECT Handsets,datasheet
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/ale-8368-sip-dect-multi-cell-base-station-datasheet-en.pdf,8368 SIP-DECT Multi-Cell Base Station,datasheet
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/8328-sip-dect-single-base-station-datasheet-en.pdf,8328 SIP-DECT Single Base Station,datasheet
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/um-8214-dect-handset-htm91456en-html.pdf,8214 DECT Handset SIP OXE OXO User Manual,user-manual
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/8214-dect-handset-datasheet-en.pdf,8214 DECT Handset,datasheet
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/oxo-um-8212decthandset-8al90329enac-3-en.pdf,8212 DECT Handset OXO Connect User Manual,user-manual
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/oxe-um-8212decthandset-r100-8al90328enac-4-en.pdf,8212 DECT Handset OpenTouch Suite for MLE User Manual,user-manual
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/sip-um-8212decthandset-8al91447enaa-1-en.pdf,8212 DECT Handset SIP User Manual,user-manual
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/oxe-um-8214decthandset-r210-8al91456enaa-3-en.pdf,8214 DECT Handset OXE User manual,user-manual
+/en/products/devices/sip-dect-handsets,/-/media/assets/internet/documents/oxo-um-8214decthandset-r210-8al91457enaa-2-en.pdf,8214 DECT Handset OXO Connect User manual,user-manual
+# WLAN Handsets
+/en/products/devices/wlan-handsets,/-/media/assets/internet/documents/8158s-8168s-wlan-handsets-datasheets-en.pdf,8158s and 8168s WLAN handsets,datasheet
+/en/products/devices/wlan-handsets,/-/media/assets/internet/documents/mobility-ecatalog-ebook-en.pdf,Mobility e-catalog,ebook
+# ALE Aries Headsets
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/ale-headsets-brochure-en.pdf,ALE Headsets eCatalogue,brochure
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/um-dect-headsets-setup-tool-8al91483enaa-1-en.pdf,AD5X DECT HEADSETS Setup Tool,user-manual
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/um-dect-headsets-8al91482enaa-1-en.pdf,AD5X DECT HEADSETS User Manual,user-manual
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/aries-ad5x-dect-headset-series-datasheet-en.pdf,Aries AD5x DECT Headset series,datasheet
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/aries-ah20-2-series-headset-datasheet-en.pdf,Aries 20 Series II Headsets,datasheet
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/um-ah80-8al91470enaa-1-en.pdf,AH80 Bluetooth Headset User manual,user-manual
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/ale-ah80-bluetooth-headset-datasheet-en.pdf,AH80 Bluetooth Headset,datasheet
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/aries-ah10-series-headset-datasheet-en.pdf,Aries 10 Series Headsets,datasheet
+/en/products/devices/ale-aries-headsets,/-/media/assets/internet/documents/um-ale-devicex-8al91463enaa-1-en.pdf,ALE DeviceX User manual,user-manual
+# ===== APPLICATIONS =====
+# ALE Connect
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/ale-connect-brochure-en.pdf,ALE Connect,brochure
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/ale-connect-datasheet-en.pdf,ALE Connect,datasheet
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/customer-service-applications-ecatalog-en.pdf,Customer Service eCatalog,ebook
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/omnipcx-record-suite-datasheet-en.pdf,OmniPCX RECORD Suite,datasheet
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/impact-of-artificial-intelligence-communications-app-note-en.pdf,Impact of Artificial Intelligence in communications,application-note
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/improve-competitiveness-with-xaas-whitepaper-en.pdf,Improve your competitiveness with XaaS,whitepaper
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/omnitouch-contact-center-datasheet-en.pdf,OmniTouch Contact Center Standard Edition,datasheet
+/en/products/applications/ale-connect,/-/media/assets/internet/documents/customer-service-infographic-en.pdf,Good customer service is not good enough,infographic
+# Dispatch Console
+/en/products/applications/dispatch-console,/-/media/assets/internet/documents/dispatch-console-solution-datasheet-en.pdf,Dispatch Console,datasheet
+# IP Desktop Softphone
+/en/products/applications/ip-desktop-softphone,/-/media/assets/internet/documents/ip-desktop-softphone-datasheet-en.pdf,IP Desktop Softphone,datasheet
+/en/products/applications/ip-desktop-softphone,/-/media/assets/internet/documents/zebra-certification-tc52-en.pdf,TC52 certification datasheet,datasheet
+# OmniPCX Record Suite
+/en/products/applications/omnipcx-record-suite,/-/media/assets/internet/documents/omnipcx-record-suite-datasheet-en.pdf,OmniPCX RECORD Suite,datasheet
+/en/products/applications/omnipcx-record-suite,/-/media/assets/internet/documents/unsaid-certification-datasheet.pdf,Unsaid certification datasheet,datasheet
+# Visual Automated Attendant
+/en/products/applications/visual-automated-attendant,/-/media/assets/internet/documents/customer-service-applications-ecatalog-en.pdf,Customer Service eCatalog,ebook
+/en/products/applications/visual-automated-attendant,/-/media/assets/internet/documents/visual-automated-attendant-datasheet-en.pdf,Visual Automated Attendant,datasheet
+# Microsoft Teams Integration
+/en/products/applications/microsoft-teams-integration,/-/media/assets/internet/documents/ms-team-datasheet-en.pdf,Rainbow telephony connector for Microsoft Teams,datasheet
+/en/products/applications/microsoft-teams-integration,/-/media/assets/internet/documents/rainbow-telephony-for-microsoft-teams-flyer-en.pdf,Rainbow Telephony for Microsoft Teams,flyer
+/en/products/applications/microsoft-teams-integration,/-/media/assets/internet/documents/strengthen-microsoft-teams-and-google-apps-with-ale-flyer-en.pdf,Enhance your Microsoft Teams and Google apps,flyer
+# ALE SoftPhone
+/en/products/applications/ale-softphone,/-/media/assets/internet/documents/omnipcx-enterprise-communication-server-datasheet-en.pdf,OmniPCX Enterprise Communication Server,datasheet
+/en/products/applications/ale-softphone,/-/media/assets/internet/documents/ale-softphone-datasheet-en.pdf,ALE SoftPhone,datasheet
+# PIMphony
+/en/products/applications/pimphony,/-/media/assets/internet/documents/pc-telephony-pimphony-datasheet-en.pdf,PC Telephony with PIMphony,datasheet
+# ===== PLATFORMS =====
+# OmniPCX Enterprise
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/redat-recording-certification-datasheet-ed05.pdf,ReDat Recording certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/cloud-market-by-the-numbers-infographic-en.pdf,Cloud Market by Analysts,infographic
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/dspp-certification-datasheet-gina-software-smart-cad-ed01.pdf,Gina Software Smart CAD certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/dspp-certification-datasheet-scriptal-blueconnect-ed01.pdf,Scriptal Blueconnect certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/omnipcx-enterprise-communication-server-datasheet-en.pdf,OmniPCX Enterprise Communication Server,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/vtech-certification-datasheet.pdf,Vtech certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/dspp-certification-datasheet-liaison-vocale-ello-ed01.pdf,Liaison Vocale certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/dspp-certification-datasheet-assmann-flex-recorder-ed01.pdf,Assmann Telecom Certification,datasheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/reasons-to-upgrade-your-communication-system-solution-sheet-en.pdf,Reasons to upgrade your communication system,solution-sheet
+/en/products/platforms/omnipcx-enterprise-communication-server,/-/media/assets/internet/documents/grupposiges-certification-datasheet.pdf,GruppoSiges Certification,datasheet
+# OXO Connect
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/cloud-market-by-the-numbers-infographic-en.pdf,Cloud Market by Analysts,infographic
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/oxo-connect-evolution-datasheet-en.pdf,OXO Connect Evolution,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/oxo-connect-smb-datasheet-en.pdf,Alcatel-Lucent OXO Connect,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/vtech-certification-datasheet.pdf,Vtech certification,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/dspp-certification-datasheet-liaison-vocale-ello-ed01.pdf,Liaison Vocale certification,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/amphitech-certification-datasheet-en.pdf,Amphitech certification,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/imaginesoft-certification-datasheet-en.pdf,Imagine Soft Meteor certification,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/accor-certification-datasheet-en.pdf,Accor certification,datasheet
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/cloud-connect-benefits-and-data-protection-faq-en.pdf,Cloud connect benefits and data protection FAQ,faq
+/en/products/platforms/oxo-connect,/-/media/assets/internet/documents/securing-unified-communications-and-collaboration-solutions-whitepaper-en.pdf,Securing unified communications and collaboration,whitepaper
+# OmniPCX Open Gateway
+/en/products/platforms/omnipcx-open-gateway,/-/media/assets/internet/documents/omnipcx-open-gateway-datasheet-en.pdf,OmniPCX Open Gateway,datasheet
+# SIP-DECT Infrastructure
+/en/products/platforms/sip-dect-infrastructure,/-/media/assets/internet/documents/8214-dect-handset-datasheet-en.pdf,8214 DECT Handset,datasheet
+/en/products/platforms/sip-dect-infrastructure,/-/media/assets/internet/documents/8262-8262ex-sip-dect-handset-datasheet-en.pdf,8262/8262Ex SIP-DECT Handsets,datasheet
+/en/products/platforms/sip-dect-infrastructure,/-/media/assets/internet/documents/8328-sip-dect-single-base-station-datasheet-en.pdf,8328 SIP-DECT Single Base Station,datasheet
+/en/products/platforms/sip-dect-infrastructure,/-/media/assets/internet/documents/ale-8368-sip-dect-multi-cell-base-station-datasheet-en.pdf,8368 SIP-DECT Multi-Cell Base Station,datasheet
+# DECT Infrastructure
+/en/products/platforms/dect-infrastructure,/-/media/assets/internet/documents/8328-sip-dect-single-base-station-datasheet-en.pdf,8328 SIP-DECT Single Base Station,datasheet
+/en/products/platforms/dect-infrastructure,/-/media/assets/internet/documents/8379-dect-ibs-datasheet-en.pdf,8379 DECT IBS,datasheet
+/en/products/platforms/dect-infrastructure,/-/media/assets/internet/documents/8378-dect-ip-xbs-datasheet-en.pdf,8378 DECT IP-xBS,datasheet
+# ===== NETWORK MANAGEMENT =====
+# OmniVista Network Management
+/en/products/network-management-security/omnivista-network-management-platform,/-/media/assets/internet/documents/omnivista-network-management-datasheet-en.pdf,OmniVista - Unified Network Management,datasheet
+# Fleet Supervision
+/en/products/network-management-security/fleet-supervision,/-/media/assets/internet/documents/ale-network-fleet-supervision-solution-sheet-en.pdf,ALE Fleet Supervision Solution Sheet,solution-sheet
+# OmniSwitch Milestone Plugin
+/en/products/network-management-security/omniswitch-milestone-plugin,/-/media/assets/internet/documents/ale-omniswitch-milestone-plugin-solution-sheet-en.pdf,OmniSwitch Milestone Plugin Solution Sheet,solution-sheet
+# OmniVista Network Advisor
+/en/products/network-management-security/omnivista-network-advisor,/-/media/assets/internet/documents/omnivista-cirrus-country-availability-en.pdf,OmniVista Network Cloud Application Country Availability,user-guide
+/en/products/network-management-security/omnivista-network-advisor,/-/media/assets/internet/documents/omnivista-network-advisor-brochure-en.pdf,OmniVista Network Advisor Brochure,brochure
+/en/products/network-management-security/omnivista-network-advisor,/-/media/assets/internet/documents/omnivista-network-advisor-1-4-release-notes-rev-a-en.pdf,OmniVista Network Advisor 1.4 Release Notes,user-guide
+/en/products/network-management-security/omnivista-network-advisor,/-/media/assets/internet/documents/alcatel-lucent-omnivista-network-advisor-datasheet-en.pdf,Alcatel-Lucent OmniVista Network Advisor,datasheet
+# OmniVista Smart Tool
+/en/products/network-management-security/omnivista-smart-tool,/-/media/assets/internet/documents/omnivista-smart-tool-solution-sheet-en.pdf,OmniVista Smart Tool Solution Sheet,solution-sheet
+# ===== COMMUNICATIONS MANAGEMENT =====
+# OmniVista 8770
+/en/products/communications-management-security/omnivista-8770-network-management-system,/-/media/assets/internet/documents/omnivista-8770-network-management-system-datasheet-en.pdf,OmniVista 8770 Network Management System,datasheet
+# Unified Management Center
+/en/products/communications-management-security/unified-management-center,/-/media/assets/internet/documents/unified-management-center-datasheet-en.pdf,Unified Management Center,datasheet
+# OpenTouch SBC
+/en/products/communications-management-security/opentouch-session-border-controller,/-/media/assets/internet/documents/opentouch-sbc-datasheet-en.pdf,OpenTouch Session Border Controller,datasheet
+/en/products/communications-management-security/opentouch-session-border-controller,/-/media/assets/internet/documents/united-kingdom-hotel-use-case-tech-brief-en.pdf,United Kingdom Hotel Use Case,tech-brief
+# ===== LOCATION SERVICES =====
+# Asset Tracking
+/en/products/asset-tracking,/-/media/assets/internet/documents/omniaccess-stellar-asset-tracking-ble-tags-flyer-en.pdf,OmniAccess Stellar Asset Tracking BLE Tags,flyer
+/en/products/asset-tracking,/-/media/assets/internet/documents/asset-tracking-for-healthcare-brochure-en.pdf,Asset Tracking and Contact Tracing in Healthcare,brochure
+/en/products/asset-tracking,/-/media/assets/internet/documents/ale-omniaccess-stellar-asset-tracking-deployment-assistance-datasheet-en.pdf,OmniAccess Stellar Asset Tracking deployment assistance,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/oaw-ap1201bg-datasheet-en.pdf,OmniAccess Stellar IoT Gateway AP1201BG,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/stellar-asset-tracking-for-enterprise-brochure-en.pdf,OmniAccess Stellar Asset Tracking for Enterprises,brochure
+/en/products/asset-tracking,/-/media/assets/internet/documents/industrial-coin-bluetooth-5-beacon-with-accelerometer-sensor-datasheet-en.pdf,Industrial Coin Bluetooth 5.0 Beacon with Accelerometer,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/smart-iot-bluetooth-5-one-way-nano-silica-wristband-datasheet-en.pdf,Smart IoT Bluetooth 5.0 One-Way Nano Silica Wristband,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/industrial-bluetooth-5-beacon-with-accelerometer-sensor-datasheet-en.pdf,Industrial Bluetooth 5.0 Beacon with Accelerometer Sensor,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/kontakt-io-s183-tag-datasheet-en.pdf,Kontakt.io S18-3 Asset Tag,datasheet
+/en/products/asset-tracking,/-/media/assets/internet/documents/kontakt-io-ct183-card-datasheet-en.pdf,Kontakt.io CT18-3 Card Tag,datasheet
+# ===== RAINBOW =====
+/en/rainbow,/-/media/assets/internet/documents/data-sovereignty-and-security-flyer-en.pdf,Data Sovereignty and Security Flyer,flyer
+/en/rainbow,/-/media/assets/internet/documents/rainbow-service-hds-solutionsheet-fr.pdf,Rainbow Service HDS (French),solution-sheet
+/en/rainbow,/-/media/assets/internet/documents/rainbow-service-hds-solutionsheet-en.pdf,Rainbow Service HDS,solution-sheet
+/en/rainbow,/-/media/assets/internet/documents/rainbow-room-datasheet-en.pdf,Rainbow Room,datasheet
+/en/rainbow,/-/media/assets/internet/documents/rainbow-education-solution-brief-en.pdf,Optimize the education journey,solution-sheet
+/en/rainbow,/-/media/assets/internet/documents/ms-team-datasheet-en.pdf,Rainbow telephony connector for Microsoft Teams,datasheet
+/en/rainbow,/-/media/assets/internet/documents/securing-unified-communications-and-collaboration-solutions-whitepaper-en.pdf,Securing unified communications and collaboration,whitepaper
+/en/rainbow,/-/media/assets/internet/documents/rainbow-5-lessons-learned-classroom-flyer-en.pdf,5 Lessons learned about remote learning,flyer
+/en/rainbow,/-/media/assets/internet/documents/rainbow-faq-virtual-learning-classroom-flyer-en.pdf,Why is classroom control important,flyer
+/en/rainbow,/-/media/assets/internet/documents/rainbow-classroom-datasheet-en.pdf,Rainbow Classroom,datasheet
+/en/rainbow,/-/media/assets/internet/documents/move-to-cloud-whitepaper-en.pdf,How to successfully transform to the cloud,whitepaper
+# Rainbow App Connector
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-click-to-connect-datasheet-en.pdf,Rainbow Click-to-Connect,datasheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-hospitality-brochure-en.pdf,Rainbow Hospitality,brochure
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/data-sovereignty-and-security-flyer-en.pdf,Data Sovereignty and Security Flyer,flyer
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/crosscall-certification-stellar-m6e.pdf,Crosscall Stellar-M6E certification,datasheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-webinar-brochure-en.pdf,Rainbow Webinar,brochure
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-service-hds-solutionsheet-fr.pdf,Rainbow Service HDS (French),solution-sheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-service-hds-solutionsheet-en.pdf,Rainbow Service HDS,solution-sheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-smartphone-app-datasheet-en.pdf,Rainbow smartphone app,datasheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-hospitality-datasheet-en.pdf,Rainbow Hospitality,datasheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-hybrid-softphony-datasheet-en.pdf,Rainbow Hybrid Softphony,datasheet
+/en/rainbow/connectors-and-apps/app-connector,/-/media/assets/internet/documents/rainbow-connectors-crm-datasheet-en.pdf,Rainbow connectors for CRM applications,datasheet
