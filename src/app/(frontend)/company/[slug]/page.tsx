@@ -28,18 +28,14 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale overflow-hidden">
-        {page.heroImage && (
-          <Image
-            src={page.heroImage}
-            alt={page.name}
-            width={1440}
-            height={600}
-            className="absolute inset-0 w-full h-full object-cover opacity-30"
-            priority
-          />
+      <section className="relative min-h-[420px] flex items-end overflow-hidden">
+        {page.heroImage ? (
+          <Image src={page.heroImage} alt={page.name} fill className="object-cover animate-ken-burns" priority sizes="100vw" />
+        ) : (
+          <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440" alt={page.name} fill className="object-cover animate-ken-burns" priority sizes="100vw" />
         )}
-        <div className="relative mx-auto max-w-[1320px] px-6">
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link
             href="/company"
             className="inline-flex items-center gap-1.5 text-xs font-semibold text-white/40 hover:text-white/70 transition-colors mb-5"

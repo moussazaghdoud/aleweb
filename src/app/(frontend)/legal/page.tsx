@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getLegalData } from "@/lib/cms";
 
 export const metadata = {
@@ -10,8 +11,10 @@ export default async function LegalPage() {
   const legalData = await getLegalData();
   return (
     <>
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
-        <div className="mx-auto max-w-[1320px] px-6">
+      <section className="relative min-h-[420px] flex items-end overflow-hidden">
+        <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-page-history-executive-homepage-header-l2-l3-1440x600-v3.jpg?h=600&w=1440" alt="Legal" fill className="object-cover animate-ken-burns" priority sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Legal
           </h1>

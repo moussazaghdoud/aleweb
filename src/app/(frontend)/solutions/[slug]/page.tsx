@@ -108,7 +108,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           src={solution.heroImage}
           alt={solution.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

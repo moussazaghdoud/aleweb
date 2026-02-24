@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { getServicesData } from "@/lib/cms";
 
 export const metadata = {
@@ -23,8 +24,10 @@ export default async function ServicesPage() {
   const servicesData = await getServicesData();
   return (
     <>
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
-        <div className="mx-auto max-w-[1320px] px-6">
+      <section className="relative min-h-[420px] flex items-end overflow-hidden">
+        <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/services-header-image-1440x600-v2.jpg?h=600&w=1440" alt="Services" fill className="object-cover animate-ken-burns" priority sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Services
           </h1>

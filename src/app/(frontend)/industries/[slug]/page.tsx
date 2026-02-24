@@ -91,7 +91,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           src={industry.heroImage}
           alt={industry.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

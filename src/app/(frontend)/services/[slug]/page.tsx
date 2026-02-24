@@ -37,7 +37,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           src={service.heroImage}
           alt={service.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

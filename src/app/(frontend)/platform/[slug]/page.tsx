@@ -48,7 +48,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           src={product.heroImage}
           alt={product.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

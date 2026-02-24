@@ -54,7 +54,7 @@ export default async function IndustrySubPage({
           src={subPage.heroImage}
           alt={subPage.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

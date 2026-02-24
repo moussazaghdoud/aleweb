@@ -33,7 +33,7 @@ export default async function PartnerDetailPage({ params }: { params: Promise<{ 
           src={page.heroImage}
           alt={page.name}
           fill
-          className="object-cover"
+          className="object-cover animate-ken-burns"
           priority
           sizes="100vw"
         />

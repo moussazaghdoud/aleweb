@@ -81,8 +81,10 @@ export default async function ProductDetailPage({
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
-        <div className="mx-auto max-w-[1320px] px-6">
+      <section className="relative min-h-[420px] flex items-end overflow-hidden">
+        <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-network-homepage-header-l2-l3.jpg?h=600&w=1440" alt={product.name} fill className="object-cover animate-ken-burns" priority sizes="100vw" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
+        <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <div className="flex items-center gap-2 text-xs font-semibold text-white/60 mb-5">
             <Link
               href="/products"
