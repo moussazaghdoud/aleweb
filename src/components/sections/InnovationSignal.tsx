@@ -13,7 +13,7 @@ export function InnovationSignal() {
     <section className="relative py-24 overflow-hidden">
       <div className="absolute inset-0">
         <Image src="https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440" alt="" fill className="object-cover" />
-        <div className="absolute inset-0 bg-gradient-to-r from-ale-deep/95 via-ale-900/90 to-ale-dark/80" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ale-800/90 via-ale-700/80 to-ale/70" />
       </div>
 
       <div className="relative z-10 mx-auto max-w-[1320px] px-6">
@@ -27,7 +27,7 @@ export function InnovationSignal() {
               From cloud-native communications to AI-driven network intelligence
               and private 5G — the enterprise infrastructure of tomorrow.
             </p>
-            <Link href="/company/innovation" className="inline-flex items-center gap-2 h-12 px-7 bg-white text-ale-deep text-sm font-semibold rounded-full hover:bg-ale-50 transition-all">
+            <Link href="/company/innovation" className="inline-flex items-center gap-2 h-12 px-7 bg-white text-ale-800 text-sm font-semibold rounded-full hover:bg-ale-50 transition-all">
               Our technology vision
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />

@@ -2,7 +2,7 @@ import { trustStats } from "@/data/homepage";
 
 export function TrustStrip() {
   return (
-    <section className="py-16 bg-ale-deep text-white">
+    <section className="py-16 bg-ale text-white">
       <div className="mx-auto max-w-[1320px] px-6">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-10 mb-12">
           {trustStats.map((stat) => (

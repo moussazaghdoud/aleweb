@@ -141,11 +141,11 @@ function MegaPanel({ item, onClose }: { item: NavItem; onClose: () => void }) {
               <div className="w-[280px] shrink-0 p-6 bg-gradient-to-br from-ale-50 to-white">
                 <div className="text-[10px] font-semibold uppercase tracking-widest text-ale/60 mb-3">Featured</div>
                 <Link href={item.featured.href} onClick={onClose} className="group block">
-                  <div className="aspect-[16/10] rounded-lg bg-gradient-to-br from-ale-deep to-ale-900 mb-3 overflow-hidden relative">
+                  <div className="aspect-[16/10] rounded-lg bg-gradient-to-br from-ale-800 to-ale-700 mb-3 overflow-hidden relative">
                     <div className="absolute inset-0 flex items-center justify-center">
                       <span className="text-ale-300">{getCategoryIcon(item.label)}</span>
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-ale-deep/60 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-ale-800/60 to-transparent" />
                   </div>
                   <h4 className="text-sm font-bold text-text group-hover:text-ale transition-colors mb-1">
                     {item.featured.title}

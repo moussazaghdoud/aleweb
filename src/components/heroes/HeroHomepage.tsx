@@ -375,7 +375,7 @@ export function HeroHomepage() {
       {/* ── Background layers ── */}
       <div className="absolute inset-0">
         {/* Deep gradient base */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0f0a1f] via-ale-deep to-[#0d1b2a]" />
+        <div className="absolute inset-0 bg-gradient-to-br from-ale-900 via-ale-800 to-ale-700" />
 
         {/* Subtle radial glows behind each cluster area */}
         <div className="absolute top-[35%] left-[15%] w-[400px] h-[400px] bg-blue-500/6 rounded-full blur-[120px]" />

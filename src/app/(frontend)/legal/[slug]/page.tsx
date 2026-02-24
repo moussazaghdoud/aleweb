@@ -26,7 +26,7 @@ export default async function LegalDetailPage({ params }: { params: Promise<{ sl
 
   return (
     <>
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <Link
             href="/legal"

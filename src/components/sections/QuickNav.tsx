@@ -285,7 +285,7 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="py-20 bg-gradient-to-b from-[#0f0a1f] to-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-ale-900 to-white relative overflow-hidden">
         {/* Subtle glow blobs */}
         <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/5 rounded-full blur-[120px]" />
         <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/5 rounded-full blur-[120px]" />
@@ -509,7 +509,7 @@ export function QuickNav() {
                     className="object-cover group-hover:scale-105 transition-transform duration-500"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-ale-deep/80 via-ale-deep/30 to-transparent" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900/75 via-gray-900/25 to-transparent" />
                   <div className="absolute bottom-0 left-0 right-0 p-5">
                     <div className="flex items-center gap-2 mb-1.5">
                       <ind.Icon className="w-4 h-4 text-white/80" />
@@ -533,7 +533,7 @@ export function QuickNav() {
       </section>
 
       {/* ━━━ 6. TRUST / STATS BAND (animated counters) ━━━ */}
-      <section className="py-14 bg-ale-deep">
+      <section className="py-14 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-8">
             {trustStats.map((s) => (
@@ -684,7 +684,7 @@ export function QuickNav() {
       </section>
 
       {/* ━━━ 10. FINAL CTA ━━━ */}
-      <section className="py-20 bg-gradient-to-br from-ale-deep via-ale-900 to-ale-dark relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-br from-ale-800 via-ale-700 to-ale relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none opacity-10">
           <div className="absolute top-10 left-[10%] w-64 h-64 bg-ale-300 rounded-full blur-3xl" />
           <div className="absolute bottom-10 right-[15%] w-48 h-48 bg-ale-400 rounded-full blur-3xl" />
@@ -694,7 +694,7 @@ export function QuickNav() {
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white tracking-tight mb-4">
               Ready to transform your enterprise?
             </h2>
-            <p className="text-base text-white/60 max-w-lg mx-auto mb-8 leading-relaxed">
+            <p className="text-base text-white/75 max-w-lg mx-auto mb-8 leading-relaxed">
               Discover how ALE&apos;s intelligent networks, cloud communications, and AI-driven operations can accelerate your digital transformation.
             </p>
             <div className="flex flex-wrap justify-center gap-3">

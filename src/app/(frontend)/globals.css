@@ -1,20 +1,20 @@
 @import "tailwindcss";
 
 @theme inline {
-  --color-ale: #69479A;
-  --color-ale-dark: #4A2D73;
-  --color-ale-deep: #2E1A4F;
-  --color-ale-light: #896DB1;
-  --color-ale-50: #F7F3FB;
-  --color-ale-100: #EDE5F5;
-  --color-ale-200: #D4C4E3;
-  --color-ale-300: #B89DD0;
-  --color-ale-400: #9B75BC;
-  --color-ale-500: #69479A;
-  --color-ale-600: #553A7D;
-  --color-ale-700: #4A2D73;
-  --color-ale-800: #3A1B5E;
-  --color-ale-900: #2E1A4F;
+  --color-ale: #7C3AED;
+  --color-ale-dark: #6D28D9;
+  --color-ale-deep: #6D28D9;
+  --color-ale-light: #A78BFA;
+  --color-ale-50: #F5F3FF;
+  --color-ale-100: #EDE9FE;
+  --color-ale-200: #DDD6FE;
+  --color-ale-300: #C4B5FD;
+  --color-ale-400: #A78BFA;
+  --color-ale-500: #8B5CF6;
+  --color-ale-600: #7C3AED;
+  --color-ale-700: #6D28D9;
+  --color-ale-800: #5B21B6;
+  --color-ale-900: #4C1D95;
 
   /* Pillar: Network (Blue) */
   --color-network-50: #EFF6FF;
@@ -73,7 +73,7 @@ body {
 html { scroll-behavior: smooth; }
 
 ::selection {
-  background-color: rgba(105, 71, 154, 0.2);
+  background-color: rgba(124, 58, 237, 0.15);
   color: #1A1A1A;
 }
 

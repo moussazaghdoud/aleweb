@@ -20,7 +20,7 @@ export default async function CompanyHub() {
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-ale-300 mb-3 block">
             Company

@@ -23,7 +23,7 @@ type Props = {
 
 const themeMap: Record<string, { section: string; heading: string; body: string }> = {
   dark: {
-    section: 'bg-ale-deep',
+    section: 'bg-ale',
     heading: 'text-white',
     body: 'text-white/70',
   },
@@ -33,7 +33,7 @@ const themeMap: Record<string, { section: string; heading: string; body: string 
     body: 'text-text-secondary',
   },
   gradient: {
-    section: 'bg-gradient-to-r from-ale-deep via-ale-900 to-ale-dark',
+    section: 'bg-gradient-to-r from-ale-800 via-ale-700 to-ale',
     heading: 'text-white',
     body: 'text-white/70',
   },
@@ -54,7 +54,7 @@ const btnStyles: Record<string, Record<string, string>> = {
   },
   gradient: {
     primary:
-      'inline-flex items-center gap-2 h-12 px-7 bg-white text-ale-deep text-sm font-semibold rounded-full hover:bg-ale-50 transition-all hover:shadow-lg',
+      'inline-flex items-center gap-2 h-12 px-7 bg-white text-ale-800 text-sm font-semibold rounded-full hover:bg-ale-50 transition-all hover:shadow-lg',
     secondary:
       'inline-flex items-center gap-2 h-12 px-7 bg-white/10 border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 transition-all',
   },
@@ -81,7 +81,7 @@ export function CTABannerBlock({
             fill
             className="object-cover"
           />
-          <div className="absolute inset-0 bg-ale-deep/80" />
+          <div className="absolute inset-0 bg-ale-800/75" />
         </>
       )}
 

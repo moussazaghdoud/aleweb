@@ -76,10 +76,10 @@ function FullWidthHero({ heading, subheading, backgroundImage, ctaButtons }: Pro
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-ale-deep/80 via-ale-900/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-ale-800/75 via-ale-700/50 to-transparent" />
         </>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-r from-ale-deep via-ale-900 to-ale-dark" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ale-800 via-ale-700 to-ale" />
       )}
 
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pt-32 pb-16">
@@ -111,10 +111,10 @@ function CenteredHero({ heading, subheading, backgroundImage, ctaButtons }: Prop
             className="object-cover"
             priority
           />
-          <div className="absolute inset-0 bg-ale-deep/75" />
+          <div className="absolute inset-0 bg-ale-800/70" />
         </>
       ) : (
-        <div className="absolute inset-0 bg-gradient-to-r from-ale-deep via-ale-900 to-ale-dark" />
+        <div className="absolute inset-0 bg-gradient-to-r from-ale-800 via-ale-700 to-ale" />
       )}
 
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pt-32 pb-16 text-center">
@@ -140,7 +140,7 @@ function CenteredHero({ heading, subheading, backgroundImage, ctaButtons }: Prop
 
 function SplitHero({ heading, subheading, backgroundImage, ctaButtons }: Props) {
   return (
-    <section className="bg-gradient-to-r from-ale-deep via-ale-900 to-ale-dark">
+    <section className="bg-gradient-to-r from-ale-800 via-ale-700 to-ale">
       <div className="mx-auto max-w-[1320px] px-6 pt-32 pb-16">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Text side */}

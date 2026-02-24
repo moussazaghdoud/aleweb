@@ -98,7 +98,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-ale-deep">
+      <section className="py-16 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Interested in {service.name}?

@@ -28,7 +28,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
   return (
     <>
       {/* Hero */}
-      <section className="relative pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark overflow-hidden">
+      <section className="relative pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale overflow-hidden">
         {page.heroImage && (
           <Image
             src={page.heroImage}
@@ -218,7 +218,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
       {/* CTA */}
       {page.slug !== "contact" && (
-        <section className="py-16 bg-ale-deep">
+        <section className="py-16 bg-ale">
           <div className="mx-auto max-w-[1320px] px-6 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
               Want to learn more about ALE?

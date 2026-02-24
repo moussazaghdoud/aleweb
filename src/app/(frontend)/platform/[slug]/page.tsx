@@ -52,7 +52,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           priority
           sizes="100vw"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
+        <div className="absolute inset-0 bg-gradient-to-t from-gray-900/75 via-gray-900/25 to-transparent" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link
             href="/platform"
@@ -64,7 +64,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             All Products
           </Link>
           <div className="flex items-center gap-4 mb-4">
-            <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur flex items-center justify-center">
+            <div className="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-sm flex items-center justify-center">
               <Icon className="w-6 h-6 text-white" />
             </div>
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
@@ -76,7 +76,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       </section>
 
       {/* Highlights strip */}
-      <section className="py-10 bg-ale-deep">
+      <section className="py-10 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {product.highlights.map((h, i) => (
@@ -157,12 +157,12 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       )}
 
       {/* CTA */}
-      <section className="py-16 bg-ale-deep">
+      <section className="py-16 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Interested in {product.name}?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
+          <p className="text-white/75 max-w-lg mx-auto mb-8">
             Talk to a specialist about deployment options, pricing, and how it fits your infrastructure.
           </p>
           <div className="flex flex-wrap justify-center gap-3">

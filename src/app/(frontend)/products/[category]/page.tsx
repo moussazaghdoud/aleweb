@@ -44,7 +44,7 @@ export default async function CategoryPage({
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <Link
             href="/products"
@@ -152,12 +152,12 @@ export default async function CategoryPage({
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-ale-deep">
+      <section className="py-16 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Need help choosing?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
+          <p className="text-white/75 max-w-lg mx-auto mb-8">
             Our specialists can help you find the right {cat.name.toLowerCase()}{" "}
             for your environment and requirements.
           </p>

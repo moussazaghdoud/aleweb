@@ -23,7 +23,7 @@ export default async function ServicesPage() {
   const servicesData = await getServicesData();
   return (
     <>
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
             Services
@@ -63,7 +63,7 @@ export default async function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-ale-deep">
+      <section className="py-16 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Need help with your technology deployment?

@@ -81,7 +81,7 @@ export default async function ProductDetailPage({
   return (
     <>
       {/* Hero */}
-      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-deep via-ale-900 to-ale-dark">
+      <section className="pt-32 pb-16 bg-gradient-to-b from-ale-800 via-ale-700 to-ale">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="flex items-center gap-2 text-xs font-semibold text-white/60 mb-5">
             <Link
@@ -128,7 +128,7 @@ export default async function ProductDetailPage({
       </section>
 
       {/* Highlights strip */}
-      <section className="py-10 bg-ale-deep border-t border-white/10">
+      <section className="py-10 bg-ale border-t border-white/15">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {product.highlights.map((h, i) => (
@@ -312,12 +312,12 @@ export default async function ProductDetailPage({
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-ale-deep">
+      <section className="py-16 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Interested in {product.name}?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
+          <p className="text-white/75 max-w-lg mx-auto mb-8">
             Talk to a specialist about deployment options, pricing, and how it
             fits your infrastructure.
           </p>

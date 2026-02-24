@@ -68,7 +68,7 @@ export function Footer() {
   return (
     <footer>
       {/* CTA Band */}
-      <div className="bg-ale-deep text-white">
+      <div className="bg-ale text-white">
         <div className="mx-auto max-w-[1320px] px-6 py-20 text-center">
           <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight mb-4">
             Ready to transform your enterprise?
