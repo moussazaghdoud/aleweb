@@ -184,8 +184,8 @@ const industries = [
   { Icon: IconGovernment, name: "Government", desc: "Secure public services", href: "/industries/government", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440" },
   { Icon: IconManufacturing, name: "Manufacturing", desc: "Industry 4.0 networks", href: "/industries/manufacturing", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440" },
   { Icon: IconEnergy, name: "Energy & Utilities", desc: "Ruggedized infrastructure", href: "/industries/energy", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440" },
-  { Icon: IconTransportation, name: "Transportation", desc: "Smart airports, railways, ports", href: "/industries/transportation", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-image-v2.jpg?h=600&w=1440" },
-  { Icon: IconSmartBuildings, name: "Smart Buildings", desc: "Connected building technology", href: "/industries/smart-buildings", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-building-header-1440x600.jpg?h=600&w=1440" },
+  { Icon: IconTransportation, name: "Transportation", desc: "Smart airports, railways, ports", href: "/industries/transportation", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-1440-600-v3.jpg?h=600&w=1440" },
+  { Icon: IconSmartBuildings, name: "Smart Buildings", desc: "Connected building technology", href: "/industries/smart-buildings", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-banner-image-1440x600-v2.jpg?h=600&w=1440" },
 ];
 
 /* ── Trust stats ── */
