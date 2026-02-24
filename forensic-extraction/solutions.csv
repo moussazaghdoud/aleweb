@@ -1,0 +1,39 @@
+id,name,parent_category,url,products_referenced
+1,Digital Age Communications,,/en/solutions/digital-age-communications,"Rainbow, OmniPCX Enterprise"
+2,Collaboration Solutions,Digital Age Communications,/en/solutions/collaboration-solutions,"Rainbow, OpenTouch Enterprise Cloud"
+3,Connected Solutions and Devices,,/en/solutions/connected-solutions-and-devices,
+4,Cloud Communications,Connected Solutions and Devices,/en/solutions/cloud-communications,"Rainbow, OpenTouch Enterprise Cloud"
+5,CPaaS,Connected Solutions and Devices,/en/solutions/communications-platform-as-a-service-cpaas,Rainbow
+6,IoT Networks,Connected Solutions and Devices,/en/solutions/iot,"OmniSwitch 6465, OmniSwitch 6465T, OmniAccess Stellar Asset Tracking"
+7,Purple on Demand,Connected Solutions and Devices,/en/solutions/purple-on-demand,Rainbow
+8,Security,Connected Solutions and Devices,/en/solutions/security,"OmniVista Network Management Platform, OmniSwitch series"
+9,Unified Communications,Connected Solutions and Devices,/en/solutions/unified-communications,"OmniPCX Enterprise, Rainbow, OXO Connect"
+10,Customer Service Applications,Connected Solutions and Devices,/en/solutions/e-services,"ALE Connect, OmniTouch Contact Center SE"
+11,Everything as a Service (XaaS),Connected Solutions and Devices,/en/solutions/everything-as-a-service-xaas,"Rainbow, OmniPCX Enterprise"
+12,Hybrid Workplace,Connected Solutions and Devices,/en/solutions/hybrid-workplace,"Rainbow, ALE DeskPhones, ALE Aries Headsets"
+13,Digital Dividends,Connected Solutions and Devices,/en/solutions/digital-dividends,
+14,Digital Age Networking,,/en/solutions/digital-age-networking,"OmniSwitch series, OmniAccess Stellar APs"
+15,Autonomous Network,Digital Age Networking,/en/solutions/autonomous-network,"OmniSwitch series, OmniVista Network Management Platform"
+16,Data Center Solutions,Autonomous Network,/en/solutions/data-center,"OmniSwitch 6900, OmniSwitch 9900, OmniSwitch 6920"
+17,Hybrid POL,Autonomous Network,/en/solutions/hybrid-pol,"OmniSwitch 6360, OmniSwitch 2360"
+18,Industrial Network Solutions,Autonomous Network,/en/solutions/industrial-networks,"OmniSwitch 6465, OmniSwitch 6465T, OmniSwitch 6575, OmniSwitch 6865"
+19,Mission Critical Networks,Autonomous Network,/en/solutions/mission-critical-networks,"OmniSwitch 6860, OmniSwitch 6900"
+20,OmniFabric,Autonomous Network,/en/solutions/omnifabric,"OmniSwitch 6860, OmniSwitch 6900, OmniSwitch 9900"
+21,Optical Networking Solutions,Autonomous Network,/en/solutions/optical-solutions,
+22,SD-WAN & SASE,Autonomous Network,/en/solutions/sd-wan,
+23,Shortest Path Bridging (SPB),Autonomous Network,/en/solutions/shortest-path-bridging,"OmniSwitch 6860, OmniSwitch 6900, OmniSwitch 9900"
+24,Wi-Fi Solutions,Autonomous Network,/en/solutions/wifi-solutions,"OmniAccess Stellar AP series, OmniVista Network Management Platform"
+25,Business Innovation,,/en/solutions/business-innovation,"OmniAccess Stellar Asset Tracking"
+26,Network as a Service (NaaS),Business Innovation,/en/solutions/network-as-a-service,"OmniSwitch series, OmniAccess Stellar APs"
+27,Video Surveillance,Business Innovation,/en/solutions/video-surveillance,"OmniSwitch Milestone Plugin, OmniSwitch series"
+28,Private 5G Network,IoT Networks,/en/solutions/private-5g-network,
+29,Business Continuity,,/en/solutions/business-continuity,"Rainbow, OmniPCX Enterprise"
+30,Return to Business,Business Continuity,/en/solutions/business-continuity/return-to-business,"Rainbow, OmniAccess Stellar APs"
+31,Continuity of Learning,Business Continuity,/en/solutions/business-continuity/continuity-of-learning,"Rainbow, OmniAccess Stellar APs, OmniSwitch series"
+32,Services,,/en/services,
+33,Training Services,Services,/en/services/education-services,
+34,Industry Services,Services,/en/services/industry-services,
+35,Professional Services,Services,/en/services/professional-services,
+36,Success Management,Services,/en/services/success-management,
+37,Support Services,Services,/en/services/support-services,
+38,SMB,,/en/solutions/smb,"OXO Connect, ALE DeskPhones, IP Desktop Softphone, PIMphony, DECT Handsets, WLAN Handsets, DECT Base Stations, Rainbow"

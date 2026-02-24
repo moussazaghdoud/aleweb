@@ -1,0 +1,207 @@
+level,section,label,url,parent
+utility,utility_nav,Support,/en/support,
+utility,utility_nav,Contact Sales,/en/contact-us,
+utility,utility_nav,Search,/en/search,
+main,main_nav,Industries,/en/industries,
+main,main_nav,Solutions,/en/solutions,
+main,main_nav,Products,/en/products,
+main,main_nav,Partners,/en/partners,
+main,main_nav,Company,/en/company,
+mega_header,industries,Education Solutions,/en/industries/education,Industries
+mega_child,industries,Smart Campus,/en/industries/education/intelligent-campus,Education Solutions
+mega_child,industries,Safe Campus,/en/industries/education/intelligent-campus/safe-and-secure-campus,Education Solutions
+mega_child,industries,Student Centered Learning,/en/industries/education/intelligent-campus/student-centric-services,Education Solutions
+mega_child,industries,Education Continuity,/en/solutions/business-continuity/continuity-of-learning,Education Solutions
+mega_child,industries,E-rate,/en/industries/education/e-rate,Education Solutions
+mega_header,industries,Energy and Utilities Solutions,/en/industries/energy-and-utilities,Industries
+mega_header,industries,Digital Government Services,/en/industries/government,Industries
+mega_child,industries,Connected Cities,/en/industries/government/connected-cities,Digital Government Services
+mega_child,industries,Defense Solutions,/en/industries/government/defense-solutions,Digital Government Services
+mega_child,industries,Public Safety Solutions,/en/industries/government/public-safety-solutions,Digital Government Services
+mega_header,industries,Healthcare Solutions,/en/industries/healthcare,Industries
+mega_child,industries,Digital Health,/en/industries/healthcare/digital-health,Healthcare Solutions
+mega_child,industries,Senior Living Technology,/en/industries/healthcare/senior-living,Healthcare Solutions
+mega_header,industries,Hospitality Solutions,/en/industries/hospitality,Industries
+mega_child,industries,Guest Experience,/en/industries/hospitality/guest-experience,Hospitality Solutions
+mega_header,industries,Manufacturing Solutions,/en/industries/manufacturing,Industries
+mega_header,industries,Smart Building Technology,/en/industries/government/smart-buildings,Industries
+mega_header,industries,Transportation Solutions,/en/industries/transportation,Industries
+mega_child,industries,Smart Airport Solutions,/en/industries/transportation/air,Transportation Solutions
+mega_child,industries,Intelligent Transport Systems,/en/industries/transportation/its,Transportation Solutions
+mega_child,industries,Smart Ports,/en/industries/transportation/ports,Transportation Solutions
+mega_child,industries,Smart Railways,/en/industries/transportation/rail,Transportation Solutions
+mega_header,industries,Small & Medium Business,/en/solutions/smb,Industries
+mega_child,industries,OXO Connect,/en/products/platforms/oxo-connect,Small & Medium Business
+mega_child,industries,ALE Deskphones,/en/products/devices/ale-deskphones,Small & Medium Business
+mega_child,industries,VoIP Softphone,/en/products/applications/ip-desktop-softphone,Small & Medium Business
+mega_child,industries,PIMphony,/en/products/applications/pimphony,Small & Medium Business
+mega_child,industries,DECT Handsets,/en/products/devices/dect-handsets,Small & Medium Business
+mega_child,industries,WLAN Handsets,/en/products/devices/wlan-handsets,Small & Medium Business
+mega_child,industries,DECT Base Stations,/en/products/platforms/dect-infrastructure,Small & Medium Business
+mega_child,industries,Rainbow,/en/rainbow,Small & Medium Business
+mega_header,solutions,Digital Age Communications,/en/solutions/digital-age-communications,Solutions
+mega_child,solutions,Collaboration Solutions,/en/solutions/collaboration-solutions,Digital Age Communications
+mega_header,solutions,Connected Solutions and Devices,/en/solutions/connected-solutions-and-devices,Solutions
+mega_child,solutions,Cloud Communications,/en/solutions/cloud-communications,Connected Solutions and Devices
+mega_child,solutions,CPaaS,/en/solutions/communications-platform-as-a-service-cpaas,Connected Solutions and Devices
+mega_child,solutions,IoT,/en/solutions/iot,Connected Solutions and Devices
+mega_child,solutions,Purple on Demand,/en/solutions/purple-on-demand,Connected Solutions and Devices
+mega_child,solutions,Security,/en/solutions/security,Connected Solutions and Devices
+mega_child,solutions,Unified Communications,/en/solutions/unified-communications,Connected Solutions and Devices
+mega_child,solutions,Customer Service Applications,/en/solutions/e-services,Connected Solutions and Devices
+mega_child,solutions,Everything as a Service (XaaS),/en/solutions/everything-as-a-service-xaas,Connected Solutions and Devices
+mega_child,solutions,Hybrid Workplace,/en/solutions/hybrid-workplace,Connected Solutions and Devices
+mega_child,solutions,Digital Dividends,/en/solutions/digital-dividends,Connected Solutions and Devices
+mega_header,solutions,Digital Age Networking,/en/solutions/digital-age-networking,Solutions
+mega_header,solutions,Autonomous Network,/en/solutions/autonomous-network,Solutions
+mega_child,solutions,Data Center Solutions,/en/solutions/data-center,Autonomous Network
+mega_child,solutions,Hybrid POL,/en/solutions/hybrid-pol,Autonomous Network
+mega_child,solutions,Industrial Network Solutions,/en/solutions/industrial-networks,Autonomous Network
+mega_child,solutions,Mission Critical Networks,/en/solutions/mission-critical-networks,Autonomous Network
+mega_child,solutions,OmniFabric,/en/solutions/omnifabric,Autonomous Network
+mega_child,solutions,Optical Networking Solutions,/en/solutions/optical-solutions,Autonomous Network
+mega_child,solutions,SD-WAN & SASE,/en/solutions/sd-wan,Autonomous Network
+mega_child,solutions,Shortest Path Bridging (SPB),/en/solutions/shortest-path-bridging,Autonomous Network
+mega_child,solutions,Wi-Fi Solutions,/en/solutions/wifi-solutions,Autonomous Network
+mega_header,solutions,Business Innovation,/en/solutions/business-innovation,Solutions
+mega_child,solutions,OmniAccess Stellar Asset Tracking,/en/products/asset-tracking,Business Innovation
+mega_child,solutions,Network as a Service (NaaS),/en/solutions/network-as-a-service,Business Innovation
+mega_child,solutions,Video Surveillance Network,/en/solutions/video-surveillance,Business Innovation
+mega_header,solutions,IoT Networks,/en/solutions/iot,Solutions
+mega_child,solutions,Private 5G Network,/en/solutions/private-5g-network,IoT Networks
+mega_child,solutions,Security,/en/solutions/security,IoT Networks
+mega_header,solutions,Business Continuity,/en/solutions/business-continuity,Solutions
+mega_child,solutions,Return to Business,/en/solutions/business-continuity/return-to-business,Business Continuity
+mega_child,solutions,Education Continuity,/en/solutions/business-continuity/continuity-of-learning,Business Continuity
+mega_header,solutions,Services,/en/services,Solutions
+mega_child,solutions,Training Services,/en/services/education-services,Services
+mega_child,solutions,Industry Services,/en/services/industry-services,Services
+mega_child,solutions,Professional and Managed Services,/en/services/professional-services,Services
+mega_child,solutions,Success Management,/en/services/success-management,Services
+mega_child,solutions,Support Services,/en/services/support-services,Services
+mega_child,solutions,Contract Checker - SPS,/en/services/contract-checker,Services
+mega_header,products,Communication Platforms,/en/products/platforms,Products
+mega_sub,products,OmniPCX Enterprise Communication Server,/en/products/platforms/omnipcx-enterprise-communication-server,UC Platforms
+mega_sub,products,OpenTouch Enterprise Cloud,/en/products/platforms/opentouch-enterprise-cloud,UC Platforms
+mega_sub,products,OXO Connect,/en/products/platforms/oxo-connect,UC Platforms
+mega_sub,products,Rainbow,/en/rainbow,UC Platforms
+mega_sub,products,SIP-DECT Base Stations,/en/products/platforms/sip-dect-infrastructure,DECT Platforms
+mega_sub,products,DECT Base Stations,/en/products/platforms/dect-infrastructure,DECT Platforms
+mega_header,products,Contact Center and Attendants,/en/products/applications,Products
+mega_child,products,ALE Connect,/en/products/applications/ale-connect,Contact Center and Attendants
+mega_child,products,Dispatch Console,/en/products/applications/dispatch-console,Contact Center and Attendants
+mega_child,products,VoIP Softphone for business,/en/products/applications/ip-desktop-softphone,Contact Center and Attendants
+mega_child,products,OmniPCX RECORD Suite,/en/products/applications/omnipcx-record-suite,Contact Center and Attendants
+mega_child,products,Visual Automated Attendant,/en/products/applications/visual-automated-attendant,Contact Center and Attendants
+mega_header,products,Ecosystems Integration,/en/products/applications,Products
+mega_child,products,Microsoft Teams integration,/en/products/applications/microsoft-teams-integration,Ecosystems Integration
+mega_child,products,Rainbow App Connector,/en/rainbow/connectors-and-apps/app-connector,Ecosystems Integration
+mega_child,products,OmniPCX Open Gateway,/en/products/platforms/omnipcx-open-gateway,Ecosystems Integration
+mega_child,products,Rainbow - Developers,/en/rainbow/developers,Ecosystems Integration
+mega_header,products,Phones Softphones and Devices,/en/products/devices,Products
+mega_sub,products,ALE DeskPhones,/en/products/devices/ale-deskphones,Deskphones and Accessories
+mega_sub,products,ALE SIP Deskphones,/en/products/devices/ale-sip-deskphones,Deskphones and Accessories
+mega_sub,products,Smart DeskPhones,/en/products/devices/smart-deskphones,Deskphones and Accessories
+mega_sub,products,SIP Softphone Application,/en/products/applications/ale-softphone,Softphones
+mega_sub,products,VoIP Softphone for business,/en/products/applications/ip-desktop-softphone,Softphones
+mega_sub,products,PIMphony,/en/products/applications/pimphony,Softphones
+mega_sub,products,DECT Handsets,/en/products/devices/dect-handsets,Mobile Handsets
+mega_sub,products,SIP-DECT Handsets,/en/products/devices/sip-dect-handsets,Mobile Handsets
+mega_sub,products,WLAN Handsets,/en/products/devices/wlan-handsets,Mobile Handsets
+mega_sub,products,Aries Series Headsets,/en/products/devices/ale-aries-headsets,Headsets
+mega_sub,products,User Manuals,/en/products/user-manuals,Resources
+mega_header,products,Communications Management & Security,/en/products/communications-management-security,Products
+mega_child,products,OmniVista 8770 Network Management System,/en/products/communications-management-security/omnivista-8770-network-management-system,Communications Management & Security
+mega_child,products,Unified Management Center,/en/products/communications-management-security/unified-management-center,Communications Management & Security
+mega_child,products,OpenTouch Session Border Controller,/en/products/communications-management-security/opentouch-session-border-controller,Communications Management & Security
+mega_header,products,Switches,/en/products/switches,Products
+mega_sub,products,OmniSwitch 6360,/en/products/switches/omniswitch-6360,Access Edge
+mega_sub,products,OmniSwitch 6560(E),/en/products/switches/omniswitch-6560,Access Edge
+mega_sub,products,OmniSwitch 6570M,/en/products/switches/omniswitch-6570m,Access Edge
+mega_sub,products,OmniSwitch 6860(E and N),/en/products/switches/omniswitch-6860,Access Edge
+mega_sub,products,OmniSwitch 6870,/en/products/switches/omniswitch-6870,Access Edge
+mega_sub,products,OmniSwitch 6900,/en/products/switches/omniswitch-6900,Core and Data Center
+mega_sub,products,OmniSwitch 6920,/en/products/switches/omniswitch-6920,Core and Data Center
+mega_sub,products,OmniSwitch 9900,/en/products/switches/omniswitch-9900,Core and Data Center
+mega_sub,products,OmniSwitch 6465,/en/products/switches/omniswitch-6465,Industrial Environment
+mega_sub,products,OmniSwitch 6465T,/en/products/switches/omniswitch-6465t,Industrial Environment
+mega_sub,products,OmniSwitch 6575,/en/products/switches/omniswitch-6575,Industrial Environment
+mega_sub,products,OmniSwitch 6865,/en/products/switches/omniswitch-6865,Industrial Environment
+mega_sub,products,OmniSwitch 2260,/en/products/switches/omniswitch-2260,Smart Managed Edge
+mega_sub,products,OmniSwitch 2360,/en/products/switches/omniswitch-2360,Smart Managed Edge
+mega_sub,products,OmniSwitch Comparison Tool,/en/products/switches/omniswitch-comparison-tool,Smart Managed Edge
+mega_header,products,Wireless LAN,/en/products/wlan,Products
+mega_sub,products,OmniAccess Stellar AP1501,/en/products/wlan/omniaccess-stellar-access-point-1501,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1511,/en/products/wlan/omniaccess-stellar-access-point-1511,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1521,/en/products/wlan/omniaccess-stellar-access-point-1521,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1411,/en/products/wlan/omniaccess-stellar-access-point-1411,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1431,/en/products/wlan/omniaccess-stellar-access-point-1431,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1451,/en/products/wlan/omniaccess-stellar-access-point-1451,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1301,/en/products/wlan/omniaccess-stellar-access-point-1301,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1301H,/en/products/wlan/omniaccess-stellar-access-point-1301h,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1311,/en/products/wlan/omniaccess-stellar-access-point-1311,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1320-Series,/en/products/wlan/omniaccess-stellar-access-point-1320,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1331,/en/products/wlan/omniaccess-stellar-access-point-1331,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1351,/en/products/wlan/omniaccess-stellar-access-point-1351,Indoor Access Points
+mega_sub,products,OmniAccess Stellar AP1561,/en/products/wlan/omniaccess-stellar-access-point-1561,Outdoor Access Points
+mega_sub,products,OmniAccess Stellar AP1570 Series,/en/products/wlan/omniaccess-stellar-access-point-1570,Outdoor Access Points
+mega_sub,products,OmniAccess Stellar AP1360 Series,/en/products/wlan/omniaccess-stellar-access-point-1360,Outdoor Access Points
+mega_sub,products,OmniAccess Stellar AP1261,/en/products/wlan/omniaccess-stellar-access-point-1261,Outdoor Access Points
+mega_sub,products,Wireless Access Points Comparison Tool,/en/products/wlan/omniaccess-stellar-web-comparison-tool,Outdoor Access Points
+mega_header,products,Location Services,/en/products/location-services,Products
+mega_child,products,OmniAccess Stellar Asset Tracking,/en/products/asset-tracking,Location Services
+mega_header,products,Network Management & Security,/en/products/network-management-security,Products
+mega_child,products,OmniVista Network Management Platform,/en/products/network-management-security/omnivista-network-management-platform,Network Management & Security
+mega_child,products,Fleet Supervision,/en/products/network-management-security/fleet-supervision,Network Management & Security
+mega_child,products,OmniSwitch Milestone Plugin,/en/products/network-management-security/omniswitch-milestone-plugin,Network Management & Security
+mega_child,products,OmniVista Network Advisor,/en/products/network-management-security/omnivista-network-advisor,Network Management & Security
+mega_child,products,OmniVista Smart Tool,/en/products/network-management-security/omnivista-smart-tool,Network Management & Security
+mega_header,partners,Partners,/en/partners,Partners
+mega_child,partners,About our Partners,/en/partners/about-our-partners,Partners
+mega_header,partners,Business Partners,/en/partners/business-partners,Partners
+mega_child,partners,Become a Business Partner,/en/partners/business-partners/become-a-partner,Business Partners
+mega_child,partners,Business Partner Resources,/en/partners/business-partners/partner-resources,Business Partners
+mega_child,partners,Find a Partner,/en/partner-locator,Business Partners
+mega_child,partners,MyPortal Login,https://myportal.al-enterprise.com/s/,Business Partners
+mega_header,partners,Consultants Program,/en/partners/consultants,Partners
+mega_child,partners,MyPortal Login,https://myportal.al-enterprise.com/a6f5I0000008TJ8QAM,Consultants Program
+mega_header,partners,Developer and Solution Partners,/en/partners/dspp,Partners
+mega_child,partners,Become a DSPP Partner,/en/partners/dspp/become-a-partner,Developer and Solution Partners
+mega_child,partners,DSPP Resources,/en/partners/dspp/resources,Developer and Solution Partners
+mega_child,partners,Certification Reports,/en/partners/dspp/iwr,Developer and Solution Partners
+mega_child,partners,Find a DSPP Partner,/en/partners/dspp/partnerships,Developer and Solution Partners
+mega_header,company,About Us,/en/company/about-us,Company
+mega_child,company,Awards,/en/company/about-us/awards,About Us
+mega_child,company,Careers,/en/company/about-us/careers,About Us
+mega_child,company,ESG,/en/company/about-us/esg,About Us
+mega_child,company,Executive Briefing Centre,/en/company/about-us/ebc,About Us
+mega_child,company,Executive Team,/en/company/about-us/executive-team,About Us
+mega_child,company,History,/en/company/about-us/history,About Us
+mega_header,company,Resources,,Company
+mega_child,company,Video Library,/en/video-library,Resources
+mega_child,company,Analyst & Market Reports,/en/company/analyst,Resources
+mega_child,company,Blog,/en/blog,Resources
+mega_child,company,Customer References,/en/company/customers,Resources
+mega_child,company,Events and Webinars,/en/company/events,Resources
+mega_child,company,News,/en/company/news,Resources
+mega_child,company,ALE Office Locations,/en/company/ale-worldwide-presence,Resources
+footer_company,footer,About Us,/en/company/about-us,
+footer_company,footer,ALE Office Locations,/en/company/ale-worldwide-presence,
+footer_company,footer,Find a Partner,/en/partner-locator,
+footer_company,footer,News,/en/company/news,
+footer_company,footer,Blog,/en/blog,
+footer_company,footer,Careers,/en/company/about-us/careers,
+footer_menu,footer,Industries,/en/industries,
+footer_menu,footer,Solutions,/en/solutions,
+footer_menu,footer,Services,/en/services,
+footer_menu,footer,Products,/en/products,
+footer_menu,footer,Partners,/en/partners,
+footer_legal,footer,Legal,/en/legal,
+footer_legal,footer,Privacy,/en/legal/privacy,
+footer_legal,footer,Cookie policy,/en/legal/cookie-policy,
+footer_legal,footer,Sitemap,/en/sitelinks,
+footer_legal,footer,Feedback,/en/feedback,
+footer_social,footer,LinkedIn,https://www.linkedin.com/company/alcatellucententerprise,
+footer_social,footer,Facebook,https://www.facebook.com/ALUEnterprise,
+footer_social,footer,Instagram,https://www.instagram.com/alcatel_lucent_enterprise/,
+footer_social,footer,YouTube,https://www.youtube.com/user/EnterpriseALU,

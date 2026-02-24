@@ -1,0 +1,70 @@
+id,name,category,subcategory,nav_parent,url,models
+1,OmniSwitch 6900,switches,Core and Data Center,Switches,/en/products/switches/omniswitch-6900,"OS6900-X72, OS6900-V72, OS6900-T40, OS6900-Q32, OS6900-X40"
+2,OmniSwitch 6920,switches,Core and Data Center,Switches,/en/products/switches/omniswitch-6920,"OS6920-P48, OS6920-P24"
+3,OmniSwitch 9900,switches,Core and Data Center,Switches,/en/products/switches/omniswitch-9900,"OS9907, OS9912"
+4,OmniSwitch 6360,switches,Access Edge,Switches,/en/products/switches/omniswitch-6360,"OS6360-10, OS6360-24, OS6360-48, OS6360-P10, OS6360-P24, OS6360-P48, OS6360-PH24"
+5,OmniSwitch 6560(E),switches,Access Edge,Switches,/en/products/switches/omniswitch-6560,"OS6560-24X4, OS6560-24Z8, OS6560-48X4, OS6560-48Z8, OS6560-P24X4, OS6560-P24Z8, OS6560-P48X4, OS6560-P48Z8"
+6,OmniSwitch 6570M,switches,Access Edge,Switches,/en/products/switches/omniswitch-6570m,"OS6570M-12, OS6570M-12D, OS6570M-U28"
+7,OmniSwitch 6860(E and N),switches,Access Edge,Switches,/en/products/switches/omniswitch-6860,"OS6860-24, OS6860-48, OS6860-P24, OS6860-P48, OS6860N-P48, OS6860N-U28"
+8,OmniSwitch 6870,switches,Access Edge,Switches,/en/products/switches/omniswitch-6870,"OS6870-P48X, OS6870-BP"
+9,OmniSwitch 6465,switches,Industrial Environment,Switches,/en/products/switches/omniswitch-6465,"OS6465-P6, OS6465-P12, OS6465-P28, OS6465-P48"
+10,OmniSwitch 6465T,switches,Industrial Environment,Switches,/en/products/switches/omniswitch-6465t,"OS6465T-P12, OS6465T-12"
+11,OmniSwitch 6575,switches,Industrial,Switches,/en/products/switches/omniswitch-6575,OS6575-BP
+12,OmniSwitch 6865,switches,Industrial,Switches,/en/products/switches/omniswitch-6865,"OS6865-P16X, OS6865-U28X"
+13,OmniSwitch 2260,switches,Smart Managed Edge,Switches,/en/products/switches/omniswitch-2260,"OS2260-10, OS2260-24, OS2260-P24"
+14,OmniSwitch 2360,switches,Smart Managed Edge,Switches,/en/products/switches/omniswitch-2360,"OS2360-10, OS2360-24, OS2360-48, OS2360-P24, OS2360-P48"
+15,OmniAccess Stellar AP1501,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1501,AP1501
+16,OmniAccess Stellar AP1511,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1511,AP1511
+17,OmniAccess Stellar AP1521,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1521,AP1521
+18,OmniAccess Stellar AP1411,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1411,AP1411
+19,OmniAccess Stellar AP1431,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1431,AP1431
+20,OmniAccess Stellar AP1451,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1451,AP1451
+21,OmniAccess Stellar AP1301,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1301,AP1301
+22,OmniAccess Stellar AP1301H,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1301h,AP1301H
+23,OmniAccess Stellar AP1311,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1311,AP1311
+24,OmniAccess Stellar AP1320-Series,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1320,"AP1320, AP1322, AP1324"
+25,OmniAccess Stellar AP1331,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1331,AP1331
+26,OmniAccess Stellar AP1351,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1351,AP1351
+27,OmniAccess Stellar AP1230-Series,wlan,Indoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1230,"AP1230, AP1232"
+28,OmniAccess Stellar AP1561,wlan,Outdoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1561,AP1561
+29,OmniAccess Stellar AP1570 Series,wlan,Outdoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1570,"AP1571, AP1572"
+30,OmniAccess Stellar AP1360 Series,wlan,Outdoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1360,"AP1361, AP1362"
+31,OmniAccess Stellar AP1261,wlan,Outdoor Access Points,Wireless LAN,/en/products/wlan/omniaccess-stellar-access-point-1261,AP1261
+32,ALE DeskPhones,devices,Deskphones,Phones Softphones and Devices,/en/products/devices/ale-deskphones,"8008, 8018, 8028s, 8058s, 8068s, 8078s"
+33,ALE SIP Deskphones,devices,Deskphones,Phones Softphones and Devices,/en/products/devices/ale-sip-deskphones,"H3P, H6"
+34,Smart DeskPhones,devices,Deskphones,Phones Softphones and Devices,/en/products/devices/smart-deskphones,"DeskPhone 8088, DeskPhone 8078s BT, DeskPhone 8088 BT"
+35,DECT Handsets,devices,Mobile Handsets,Phones Softphones and Devices,/en/products/devices/dect-handsets,"8212, 8232, 8242, 8262"
+36,SIP-DECT Handsets,devices,Mobile Handsets,Phones Softphones and Devices,/en/products/devices/sip-dect-handsets,"8158s, 8168s, 8188"
+37,WLAN Handsets,devices,Mobile Handsets,Phones Softphones and Devices,/en/products/devices/wlan-handsets,"OmniTouch 8118, OmniTouch 8128"
+38,ALE Aries Headsets,devices,Headsets,Phones Softphones and Devices,/en/products/devices/ale-aries-headsets,"Aries 10, Aries 20, Aries 30, Aries 40"
+39,ALE SoftPhone,applications,Softphones,Phones Softphones and Devices,/en/products/applications/ale-softphone,
+40,IP Desktop Softphone,applications,Softphones,Phones Softphones and Devices,/en/products/applications/ip-desktop-softphone,
+41,PIMphony,applications,Softphones,Phones Softphones and Devices,/en/products/applications/pimphony,
+42,OmniPCX Enterprise Communication Server,platforms,UC Platforms,Communication Platforms,/en/products/platforms/omnipcx-enterprise-communication-server,
+43,OXO Connect,platforms,UC Platforms,Communication Platforms,/en/products/platforms/oxo-connect,"OXO Connect S, OXO Connect M, OXO Connect L"
+44,OpenTouch Enterprise Cloud,platforms,UC Platforms,Communication Platforms,/en/products/platforms/opentouch-enterprise-cloud,
+45,OpenTouch Fax Center,platforms,UC Platforms,Communication Platforms,/en/products/platforms/opentouch-fax-center,
+46,Rainbow,platforms,UC Platforms,Communication Platforms,/en/rainbow,"Rainbow Essential, Rainbow Enterprise"
+47,OmniPCX Open Gateway,platforms,UC Platforms,Communication Platforms,/en/products/platforms/omnipcx-open-gateway,
+48,DECT Base Stations,platforms,DECT Platforms,Communication Platforms,/en/products/platforms/dect-infrastructure,"4070 IO, 4070 EO"
+49,SIP-DECT Base Stations,platforms,DECT Platforms,Communication Platforms,/en/products/platforms/sip-dect-infrastructure,8378
+50,ALE Connect,applications,Contact Center,Contact Center and Attendants,/en/products/applications/ale-connect,
+51,OmniTouch Contact Center SE,applications,Contact Center,Contact Center and Attendants,/en/products/applications/omnitouch-contact-center-se,
+52,4059 Extended Edition Attendant Console,applications,Attendants,Contact Center and Attendants,/en/products/applications/4059-extended-edition-attendant-console,
+53,Dispatch Console,applications,Contact Center,Contact Center and Attendants,/en/products/applications/dispatch-console,
+54,OmniPCX RECORD Suite,applications,Contact Center,Contact Center and Attendants,/en/products/applications/omnipcx-record-suite,
+55,Soft Panel Manager,applications,Attendants,Contact Center and Attendants,/en/products/applications/soft-panel-manager,
+56,Visual Automated Attendant,applications,Attendants,Contact Center and Attendants,/en/products/applications/visual-automated-attendant,
+57,Microsoft Teams Integration,applications,Ecosystems,Ecosystems Integration,/en/products/applications/microsoft-teams-integration,
+58,Visual Notification Assistant,applications,Ecosystems,Ecosystems Integration,/en/products/applications/visual-notification-assistant,
+59,Rainbow App Connector,applications,Ecosystems,Ecosystems Integration,/en/rainbow/connectors-and-apps/app-connector,
+60,Rainbow Developers,applications,Ecosystems,Ecosystems Integration,/en/rainbow/developers,
+61,OmniVista Network Management Platform,network-management,Network Management & Security,Network Management & Security,/en/products/network-management-security/omnivista-network-management-platform,"OmniVista 2500, OmniVista Cirrus"
+62,Fleet Supervision,network-management,Network Management & Security,Network Management & Security,/en/products/network-management-security/fleet-supervision,
+63,OmniSwitch Milestone Plugin,network-management,Network Management & Security,Network Management & Security,/en/products/network-management-security/omniswitch-milestone-plugin,
+64,OmniVista Network Advisor,network-management,Network Management & Security,Network Management & Security,/en/products/network-management-security/omnivista-network-advisor,
+65,OmniVista Smart Tool,network-management,Network Management & Security,Network Management & Security,/en/products/network-management-security/omnivista-smart-tool,
+66,OmniVista 8770 Network Management System,comms-management,Communications Management & Security,Communications Management & Security,/en/products/communications-management-security/omnivista-8770-network-management-system,
+67,Unified Management Center,comms-management,Communications Management & Security,Communications Management & Security,/en/products/communications-management-security/unified-management-center,
+68,OpenTouch Session Border Controller,comms-management,Communications Management & Security,Communications Management & Security,/en/products/communications-management-security/opentouch-session-border-controller,
+69,OmniAccess Stellar Asset Tracking,location-services,Location Services,Location Services,/en/products/asset-tracking,
