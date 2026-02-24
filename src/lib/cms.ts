@@ -205,18 +205,21 @@ export async function getPlatformData(options?: { draft?: boolean }): Promise<Pr
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
       heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
-      category: (doc.category || 'communications') as ProductData['category'],
-      features: doc.features || [],
-      highlights: doc.highlights || [],
-      relatedProducts: [],
+      category: (doc.category || staticBySlug[doc.slug]?.category || 'communications') as ProductData['category'],
+      features: doc.features || staticBySlug[doc.slug]?.features || [],
+      highlights: doc.highlights || staticBySlug[doc.slug]?.highlights || [],
+      relatedProducts: staticBySlug[doc.slug]?.relatedProducts || [],
     }))
-  }, [])
+    const fromStatic = staticData.filter(p => !cmsSlugs.has(p.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData)
 }
 
 // ── Services ────────────────────────────────────────────────

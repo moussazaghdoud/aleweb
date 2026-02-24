@@ -152,7 +152,7 @@ export const platformData: ProductData[] = [
     description:
       "OmniVista Network Advisor is an autonomous, AI-driven companion that minimizes network downtime and enhances Quality of Experience. Through integrated AI and machine learning, it monitors the entire network — ALE infrastructure and third-party equipment alike — to anticipate problems, accelerate troubleshooting, and benchmark performance. Real-time alerts via Rainbow and Microsoft Teams keep IT teams informed instantly.",
     heroImage:
-      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/blogs-future-of-business-part-1-header-l2-l3-web.jpg?h=600&w=1440",
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ai-ops-offer-header-image.jpg?h=600&w=1440",
     features: [
       {
         title: "Proactive Issue Detection",
@@ -282,7 +282,7 @@ export const platformData: ProductData[] = [
     tagline: "Enterprise communication server for mission-critical unified communications",
     description:
       "OmniPCX Enterprise is ALE's flagship communication server, delivering carrier-grade unified communications for large enterprises and mission-critical environments. Deployed in over 100 countries, OmniPCX Enterprise provides voice, video, messaging, and collaboration services with 99.999% availability — available on-premises, in the cloud, or as a hybrid deployment.",
-    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnipcx-enterprise-communication-server-header-image-v2.jpg?h=600&w=1440",
     features: [
       {
         title: "Carrier-Grade Reliability",
@@ -320,7 +320,7 @@ export const platformData: ProductData[] = [
     tagline: "All-in-one communication server designed for small and medium businesses",
     description:
       "OXO Connect is a powerful yet simple communication server purpose-built for SMBs. It combines enterprise-grade telephony, unified communications, and contact center capabilities in a single compact platform. With built-in Rainbow integration, OXO Connect gives small businesses access to the same collaboration tools used by large enterprises — at a fraction of the cost and complexity.",
-    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oxo-connect-header-image-v4.jpg?h=600&w=1440",
     features: [
       {
         title: "All-in-One Platform",
@@ -358,7 +358,7 @@ export const platformData: ProductData[] = [
     tagline: "Omnichannel contact center solution for superior customer experiences",
     description:
       "ALE Connect is a comprehensive omnichannel contact center solution that enables organizations to deliver exceptional customer experiences across voice, email, chat, social media, and messaging channels. Available as cloud (CCaaS) or on-premises deployment, ALE Connect provides intelligent routing, real-time supervision, and detailed analytics to optimize agent productivity and customer satisfaction.",
-    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/product-communication-platforms-homepage-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-connect-header-image-v4.jpg?h=600&w=1440",
     features: [
       {
         title: "Omnichannel Engagement",
