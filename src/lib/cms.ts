@@ -106,6 +106,9 @@ export async function getIndustriesData(options?: { draft?: boolean }): Promise<
 // ── Products ────────────────────────────────────────────────
 
 export async function getCatalogProducts(options?: { draft?: boolean }): Promise<CatalogProduct[]> {
+  const { catalogProducts: staticData } = await import('@/data/products-catalog')
+  const staticBySlug = Object.fromEntries(staticData.map(p => [p.slug, p]))
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -115,18 +118,23 @@ export async function getCatalogProducts(options?: { draft?: boolean }): Promise
       sort: 'name',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    // Merge CMS docs with static fallback for images and missing fields
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
       category: doc.category,
-      subcategory: doc.subcategory || undefined,
-      image: doc.heroImage?.url || undefined,
-      features: doc.features || [],
-      highlights: doc.highlights || [],
+      subcategory: doc.subcategory || staticBySlug[doc.slug]?.subcategory || undefined,
+      image: doc.heroImage?.url || staticBySlug[doc.slug]?.image || undefined,
+      features: doc.features || staticBySlug[doc.slug]?.features || [],
+      highlights: doc.highlights || staticBySlug[doc.slug]?.highlights || [],
     }))
-  }, [])
+    // Add any static products not yet in CMS
+    const fromStatic = staticData.filter(p => !cmsSlugs.has(p.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData)
 }
 
 export async function getProductCategories(): Promise<ProductCategory[]> {
