@@ -16,14 +16,15 @@ import { primaryNav, type NavItem } from "@/data/navigation";
 /* ================================================================== */
 
 /* ── Pillar color coding for Platform items ── */
-const pillarHint: Record<string, string> = {
-  Rainbow: "text-purple-500",
-  OmniSwitch: "text-blue-500",
-  "Stellar Wi-Fi": "text-blue-500",
-  "AI Ops": "text-cyan-500",
-  "Private 5G": "text-blue-500",
-  "OmniPCX Enterprise": "text-purple-500",
-  "ALE Connect": "text-purple-500",
+const pillarHint: Record<string, { text: string; dot: string }> = {
+  Rainbow: { text: "group-hover:text-cloud", dot: "bg-cloud" },
+  OmniSwitch: { text: "group-hover:text-network", dot: "bg-network" },
+  "Stellar Wi-Fi": { text: "group-hover:text-network", dot: "bg-network" },
+  "AI Ops": { text: "group-hover:text-ai", dot: "bg-ai" },
+  "Private 5G": { text: "group-hover:text-network", dot: "bg-network" },
+  "OmniPCX Enterprise": { text: "group-hover:text-cloud", dot: "bg-cloud" },
+  "ALE Connect": { text: "group-hover:text-cloud", dot: "bg-cloud" },
+  "Full Product Catalog": { text: "group-hover:text-ale", dot: "bg-ale" },
 };
 
 /* ── Category icons for mega menu headers ── */
@@ -102,28 +103,34 @@ function MegaPanel({ item, onClose }: { item: NavItem; onClose: () => void }) {
               <div className={`grid ${cols === 1 ? "grid-cols-1" : cols === 2 ? "grid-cols-2" : "grid-cols-3"} gap-x-8`}>
                 {columns.map((col, ci) => (
                   <div key={ci} className="space-y-1">
-                    {col.map((child) => (
-                      <Link
-                        key={child.label}
-                        href={child.href}
-                        onClick={onClose}
-                        className="group flex items-start gap-3 px-3 py-2.5 -mx-3 rounded-lg hover:bg-ale-50 transition-colors"
-                      >
-                        <div className="flex-1 min-w-0">
-                          <div className={`text-[13px] font-semibold text-text group-hover:text-ale transition-colors ${pillarHint[child.label] || ""}`}>
-                            {child.label}
-                          </div>
-                          {child.description && (
-                            <div className="text-[11px] text-text-muted mt-0.5 leading-relaxed">
-                              {child.description}
-                            </div>
+                    {col.map((child) => {
+                      const hint = pillarHint[child.label];
+                      return (
+                        <Link
+                          key={child.label}
+                          href={child.href}
+                          onClick={onClose}
+                          className="group flex items-start gap-3 px-3 py-2.5 -mx-3 rounded-lg hover:bg-ale-50 transition-colors"
+                        >
+                          {hint && (
+                            <span className={`w-1.5 h-1.5 rounded-full ${hint.dot} mt-[7px] shrink-0`} />
                           )}
-                        </div>
-                        <svg className="w-3.5 h-3.5 text-text-muted/0 group-hover:text-ale group-hover:translate-x-0.5 transition-all mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                        </svg>
-                      </Link>
-                    ))}
+                          <div className="flex-1 min-w-0">
+                            <div className={`text-[13px] font-semibold text-text transition-colors ${hint ? hint.text : "group-hover:text-ale"}`}>
+                              {child.label}
+                            </div>
+                            {child.description && (
+                              <div className="text-[11px] text-text-muted mt-0.5 leading-relaxed">
+                                {child.description}
+                              </div>
+                            )}
+                          </div>
+                          <svg className="w-3.5 h-3.5 text-text-muted/0 group-hover:text-ale group-hover:translate-x-0.5 transition-all mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                          </svg>
+                        </Link>
+                      );
+                    })}
                   </div>
                 ))}
               </div>

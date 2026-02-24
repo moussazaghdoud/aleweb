@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   IconChat, IconShield, IconAI, IconCloud, IconSignal, IconGlobe,
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
-  IconManufacturing, IconEnergy,
+  IconManufacturing, IconEnergy, IconTransportation, IconSmartBuildings,
 } from "@/components/primitives/Icons";
 import { blogData } from "@/data/blog";
 
@@ -163,11 +163,11 @@ function IconLayers({ className = "w-6 h-6" }: { className?: string }) {
 
 const productCategories = [
   { name: "Switches", slug: "switches", Icon: IconSwitches, count: "14 models", pillar: "network" as const },
-  { name: "Wireless LAN", slug: "wlan", Icon: IconWifi, count: "20+ APs", pillar: "network" as const },
-  { name: "Phones & Devices", slug: "devices", Icon: IconPhone, count: "8 ranges", pillar: "cloud" as const },
-  { name: "Applications", slug: "applications", Icon: IconApps, count: "5 products", pillar: "cloud" as const },
-  { name: "Management", slug: "management", Icon: IconDashboard, count: "4 tools", pillar: "ai" as const },
-  { name: "Platforms", slug: "platforms", Icon: IconLayers, count: "6 platforms", pillar: "cloud" as const },
+  { name: "Wireless LAN", slug: "wlan", Icon: IconWifi, count: "17 APs", pillar: "network" as const },
+  { name: "Phones & Devices", slug: "devices", Icon: IconPhone, count: "10 ranges", pillar: "cloud" as const },
+  { name: "Contact Center", slug: "applications", Icon: IconApps, count: "11 products", pillar: "cloud" as const },
+  { name: "Platforms", slug: "platforms", Icon: IconLayers, count: "8 platforms", pillar: "cloud" as const },
+  { name: "Net Management", slug: "management", Icon: IconDashboard, count: "8 tools", pillar: "ai" as const },
 ];
 
 const productPillarDot = {
@@ -184,6 +184,8 @@ const industries = [
   { Icon: IconGovernment, name: "Government", desc: "Secure public services", href: "/industries/government", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-header-image-v2.jpg?h=600&w=1440" },
   { Icon: IconManufacturing, name: "Manufacturing", desc: "Industry 4.0 networks", href: "/industries/manufacturing", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440" },
   { Icon: IconEnergy, name: "Energy & Utilities", desc: "Ruggedized infrastructure", href: "/industries/energy", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440" },
+  { Icon: IconTransportation, name: "Transportation", desc: "Smart airports, railways, ports", href: "/industries/transportation", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-header-image-v2.jpg?h=600&w=1440" },
+  { Icon: IconSmartBuildings, name: "Smart Buildings", desc: "Connected building technology", href: "/industries/smart-buildings", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-building-header-1440x600.jpg?h=600&w=1440" },
 ];
 
 /* ── Trust stats ── */
@@ -297,7 +299,7 @@ export function QuickNav() {
                 Three pillars. One digital infrastructure.
               </h2>
               <p className="mt-4 text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
-                ALE unifies intelligent networks, cloud-native services, and AI-powered operations into a single enterprise platform — covering 54&nbsp;products, 20&nbsp;solutions, and 9&nbsp;industries.
+                ALE unifies intelligent networks, cloud-native services, and AI-powered operations into a single enterprise platform — covering 69&nbsp;products, 38&nbsp;solutions, and 8&nbsp;industries.
               </p>
             </div>
           </FadeIn>
@@ -432,7 +434,7 @@ export function QuickNav() {
                 Explore by product category
               </h2>
               <p className="mt-3 text-base text-text-secondary max-w-lg mx-auto">
-                54 products across switching, wireless, phones, applications, management, and platforms.
+                69 products across switching, wireless, phones, applications, management, and platforms.
               </p>
             </div>
           </FadeIn>
@@ -493,12 +495,12 @@ export function QuickNav() {
               </Link>
             </div>
           </FadeIn>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {industries.map((ind, i) => (
               <FadeIn key={ind.name} delay={i * 80}>
                 <Link
                   href={ind.href}
-                  className="group relative rounded-xl overflow-hidden h-56"
+                  className="group relative rounded-xl overflow-hidden h-52"
                 >
                   <Image
                     src={ind.image}

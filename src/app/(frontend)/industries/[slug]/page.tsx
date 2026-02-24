@@ -1,7 +1,10 @@
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
-import { getIndustriesData } from "@/lib/cms";
+import { getIndustriesData, getSolutionsData, getCatalogProducts } from "@/lib/cms";
+import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadCenter";
+import { FadeIn } from "@/components/shared/FadeIn";
+import downloadsIndex from "@/data/downloads-index.json";
 import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
@@ -41,6 +44,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function IndustryPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const industriesData = await getIndustriesData();
+  const solutionsData = await getSolutionsData();
+  const catalogProducts = await getCatalogProducts();
   const industry = industriesData.find((i) => i.slug === slug);
   if (!industry) notFound();
 
@@ -50,6 +55,33 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   const currentIdx = industriesData.findIndex((i) => i.slug === slug);
   const prev = currentIdx > 0 ? industriesData[currentIdx - 1] : null;
   const next = currentIdx < industriesData.length - 1 ? industriesData[currentIdx + 1] : null;
+
+  // Solutions that target this industry
+  const relatedSolutions = solutionsData.filter((s) =>
+    s.industries.includes(industry.slug)
+  );
+
+  // Match industry product names to catalog entries for linking
+  const matchedProducts = industry.products.map((productName) => {
+    const match = catalogProducts.find(
+      (p) =>
+        p.name.toLowerCase() === productName.toLowerCase() ||
+        p.name.toLowerCase().includes(productName.toLowerCase()) ||
+        productName.toLowerCase().includes(p.name.split(" ")[0].toLowerCase())
+    );
+    return { name: productName, match };
+  });
+
+  // Downloads for this industry
+  const pageUrlSuffix = `/en/industries/${slug}`;
+  const downloads: DownloadItem[] = (downloadsIndex as any[])
+    .filter((d: any) => d.pageUrl === pageUrlSuffix || d.pageUrl.endsWith(`/${slug}`))
+    .map((d: any) => ({
+      fileUrl: d.fileUrl,
+      fileName: d.fileName,
+      anchorText: d.anchorText,
+      documentType: d.documentType,
+    }));
 
   return (
     <>
@@ -90,9 +122,9 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="grid lg:grid-cols-3 gap-12">
-            <div className="lg:col-span-2">
+            <FadeIn className="lg:col-span-2">
               <p className="text-lg text-text-secondary leading-relaxed">{industry.description}</p>
-            </div>
+            </FadeIn>
             {industry.subPages && industry.subPages.length > 0 && (
               <div>
                 <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-4">
@@ -182,18 +214,69 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
             Featured products
           </h2>
-          <div className="flex flex-wrap gap-3">
-            {industry.products.map((product) => (
-              <span
-                key={product}
-                className="inline-flex items-center h-10 px-5 bg-white border border-light-200 rounded-full text-sm font-semibold text-text hover:border-ale-200 hover:text-ale transition-colors cursor-pointer"
-              >
-                {product}
-              </span>
-            ))}
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {matchedProducts.map(({ name, match }) =>
+              match ? (
+                <Link
+                  key={name}
+                  href={`/products/${match.category}/${match.slug}`}
+                  className="group flex items-center gap-4 p-4 rounded-xl border border-light-200 bg-white hover:border-ale-200 hover:shadow-md transition-all"
+                >
+                  {match.image && (
+                    <div className="w-14 h-14 rounded-lg bg-light-50 flex items-center justify-center shrink-0 overflow-hidden">
+                      <Image src={match.image} alt={match.name} width={56} height={56} className="object-contain" />
+                    </div>
+                  )}
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors truncate">
+                      {match.name}
+                    </h3>
+                    <p className="text-xs text-text-muted truncate">{match.tagline}</p>
+                  </div>
+                  <svg className="w-4 h-4 text-text-muted group-hover:text-ale shrink-0 ml-auto transition-all group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </Link>
+              ) : (
+                <span
+                  key={name}
+                  className="flex items-center gap-4 p-4 rounded-xl border border-light-200 bg-white text-sm font-semibold text-text"
+                >
+                  {name}
+                </span>
+              )
+            )}
           </div>
         </div>
       </section>
+
+      {/* Related Solutions */}
+      {relatedSolutions.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
+              Solutions for {industry.name}
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {relatedSolutions.map((sol) => (
+                <Link
+                  key={sol.slug}
+                  href={`/solutions/${sol.slug}`}
+                  className="group p-5 rounded-xl border border-light-200 hover:border-ale-200 hover:shadow-md transition-all"
+                >
+                  <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors mb-2">
+                    {sol.name}
+                  </h3>
+                  <p className="text-xs text-text-secondary line-clamp-2">{sol.tagline}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Download Center */}
+      <DownloadCenter downloads={downloads} />
 
       {/* CTA */}
       <section className="py-16 bg-ale-deep">

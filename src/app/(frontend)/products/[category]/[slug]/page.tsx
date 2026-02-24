@@ -1,7 +1,11 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-import { getProductCategories, getCatalogProducts } from "@/lib/cms";
+import { getProductCategories, getCatalogProducts, getSolutionsData } from "@/lib/cms";
+import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadCenter";
+import { PillarBadge, categoryToPillar } from "@/components/shared/PillarBadge";
+import { FadeIn } from "@/components/shared/FadeIn";
+import downloadsIndex from "@/data/downloads-index.json";
 
 export async function generateStaticParams() {
   const catalogProducts = await getCatalogProducts();
@@ -46,6 +50,34 @@ export default async function ProductDetailPage({
   const next =
     currentIdx < siblings.length - 1 ? siblings[currentIdx + 1] : null;
 
+  // Pillar badge
+  const pillar = categoryToPillar(category);
+
+  // Downloads for this product
+  const pageUrlSuffix = `/en/products/${category}/${slug}`;
+  const downloads: DownloadItem[] = (downloadsIndex as any[])
+    .filter((d: any) => d.pageUrl === pageUrlSuffix || d.pageUrl.endsWith(`/${slug}`))
+    .map((d: any) => ({
+      fileUrl: d.fileUrl,
+      fileName: d.fileName,
+      anchorText: d.anchorText,
+      documentType: d.documentType,
+    }));
+
+  // Solutions that reference this product
+  const solutionsData = await getSolutionsData();
+  const relatedSolutions = solutionsData.filter((s) =>
+    s.products.some((p: string) =>
+      product.name.toLowerCase().includes(p.toLowerCase()) ||
+      p.toLowerCase().includes(product.name.split(" ")[0].toLowerCase())
+    )
+  );
+
+  // Related products (same subcategory, excluding self)
+  const relatedProducts = catalogProducts
+    .filter((p) => p.category === category && p.slug !== slug && p.subcategory === product.subcategory)
+    .slice(0, 4);
+
   return (
     <>
       {/* Hero */}
@@ -84,11 +116,14 @@ export default async function ProductDetailPage({
           <p className="mt-5 text-lg text-white/60 max-w-2xl font-light leading-relaxed">
             {product.tagline}
           </p>
-          {product.subcategory && (
-            <span className="mt-4 inline-block text-xs font-semibold text-ale-300 bg-white/10 rounded-full px-3 py-1">
-              {product.subcategory}
-            </span>
-          )}
+          <div className="mt-4 flex flex-wrap items-center gap-3">
+            <PillarBadge pillar={pillar} />
+            {product.subcategory && (
+              <span className="text-xs font-semibold text-ale-300 bg-white/10 rounded-full px-3 py-1">
+                {product.subcategory}
+              </span>
+            )}
+          </div>
         </div>
       </section>
 
@@ -112,13 +147,13 @@ export default async function ProductDetailPage({
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className={`flex flex-col ${product.image ? "lg:flex-row lg:items-start lg:gap-16" : ""}`}>
-            <div className="max-w-3xl flex-1">
+            <FadeIn className="max-w-3xl flex-1">
               <p className="text-lg text-text-secondary leading-relaxed">
                 {product.description}
               </p>
-            </div>
+            </FadeIn>
             {product.image && (
-              <div className="mt-10 lg:mt-0 lg:w-[380px] shrink-0">
+              <FadeIn variant="scale-in" delay={150} className="mt-10 lg:mt-0 lg:w-[380px] shrink-0">
                 <div className="bg-light-50 rounded-2xl border border-light-200 p-8 flex items-center justify-center">
                   <Image
                     src={product.image}
@@ -128,7 +163,7 @@ export default async function ProductDetailPage({
                     className="object-contain max-h-[320px] w-auto"
                   />
                 </div>
-              </div>
+              </FadeIn>
             )}
           </div>
         </div>
@@ -137,9 +172,11 @@ export default async function ProductDetailPage({
       {/* Features */}
       <section className="py-16 bg-light-50">
         <div className="mx-auto max-w-[1320px] px-6">
-          <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
-            Key features
-          </h2>
+          <FadeIn>
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
+              Key features
+            </h2>
+          </FadeIn>
           <div className="grid sm:grid-cols-2 gap-5">
             {product.features.map((feat, i) => (
               <div
@@ -166,6 +203,61 @@ export default async function ProductDetailPage({
           </div>
         </div>
       </section>
+
+      {/* Download Center */}
+      <DownloadCenter downloads={downloads} />
+
+      {/* Solutions using this product */}
+      {relatedSolutions.length > 0 && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
+              Solutions using {product.name}
+            </h2>
+            <div className="flex flex-wrap gap-3">
+              {relatedSolutions.map((sol) => (
+                <Link
+                  key={sol.slug}
+                  href={`/solutions/${sol.slug}`}
+                  className="inline-flex items-center h-10 px-5 bg-white border border-light-200 rounded-full text-sm font-semibold text-text hover:border-ale-200 hover:text-ale transition-colors"
+                >
+                  {sol.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Related products */}
+      {relatedProducts.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
+              Related products
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              {relatedProducts.map((rp) => (
+                <Link
+                  key={rp.slug}
+                  href={`/products/${rp.category}/${rp.slug}`}
+                  className="group rounded-xl border border-light-200 p-5 hover:border-ale-200 hover:shadow-md transition-all"
+                >
+                  {rp.image && (
+                    <div className="bg-light-50 rounded-lg p-3 mb-4 flex items-center justify-center">
+                      <Image src={rp.image} alt={rp.name} width={160} height={120} className="object-contain max-h-[100px] w-auto" />
+                    </div>
+                  )}
+                  <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors mb-1">
+                    {rp.name}
+                  </h3>
+                  <p className="text-xs text-text-secondary line-clamp-2">{rp.tagline}</p>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Prev / Next */}
       <section className="py-10 bg-white border-t border-light-200">

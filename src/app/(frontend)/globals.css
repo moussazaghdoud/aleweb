@@ -16,6 +16,30 @@
   --color-ale-800: #3A1B5E;
   --color-ale-900: #2E1A4F;
 
+  /* Pillar: Network (Blue) */
+  --color-network-50: #EFF6FF;
+  --color-network-100: #DBEAFE;
+  --color-network-200: #BFDBFE;
+  --color-network-400: #60A5FA;
+  --color-network: #3B82F6;
+  --color-network-700: #1D4ED8;
+
+  /* Pillar: Cloud (Purple) */
+  --color-cloud-50: #F5F0FF;
+  --color-cloud-100: #EDE5FF;
+  --color-cloud-200: #D8CCFF;
+  --color-cloud-400: #A78BFA;
+  --color-cloud: #9370DB;
+  --color-cloud-700: #6D28D9;
+
+  /* Pillar: AI (Cyan) */
+  --color-ai-50: #ECFEFF;
+  --color-ai-100: #CFFAFE;
+  --color-ai-200: #A5F3FC;
+  --color-ai-400: #22D3EE;
+  --color-ai: #06B6D4;
+  --color-ai-700: #0E7490;
+
   --color-dark: #111111;
   --color-dark-800: #1A1A1A;
 
@@ -66,6 +90,45 @@ html { scroll-behavior: smooth; }
 .animate-mega-enter {
   animation: mega-enter 0.2s ease-out;
 }
+
+/* ── Scroll-triggered animation variants ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-left {
+  from { opacity: 0; transform: translateX(-30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes fade-right {
+  from { opacity: 0; transform: translateX(30px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+@keyframes scale-in {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes blur-in {
+  from { opacity: 0; filter: blur(8px); }
+  to { opacity: 1; filter: blur(0); }
+}
+
+.animate-fade-up { animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-left { animation: fade-left 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-fade-right { animation: fade-right 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-scale-in { animation: scale-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+.animate-blur-in { animation: blur-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Download center tab underline slide ── */
+@keyframes tab-slide {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+/* ── Pillar accent borders ── */
+.border-l-network { border-left: 3px solid var(--color-network); }
+.border-l-cloud { border-left: 3px solid var(--color-cloud); }
+.border-l-ai { border-left: 3px solid var(--color-ai); }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
