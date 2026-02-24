@@ -122,6 +122,7 @@ export async function getCatalogProducts(options?: { draft?: boolean }): Promise
       description: doc.description,
       category: doc.category,
       subcategory: doc.subcategory || undefined,
+      image: doc.heroImage?.url || undefined,
       features: doc.features || [],
       highlights: doc.highlights || [],
     }))
@@ -137,7 +138,7 @@ export async function getProductCategories(): Promise<ProductCategory[]> {
     { slug: 'applications', name: 'Contact Center & Applications', description: 'Contact center, dispatch, recording, and attendant solutions' },
     { slug: 'integration', name: 'Ecosystem Integration', description: 'Microsoft Teams, CRM connectors, and open APIs' },
     { slug: 'management', name: 'Communications & Network Management', description: 'Management platforms, security, and administration tools' },
-    { slug: 'platforms', name: 'Communication Platforms', description: 'DECT and SIP-DECT base station infrastructure' },
+    { slug: 'platforms', name: 'Communication Platforms', description: 'Enterprise communication servers, UCaaS, and DECT/SIP-DECT infrastructure' },
   ]
 }
 

@@ -23,7 +23,7 @@ export const productCategories: ProductCategory[] = [
   { slug: "applications", name: "Contact Center & Applications", description: "Contact center, dispatch, recording, and attendant solutions" },
   { slug: "integration", name: "Ecosystem Integration", description: "Microsoft Teams, CRM connectors, and open APIs" },
   { slug: "management", name: "Communications & Network Management", description: "Management platforms, security, and administration tools" },
-  { slug: "platforms", name: "Communication Platforms", description: "DECT and SIP-DECT base station infrastructure" },
+  { slug: "platforms", name: "Communication Platforms", description: "Enterprise communication servers, UCaaS, and DECT/SIP-DECT infrastructure" },
 ];
 
 export const catalogProducts: CatalogProduct[] = [
@@ -649,6 +649,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-500-deskphone-sip-keyboard-qw-neptune-product-photo-f-l-480p-3d.png",
     description: "ALE DeskPhones deliver premium enterprise telephony with high-definition audio, color displays, and intuitive interfaces. Compatible with OmniPCX Enterprise and Rainbow Hub, they serve as the primary communication tool for office workers, receptionists, and executives.",
     category: "devices",
+    subcategory: "ALE DeskPhones",
     features: [
       { title: "HD Audio Quality", description: "Wideband audio with acoustic echo cancellation and noise reduction for crystal-clear conversations in any office environment." },
       { title: "Color Display", description: "Intuitive color screens with customizable softkeys, directory access, and visual voicemail for efficient call management." },
@@ -664,6 +665,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/m8-deskphone-sip-and-single-em200-product-photo-front-right-480p.png",
     description: "ALE SIP DeskPhones are standards-based SIP terminals compatible with Rainbow Hub and any open SIP server. They deliver enterprise-grade voice quality and features with the flexibility of open standards, eliminating vendor lock-in.",
     category: "devices",
+    subcategory: "ALE SIP DeskPhones — Myriad Series",
     features: [
       { title: "Open SIP Standard", description: "Full SIP compliance ensures compatibility with Rainbow Hub, third-party SIP servers, and hosted VoIP services without proprietary dependencies." },
       { title: "Enterprise Features", description: "Multi-line support, transfer, conferencing, call parking, BLF keys, and programmable softkeys for professional call handling." },
@@ -679,6 +681,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-deskphones-8088-right-4c-480x480-product-showcase.png",
     description: "ALE Smart DeskPhones represent the future of desktop communications, combining HD video calling, touchscreen interfaces, and smart device features in an innovative desk phone form factor. They deliver immersive collaboration experiences rivaling dedicated video conferencing equipment.",
     category: "devices",
+    subcategory: "Smart DeskPhones",
     features: [
       { title: "HD Video Calling", description: "Built-in HD camera and display enable face-to-face video conversations directly from the desk phone without a separate video conferencing device." },
       { title: "Touchscreen Interface", description: "Large, intuitive touchscreen with smartphone-like interaction for contacts, call history, settings, and application access." },
@@ -694,6 +697,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ales-pc-android-iphone-480x480-product-showcase.png",
     description: "The IP Desktop Softphone transforms any PC or laptop into a full-featured enterprise phone. With all the capabilities of a hardware desk phone in a software application, it enables remote workers and mobile employees to stay connected with enterprise telephony from anywhere.",
     category: "devices",
+    subcategory: "Softphones",
     features: [
       { title: "Full Desk Phone Features", description: "Transfer, conferencing, hold, call recording, speed dials, and programmable keys — every hardware desk phone feature in software." },
       { title: "UC Integration", description: "Presence, instant messaging, and click-to-dial integration with Rainbow and enterprise directories for efficient communications." },
@@ -709,6 +713,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ales-pc-android-iphone-480x480-product-showcase.png",
     description: "PIMphony is a desktop unified communications client that integrates telephony, presence, and instant messaging with Microsoft Outlook and enterprise directories. It provides click-to-call, visual voicemail, and call control directly from the desktop.",
     category: "devices",
+    subcategory: "Softphones",
     features: [
       { title: "Outlook Integration", description: "Deep integration with Microsoft Outlook for click-to-dial from contacts, calendar-based presence, and automatic call journaling." },
       { title: "Visual Call Control", description: "Manage calls visually with drag-and-drop transfer, one-click conferencing, and graphical call history with recording playback." },
@@ -724,6 +729,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8254-dect-handset-menu-charger-f-r-480x480-product-showcase.png",
     description: "ALE DECT handsets provide wireless voice mobility across enterprise campuses, warehouses, and healthcare facilities. From basic models for general use to ruggedized units for industrial environments, the range covers every wireless mobility requirement.",
     category: "devices",
+    subcategory: "DECT Handsets",
     features: [
       { title: "Campus-Wide Mobility", description: "Seamless roaming across DECT base station cells with automatic handover for uninterrupted calls while moving throughout facilities." },
       { title: "Range of Models", description: "From compact basic handsets to ruggedized, dust/water-resistant models with barcode scanners for warehouse and industrial use." },
@@ -739,6 +745,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8262-sip-face-1.png",
     description: "SIP-DECT handsets combine the mobility of DECT wireless with the flexibility of open SIP standards. Compatible with any SIP-based communication platform, they provide wireless voice mobility without proprietary infrastructure dependencies.",
     category: "devices",
+    subcategory: "SIP-DECT Handsets",
     features: [
       { title: "Open SIP Standard", description: "SIP-based DECT connectivity works with Rainbow Hub, OmniPCX Enterprise, and third-party SIP platforms for maximum deployment flexibility." },
       { title: "HD Voice", description: "Wideband audio (G.722) for crystal-clear voice quality over DECT wireless, matching the audio quality of wired desk phones." },
@@ -754,6 +761,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/8262-sip-face-1.png",
     description: "ALE WLAN handsets provide wireless voice mobility over existing Wi-Fi infrastructure, eliminating the need for separate DECT base stations. Ideal for organizations that have already deployed OmniAccess Stellar Wi-Fi and want to add wireless voice without additional infrastructure.",
     category: "devices",
+    subcategory: "WLAN Handsets",
     features: [
       { title: "Wi-Fi Voice", description: "Enterprise voice over Wi-Fi using existing OmniAccess Stellar infrastructure — no additional DECT base stations required." },
       { title: "Seamless Roaming", description: "802.11r fast roaming ensures uninterrupted calls while moving between access points across campus and building environments." },
@@ -769,6 +777,7 @@ export const catalogProducts: CatalogProduct[] = [
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ah80-binaural-bt-product-image-480p.png",
     description: "The Aries Series headsets deliver professional audio quality for enterprise unified communications and contact center environments. With active noise cancellation, all-day comfort, and multi-device connectivity, they optimize the audio experience for every business communication.",
     category: "devices",
+    subcategory: "Headsets",
     features: [
       { title: "Active Noise Cancellation", description: "Advanced ANC blocks background noise for clear conversations in open offices, contact centers, and noisy environments." },
       { title: "All-Day Comfort", description: "Lightweight design with cushioned ear pads and adjustable headband for comfortable wear during extended shifts and long call sessions." },
@@ -1017,5 +1026,285 @@ export const catalogProducts: CatalogProduct[] = [
       { title: "Location Services", description: "Cell-based location provides zone-level positioning for emergency location, asset tracking, and presence-aware services." },
     ],
     highlights: [{ stat: "OmniPCX", label: "native" }, { stat: "Campus", label: "coverage" }, { stat: "Redundant", label: "architecture" }, { stat: "Location", label: "services" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // COMMUNICATION PLATFORMS — Communication Servers
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "omnipcx-enterprise",
+    name: "OmniPCX Enterprise Communication Server",
+    tagline: "Carrier-grade enterprise communication server for large organizations",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnipcx-enterprise-purple-shine-702x540.png",
+    description: "OmniPCX Enterprise is ALE's flagship communication server, delivering carrier-grade telephony for large enterprises, government, and transportation. Supporting up to 100,000 users across multi-site deployments, it provides advanced voice, unified communications, and contact center capabilities with 99.999% availability.",
+    category: "platforms",
+    subcategory: "Communication Servers",
+    features: [
+      { title: "Carrier-Grade Reliability", description: "Redundant architecture with automatic failover delivers 99.999% availability for mission-critical voice communications across global deployments." },
+      { title: "Massive Scalability", description: "Supports up to 100,000 users across distributed multi-site architectures with centralized or distributed call processing." },
+      { title: "Unified Communications", description: "Integrated voice, video, messaging, presence, and conferencing with native Rainbow integration for modern collaboration." },
+      { title: "Open Standards", description: "SIP-based architecture with open APIs enables integration with Microsoft Teams, contact center solutions, and third-party applications." },
+    ],
+    highlights: [{ stat: "100K", label: "users" }, { stat: "99.999%", label: "availability" }, { stat: "Multi-site", label: "distributed" }, { stat: "SIP", label: "open standards" }],
+  },
+  {
+    slug: "oxo-connect",
+    name: "OXO Connect",
+    tagline: "All-in-one communication solution for small and medium businesses",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/oxo-connect-702x540.png",
+    description: "OXO Connect is an all-in-one communication platform designed for small and medium businesses. Combining PBX, unified communications, mobility, and contact center in a single compact appliance, it delivers enterprise-grade features at an SMB price point with simple deployment and management.",
+    category: "platforms",
+    subcategory: "Communication Servers",
+    features: [
+      { title: "All-in-One Platform", description: "PBX, voicemail, auto-attendant, unified communications, and basic contact center in a single compact appliance — no separate servers required." },
+      { title: "SMB-Optimized", description: "Supports 10 to 300 users with cost-effective licensing and simplified management designed for businesses without dedicated IT staff." },
+      { title: "Built-in Mobility", description: "Integrated DECT, SIP-DECT, and mobile client support for workforce mobility without additional infrastructure investment." },
+      { title: "Rainbow Ready", description: "Native Rainbow integration adds cloud-based collaboration, team messaging, and video conferencing to the on-premises platform." },
+    ],
+    highlights: [{ stat: "All-in-one", label: "platform" }, { stat: "10–300", label: "users" }, { stat: "SMB", label: "optimized" }, { stat: "Rainbow", label: "integrated" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // COMMUNICATION PLATFORMS — Cloud & UCaaS
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "opentouch-enterprise-cloud",
+    name: "OpenTouch Enterprise Cloud",
+    tagline: "Cloud-based unified communications as a service for enterprises",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/opentouch-enterprise-cloud-702x540.png",
+    description: "OpenTouch Enterprise Cloud delivers ALE unified communications as a fully managed cloud service. Organizations get enterprise-grade voice, video, collaboration, and contact center capabilities without on-premises infrastructure, with flexible per-user subscription pricing.",
+    category: "platforms",
+    subcategory: "Cloud & UCaaS",
+    features: [
+      { title: "Full UCaaS", description: "Enterprise voice, video conferencing, team messaging, presence, and contact center delivered as a managed cloud service with guaranteed SLAs." },
+      { title: "No On-Premises Infrastructure", description: "Eliminates capital expenditure on communication servers — all infrastructure hosted and maintained by ALE in secure data centers." },
+      { title: "Per-User Pricing", description: "Flexible subscription licensing with per-user, per-month pricing that scales with organization size and feature requirements." },
+      { title: "Hybrid Cloud Option", description: "Supports hybrid deployments connecting cloud users with existing on-premises OmniPCX Enterprise systems during migration." },
+    ],
+    highlights: [{ stat: "UCaaS", label: "cloud-native" }, { stat: "SLA", label: "guaranteed" }, { stat: "Per-user", label: "pricing" }, { stat: "Hybrid", label: "cloud option" }],
+  },
+  {
+    slug: "rainbow-platform",
+    name: "Rainbow by ALE",
+    tagline: "Cloud communication platform connecting people, machines, and processes",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/rainbow-702x540.png",
+    description: "Rainbow is ALE's cloud communication and collaboration platform. It connects people through messaging, voice, and video while also linking business processes and IoT devices through open APIs. Rainbow works as a standalone platform or as a cloud overlay enhancing existing ALE on-premises systems.",
+    category: "platforms",
+    subcategory: "Cloud & UCaaS",
+    features: [
+      { title: "Team Collaboration", description: "Persistent chat rooms, file sharing, screen sharing, and video conferencing for team collaboration accessible from any device." },
+      { title: "CPaaS & APIs", description: "Communication Platform as a Service with REST APIs, SDKs, and webhooks for embedding voice, video, and messaging into business applications." },
+      { title: "Hybrid Bridge", description: "Overlays on existing OmniPCX Enterprise and OXO Connect systems, adding cloud collaboration without replacing on-premises telephony." },
+      { title: "IoT Connectivity", description: "Connect IoT devices and business processes through Rainbow APIs for automated notifications, alerts, and machine-to-human communication." },
+    ],
+    highlights: [{ stat: "Cloud", label: "collaboration" }, { stat: "CPaaS", label: "APIs & SDKs" }, { stat: "Hybrid", label: "bridge" }, { stat: "IoT", label: "connected" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // COMMUNICATION PLATFORMS — Applications & Add-ons
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "opentouch-fax-center",
+    name: "OpenTouch Fax Center",
+    tagline: "Enterprise fax server with email integration and compliance archiving",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "OpenTouch Fax Center is an enterprise fax server that integrates fax communications with email, replacing physical fax machines. Users send and receive faxes from their email client or web interface, with automatic archiving for compliance and audit requirements.",
+    category: "platforms",
+    subcategory: "Applications & Add-ons",
+    features: [
+      { title: "Email-to-Fax", description: "Send faxes directly from Microsoft Outlook or any email client — compose an email, attach documents, and the system delivers them as faxes." },
+      { title: "Fax-to-Email", description: "Incoming faxes are automatically converted to PDF and delivered to users' email inboxes, eliminating shared fax machines and paper." },
+      { title: "Compliance Archiving", description: "Automatic archiving of all sent and received faxes with search, retrieval, and retention policies for regulatory compliance." },
+      { title: "High-Volume Processing", description: "Enterprise-grade fax engine handles thousands of pages per hour with intelligent routing, retry logic, and delivery confirmation." },
+    ],
+    highlights: [{ stat: "Email", label: "integrated" }, { stat: "PDF", label: "conversion" }, { stat: "Archive", label: "compliance" }, { stat: "High-vol", label: "processing" }],
+  },
+  {
+    slug: "remote-visual-assistance",
+    name: "Remote Visual Assistance",
+    tagline: "AR-powered remote expert support for field technicians and customers",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "Remote Visual Assistance enables experts to see what field technicians or customers see through their smartphone camera and provide real-time visual guidance with AR annotations. It reduces on-site visits, accelerates issue resolution, and improves first-time fix rates.",
+    category: "platforms",
+    subcategory: "Applications & Add-ons",
+    features: [
+      { title: "AR Annotations", description: "Experts draw arrows, circles, and text annotations that appear anchored in the real-world view on the remote user's screen for precise guidance." },
+      { title: "No App Required", description: "WebRTC-based — remote users join via a simple link in their browser, no app installation needed on the customer or technician side." },
+      { title: "Session Recording", description: "Record visual assistance sessions for training, compliance documentation, and knowledge base creation." },
+      { title: "Rainbow Integration", description: "Integrated with Rainbow platform for seamless escalation from chat or voice call to visual assistance when needed." },
+    ],
+    highlights: [{ stat: "AR", label: "annotations" }, { stat: "No app", label: "browser-based" }, { stat: "Recording", label: "sessions" }, { stat: "Rainbow", label: "integrated" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // CONTACT CENTER & APPLICATIONS — New additions
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "ale-connect",
+    name: "ALE Connect",
+    tagline: "Omnichannel cloud contact center for modern customer engagement",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "ALE Connect is a cloud-native omnichannel contact center platform that unifies voice, email, chat, social media, and messaging into a single agent workspace. With AI-powered routing, real-time analytics, and workforce optimization, it transforms customer engagement for mid-market and large enterprises.",
+    category: "applications",
+    features: [
+      { title: "Omnichannel Engagement", description: "Voice, email, web chat, SMS, WhatsApp, and social media channels unified in a single agent desktop with full interaction history." },
+      { title: "AI-Powered Routing", description: "Intelligent routing matches customers to the best-skilled available agent based on context, sentiment, and interaction history." },
+      { title: "Real-Time Analytics", description: "Live dashboards with queue metrics, agent performance, SLA tracking, and customer journey visualization for supervisors." },
+      { title: "Cloud-Native Architecture", description: "Multi-tenant cloud platform with elastic scalability, automatic updates, and 99.99% availability SLA." },
+    ],
+    highlights: [{ stat: "Omnichannel", label: "unified" }, { stat: "AI", label: "routing" }, { stat: "Cloud", label: "native" }, { stat: "99.99%", label: "SLA" }],
+  },
+  {
+    slug: "omnitouch-contact-center",
+    name: "OmniTouch Contact Center Standard Edition",
+    tagline: "On-premises contact center suite for OmniPCX Enterprise environments",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "OmniTouch Contact Center Standard Edition provides comprehensive on-premises contact center capabilities tightly integrated with OmniPCX Enterprise. It delivers skills-based routing, IVR, reporting, and agent management for organizations requiring full on-premises control of their customer interactions.",
+    category: "applications",
+    features: [
+      { title: "Skills-Based Routing", description: "Route interactions to agents based on skills, language, priority, and availability with configurable overflow and escalation rules." },
+      { title: "Interactive Voice Response", description: "Multi-level IVR with DTMF and speech recognition for customer self-service, call qualification, and intelligent pre-routing." },
+      { title: "Supervisor Tools", description: "Real-time monitoring, silent listen, whisper coaching, and barge-in capabilities for contact center supervisors and team leaders." },
+      { title: "Historical Reporting", description: "Comprehensive historical reports on agent performance, queue metrics, call volumes, and SLA compliance with scheduled delivery." },
+    ],
+    highlights: [{ stat: "Skills", label: "based routing" }, { stat: "IVR", label: "self-service" }, { stat: "Supervisor", label: "monitoring" }, { stat: "Reports", label: "historical" }],
+  },
+  {
+    slug: "4059-attendant-console",
+    name: "4059 Extended Edition Attendant Console",
+    tagline: "Professional attendant console for enterprise receptionists and operators",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "The 4059 Extended Edition is a professional PC-based attendant console for enterprise receptionists and switchboard operators. It provides rapid call handling with directory integration, BLF monitoring, and queue management for efficient front-desk operations.",
+    category: "applications",
+    features: [
+      { title: "Rapid Call Handling", description: "Keyboard shortcuts, drag-and-drop transfer, and one-click operations enable operators to handle high call volumes efficiently." },
+      { title: "Directory Integration", description: "Real-time search across corporate LDAP directories with presence status, location, and availability for informed call routing." },
+      { title: "BLF Monitoring", description: "Visual busy lamp field displays the real-time phone status of hundreds of users for instant availability checking before transfer." },
+      { title: "Queue Management", description: "Visual queue display with priority handling, overflow alerts, and statistics for professional reception desk operations." },
+    ],
+    highlights: [{ stat: "PC-based", label: "attendant" }, { stat: "BLF", label: "monitoring" }, { stat: "LDAP", label: "directory" }, { stat: "Queue", label: "management" }],
+  },
+  {
+    slug: "soft-panel-manager",
+    name: "Soft Panel Manager",
+    tagline: "Alarm management and notification panel for building and campus safety",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "Soft Panel Manager is a centralized alarm management and notification application for building safety and campus security. It receives alarms from multiple sources, manages escalation workflows, and coordinates emergency notification across communication channels.",
+    category: "applications",
+    features: [
+      { title: "Alarm Aggregation", description: "Collects alarms from fire panels, intrusion systems, building management, and personnel safety devices into a unified console." },
+      { title: "Escalation Workflows", description: "Configurable escalation rules automatically notify the right personnel through voice calls, SMS, email, and paging if initial responders don't acknowledge." },
+      { title: "Mass Notification", description: "Broadcast emergency announcements across desk phones, PA systems, and mobile devices for building-wide or zone-specific alerts." },
+      { title: "Audit Trail", description: "Complete timestamped logging of all alarms, acknowledgments, and actions taken for compliance reporting and incident review." },
+    ],
+    highlights: [{ stat: "Alarms", label: "aggregated" }, { stat: "Escalation", label: "automated" }, { stat: "Mass notify", label: "multi-channel" }, { stat: "Audit", label: "trail" }],
+  },
+  {
+    slug: "visual-notification-assistant",
+    name: "Visual Notification Assistant",
+    tagline: "Automated notification and message broadcast for enterprise communications",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-8770-network-management-system-homepage-web-client-480x480.png",
+    description: "Visual Notification Assistant automates the delivery of notifications, reminders, and messages to groups of users across multiple communication channels. From appointment reminders to shift notifications, it streamlines routine communication workflows.",
+    category: "applications",
+    features: [
+      { title: "Multi-Channel Delivery", description: "Send notifications via voice call, SMS, email, desk phone display, and Rainbow messaging — choose the best channel for each scenario." },
+      { title: "Visual Campaign Designer", description: "Drag-and-drop designer for creating notification campaigns with templates, schedules, recipient groups, and delivery rules." },
+      { title: "Confirmation Tracking", description: "Track delivery status and recipient confirmation with automatic retry and escalation for unacknowledged critical notifications." },
+      { title: "API Integration", description: "REST API enables external systems like scheduling software, HR systems, and ERP to trigger automated notifications programmatically." },
+    ],
+    highlights: [{ stat: "Multi-channel", label: "delivery" }, { stat: "Visual", label: "campaign design" }, { stat: "Tracking", label: "confirmations" }, { stat: "REST API", label: "integration" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // NETWORK MANAGEMENT — New additions
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "omnivista-network-management",
+    name: "OmniVista Network Management Platform",
+    tagline: "Unified network management for ALE switches, access points, and infrastructure",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-2500-nms-702x540.png",
+    description: "OmniVista Network Management Platform provides unified management for the complete ALE network infrastructure including OmniSwitch, OmniAccess Stellar, and IoT devices. It delivers network-wide visibility, automated provisioning, analytics, and policy management from a single pane of glass.",
+    category: "management",
+    features: [
+      { title: "Unified Network View", description: "Single dashboard managing OmniSwitch LAN, OmniAccess Stellar WLAN, and IoT devices with topology mapping and real-time status." },
+      { title: "Automated Provisioning", description: "Zero-touch provisioning with template-based configuration and firmware management for rapid deployment of switches and access points." },
+      { title: "Network Analytics", description: "AI-driven analytics with anomaly detection, capacity planning, and application visibility for proactive network operations." },
+      { title: "IoT Containment Policy", description: "Centralized IoT device profiling and micro-segmentation policy management across the entire wired and wireless infrastructure." },
+    ],
+    highlights: [{ stat: "Unified", label: "LAN & WLAN" }, { stat: "Zero-touch", label: "provisioning" }, { stat: "AI", label: "analytics" }, { stat: "IoT", label: "policy engine" }],
+  },
+  {
+    slug: "omnivista-network-advisor",
+    name: "OmniVista Network Advisor",
+    tagline: "AI-powered network assurance and proactive issue resolution",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-network-advisor-image-v6.jpg",
+    description: "OmniVista Network Advisor uses AI and machine learning to continuously monitor network health, predict issues before they impact users, and provide actionable recommendations. It transforms reactive troubleshooting into proactive network assurance.",
+    category: "management",
+    features: [
+      { title: "Proactive Monitoring", description: "ML-based baseline learning detects anomalies in traffic patterns, device behavior, and performance metrics before they become outages." },
+      { title: "Root Cause Analysis", description: "Automated root cause analysis correlates events across network layers to identify the underlying cause of issues, not just symptoms." },
+      { title: "Actionable Recommendations", description: "AI-generated remediation suggestions with one-click implementation for common issues, reducing mean time to resolution." },
+      { title: "Capacity Planning", description: "Predictive analytics forecast network growth trends and recommend infrastructure upgrades before capacity constraints impact performance." },
+    ],
+    highlights: [{ stat: "AI", label: "powered" }, { stat: "Proactive", label: "monitoring" }, { stat: "RCA", label: "root cause" }, { stat: "Predictive", label: "planning" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // PHONES & DEVICES — Halo Series
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "ale-sip-deskphones-halo",
+    name: "ALE SIP DeskPhones — Halo Series",
+    tagline: "Next-generation SIP desk phones with modern design and enhanced usability",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/halo-sip-phone-product-image-480x480.png",
+    description: "The Halo Series represents the next generation of ALE SIP desk phones, featuring modern industrial design, improved ergonomics, and enhanced audio quality. With larger color displays, USB-C connectivity, and native Rainbow integration, they set a new standard for enterprise desk phones.",
+    category: "devices",
+    subcategory: "ALE SIP DeskPhones — Halo Series",
+    features: [
+      { title: "Modern Design", description: "Sleek industrial design with slim profile, adjustable stand, and premium materials that complement modern office environments." },
+      { title: "Enhanced Audio", description: "Next-generation acoustic design with improved full-duplex speakerphone, wideband audio, and advanced noise cancellation." },
+      { title: "USB-C Connectivity", description: "USB-C port for headsets, charging mobile devices, and connecting accessories — replacing legacy USB-A and proprietary connectors." },
+      { title: "Larger Color Display", description: "High-resolution color display with intuitive UI for contacts, call management, and Rainbow collaboration features." },
+    ],
+    highlights: [{ stat: "USB-C", label: "connectivity" }, { stat: "HD Audio", label: "enhanced" }, { stat: "Rainbow", label: "native" }, { stat: "Modern", label: "design" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // ECOSYSTEM INTEGRATION — New addition
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "rainbow-developers",
+    name: "Rainbow Developers",
+    tagline: "Developer platform for embedding communication capabilities into applications",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnivista-network-advisor-image-v6.jpg",
+    description: "Rainbow Developers provides the tools, APIs, SDKs, and documentation for embedding real-time communication capabilities into custom applications and business processes. Build voice, video, messaging, and presence features into any web, mobile, or server-side application.",
+    category: "integration",
+    features: [
+      { title: "REST APIs", description: "Comprehensive REST APIs for voice, video, messaging, presence, file sharing, and user management with OAuth 2.0 authentication." },
+      { title: "Client SDKs", description: "Native SDKs for Web (JavaScript), iOS (Swift), Android (Kotlin), and Node.js for rapid integration into any application platform." },
+      { title: "Webhooks & Bots", description: "Event-driven webhooks and bot framework for building automated workflows, chatbots, and system integrations." },
+      { title: "Sandbox Environment", description: "Free developer sandbox with test accounts for prototyping and development before production deployment." },
+    ],
+    highlights: [{ stat: "REST", label: "APIs" }, { stat: "SDKs", label: "multi-platform" }, { stat: "Bots", label: "framework" }, { stat: "Sandbox", label: "free tier" }],
+  },
+
+  // ═══════════════════════════════════════════════════════════════════════
+  // WIRELESS LAN — Location Services
+  // ═══════════════════════════════════════════════════════════════════════
+  {
+    slug: "omniaccess-stellar-asset-tracking",
+    name: "OmniAccess Stellar Asset Tracking",
+    tagline: "Real-time indoor location and asset tracking using WLAN infrastructure",
+    image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-stellar-ap1511.png",
+    description: "OmniAccess Stellar Asset Tracking leverages the existing Stellar WLAN infrastructure and BLE beacons to provide real-time indoor location services. Track assets, monitor personnel safety, enable wayfinding, and gain spatial analytics — all without deploying separate location infrastructure.",
+    category: "wlan",
+    subcategory: "Location Services",
+    features: [
+      { title: "BLE-Based Tracking", description: "Bluetooth Low Energy beacons and Stellar AP integrated BLE radios provide room-level and zone-level asset and personnel tracking." },
+      { title: "No Separate Infrastructure", description: "Leverages existing OmniAccess Stellar access points as location receivers — no dedicated location sensors or overlay network required." },
+      { title: "Wayfinding", description: "Interactive indoor maps with turn-by-turn navigation for visitors, patients, and employees in large campuses and healthcare facilities." },
+      { title: "Spatial Analytics", description: "Heat maps, dwell time analysis, and traffic flow visualization for space utilization optimization and operational planning." },
+    ],
+    highlights: [{ stat: "BLE", label: "tracking" }, { stat: "No overlay", label: "uses existing APs" }, { stat: "Wayfinding", label: "indoor maps" }, { stat: "Analytics", label: "spatial" }],
   },
 ];
