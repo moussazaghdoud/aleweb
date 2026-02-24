@@ -179,11 +179,11 @@ export default function TestColorsPage() {
       </section>
 
       {/* ══════════════════════════════════════════════════════════ */}
-      {/*  OPTION C — Purple Refined                                */}
+      {/*  OPTION C — Purple Heavy (current)                        */}
       {/* ══════════════════════════════════════════════════════════ */}
       <section className="border-b-4 border-purple-500">
         <div className="bg-purple-50 py-4 px-6 text-center">
-          <span className="text-sm font-extrabold text-purple-700 uppercase tracking-widest">Option C — Purple Refined (current, improved)</span>
+          <span className="text-sm font-extrabold text-purple-700 uppercase tracking-widest">Option C — Purple Heavy (current site)</span>
         </div>
 
         {/* Navbar mock */}
@@ -255,6 +255,92 @@ export default function TestColorsPage() {
               <div className="p-5 rounded-xl border border-gray-200 hover:border-purple-300 transition-colors">
                 <div className="w-9 h-9 rounded-lg bg-purple-50 flex items-center justify-center mb-3">
                   <span className="text-purple-700 font-bold text-sm">02</span>
+                </div>
+                <h3 className="text-sm font-bold text-gray-900 mb-1">Unified Communications</h3>
+                <p className="text-xs text-gray-500">Voice, video, messaging in a single platform</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ══════════════════════════════════════════════════════════ */}
+      {/*  OPTION D — Purple Light & Airy                           */}
+      {/* ══════════════════════════════════════════════════════════ */}
+      <section className="border-b-4 border-violet-400">
+        <div className="bg-violet-50 py-4 px-6 text-center">
+          <span className="text-sm font-extrabold text-violet-600 uppercase tracking-widest">Option D — Purple Light & Airy (recommended)</span>
+        </div>
+
+        {/* Navbar mock */}
+        <div className="bg-white/98 backdrop-blur border-b border-violet-100">
+          <div className="mx-auto max-w-[1320px] px-6 flex h-[56px] items-center justify-between">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-full bg-violet-600 flex items-center justify-center">
+                <span className="text-white text-xs font-bold">ALE</span>
+              </div>
+              <span className="font-bold text-gray-900 text-sm">Alcatel-Lucent Enterprise</span>
+            </div>
+            <div className="flex items-center gap-6">
+              <span className="text-sm text-gray-500 font-medium">Industries</span>
+              <span className="text-sm text-gray-500 font-medium">Solutions</span>
+              <span className="text-sm text-violet-600 font-medium">Platform</span>
+              <span className="text-sm text-gray-500 font-medium">Services</span>
+              <button className="h-9 px-5 bg-violet-600 text-white text-xs font-semibold rounded-full hover:bg-violet-700 transition-colors">
+                Contact Us
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Hero — lighter, more photo visible */}
+        <div className="relative min-h-[320px] flex items-end overflow-hidden">
+          <div className="absolute inset-0 bg-[url('https://web-assets.al-enterprise.com/-/media/assets/internet/images/omnipcx-enterprise-communication-server-header-image-v2.jpg?h=600&w=1440')] bg-cover bg-center" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/30 to-violet-900/10" />
+          <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-10 pt-24">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center">
+                <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" /></svg>
+              </div>
+              <h2 className="text-3xl font-extrabold text-white">OmniPCX Enterprise</h2>
+            </div>
+            <p className="text-base text-white/70 max-w-xl">Enterprise communication server for mission-critical unified communications</p>
+          </div>
+        </div>
+
+        {/* Stats strip — lighter purple instead of near-black */}
+        <div className="py-7 bg-violet-600">
+          <div className="mx-auto max-w-[1320px] px-6 grid grid-cols-4 gap-6">
+            {[{ s: "99.999%", l: "uptime" }, { s: "100+", l: "countries" }, { s: "300K", l: "users" }, { s: "Defense", l: "grade" }].map((item, i) => (
+              <div key={i} className="text-center">
+                <div className="text-xl font-extrabold text-white">{item.s}</div>
+                <div className="text-xs text-violet-200 mt-1">{item.l}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Content sample */}
+        <div className="py-10 bg-gray-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <div className="flex flex-wrap gap-3 mb-6">
+              <button className="h-11 px-7 bg-violet-600 text-white text-sm font-semibold rounded-full">Request a Demo</button>
+              <button className="h-11 px-7 bg-white border border-violet-200 text-violet-700 text-sm font-semibold rounded-full">View Products</button>
+              <span className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold uppercase tracking-wider rounded-full bg-violet-100 text-violet-600">
+                <span className="w-1.5 h-1.5 rounded-full bg-violet-500" />Cloud
+              </span>
+            </div>
+            <div className="grid grid-cols-2 gap-4 max-w-2xl">
+              <div className="p-5 rounded-xl border border-gray-200 bg-white hover:border-violet-300 hover:shadow-sm transition-all">
+                <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center mb-3">
+                  <span className="text-violet-600 font-bold text-sm">01</span>
+                </div>
+                <h3 className="text-sm font-bold text-gray-900 mb-1">Carrier-Grade Reliability</h3>
+                <p className="text-xs text-gray-500">99.999% availability with redundant architecture</p>
+              </div>
+              <div className="p-5 rounded-xl border border-gray-200 bg-white hover:border-violet-300 hover:shadow-sm transition-all">
+                <div className="w-9 h-9 rounded-lg bg-violet-100 flex items-center justify-center mb-3">
+                  <span className="text-violet-600 font-bold text-sm">02</span>
                 </div>
                 <h3 className="text-sm font-bold text-gray-900 mb-1">Unified Communications</h3>
                 <p className="text-xs text-gray-500">Voice, video, messaging in a single platform</p>
