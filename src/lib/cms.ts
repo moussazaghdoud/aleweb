@@ -26,6 +26,21 @@ async function safeFetch<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
+/**
+ * Resolve hero image URL: prefer external CDN URLs over local /api/media/ paths.
+ * Railway filesystem is ephemeral — locally uploaded files vanish on redeploy.
+ * So if the CMS returns a local path, fall back to the static CDN URL.
+ */
+function resolveHeroImage(cmsUrl: string | undefined, staticUrl: string | undefined): string {
+  // If CMS provides an absolute external URL (https://...), use it
+  if (cmsUrl && cmsUrl.startsWith('http')) return cmsUrl
+  // Otherwise fall back to static data's CDN URL
+  if (staticUrl) return staticUrl
+  // Last resort: use the CMS local path (may work if files exist)
+  if (cmsUrl) return cmsUrl
+  return ''
+}
+
 // ── Types matching existing interfaces ──────────────────────
 
 // These mirror src/data/*.ts interfaces exactly
@@ -64,7 +79,7 @@ export async function getSolutionsData(options?: { draft?: boolean }): Promise<S
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       capabilities: doc.capabilities || [],
       products: (doc.productNames || []).map((p: any) => p.name),
       benefits: doc.benefits || [],
@@ -93,7 +108,7 @@ export async function getIndustriesData(options?: { draft?: boolean }): Promise<
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       icon: doc.icon || doc.slug,
       solutions: doc.solutions || [],
       customers: doc.customers || [],
@@ -127,7 +142,7 @@ export async function getCatalogProducts(options?: { draft?: boolean }): Promise
       description: doc.description,
       category: doc.category,
       subcategory: doc.subcategory || staticBySlug[doc.slug]?.subcategory || undefined,
-      image: doc.heroImage?.url || staticBySlug[doc.slug]?.image || undefined,
+      image: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.image) || undefined,
       features: doc.features || staticBySlug[doc.slug]?.features || [],
       highlights: doc.highlights || staticBySlug[doc.slug]?.highlights || [],
     }))
@@ -184,7 +199,7 @@ export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPo
       category: doc.category,
       author: doc.author,
       date: doc.publishedDate,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       content: lexicalToStrings(doc.content),
     }))
   }, [])
@@ -211,7 +226,7 @@ export async function getPlatformData(options?: { draft?: boolean }): Promise<Pr
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       category: (doc.category || staticBySlug[doc.slug]?.category || 'communications') as ProductData['category'],
       features: doc.features || staticBySlug[doc.slug]?.features || [],
       highlights: doc.highlights || staticBySlug[doc.slug]?.highlights || [],
@@ -242,7 +257,7 @@ export async function getServicesData(options?: { draft?: boolean }): Promise<Se
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       features: doc.offerings || [],
     }))
   }, [])
@@ -268,7 +283,7 @@ export async function getPartnersData(options?: { draft?: boolean }): Promise<Pa
       name: doc.name,
       tagline: doc.tagline,
       description: doc.description,
-      heroImage: doc.heroImage?.url || staticBySlug[doc.slug]?.heroImage || '',
+      heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       features: doc.benefits || [],
     }))
   }, [])
@@ -297,7 +312,7 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
         name: doc.title,
         tagline: doc.tagline || '',
         description: doc.description,
-        heroImage: doc.heroImage?.url || staticPage?.heroImage || '',
+        heroImage: resolveHeroImage(doc.heroImage?.url, staticPage?.heroImage),
         sections: (doc.contentSections || []).map((s: any) => ({
           title: s.title || '',
           content: s.content || '',
