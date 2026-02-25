@@ -104,6 +104,7 @@ export function MegaPanelStandard({ item, onClose }: MegaPanelStandardProps) {
               href={featured.href}
               onClose={onClose}
               icon={getCategoryIcon(item.label)}
+              image={featured.image}
             />
           </div>
         )}

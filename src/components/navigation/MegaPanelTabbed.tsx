@@ -131,6 +131,7 @@ export function MegaPanelTabbed({ item, onClose }: MegaPanelTabbedProps) {
             href={item.featured.href}
             onClose={onClose}
             icon={getCategoryIcon(item.label)}
+            image={item.featured.image}
           />
         )}
       </div>

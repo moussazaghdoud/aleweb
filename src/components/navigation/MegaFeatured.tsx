@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 /* ================================================================== */
 /*  MegaFeatured — Featured CTA card in mega menu sidebar              */
@@ -13,19 +14,30 @@ interface MegaFeaturedProps {
   href: string;
   onClose: () => void;
   icon?: React.ReactNode;
+  image?: string;
 }
 
-export function MegaFeatured({ title, description, href, onClose, icon }: MegaFeaturedProps) {
+export function MegaFeatured({ title, description, href, onClose, icon, image }: MegaFeaturedProps) {
   return (
     <div className="w-[280px] shrink-0 p-6 bg-gradient-to-br from-ale-50 to-white">
       <div className="text-[10px] font-semibold uppercase tracking-widest text-ale/60 mb-3">
         Featured
       </div>
       <Link href={href} onClick={onClose} className="group block">
-        <div className="aspect-[16/10] rounded-lg bg-gradient-to-br from-ale-800 to-ale-700 mb-3 overflow-hidden relative">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-ale-300">{icon}</span>
-          </div>
+        <div className="aspect-[16/10] rounded-lg mb-3 overflow-hidden relative">
+          {image ? (
+            <Image
+              src={image}
+              alt={title}
+              fill
+              className="object-cover transition-transform duration-300 group-hover:scale-105"
+              sizes="280px"
+            />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-ale-800 to-ale-700 flex items-center justify-center">
+              <span className="text-ale-300">{icon}</span>
+            </div>
+          )}
         </div>
         <h4 className="text-sm font-bold text-text group-hover:text-ale transition-colors mb-1">
           {title}

@@ -37,6 +37,7 @@ export interface MegaNavItem {
     title: string;
     description: string;
     href: string;
+    image?: string;
   };
 }
 
@@ -140,6 +141,7 @@ export const primaryNav: MegaNavItem[] = [
       title: "How ALE transforms hospitals",
       description: "40% faster response times",
       href: "/customers/case-studies",
+      image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/healthcare-header-image-v2.jpg",
     },
   },
 
@@ -195,6 +197,7 @@ export const primaryNav: MegaNavItem[] = [
       title: "Move to the cloud with XaaS",
       description: "Flexible consumption models for every need",
       href: "/solutions/move-to-cloud",
+      image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-dac-focus-topic-810x380.jpg",
     },
   },
 
@@ -208,6 +211,7 @@ export const primaryNav: MegaNavItem[] = [
       title: "OmniSwitch Comparison Tool",
       description: "Compare switches side-by-side",
       href: "/products/switches",
+      image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniswitch-6860e-p48-left-4c-480x480-product-showcase.png",
     },
   },
 
