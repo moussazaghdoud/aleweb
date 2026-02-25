@@ -12,6 +12,20 @@ import {
 } from "@/components/primitives/Icons";
 import { industryVideos } from "@/data/hero-videos";
 
+/* ── Illustration images from ALE CDN ── */
+const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
+const industryImages: Record<string, string> = {
+  healthcare: `${cdn}/healthcare-focus-topic-v2-web.jpg`,
+  education: `${cdn}/ale-web-refresh-education-topic1-image.jpg`,
+  hospitality: `${cdn}/hospitality-l2-topic1-body-copy-image-810x540.jpg`,
+  government: `${cdn}/digital-government-810x340-banner.jpg`,
+  transportation: `${cdn}/ale-web-transportation-focus-topic-1-transp-ops.jpg`,
+  energy: `${cdn}/focus-topic-energy-and-utilities-image-810x340.jpg`,
+  manufacturing: `${cdn}/focus-topic-image-801x340.jpg`,
+  "smart-buildings": `${cdn}/iot-focus-topic-v2.jpg`,
+  smb: `${cdn}/smb-image-headerbanner-1200x299.jpg`,
+};
+
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   healthcare: IconHealthcare,
   education: IconEducation,
@@ -112,9 +126,23 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {/* Description + Sub-pages */}
+      {/* Description + Illustration + Sub-pages */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
+          {/* Illustration + Description */}
+          {industryImages[slug] && (
+            <FadeIn className="mb-10">
+              <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src={industryImages[slug]}
+                  alt={industry.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1320px) 100vw, 1320px"
+                />
+              </div>
+            </FadeIn>
+          )}
           <div className="grid lg:grid-cols-3 gap-12">
             <FadeIn className="lg:col-span-2">
               <p className="text-lg text-text-secondary leading-relaxed">{industry.description}</p>

@@ -7,6 +7,22 @@ import {
 } from "@/components/primitives/Icons";
 import { platformVideos } from "@/data/hero-videos";
 
+/* ── Illustration images from ALE CDN ── */
+const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
+const platformImages: Record<string, string> = {
+  rainbow: `${cdn}/multidevicerainbow.jpg`,
+  omniswitch: `${cdn}/solutions-digital-age-networking-focus-topic-1-810x340.jpg`,
+  "stellar-wifi": `${cdn}/ale-wlan-office-homepage-header-495x275.jpg`,
+  "ai-ops": `${cdn}/omnivista-network-advisor-image-v6.jpg`,
+  "private-5g": `${cdn}/industrial-networks-header-image-v1.jpg`,
+  "desk-phones": `${cdn}/ale-deskphones-header-image-1440x600-72dpi-v5.jpg`,
+  "omnipcx-enterprise": `${cdn}/oxe-purple-480x480-v2.png`,
+  "oxo-connect": `${cdn}/oxo-connect-evolution-f-480x480-product-showcase.png`,
+  "ale-connect": `${cdn}/ale-connect-thumbnail-480-480.png`,
+  omnivista: `${cdn}/omnivista-cirrus-3screens-480x480.png`,
+  "asset-tracking": `${cdn}/solutions-asset-tracking-focus-topic-1-810x340.jpeg`,
+};
+
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   rainbow: IconChat,
   omniswitch: IconShield,
@@ -83,11 +99,24 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Description */}
+      {/* Description + Illustration */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
-          <div className="max-w-3xl">
-            <p className="text-lg text-text-secondary leading-relaxed">{product.description}</p>
+          <div className="grid lg:grid-cols-2 gap-10 items-center">
+            <div className="max-w-xl">
+              <p className="text-lg text-text-secondary leading-relaxed">{product.description}</p>
+            </div>
+            {platformImages[slug] && (
+              <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
+                <Image
+                  src={platformImages[slug]}
+                  alt={product.name}
+                  fill
+                  className="object-cover"
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            )}
           </div>
         </div>
       </section>
