@@ -285,20 +285,20 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="py-20 bg-gradient-to-b from-ale-900 to-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-gray-950 via-gray-900 to-white relative overflow-hidden">
         {/* Subtle glow blobs */}
-        <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/5 rounded-full blur-[120px]" />
-        <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/5 rounded-full blur-[120px]" />
-        <div className="absolute top-0 right-[12%] w-[350px] h-[300px] bg-cyan-500/5 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/8 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/8 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-[12%] w-[350px] h-[300px] bg-cyan-500/8 rounded-full blur-[120px]" />
 
         <div className="relative mx-auto max-w-[1320px] px-6">
           <FadeIn>
             <div className="text-center mb-14">
-              <p className="text-sm font-medium uppercase tracking-widest text-white/40 mb-3">One integrated platform</p>
+              <p className="text-sm font-medium uppercase tracking-widest text-white/50 mb-3">One integrated platform</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Three pillars. One digital infrastructure.
               </h2>
-              <p className="mt-4 text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
+              <p className="mt-4 text-base text-white/60 max-w-2xl mx-auto leading-relaxed">
                 ALE unifies intelligent networks, cloud-native services, and AI-powered operations into a single enterprise platform — covering 69&nbsp;products, 38&nbsp;solutions, and 8&nbsp;industries.
               </p>
             </div>
@@ -323,12 +323,12 @@ export function QuickNav() {
                     </span>
 
                     <h3 className="text-lg font-bold text-white mb-2">{p.headline}</h3>
-                    <p className="text-sm text-white/55 leading-relaxed mb-5">{p.description}</p>
+                    <p className="text-sm text-white/65 leading-relaxed mb-5">{p.description}</p>
 
                     {/* Product list */}
                     <div className="space-y-1.5 mb-6">
                       {p.products.map((prod) => (
-                        <div key={prod} className="flex items-center gap-2 text-xs text-white/45">
+                        <div key={prod} className="flex items-center gap-2 text-xs text-white/55">
                           <span className={`w-1 h-1 rounded-full ${c.dot} opacity-60`} />
                           {prod}
                         </div>
@@ -340,7 +340,7 @@ export function QuickNav() {
                       {p.stats.map((s) => (
                         <div key={s.label}>
                           <div className={`text-lg font-bold ${c.stat}`}>{s.value}</div>
-                          <div className="text-[11px] text-white/40">{s.label}</div>
+                          <div className="text-[11px] text-white/50">{s.label}</div>
                         </div>
                       ))}
                     </div>
@@ -355,12 +355,12 @@ export function QuickNav() {
       {/* ━━━ 2. SOLUTIONS BAR (sticky) ━━━ */}
       <section className="py-5 bg-white border-b border-light-200 sticky top-[72px] z-30">
         <div className="mx-auto max-w-[1320px] px-6">
-          <div className="flex gap-2 overflow-x-auto pb-1 -mb-1 scrollbar-hide">
+          <div className="flex flex-wrap gap-2">
             {solutions.map((s) => (
               <Link
                 key={s.title}
                 href={s.href}
-                className="group shrink-0 flex items-center gap-2.5 h-10 px-4 rounded-full border border-light-200 hover:border-ale-200 hover:bg-ale-50 transition-all"
+                className="group flex items-center gap-2.5 h-10 px-4 rounded-full border border-light-200 hover:border-ale-200 hover:bg-ale-50 transition-all"
               >
                 <s.Icon className="w-4 h-4 text-ale" />
                 <span className="text-xs font-semibold text-text group-hover:text-ale transition-colors">{s.title}</span>
@@ -368,7 +368,7 @@ export function QuickNav() {
             ))}
             <Link
               href="/solutions"
-              className="shrink-0 flex items-center gap-1.5 h-10 px-4 rounded-full bg-ale-50 text-ale text-xs font-semibold hover:bg-ale-100 transition-colors"
+              className="flex items-center gap-1.5 h-10 px-4 rounded-full bg-ale-50 text-ale text-xs font-semibold hover:bg-ale-100 transition-colors"
             >
               All Solutions
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
