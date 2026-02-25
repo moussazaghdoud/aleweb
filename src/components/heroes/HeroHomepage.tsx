@@ -38,8 +38,8 @@ export function HeroHomepage() {
         <source src={landingVideos.home} type="video/mp4" />
       </video>
 
-      {/* ── Dark overlay for contrast ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent" />
+      {/* ── Dark overlay for contrast — left-to-right gradient ── */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
 
       {/* ── Content ── */}
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full">
@@ -66,7 +66,6 @@ export function HeroHomepage() {
             className={`text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold text-white leading-[1.08] tracking-tight transition-all duration-700 delay-500 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
-            style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6), 0 1px 3px rgba(0,0,0,0.4)" }}
           >
             Intelligent Networks.
             <br />
@@ -83,7 +82,6 @@ export function HeroHomepage() {
             className={`mt-6 text-lg sm:text-xl text-white/75 max-w-2xl leading-relaxed font-light transition-all duration-700 delay-700 ${
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
-            style={{ textShadow: "0 1px 8px rgba(0,0,0,0.5)" }}
           >
             From OmniSwitch infrastructure and Stellar&nbsp;Wi-Fi to Rainbow
             cloud&nbsp;communications and AI&#8209;driven operations&nbsp;—
