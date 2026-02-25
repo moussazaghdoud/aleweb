@@ -1,56 +1,195 @@
-export interface NavItem {
+import { catalogProducts, productCategories } from "./products-catalog";
+
+// ---------------------------------------------------------------------------
+// Interfaces
+// ---------------------------------------------------------------------------
+
+export interface MegaLink {
   label: string;
   href: string;
-  children?: NavChild[];
+  description?: string;
+  external?: boolean;
+  badge?: string;
+}
+
+export interface MegaGroup {
+  heading: string;
+  href?: string;
+  links: MegaLink[];
+}
+
+export interface MegaTab {
+  label: string;
+  slug: string;
+  href: string;
+  groups: MegaGroup[];
+  viewAllLabel?: string;
+  viewAllHref?: string;
+}
+
+export interface MegaNavItem {
+  label: string;
+  href: string;
+  variant: "standard" | "tabbed";
+  groups?: MegaGroup[];
+  tabs?: MegaTab[];
   featured?: {
     title: string;
     description: string;
     href: string;
-    image?: string;
   };
 }
 
-export interface NavChild {
-  label: string;
-  href: string;
-  description?: string;
+// ---------------------------------------------------------------------------
+// Products — auto-generated tabs from products-catalog
+// ---------------------------------------------------------------------------
+
+function buildProductTabs(): MegaTab[] {
+  return productCategories.map((cat) => {
+    const products = catalogProducts.filter((p) => p.category === cat.slug);
+    const subcats = [...new Set(products.map((p) => p.subcategory || "General"))];
+    return {
+      label: cat.name,
+      slug: cat.slug,
+      href: `/products/${cat.slug}`,
+      groups: subcats.map((sub) => ({
+        heading: sub,
+        links: products
+          .filter((p) => (p.subcategory || "General") === sub)
+          .map((p) => ({ label: p.name, href: `/products/${cat.slug}/${p.slug}` })),
+      })),
+      viewAllLabel: `View All ${cat.name}`,
+      viewAllHref: `/products/${cat.slug}`,
+    };
+  });
 }
 
-export const primaryNav: NavItem[] = [
+// ---------------------------------------------------------------------------
+// Primary navigation
+// ---------------------------------------------------------------------------
+
+export const primaryNav: MegaNavItem[] = [
+  // ── Industries ──────────────────────────────────────────────────────────
   {
     label: "Industries",
     href: "/industries",
-    children: [
-      { label: "Healthcare", href: "/industries/healthcare", description: "Connected care & smart hospitals" },
-      { label: "Education", href: "/industries/education", description: "Smart campuses & digital learning" },
-      { label: "Hospitality", href: "/industries/hospitality", description: "Elevated guest experiences" },
-      { label: "Government", href: "/industries/government", description: "Secure sovereign communications" },
-      { label: "Transportation", href: "/industries/transportation", description: "Safe, connected mobility" },
-      { label: "Energy & Utilities", href: "/industries/energy", description: "Critical infrastructure networks" },
-      { label: "Manufacturing", href: "/industries/manufacturing", description: "Industry 4.0 connectivity" },
-      { label: "Smart Buildings", href: "/industries/smart-buildings", description: "Intelligent workspaces" },
-      { label: "Small & Medium Business", href: "/industries/smb", description: "Enterprise tech for SMBs" },
+    variant: "standard",
+    groups: [
+      {
+        heading: "Healthcare",
+        href: "/industries/healthcare",
+        links: [
+          { label: "Digital Health", href: "/industries/healthcare/digital-health" },
+          { label: "Senior Living", href: "/industries/healthcare/senior-living" },
+        ],
+      },
+      {
+        heading: "Education",
+        href: "/industries/education",
+        links: [
+          { label: "Higher Education", href: "/industries/education/higher-education" },
+          { label: "K-12", href: "/industries/education/k-12" },
+        ],
+      },
+      {
+        heading: "Government",
+        href: "/industries/government",
+        links: [
+          { label: "Defense", href: "/industries/government/defense" },
+          { label: "Public Safety", href: "/industries/government/public-safety" },
+          { label: "Connected Cities", href: "/industries/government/connected-cities" },
+        ],
+      },
+      {
+        heading: "Transportation",
+        href: "/industries/transportation",
+        links: [
+          { label: "Airports", href: "/industries/transportation/air" },
+          { label: "Railways", href: "/industries/transportation/rail" },
+          { label: "Ports", href: "/industries/transportation/ports" },
+          { label: "ITS", href: "/industries/transportation/its" },
+        ],
+      },
+      {
+        heading: "Hospitality",
+        href: "/industries/hospitality",
+        links: [],
+      },
+      {
+        heading: "Energy & Utilities",
+        href: "/industries/energy",
+        links: [],
+      },
+      {
+        heading: "Manufacturing",
+        href: "/industries/manufacturing",
+        links: [],
+      },
+      {
+        heading: "Smart Buildings",
+        href: "/industries/smart-buildings",
+        links: [],
+      },
+      {
+        heading: "Small & Medium Business",
+        href: "/industries/smb",
+        links: [],
+      },
     ],
     featured: {
       title: "How ALE transforms hospitals",
-      description: "40% faster response times at CHU Lyon",
+      description: "40% faster response times",
       href: "/customers/case-studies",
     },
   },
+
+  // ── Solutions (Services folded in) ──────────────────────────────────────
   {
     label: "Solutions",
     href: "/solutions",
-    children: [
-      { label: "Modernize Communications", href: "/solutions/modernize-communications", description: "UCaaS, CCaaS, cloud telephony" },
-      { label: "Secure Your Network", href: "/solutions/secure-your-network", description: "Network fabric, Wi-Fi, zero-trust" },
-      { label: "Optimize with AI", href: "/solutions/optimize-with-ai", description: "AI Ops, IoT analytics, automation" },
-      { label: "Move to Cloud", href: "/solutions/move-to-cloud", description: "XaaS, migration, hybrid deployment" },
-      { label: "Enable Hybrid Work", href: "/solutions/enable-hybrid-work", description: "Collaboration from anywhere" },
-      { label: "Connect Everything", href: "/solutions/connect-everything", description: "Private 5G, IoT, asset tracking" },
-      { label: "Business Continuity", href: "/solutions/business-continuity", description: "Resilience for any disruption" },
-      { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase", description: "Smart WAN with cloud security" },
-      { label: "Network Security", href: "/solutions/network-security", description: "Zero-trust & segmentation" },
-      { label: "All Solutions", href: "/solutions", description: "Browse all solutions" },
+    variant: "standard",
+    groups: [
+      {
+        heading: "Digital Age Communications",
+        links: [
+          { label: "Unified Communications", href: "/solutions/unified-communications" },
+          { label: "Cloud Communications", href: "/solutions/move-to-cloud" },
+          { label: "CPaaS", href: "/solutions/cpaas" },
+          { label: "Hybrid Workplace", href: "/solutions/enable-hybrid-work" },
+        ],
+      },
+      {
+        heading: "Digital Age Networking",
+        links: [
+          { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase" },
+          { label: "Network Security", href: "/solutions/network-security" },
+          { label: "Data Center", href: "/solutions/data-center-networking" },
+        ],
+      },
+      {
+        heading: "Business Innovation",
+        links: [
+          { label: "AI Operations", href: "/solutions/optimize-with-ai" },
+          { label: "IoT Networks", href: "/solutions/iot-networks" },
+          { label: "Asset Tracking", href: "/solutions/connect-everything" },
+          { label: "Network as a Service", href: "/solutions/network-as-a-service" },
+        ],
+      },
+      {
+        heading: "Business Continuity",
+        href: "/solutions/business-continuity",
+        links: [],
+      },
+      {
+        heading: "Services",
+        links: [
+          { label: "Support Services", href: "/services/support-services" },
+          { label: "Training", href: "/services/training-services" },
+          { label: "Professional & Managed", href: "/services/professional-managed-services" },
+          { label: "Success Management", href: "/services/success-management" },
+          { label: "Industry Services", href: "/services/industry-services" },
+        ],
+      },
     ],
     featured: {
       title: "Move to the cloud with XaaS",
@@ -58,64 +197,102 @@ export const primaryNav: NavItem[] = [
       href: "/solutions/move-to-cloud",
     },
   },
+
+  // ── Products (tabbed) ───────────────────────────────────────────────────
   {
-    label: "Platform",
-    href: "/platform",
-    children: [
-      { label: "Rainbow", href: "/platform/rainbow", description: "Cloud communications platform" },
-      { label: "OmniSwitch", href: "/platform/omniswitch", description: "Network switching fabric" },
-      { label: "Stellar Wi-Fi", href: "/platform/stellar-wifi", description: "Enterprise wireless" },
-      { label: "AI Ops", href: "/platform/ai-ops", description: "AI-driven network intelligence" },
-      { label: "Private 5G", href: "/platform/private-5g", description: "Dedicated wireless networks" },
-      { label: "OmniPCX Enterprise", href: "/platform/omnipcx-enterprise", description: "Enterprise comm server" },
-      { label: "ALE Connect", href: "/platform/ale-connect", description: "Omnichannel contact center" },
-      { label: "Full Product Catalog", href: "/products", description: "Browse all products by category" },
-    ],
+    label: "Products",
+    href: "/products",
+    variant: "tabbed",
+    tabs: buildProductTabs(),
     featured: {
-      title: "One platform. Every connection.",
-      description: "See how it all works together",
-      href: "/platform",
+      title: "OmniSwitch Comparison Tool",
+      description: "Compare switches side-by-side",
+      href: "/products/switches",
     },
   },
-  {
-    label: "Services",
-    href: "/services",
-    children: [
-      { label: "Support Services", href: "/services/support-services", description: "24/7 technical support" },
-      { label: "Training Services", href: "/services/training-services", description: "Certification & learning" },
-      { label: "Professional Services", href: "/services/professional-managed-services", description: "Deployment & managed ops" },
-      { label: "Success Management", href: "/services/success-management", description: "Adoption & best practices" },
-      { label: "Industry Services", href: "/services/industry-services", description: "Vertical expertise" },
-    ],
-  },
+
+  // ── Partners ────────────────────────────────────────────────────────────
   {
     label: "Partners",
     href: "/partners",
-    children: [
-      { label: "Business Partners", href: "/partners/business-partners", description: "Join our partner network" },
-      { label: "Consultants", href: "/partners/consultants", description: "Advisory program" },
-      { label: "Technology Partners", href: "/partners/technology-partners", description: "Build on ALE platform" },
-      { label: "Developers", href: "/developers", description: "APIs & SDKs" },
+    variant: "standard",
+    groups: [
+      {
+        heading: "Business Partners",
+        href: "/partners/business-partners",
+        links: [
+          { label: "Become a Partner", href: "/partners/business-partners" },
+          { label: "Find a Partner", href: "/partners/business-partners" },
+          {
+            label: "MyPortal Login",
+            href: "https://myportal.al-enterprise.com/s/",
+            external: true,
+          },
+        ],
+      },
+      {
+        heading: "Consultants",
+        href: "/partners/consultants",
+        links: [
+          {
+            label: "MyPortal Login",
+            href: "https://myportal.al-enterprise.com/a6f5I0000008TJ8QAM",
+            external: true,
+          },
+        ],
+      },
+      {
+        heading: "Technology Partners",
+        href: "/partners/technology-partners",
+        links: [
+          { label: "Developers & APIs", href: "/developers" },
+        ],
+      },
     ],
   },
+
+  // ── Company ─────────────────────────────────────────────────────────────
   {
     label: "Company",
     href: "/company",
-    children: [
-      { label: "About ALE", href: "/company/about", description: "Our mission & values" },
-      { label: "Executive Team", href: "/company/executive-team", description: "Leadership team" },
-      { label: "Innovation", href: "/company/innovation", description: "R&D and technology vision" },
-      { label: "Newsroom", href: "/company/newsroom", description: "Press releases & media" },
-      { label: "Blog", href: "/blog", description: "Insights & expertise" },
-      { label: "Events", href: "/company/events", description: "Events & webinars" },
-      { label: "Careers", href: "/company/careers", description: "Join our team" },
-      { label: "ESG", href: "/company/esg", description: "Sustainability & responsibility" },
-      { label: "Contact", href: "/company/contact", description: "Get in touch" },
+    variant: "standard",
+    groups: [
+      {
+        heading: "About Us",
+        href: "/company/about",
+        links: [
+          { label: "Executive Team", href: "/company/executive-team" },
+          { label: "Innovation", href: "/company/innovation" },
+          { label: "Careers", href: "/company/careers" },
+          { label: "ESG", href: "/company/esg" },
+        ],
+      },
+      {
+        heading: "Resources",
+        links: [
+          { label: "Blog", href: "/blog" },
+          { label: "Newsroom", href: "/company/newsroom" },
+          { label: "Events", href: "/company/events" },
+          { label: "Video Library", href: "/company/video-library" },
+          { label: "Contact", href: "/company/contact" },
+        ],
+      },
     ],
   },
 ];
+
+// ---------------------------------------------------------------------------
+// Utility navigation
+// ---------------------------------------------------------------------------
 
 export const utilityNav = [
   { label: "Resources", href: "/resources" },
   { label: "Support", href: "/support" },
 ];
+
+// ---------------------------------------------------------------------------
+// Backward compatibility aliases
+// ---------------------------------------------------------------------------
+
+export type NavItem = MegaNavItem;
+export type NavChild = MegaLink;
