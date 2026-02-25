@@ -8,7 +8,7 @@ const v = (id: number) => `https://assets.mixkit.co/videos/${id}/${id}-720.mp4`;
 
 // ── Landing pages ────────────────────────────────────────────
 export const landingVideos = {
-  home: v(27213),
+  home: v(31666),
   solutions: v(914),
   industries: v(4547),
   platform: v(7887),
