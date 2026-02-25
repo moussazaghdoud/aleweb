@@ -1,18 +1,30 @@
-import type { CollectionConfig } from 'payload'
+import type { CollectionConfig, CollectionBeforeChangeHook } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
 import { allBlocks } from '@/blocks'
+
+const enforceApproval: CollectionBeforeChangeHook = ({ data, req, operation }) => {
+  if (operation === 'update' && data?._status === 'published') {
+    if (data?.approvalStatus !== 'approved' && req.user?.role !== 'admin') {
+      throw new Error('Cannot publish — approval status must be "approved" first.')
+    }
+  }
+  return data
+}
 
 export const CompanyPages: CollectionConfig = {
   slug: 'company-pages',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', '_status', 'updatedAt'],
+    defaultColumns: ['title', 'approvalStatus', '_status', 'updatedAt'],
     livePreview: {
       url: ({ data }) =>
         `${process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'}/company/${data.slug}`,
     },
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    beforeChange: [enforceApproval],
+  },
   access: {
     ...editorAccess,
     read: publishedOnly,
@@ -20,6 +32,22 @@ export const CompanyPages: CollectionConfig = {
   fields: [
     { name: 'title', type: 'text', required: true, localized: true },
     { name: 'slug', type: 'text', required: true, unique: true, admin: { position: 'sidebar' } },
+    {
+      name: 'approvalStatus',
+      type: 'select',
+      defaultValue: 'pending',
+      admin: { position: 'sidebar', description: 'Must be "Approved" before publishing' },
+      options: [
+        { label: 'Pending', value: 'pending' },
+        { label: 'Approved', value: 'approved' },
+        { label: 'Rejected', value: 'rejected' },
+      ],
+    },
+    {
+      name: 'approvalNotes',
+      type: 'textarea',
+      admin: { position: 'sidebar', description: 'Notes from approver' },
+    },
     { name: 'tagline', type: 'text', localized: true },
     { name: 'description', type: 'textarea', required: true, localized: true },
     { name: 'heroImage', type: 'upload', relationTo: 'media' },

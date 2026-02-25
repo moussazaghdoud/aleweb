@@ -11,7 +11,7 @@ export const Partners: CollectionConfig = {
         `${process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'}/partners/${data.slug}`,
     },
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   access: {
     ...editorAccess,
     read: publishedOnly,

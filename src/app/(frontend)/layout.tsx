@@ -3,6 +3,11 @@ import { draftMode } from "next/headers";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/navigation/Footer";
 import { PreviewBanner } from "@/components/PreviewBanner";
+import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
+import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
+import { CookieConsent } from "@/components/shared/CookieConsent";
+import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
+import { getSiteConfig } from "@/lib/payload";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -44,6 +49,17 @@ export default async function FrontendLayout({
 }>) {
   const { isEnabled: isPreview } = await draftMode();
 
+  let siteConfig: Awaited<ReturnType<typeof getSiteConfig>> | null = null;
+  try {
+    siteConfig = await getSiteConfig();
+  } catch {
+    // CMS unavailable — render without dynamic config
+  }
+
+  const gaId = siteConfig?.analytics?.googleAnalyticsId;
+  const gtmId = siteConfig?.analytics?.googleTagManagerId;
+  const consentConfig = siteConfig?.consent;
+
   return (
     <html lang="en">
       <head>
@@ -53,12 +69,17 @@ export default async function FrontendLayout({
           href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
           rel="stylesheet"
         />
+        <GoogleAnalytics gaId={gaId} />
+        <GoogleTagManager gtmId={gtmId} />
+        <OrganizationJsonLd />
       </head>
       <body className={`font-sans antialiased bg-light text-text${isPreview ? ' pt-10' : ''}`}>
+        <GoogleTagManagerNoScript gtmId={gtmId} />
         {isPreview && <PreviewBanner />}
         <Navbar />
         <main>{children}</main>
         <Footer />
+        <CookieConsent config={consentConfig} />
       </body>
     </html>
   );

@@ -182,3 +182,14 @@ export async function getSiteConfig() {
   const payload = await getPayload()
   return payload.findGlobal({ slug: 'site-config' })
 }
+
+export async function getHomepage() {
+  const payload = await getPayload()
+  return payload.findGlobal({ slug: 'homepage' })
+}
+
+export async function getRedirectRules() {
+  const payload = await getPayload()
+  const data = await payload.findGlobal({ slug: 'redirects' })
+  return ((data as any)?.rules || []).filter((r: any) => r.active)
+}

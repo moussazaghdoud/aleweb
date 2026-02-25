@@ -11,7 +11,29 @@ const pillars = [
   { label: "AI Operations", color: "bg-cyan-500/20 text-cyan-300 border-cyan-400/30" },
 ];
 
-export function HeroHomepage() {
+type CtaButton = {
+  label: string;
+  href: string;
+  variant?: 'primary' | 'secondary';
+  id?: string;
+};
+
+type Props = {
+  heading?: string | null;
+  subheading?: string | null;
+  videoUrl?: string | null;
+  ctaButtons?: CtaButton[] | null;
+};
+
+const defaultHeading = "Intelligent Networks.\nCloud Services. AI\u00a0Operations.\nOne Platform.";
+const defaultSubheading =
+  "From OmniSwitch infrastructure and Stellar\u00a0Wi-Fi to Rainbow cloud\u00a0communications and AI\u2011driven operations\u00a0— ALE\u00a0connects, secures, and automates the enterprises that power the\u00a0world.";
+const defaultCtas: CtaButton[] = [
+  { label: "Explore the Platform", href: "/platform", variant: "primary" },
+  { label: "Browse Products", href: "/products", variant: "secondary" },
+];
+
+export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Props) {
   const [visible, setVisible] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -24,6 +46,13 @@ export function HeroHomepage() {
     if (videoRef.current) videoRef.current.playbackRate = 0.5;
   }, []);
 
+  const resolvedVideoUrl = videoUrl || landingVideos.home;
+  const resolvedCtas = ctaButtons?.length ? ctaButtons : defaultCtas;
+
+  // Parse heading into lines for the gradient effect on last part
+  const headingText = heading || defaultHeading;
+  const subheadingText = subheading || defaultSubheading;
+
   return (
     <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
       {/* ── Video background ── */}
@@ -35,7 +64,7 @@ export function HeroHomepage() {
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
-        <source src={landingVideos.home} type="video/mp4" />
+        <source src={resolvedVideoUrl} type="video/mp4" />
       </video>
 
       {/* ── Dark overlay for contrast — left-to-right gradient ── */}
@@ -67,14 +96,27 @@ export function HeroHomepage() {
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             }`}
           >
-            Intelligent Networks.
-            <br />
-            Cloud Services.{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
-              AI&nbsp;Operations.
-            </span>
-            <br />
-            <span className="text-white/90">One Platform.</span>
+            {headingText.includes('\n') ? (
+              headingText.split('\n').map((line, i, arr) => (
+                <span key={i}>
+                  {i === arr.length - 1 ? (
+                    <span className="text-white/90">{line}</span>
+                  ) : i === 1 ? (
+                    <>
+                      {line.replace(/AI\s*Operations\.?/, '')}{' '}
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+                        AI&nbsp;Operations.
+                      </span>
+                    </>
+                  ) : (
+                    line
+                  )}
+                  {i < arr.length - 1 && <br />}
+                </span>
+              ))
+            ) : (
+              headingText
+            )}
           </h1>
 
           {/* Subheading */}
@@ -83,10 +125,7 @@ export function HeroHomepage() {
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            From OmniSwitch infrastructure and Stellar&nbsp;Wi-Fi to Rainbow
-            cloud&nbsp;communications and AI&#8209;driven operations&nbsp;—
-            ALE&nbsp;connects, secures, and automates the enterprises that power
-            the&nbsp;world.
+            {subheadingText}
           </p>
 
           {/* CTAs */}
@@ -95,31 +134,38 @@ export function HeroHomepage() {
               visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             }`}
           >
-            <Link
-              href="/platform"
-              className="group inline-flex items-center gap-2 h-13 px-8 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all duration-300 hover:shadow-lg hover:shadow-ale/30"
-            >
-              Explore the Platform
-              <svg
-                className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M17 8l4 4m0 0l-4 4m4-4H3"
-                />
-              </svg>
-            </Link>
-            <Link
-              href="/products"
-              className="inline-flex items-center gap-2 h-13 px-8 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
-            >
-              Browse Products
-            </Link>
+            {resolvedCtas.map((cta, i) =>
+              cta.variant === 'secondary' ? (
+                <Link
+                  key={cta.id ?? i}
+                  href={cta.href}
+                  className="inline-flex items-center gap-2 h-13 px-8 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
+                >
+                  {cta.label}
+                </Link>
+              ) : (
+                <Link
+                  key={cta.id ?? i}
+                  href={cta.href}
+                  className="group inline-flex items-center gap-2 h-13 px-8 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all duration-300 hover:shadow-lg hover:shadow-ale/30"
+                >
+                  {cta.label}
+                  <svg
+                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </Link>
+              ),
+            )}
           </div>
         </div>
       </div>

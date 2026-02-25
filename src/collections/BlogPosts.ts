@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { editorAccess, publishedOnly } from '@/access/roles'
+import { regionalMarketerAccess, publishedOnly } from '@/access/roles'
 
 export const BlogPosts: CollectionConfig = {
   slug: 'blog-posts',
@@ -11,9 +11,9 @@ export const BlogPosts: CollectionConfig = {
         `${process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'}/blog/${data.slug}`,
     },
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   access: {
-    ...editorAccess,
+    ...regionalMarketerAccess,
     read: publishedOnly,
   },
   fields: [

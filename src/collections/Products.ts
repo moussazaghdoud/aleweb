@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
-import { editorAccess, publishedOnly } from '@/access/roles'
+import { productManagerAccess, publishedOnly } from '@/access/roles'
+import { protectDeletion } from '@/hooks/protectDeletion'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -11,9 +12,12 @@ export const Products: CollectionConfig = {
         `${process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'}/products/${data.category}/${data.slug}`,
     },
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    beforeDelete: [protectDeletion('products', ['omniswitch', 'omniaccess-stellar', 'omnipcx-enterprise', 'rainbow'])],
+  },
   access: {
-    ...editorAccess,
+    ...productManagerAccess,
     read: publishedOnly,
   },
   fields: [

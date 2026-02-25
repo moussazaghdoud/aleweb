@@ -7,6 +7,12 @@ import { CardGridBlock } from './CardGridBlock'
 import { ImageTextBlock } from './ImageTextBlock'
 import { FAQBlock } from './FAQBlock'
 import { TestimonialsBlock } from './TestimonialsBlock'
+import { LogoCloudBlock } from './LogoCloudBlock'
+import { VideoEmbedBlock } from './VideoEmbedBlock'
+import { ComparisonTableBlock } from './ComparisonTableBlock'
+import { TimelineBlock } from './TimelineBlock'
+import { DownloadSectionBlock } from './DownloadSectionBlock'
+import { TabsContentBlock } from './TabsContentBlock'
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 const blockComponents: Record<string, React.ComponentType<any>> = {
@@ -19,6 +25,12 @@ const blockComponents: Record<string, React.ComponentType<any>> = {
   imageText: ImageTextBlock,
   faq: FAQBlock,
   testimonials: TestimonialsBlock,
+  logoCloud: LogoCloudBlock,
+  videoEmbed: VideoEmbedBlock,
+  comparisonTable: ComparisonTableBlock,
+  timeline: TimelineBlock,
+  downloadSection: DownloadSectionBlock,
+  tabsContent: TabsContentBlock,
 }
 
 type Props = {

@@ -31,6 +31,9 @@ export const Users: CollectionConfig = {
       options: [
         { label: 'Admin', value: 'admin' },
         { label: 'Editor', value: 'editor' },
+        { label: 'Product Manager', value: 'product-manager' },
+        { label: 'Regional Marketer', value: 'regional-marketer' },
+        { label: 'Legal Approver', value: 'legal-approver' },
         { label: 'Reviewer', value: 'reviewer' },
       ],
       access: {

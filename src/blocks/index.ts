@@ -7,6 +7,12 @@ export { CardGridBlock } from './CardGrid'
 export { ImageTextBlock } from './ImageText'
 export { FAQBlock } from './FAQ'
 export { TestimonialsBlock } from './Testimonials'
+export { LogoCloudBlock } from './LogoCloud'
+export { VideoEmbedBlock } from './VideoEmbed'
+export { ComparisonTableBlock } from './ComparisonTable'
+export { TimelineBlock } from './Timeline'
+export { DownloadSectionBlock } from './DownloadSection'
+export { TabsContentBlock } from './TabsContent'
 
 import { HeroBlock } from './Hero'
 import { RichTextBlock } from './RichText'
@@ -17,6 +23,12 @@ import { CardGridBlock } from './CardGrid'
 import { ImageTextBlock } from './ImageText'
 import { FAQBlock } from './FAQ'
 import { TestimonialsBlock } from './Testimonials'
+import { LogoCloudBlock } from './LogoCloud'
+import { VideoEmbedBlock } from './VideoEmbed'
+import { ComparisonTableBlock } from './ComparisonTable'
+import { TimelineBlock } from './Timeline'
+import { DownloadSectionBlock } from './DownloadSection'
+import { TabsContentBlock } from './TabsContent'
 
 export const allBlocks = [
   HeroBlock,
@@ -28,4 +40,10 @@ export const allBlocks = [
   ImageTextBlock,
   FAQBlock,
   TestimonialsBlock,
+  LogoCloudBlock,
+  VideoEmbedBlock,
+  ComparisonTableBlock,
+  TimelineBlock,
+  DownloadSectionBlock,
+  TabsContentBlock,
 ]

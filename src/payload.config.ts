@@ -2,6 +2,7 @@ import { buildConfig } from 'payload'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { s3Storage } from '@payloadcms/storage-s3'
 import sharp from 'sharp'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -26,11 +27,29 @@ import { Navigation } from './globals/Navigation'
 import { Footer } from './globals/Footer'
 import { SiteConfig } from './globals/SiteConfig'
 import { Redirects } from './globals/Redirects'
+import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+const s3Plugin = process.env.S3_BUCKET
+  ? s3Storage({
+      collections: { media: { prefix: 'media/' } },
+      bucket: process.env.S3_BUCKET,
+      config: {
+        region: process.env.S3_REGION || 'us-east-1',
+        credentials: {
+          accessKeyId: process.env.S3_ACCESS_KEY_ID || '',
+          secretAccessKey: process.env.S3_SECRET_ACCESS_KEY || '',
+        },
+      },
+    })
+  : null
+
 export default buildConfig({
+  // ── Plugins ────────────────────────────────────────────────
+  plugins: [...(s3Plugin ? [s3Plugin] : [])],
+
   // ── Admin Panel ──────────────────────────────────────────────
   admin: {
     user: Users.slug,
@@ -91,6 +110,7 @@ export default buildConfig({
     Footer,
     SiteConfig,
     Redirects,
+    Homepage,
   ],
 
   // ── Editor ───────────────────────────────────────────────────

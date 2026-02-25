@@ -12,7 +12,8 @@
     "docker:build": "docker compose build",
     "docker:up": "docker compose up -d",
     "docker:down": "docker compose down",
-    "payload:generate-types": "payload generate:types"
+    "payload:generate-types": "payload generate:types",
+    "verify": "npx tsx scripts/verify-inventory.ts"
   },
   "dependencies": {
     "@payloadcms/db-postgres": "^3.77.0",

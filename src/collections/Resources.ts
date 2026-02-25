@@ -7,7 +7,7 @@ export const Resources: CollectionConfig = {
     useAsTitle: 'title',
     defaultColumns: ['title', 'type', '_status', 'updatedAt'],
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   access: {
     ...editorAccess,
     read: publishedOnly,

@@ -1,5 +1,6 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
+import { protectDeletion } from '@/hooks/protectDeletion'
 
 export const Industries: CollectionConfig = {
   slug: 'industries',
@@ -11,7 +12,10 @@ export const Industries: CollectionConfig = {
         `${process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'}/industries/${data.slug}`,
     },
   },
-  versions: { drafts: true },
+  versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    beforeDelete: [protectDeletion('industries', ['healthcare', 'education', 'hospitality', 'government', 'transportation', 'energy', 'manufacturing', 'retail'])],
+  },
   access: {
     ...editorAccess,
     read: publishedOnly,
