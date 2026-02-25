@@ -11,7 +11,7 @@ export const landingVideos = {
   home: v(26917),
   solutions: v(914),
   industries: v(4547),
-  platform: v(7887),
+  platform: v(23282),
   products: v(4705),
   productCategory: v(23215),
   services: v(4603),
