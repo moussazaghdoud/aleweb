@@ -12,6 +12,31 @@ import {
 } from "@/components/primitives/Icons";
 import { solutionVideos } from "@/data/hero-videos";
 
+/* ── Illustration images from ALE CDN ── */
+const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
+const solutionImages: Record<string, string> = {
+  "modernize-communications": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
+  "secure-your-network": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
+  "optimize-with-ai": `${cdn}/solutions-automomous-network-focus-topic-1-810x380.jpg`,
+  "move-to-cloud": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
+  "enable-hybrid-work": `${cdn}/hybrid-digital-workplace-v1.jpg`,
+  "connect-everything": `${cdn}/iot-focus-topic-v2.jpg`,
+  "business-continuity": `${cdn}/solutions-business-continuity-homepage-header-l2-l3-1440x600.jpg`,
+  "sd-wan-sase": `${cdn}/solutions-sd-wan-focus-topic-1-810x340.jpeg`,
+  "cpaas": `${cdn}/solutions-cpaas-focus-topic-1-v2-810x380.jpg`,
+  "unified-communications": `${cdn}/solutions-unified-communications-focus-topic-1-810x380.jpg`,
+  "iot-networks": `${cdn}/ale-web-refresh-trends-iot-topic1-image.jpg`,
+  "digital-age-communications": `${cdn}/dac-pillars-web-visual-en-810x380.png`,
+  "digital-age-networking": `${cdn}/solutions-digital-age-networking-focus-topic-1-810x340.jpg`,
+  "network-security": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
+  "autonomous-network": `${cdn}/solutions-automomous-network-focus-topic-1-810x380.jpg`,
+  "data-center-networking": `${cdn}/solutions-data-center-focus-topic-1-810x340.jpg`,
+  "industrial-networks": `${cdn}/industrial-networks-header-image-v1.jpg`,
+  "video-surveillance-networking": `${cdn}/network-video-surveillance-focus-topic-web.jpg`,
+  "purple-on-demand": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
+  "network-as-a-service": `${cdn}/solutions-naas-focus-topic-1-810x380.jpg`,
+};
+
 const solutionIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   "modernize-communications": IconChat,
   "secure-your-network": IconShield,
@@ -143,12 +168,25 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {/* Description */}
+      {/* Description + Illustration */}
       <section className="py-16 bg-white">
         <div className="mx-auto max-w-[1320px] px-6">
           <FadeIn>
-            <div className="max-w-3xl">
-              <p className="text-lg text-text-secondary leading-relaxed">{solution.description}</p>
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div className="max-w-xl">
+                <p className="text-lg text-text-secondary leading-relaxed">{solution.description}</p>
+              </div>
+              {solutionImages[slug] && (
+                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
+                  <Image
+                    src={solutionImages[slug]}
+                    alt={solution.name}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                </div>
+              )}
             </div>
           </FadeIn>
         </div>
