@@ -311,22 +311,24 @@ export function QuickNav() {
                 <FadeIn key={p.id} delay={i * 150}>
                   <Link
                     href={p.href}
-                    className={`group relative block rounded-2xl border ${c.border} ${c.bg} p-7 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg h-full`}
+                    className={`group relative block rounded-2xl border ${c.border} ${c.bg} p-7 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg h-full overflow-hidden`}
                   >
+                    {/* Bottom darkening gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 rounded-2xl pointer-events-none" />
                     {/* Glow effect on hover */}
                     <div className={`absolute -inset-px rounded-2xl ${c.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10`} />
 
                     {/* Pillar badge */}
-                    <span className={`inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full ${c.badge} mb-5`}>
+                    <span className={`relative inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full ${c.badge} mb-5`}>
                       <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} />
                       {p.label}
                     </span>
 
-                    <h3 className="text-lg font-bold text-white mb-2">{p.headline}</h3>
-                    <p className="text-sm text-white/65 leading-relaxed mb-5">{p.description}</p>
+                    <h3 className="relative text-lg font-bold text-white mb-2">{p.headline}</h3>
+                    <p className="relative text-sm text-white/65 leading-relaxed mb-5">{p.description}</p>
 
                     {/* Product list */}
-                    <div className="space-y-1.5 mb-6">
+                    <div className="relative space-y-1.5 mb-6">
                       {p.products.map((prod) => (
                         <div key={prod} className="flex items-center gap-2 text-xs text-white/55">
                           <span className={`w-1 h-1 rounded-full ${c.dot} opacity-60`} />
@@ -336,7 +338,7 @@ export function QuickNav() {
                     </div>
 
                     {/* Stats */}
-                    <div className="flex gap-6 pt-5 border-t border-white/10">
+                    <div className="relative flex gap-6 pt-5 border-t border-white/10">
                       {p.stats.map((s) => (
                         <div key={s.label}>
                           <div className={`text-lg font-bold ${c.stat}`}>{s.value}</div>
