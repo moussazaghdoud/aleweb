@@ -400,7 +400,7 @@ export function QuickNav() {
                 <FadeIn key={p.name} delay={i * 60}>
                   <Link
                     href={p.href}
-                    className="group flex flex-col justify-between rounded-xl border border-gray-200 bg-gray-50 p-5 hover:border-ale-200 hover:shadow-md transition-all h-full"
+                    className="group flex flex-col justify-between rounded-xl border border-gray-200 bg-gray-100 shadow-sm p-5 hover:border-ale-200 hover:shadow-md transition-all h-full"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
