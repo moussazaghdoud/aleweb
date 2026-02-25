@@ -18,6 +18,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "web-assets.al-enterprise.com",
       },
+      {
+        protocol: "https",
+        hostname: "assets.mixkit.co",
+      },
     ],
   },
   async headers() {

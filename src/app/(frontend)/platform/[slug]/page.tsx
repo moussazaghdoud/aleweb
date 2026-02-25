@@ -44,14 +44,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
     <>
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
-        <Image
-          src={product.heroImage}
-          alt={product.name}
-          fill
-          className="object-cover animate-ken-burns"
-          priority
-          sizes="100vw"
-        />
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/23282/23282-720.mp4" type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/75 via-gray-900/25 to-transparent" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link
