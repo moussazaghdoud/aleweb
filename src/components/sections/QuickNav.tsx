@@ -62,28 +62,28 @@ const pillars = [
 
 const pillarColorMap = {
   blue: {
-    border: "border-blue-500/20 hover:border-blue-400/40",
-    bg: "bg-blue-500/5",
+    border: "border-blue-500/30 hover:border-blue-400/50",
+    bg: "bg-gray-800/80",
     dot: "bg-blue-400",
-    badge: "bg-blue-500/15 text-blue-400",
+    badge: "bg-blue-500/20 text-blue-300",
     stat: "text-blue-400",
-    glow: "bg-blue-500/8",
+    glow: "bg-blue-500/10",
   },
   purple: {
-    border: "border-purple-500/20 hover:border-purple-400/40",
-    bg: "bg-purple-500/5",
+    border: "border-purple-500/30 hover:border-purple-400/50",
+    bg: "bg-gray-800/80",
     dot: "bg-purple-400",
-    badge: "bg-purple-500/15 text-purple-400",
+    badge: "bg-purple-500/20 text-purple-300",
     stat: "text-purple-400",
-    glow: "bg-purple-500/8",
+    glow: "bg-purple-500/10",
   },
   cyan: {
-    border: "border-cyan-500/20 hover:border-cyan-400/40",
-    bg: "bg-cyan-500/5",
+    border: "border-cyan-500/30 hover:border-cyan-400/50",
+    bg: "bg-gray-800/80",
     dot: "bg-cyan-400",
-    badge: "bg-cyan-500/15 text-cyan-400",
+    badge: "bg-cyan-500/20 text-cyan-300",
     stat: "text-cyan-400",
-    glow: "bg-cyan-500/8",
+    glow: "bg-cyan-500/10",
   },
 };
 
@@ -400,7 +400,7 @@ export function QuickNav() {
                 <FadeIn key={p.name} delay={i * 60}>
                   <Link
                     href={p.href}
-                    className="group flex flex-col justify-between rounded-xl border border-light-200 p-5 hover:border-ale-200 hover:shadow-md transition-all h-full"
+                    className="group flex flex-col justify-between rounded-xl border border-gray-200 bg-gray-50 p-5 hover:border-ale-200 hover:shadow-md transition-all h-full"
                   >
                     <div>
                       <div className="flex items-center justify-between mb-3">
