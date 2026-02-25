@@ -6,6 +6,7 @@ import {
   IconChat, IconShield, IconAI, IconSignal, IconGlobe,
 } from "@/components/primitives/Icons";
 import { platformVideos } from "@/data/hero-videos";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
@@ -59,6 +60,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <AdminEditButton collection="platforms" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={platformVideos[slug] || "https://assets.mixkit.co/videos/7887/7887-720.mp4"} type="video/mp4" /></video>

@@ -11,6 +11,7 @@ import {
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
 } from "@/components/primitives/Icons";
 import { solutionVideos } from "@/data/hero-videos";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
@@ -128,6 +129,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <AdminEditButton collection="solutions" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={solutionVideos[slug] || "https://assets.mixkit.co/videos/914/914-720.mp4"} type="video/mp4" /></video>

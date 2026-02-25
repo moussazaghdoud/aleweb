@@ -1,5 +1,6 @@
 import { HeroHomepage } from "@/components/heroes/HeroHomepage";
 import { QuickNav } from "@/components/sections/QuickNav";
+import { AdminEditGlobal } from "@/components/admin/AdminEditGlobal";
 import { getHomepage } from "@/lib/payload";
 
 export default async function Home() {
@@ -12,6 +13,7 @@ export default async function Home() {
 
   return (
     <>
+      <AdminEditGlobal globalSlug="homepage" />
       <HeroHomepage
         heading={homepage?.heroHeading}
         subheading={homepage?.heroSubheading}

@@ -5,6 +5,7 @@ import { getProductCategories, getCatalogProducts, getSolutionsData } from "@/li
 import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadCenter";
 import { PillarBadge, categoryToPillar } from "@/components/shared/PillarBadge";
 import { FadeIn } from "@/components/shared/FadeIn";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import downloadsIndex from "@/data/downloads-index.json";
 import { productDetailVideos } from "@/data/hero-videos";
 
@@ -81,6 +82,7 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      <AdminEditButton collection="products" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={productDetailVideos[category] || "https://assets.mixkit.co/videos/23215/23215-720.mp4"} type="video/mp4" /></video>

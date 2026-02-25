@@ -11,6 +11,7 @@ import {
   IconSMB,
 } from "@/components/primitives/Icons";
 import { industryVideos } from "@/data/hero-videos";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
@@ -100,6 +101,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <AdminEditButton collection="industries" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={industryVideos[slug] || "https://assets.mixkit.co/videos/4547/4547-720.mp4"} type="video/mp4" /></video>

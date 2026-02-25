@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getPartnersData } from "@/lib/cms";
 import { partnerVideos } from "@/data/hero-videos";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
 export async function generateStaticParams() {
   const partnersData = await getPartnersData();
@@ -28,6 +29,7 @@ export default async function PartnerDetailPage({ params }: { params: Promise<{ 
 
   return (
     <>
+      <AdminEditButton collection="partners" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[440px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={partnerVideos[slug] || "https://assets.mixkit.co/videos/30012/30012-720.mp4"} type="video/mp4" /></video>

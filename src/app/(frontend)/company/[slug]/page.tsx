@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getCompanyData } from "@/lib/cms";
 import { companyVideos } from "@/data/hero-videos";
+import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
 export async function generateStaticParams() {
   const companyData = await getCompanyData();
@@ -28,6 +29,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
 
   return (
     <>
+      <AdminEditButton collection="company-pages" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
         <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={companyVideos[slug] || "https://assets.mixkit.co/videos/604/604-720.mp4"} type="video/mp4" /></video>
