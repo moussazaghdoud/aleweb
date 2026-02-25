@@ -39,9 +39,9 @@ export function MegaGroup({ group, onClose, compact }: MegaGroupProps) {
               onClick={onClose}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              className="group/link flex items-center gap-2 px-2 py-1.5 -mx-2 rounded-md text-[13px] text-text-secondary hover:text-ale hover:bg-ale-50 transition-colors"
+              className="group/link flex items-center gap-2 px-2 py-1.5 -mx-2 rounded-md text-[13px] text-text-secondary hover:text-ale hover:bg-ale-50 transition-colors min-w-0"
             >
-              <span className="font-medium">{link.label}</span>
+              <span className="font-medium truncate">{link.label}</span>
 
               {link.badge && (
                 <span className="text-[9px] font-bold uppercase bg-ale text-white px-1.5 py-0.5 rounded-full">

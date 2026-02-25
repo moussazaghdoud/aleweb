@@ -56,7 +56,7 @@ export function MegaPanelTabbed({ item, onClose }: MegaPanelTabbedProps) {
       {/* ── Body: tab sidebar + content + featured ── */}
       <div className="flex">
         {/* ── Tab sidebar (left) ── */}
-        <div className="w-[200px] shrink-0 border-r border-light-100 py-2">
+        <div className="w-[180px] shrink-0 border-r border-light-100 py-2">
           {tabs.map((tab, idx) => (
             <button
               key={tab.slug}
@@ -80,14 +80,8 @@ export function MegaPanelTabbed({ item, onClose }: MegaPanelTabbedProps) {
         >
           {currentTab && (
             <>
-              <div className="max-h-[400px] overflow-y-auto">
-                <div
-                  className={`grid gap-x-8 gap-y-6 ${
-                    currentTab.groups.length <= 2
-                      ? "grid-cols-2"
-                      : "grid-cols-3"
-                  }`}
-                >
+              <div className="max-h-[420px] overflow-y-auto overflow-x-hidden">
+                <div className="grid grid-cols-2 gap-x-6 gap-y-5">
                   {currentTab.groups.map((g) => (
                     <MegaGroup
                       key={g.heading}
