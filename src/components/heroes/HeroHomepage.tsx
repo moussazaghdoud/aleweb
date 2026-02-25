@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { landingVideos } from "@/data/hero-videos";
 
@@ -13,16 +13,22 @@ const pillars = [
 
 export function HeroHomepage() {
   const [visible, setVisible] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   useEffect(() => {
     const timer = setTimeout(() => setVisible(true), 150);
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (videoRef.current) videoRef.current.playbackRate = 0.5;
+  }, []);
+
   return (
     <section className="relative h-screen min-h-[600px] flex items-center overflow-hidden">
       {/* ── Video background ── */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
