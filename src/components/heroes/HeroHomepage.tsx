@@ -33,8 +33,7 @@ export function HeroHomepage() {
       </video>
 
       {/* ── Dark overlay for contrast ── */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-black/40" />
-      <div className="absolute inset-0 bg-black/25" />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/30 to-black/10" />
 
       {/* ── Content ── */}
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full">
