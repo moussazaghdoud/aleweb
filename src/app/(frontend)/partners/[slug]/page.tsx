@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { getPartnersData } from "@/lib/cms";
+import { partnerVideos } from "@/data/hero-videos";
 
 export async function generateStaticParams() {
   const partnersData = await getPartnersData();
@@ -29,7 +30,7 @@ export default async function PartnerDetailPage({ params }: { params: Promise<{ 
     <>
       {/* Hero */}
       <section className="relative min-h-[440px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/46755/46755-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={partnerVideos[slug] || "https://assets.mixkit.co/videos/30012/30012-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCompanyData } from "@/lib/cms";
+import { landingVideos } from "@/data/hero-videos";
 
 const pageIcons: Record<string, string> = {
   about: "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25",
@@ -21,7 +22,7 @@ export default async function CompanyHub() {
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/4809/4809-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.company} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-ale-300 mb-3 block">

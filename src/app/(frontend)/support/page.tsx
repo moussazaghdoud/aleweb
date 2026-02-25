@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { landingVideos } from "@/data/hero-videos";
 
 const supportLinks = [
   {
@@ -43,7 +44,7 @@ export default function SupportPage() {
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/22987/22987-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.support} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-ale-300 mb-3 block">

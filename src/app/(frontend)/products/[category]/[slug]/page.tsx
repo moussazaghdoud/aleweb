@@ -6,6 +6,7 @@ import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadC
 import { PillarBadge, categoryToPillar } from "@/components/shared/PillarBadge";
 import { FadeIn } from "@/components/shared/FadeIn";
 import downloadsIndex from "@/data/downloads-index.json";
+import { productDetailVideos } from "@/data/hero-videos";
 
 export async function generateStaticParams() {
   const catalogProducts = await getCatalogProducts();
@@ -82,7 +83,7 @@ export default async function ProductDetailPage({
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/32989/32989-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={productDetailVideos[category] || "https://assets.mixkit.co/videos/23215/23215-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <div className="flex items-center gap-2 text-xs font-semibold text-white/60 mb-5">

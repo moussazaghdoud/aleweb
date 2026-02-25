@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getProductCategories, getCatalogProducts } from "@/lib/cms";
+import { productCategoryVideos } from "@/data/hero-videos";
 
 export async function generateStaticParams() {
   const productCategories = await getProductCategories();
@@ -45,7 +46,7 @@ export default async function CategoryPage({
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/32989/32989-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={productCategoryVideos[category] || "https://assets.mixkit.co/videos/23215/23215-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link

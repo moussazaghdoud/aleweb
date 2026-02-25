@@ -3,18 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getIndustriesData } from "@/lib/cms";
 import { industrySubPagesData } from "@/data/industry-subpages";
-
-const industryVideoMap: Record<string, string> = {
-  healthcare: "https://assets.mixkit.co/videos/4779/4779-720.mp4",
-  education: "https://assets.mixkit.co/videos/4519/4519-720.mp4",
-  hospitality: "https://assets.mixkit.co/videos/34613/34613-720.mp4",
-  government: "https://assets.mixkit.co/videos/40677/40677-720.mp4",
-  transportation: "https://assets.mixkit.co/videos/28000/28000-720.mp4",
-  energy: "https://assets.mixkit.co/videos/47181/47181-720.mp4",
-  manufacturing: "https://assets.mixkit.co/videos/47257/47257-720.mp4",
-  "smart-buildings": "https://assets.mixkit.co/videos/49845/49845-720.mp4",
-  smb: "https://assets.mixkit.co/videos/48713/48713-720.mp4",
-};
+import { industryVideos } from "@/data/hero-videos";
 
 export function generateStaticParams() {
   return industrySubPagesData.map((sp) => ({
@@ -62,7 +51,7 @@ export default async function IndustrySubPage({
     <>
       {/* Hero */}
       <section className="relative min-h-[440px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={industryVideoMap[slug] || "https://assets.mixkit.co/videos/49845/49845-720.mp4"} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={industryVideos[slug] || "https://assets.mixkit.co/videos/4547/4547-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-white/60 mb-5">
