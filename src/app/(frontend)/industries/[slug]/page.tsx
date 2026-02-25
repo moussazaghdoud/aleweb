@@ -23,6 +23,18 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   smb: IconSMB,
 };
 
+const industryVideoMap: Record<string, string> = {
+  healthcare: "https://assets.mixkit.co/videos/4779/4779-720.mp4",
+  education: "https://assets.mixkit.co/videos/4519/4519-720.mp4",
+  hospitality: "https://assets.mixkit.co/videos/34613/34613-720.mp4",
+  government: "https://assets.mixkit.co/videos/40677/40677-720.mp4",
+  transportation: "https://assets.mixkit.co/videos/28000/28000-720.mp4",
+  energy: "https://assets.mixkit.co/videos/47181/47181-720.mp4",
+  manufacturing: "https://assets.mixkit.co/videos/47257/47257-720.mp4",
+  "smart-buildings": "https://assets.mixkit.co/videos/49845/49845-720.mp4",
+  smb: "https://assets.mixkit.co/videos/48713/48713-720.mp4",
+};
+
 // Generate static paths for all industries
 export async function generateStaticParams() {
   const industriesData = await getIndustriesData();
@@ -87,7 +99,7 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
     <>
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src="https://assets.mixkit.co/videos/49845/49845-720.mp4" type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={industryVideoMap[slug] || "https://assets.mixkit.co/videos/49845/49845-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/75 via-gray-900/25 to-transparent" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link
