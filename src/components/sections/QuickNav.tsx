@@ -285,7 +285,7 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-gray-950 via-gray-900 via-60% to-white relative overflow-hidden">
         {/* Subtle glow blobs */}
         <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/8 rounded-full blur-[120px]" />
         <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/8 rounded-full blur-[120px]" />
