@@ -62,26 +62,26 @@ const pillars = [
 
 const pillarColorMap = {
   blue: {
-    border: "border-blue-500/25 hover:border-blue-400/50",
-    bg: "bg-white/10",
+    border: "border-gray-200 hover:border-blue-300",
+    bg: "bg-white",
     numberBg: "bg-blue-500",
-    tag: "bg-white/10 text-blue-200 border-blue-400/20",
+    tag: "bg-blue-50 text-blue-700 border-blue-200",
     gradient: "from-blue-500 to-blue-600",
     glow: "bg-blue-500/10",
   },
   purple: {
-    border: "border-purple-500/25 hover:border-purple-400/50",
-    bg: "bg-white/10",
+    border: "border-gray-200 hover:border-purple-300",
+    bg: "bg-white",
     numberBg: "bg-purple-500",
-    tag: "bg-white/10 text-purple-200 border-purple-400/20",
+    tag: "bg-purple-50 text-purple-700 border-purple-200",
     gradient: "from-purple-500 to-purple-600",
     glow: "bg-purple-500/10",
   },
   cyan: {
-    border: "border-cyan-500/25 hover:border-cyan-400/50",
-    bg: "bg-white/10",
+    border: "border-gray-200 hover:border-cyan-300",
+    bg: "bg-white",
     numberBg: "bg-cyan-500",
-    tag: "bg-white/10 text-cyan-200 border-cyan-400/20",
+    tag: "bg-cyan-50 text-cyan-700 border-cyan-200",
     gradient: "from-cyan-500 to-cyan-600",
     glow: "bg-cyan-500/10",
   },
@@ -311,11 +311,8 @@ export function QuickNav() {
                 <FadeIn key={p.id} delay={i * 150}>
                   <Link
                     href={p.href}
-                    className={`group relative flex flex-col rounded-2xl border ${c.border} ${c.bg} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full overflow-hidden`}
+                    className={`group relative flex flex-col rounded-2xl border ${c.border} ${c.bg} shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full overflow-hidden`}
                   >
-                    {/* Glow effect on hover */}
-                    <div className={`absolute -inset-px rounded-2xl ${c.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10`} />
-
                     {/* Top section */}
                     <div className="relative p-7 pb-0 flex-1">
                       {/* Number + label */}
@@ -323,11 +320,11 @@ export function QuickNav() {
                         <span className={`w-8 h-8 rounded-lg ${c.numberBg} flex items-center justify-center text-white text-sm font-bold`}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-sm font-semibold uppercase tracking-wider text-white/40">{p.label}</span>
+                        <span className="text-sm font-semibold uppercase tracking-wider text-gray-400">{p.label}</span>
                       </div>
 
-                      <h3 className="text-xl font-bold text-white mb-3">{p.headline}</h3>
-                      <p className="text-sm text-white/60 leading-relaxed mb-5">{p.description}</p>
+                      <h3 className="text-xl font-bold text-gray-900 mb-3">{p.headline}</h3>
+                      <p className="text-sm text-gray-500 leading-relaxed mb-5">{p.description}</p>
 
                       {/* Product tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
