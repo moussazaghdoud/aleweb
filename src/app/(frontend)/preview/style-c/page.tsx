@@ -19,8 +19,8 @@ const pillars = [
       </svg>
     ),
     gradient: "from-blue-500 to-indigo-600",
-    iconColor: "text-blue-500",
-    statColor: "text-blue-600",
+    iconColor: "text-blue-400",
+    statColor: "text-blue-400",
     ringColor: "ring-blue-100",
     hoverRing: "hover:ring-blue-200",
   },
@@ -42,8 +42,8 @@ const pillars = [
       </svg>
     ),
     gradient: "from-purple-500 to-fuchsia-600",
-    iconColor: "text-purple-500",
-    statColor: "text-purple-600",
+    iconColor: "text-purple-400",
+    statColor: "text-purple-400",
     ringColor: "ring-purple-100",
     hoverRing: "hover:ring-purple-200",
   },
@@ -65,8 +65,8 @@ const pillars = [
       </svg>
     ),
     gradient: "from-cyan-500 to-teal-600",
-    iconColor: "text-cyan-500",
-    statColor: "text-cyan-600",
+    iconColor: "text-cyan-400",
+    statColor: "text-cyan-400",
     ringColor: "ring-cyan-100",
     hoverRing: "hover:ring-cyan-200",
   },
@@ -86,15 +86,20 @@ export default function StylePreviewC() {
         </div>
       </div>
 
-      {/* Section */}
-      <section className="py-20 bg-white">
-        <div className="mx-auto max-w-[1320px] px-6">
+      {/* Section — same dark bg as homepage */}
+      <section className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-white relative overflow-hidden">
+        {/* Subtle glow blobs */}
+        <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/8 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/8 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-[12%] w-[350px] h-[300px] bg-cyan-500/8 rounded-full blur-[120px]" />
+
+        <div className="relative mx-auto max-w-[1320px] px-6">
           <div className="text-center mb-16">
-            <p className="text-sm font-medium uppercase tracking-widest text-gray-400 mb-3">One integrated platform</p>
-            <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight">
+            <p className="text-sm font-medium uppercase tracking-widest text-white/50 mb-3">One integrated platform</p>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
               Three pillars. One digital infrastructure.
             </h2>
-            <p className="mt-4 text-base text-gray-500 max-w-2xl mx-auto leading-relaxed">
+            <p className="mt-4 text-base text-white/60 max-w-2xl mx-auto leading-relaxed">
               ALE unifies intelligent networks, cloud-native services, and AI-powered operations into a single enterprise platform.
             </p>
           </div>
@@ -104,23 +109,23 @@ export default function StylePreviewC() {
               <Link
                 key={p.id}
                 href={p.href}
-                className={`group text-center p-8 rounded-3xl bg-white ring-1 ${p.ringColor} ${p.hoverRing} hover:shadow-2xl hover:-translate-y-2 transition-all duration-300`}
+                className={`group text-center p-8 rounded-3xl bg-white/10 backdrop-blur-sm ring-1 ring-white/10 hover:bg-white/15 hover:ring-white/20 hover:shadow-2xl hover:-translate-y-2 transition-all duration-300`}
               >
                 {/* Large icon */}
-                <div className={`${p.iconColor} mx-auto mb-6 w-20 h-20 rounded-2xl bg-gray-50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
+                <div className={`${p.iconColor} mx-auto mb-6 w-20 h-20 rounded-2xl bg-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
                   {p.icon}
                 </div>
 
-                <h3 className="text-xl font-bold text-gray-900 mb-2">{p.label}</h3>
-                <p className="text-sm font-medium text-gray-400 mb-4">{p.headline}</p>
-                <p className="text-sm text-gray-500 leading-relaxed mb-6">{p.description}</p>
+                <h3 className="text-xl font-bold text-white mb-2">{p.label}</h3>
+                <p className="text-sm font-medium text-white/50 mb-4">{p.headline}</p>
+                <p className="text-sm text-white/60 leading-relaxed mb-6">{p.description}</p>
 
                 {/* Stats row */}
-                <div className="flex justify-center gap-8 py-4 border-t border-gray-100">
+                <div className="flex justify-center gap-8 py-4 border-t border-white/10">
                   {p.stats.map((s) => (
                     <div key={s.label}>
                       <div className={`text-2xl font-extrabold ${p.statColor}`}>{s.value}</div>
-                      <div className="text-[11px] text-gray-400 mt-0.5">{s.label}</div>
+                      <div className="text-[11px] text-white/40 mt-0.5">{s.label}</div>
                     </div>
                   ))}
                 </div>
