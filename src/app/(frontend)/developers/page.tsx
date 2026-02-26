@@ -86,26 +86,19 @@ export default function DevelopersPage() {
               { step: "01", title: "Create an Account", desc: "Sign up for a free Rainbow developer account to access APIs, documentation, and sandbox environments." },
               { step: "02", title: "Explore the Docs", desc: "Browse API references, quick-start guides, and sample code to accelerate your integration." },
               { step: "03", title: "Build & Deploy", desc: "Develop your integration, test in the sandbox, and deploy to production with full enterprise support." },
-            ].map((s, i) => {
-              const accents = [
-                { num: "text-blue-500", topBg: "bg-blue-50", bar: "bg-blue-500" },
-                { num: "text-purple-500", topBg: "bg-purple-50", bar: "bg-purple-500" },
-                { num: "text-cyan-500", topBg: "bg-cyan-50", bar: "bg-cyan-500" },
-              ];
-              const a = accents[i % accents.length];
-              return (
-                <div key={s.step} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                  <div className={`${a.topBg} px-6 py-4 flex items-center gap-3`}>
-                    <span className={`text-2xl font-extrabold ${a.num} opacity-70`}>{s.step}</span>
-                    <div className={`h-5 w-0.5 ${a.bar} opacity-30 rounded-full`} />
-                    <h3 className="text-sm font-bold text-text">{s.title}</h3>
+            ].map((s) => (
+              <div key={s.step} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
+                    <span className="text-white text-sm font-bold">{s.step}</span>
                   </div>
-                  <div className="px-6 py-4">
+                  <div>
+                    <h3 className="text-sm font-bold text-text mb-1.5">{s.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>

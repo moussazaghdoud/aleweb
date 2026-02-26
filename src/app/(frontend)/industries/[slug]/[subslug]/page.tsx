@@ -88,27 +88,19 @@ export default async function IndustrySubPage({
             Key capabilities
           </h2>
           <div className="grid sm:grid-cols-2 gap-5">
-            {subPage.capabilities.map((cap, i) => {
-              const accents = [
-                { num: "text-blue-500", topBg: "bg-blue-50", bar: "bg-blue-500" },
-                { num: "text-purple-500", topBg: "bg-purple-50", bar: "bg-purple-500" },
-                { num: "text-cyan-500", topBg: "bg-cyan-50", bar: "bg-cyan-500" },
-                { num: "text-amber-500", topBg: "bg-amber-50", bar: "bg-amber-500" },
-              ];
-              const a = accents[i % accents.length];
-              return (
-                <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                  <div className={`${a.topBg} px-6 py-4 flex items-center gap-3`}>
-                    <span className={`text-2xl font-extrabold ${a.num} opacity-70`}>{String(i + 1).padStart(2, "0")}</span>
-                    <div className={`h-5 w-0.5 ${a.bar} opacity-30 rounded-full`} />
-                    <h3 className="text-base font-bold text-text">{cap.title}</h3>
+            {subPage.capabilities.map((cap, i) => (
+              <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
+                    <span className="text-white text-sm font-bold">{String(i + 1).padStart(2, "0")}</span>
                   </div>
-                  <div className="px-6 py-4">
+                  <div>
+                    <h3 className="text-base font-bold text-text mb-1.5">{cap.title}</h3>
                     <p className="text-sm text-text-secondary leading-relaxed">{cap.description}</p>
                   </div>
                 </div>
-              );
-            })}
+              </div>
+            ))}
           </div>
         </div>
       </section>
