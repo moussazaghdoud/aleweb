@@ -62,27 +62,27 @@ const pillars = [
 
 const pillarColorMap = {
   blue: {
-    border: "border-blue-500/30 hover:border-blue-400/50",
-    bg: "bg-white/15",
-    dot: "bg-blue-400",
-    badge: "bg-blue-500/20 text-blue-300",
-    stat: "text-blue-400",
+    border: "border-blue-500/25 hover:border-blue-400/50",
+    bg: "bg-blue-950/40",
+    numberBg: "bg-blue-500",
+    tag: "bg-white/10 text-blue-200 border-blue-400/20",
+    gradient: "from-blue-500 to-blue-600",
     glow: "bg-blue-500/10",
   },
   purple: {
-    border: "border-purple-500/30 hover:border-purple-400/50",
-    bg: "bg-white/15",
-    dot: "bg-purple-400",
-    badge: "bg-purple-500/20 text-purple-300",
-    stat: "text-purple-400",
+    border: "border-purple-500/25 hover:border-purple-400/50",
+    bg: "bg-purple-950/40",
+    numberBg: "bg-purple-500",
+    tag: "bg-white/10 text-purple-200 border-purple-400/20",
+    gradient: "from-purple-500 to-purple-600",
     glow: "bg-purple-500/10",
   },
   cyan: {
-    border: "border-cyan-500/30 hover:border-cyan-400/50",
-    bg: "bg-white/15",
-    dot: "bg-cyan-400",
-    badge: "bg-cyan-500/20 text-cyan-300",
-    stat: "text-cyan-400",
+    border: "border-cyan-500/25 hover:border-cyan-400/50",
+    bg: "bg-cyan-950/40",
+    numberBg: "bg-cyan-500",
+    tag: "bg-white/10 text-cyan-200 border-cyan-400/20",
+    gradient: "from-cyan-500 to-cyan-600",
     glow: "bg-cyan-500/10",
   },
 };
@@ -304,47 +304,58 @@ export function QuickNav() {
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-7">
             {pillars.map((p, i) => {
               const c = pillarColorMap[p.color];
               return (
                 <FadeIn key={p.id} delay={i * 150}>
                   <Link
                     href={p.href}
-                    className={`group relative block rounded-2xl border ${c.border} ${c.bg} p-7 transition-all duration-300 hover:translate-y-[-4px] hover:shadow-lg h-full overflow-hidden`}
+                    className={`group relative flex flex-col rounded-2xl border ${c.border} ${c.bg} backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl h-full overflow-hidden`}
                   >
-                    {/* Bottom darkening gradient */}
-                    <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/40 rounded-2xl pointer-events-none" />
                     {/* Glow effect on hover */}
                     <div className={`absolute -inset-px rounded-2xl ${c.glow} opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10`} />
 
-                    {/* Pillar badge */}
-                    <span className={`relative inline-flex items-center gap-1.5 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full ${c.badge} mb-5`}>
-                      <span className={`w-1.5 h-1.5 rounded-full ${c.dot}`} />
-                      {p.label}
-                    </span>
+                    {/* Top section */}
+                    <div className="relative p-7 pb-0 flex-1">
+                      {/* Number + label */}
+                      <div className="flex items-center gap-3 mb-5">
+                        <span className={`w-8 h-8 rounded-lg ${c.numberBg} flex items-center justify-center text-white text-sm font-bold`}>
+                          {String(i + 1).padStart(2, "0")}
+                        </span>
+                        <span className="text-sm font-semibold uppercase tracking-wider text-white/40">{p.label}</span>
+                      </div>
 
-                    <h3 className="relative text-lg font-bold text-white mb-2">{p.headline}</h3>
-                    <p className="relative text-sm text-white/65 leading-relaxed mb-5">{p.description}</p>
+                      <h3 className="text-xl font-bold text-white mb-3">{p.headline}</h3>
+                      <p className="text-sm text-white/60 leading-relaxed mb-5">{p.description}</p>
 
-                    {/* Product list */}
-                    <div className="relative space-y-1.5 mb-6">
-                      {p.products.map((prod) => (
-                        <div key={prod} className="flex items-center gap-2 text-xs text-white/55">
-                          <span className={`w-1 h-1 rounded-full ${c.dot} opacity-60`} />
-                          {prod}
-                        </div>
-                      ))}
+                      {/* Product tags */}
+                      <div className="flex flex-wrap gap-2 mb-6">
+                        {p.products.map((prod) => (
+                          <span key={prod} className={`text-[11px] font-semibold border rounded-lg px-3 py-1.5 ${c.tag}`}>
+                            {prod}
+                          </span>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Stats */}
-                    <div className="relative flex gap-6 pt-5 border-t border-white/10">
-                      {p.stats.map((s) => (
-                        <div key={s.label}>
-                          <div className={`text-lg font-bold ${c.stat}`}>{s.value}</div>
-                          <div className="text-[11px] text-white/50">{s.label}</div>
+                    {/* Bottom gradient bar with stats */}
+                    <div className={`bg-gradient-to-r ${c.gradient} px-7 py-5`}>
+                      <div className="flex items-center justify-between">
+                        <div className="flex gap-8">
+                          {p.stats.map((s) => (
+                            <div key={s.label}>
+                              <div className="text-xl font-extrabold text-white">{s.value}</div>
+                              <div className="text-[11px] text-white/70">{s.label}</div>
+                            </div>
+                          ))}
                         </div>
-                      ))}
+                        <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:bg-white/30 transition-colors">
+                          <svg className="w-5 h-5 text-white group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
                   </Link>
                 </FadeIn>
