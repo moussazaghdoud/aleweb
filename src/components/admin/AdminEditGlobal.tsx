@@ -1,22 +1,33 @@
-import { getAdminUser } from '@/lib/admin-auth'
+'use client'
+
+import { useEffect, useState } from 'react'
 
 type Props = {
-  /** Payload global slug (e.g. 'homepage', 'navigation', 'footer') */
   globalSlug: string
-  /** Display label */
   label?: string
 }
 
 /**
- * Server component: "Edit this page" button for CMS global documents.
+ * Client component: "Edit this page" button for CMS global documents.
  * Same security model as AdminEditButton but links to /admin/globals/{slug}.
  */
-export async function AdminEditGlobal({ globalSlug, label = 'Edit this page' }: Props) {
-  const user = await getAdminUser()
-  if (!user) return null
+export function AdminEditGlobal({ globalSlug, label = 'Edit this page' }: Props) {
+  const [editUrl, setEditUrl] = useState<string | null>(null)
 
-  const adminBase = process.env.NEXT_PUBLIC_URL || ''
-  const editUrl = `${adminBase}/admin/globals/${globalSlug}`
+  useEffect(() => {
+    fetch('/api/admin-check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ global: globalSlug }),
+    })
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.editUrl) setEditUrl(data.editUrl)
+      })
+      .catch(() => {})
+  }, [globalSlug])
+
+  if (!editUrl) return null
 
   return (
     <div

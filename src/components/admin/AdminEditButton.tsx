@@ -1,50 +1,38 @@
-import { getAdminUser } from '@/lib/admin-auth'
+'use client'
+
+import { useEffect, useState } from 'react'
 
 type Props = {
-  /** Payload collection slug (e.g. 'products', 'solutions', 'industries') */
   collection: string
-  /** Document slug — used to look up the CMS document ID */
   documentSlug: string
 }
 
 /**
- * Server component: "Edit this page" button for authenticated CMS admins.
+ * Client component: "Edit this page" button for authenticated CMS admins.
  *
  * Security:
- * - Performs server-side auth check via Payload JWT cookie
- * - Renders NOTHING for anonymous users (no HTML, no URLs, no IDs leaked)
- * - Gated behind ADMIN_EDIT_BUTTON_ENABLED env flag
- *
- * Rendering:
- * - Fixed overlay in top-right corner, high z-index
- * - pointer-events only on the button itself
- * - No layout shift, no CLS impact for public users
+ * - Calls /api/admin-check server-side route to verify auth
+ * - Only renders when server confirms admin status
+ * - Feature-flagged via ADMIN_EDIT_BUTTON_ENABLED env var (checked server-side)
+ * - No edit URLs in initial HTML for anonymous users
  */
-export async function AdminEditButton({ collection, documentSlug }: Props) {
-  const user = await getAdminUser()
-  if (!user) return null
+export function AdminEditButton({ collection, documentSlug }: Props) {
+  const [editUrl, setEditUrl] = useState<string | null>(null)
 
-  // Look up the actual CMS document ID by slug
-  let docId: string | null = null
-  try {
-    const { getPayload } = await import('@/lib/payload')
-    const payload = await getPayload()
-    const { docs } = await payload.find({
-      collection: collection as any,
-      where: { slug: { equals: documentSlug } },
-      limit: 1,
-      depth: 0,
+  useEffect(() => {
+    fetch('/api/admin-check', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ collection, slug: documentSlug }),
     })
-    docId = docs[0]?.id ? String(docs[0].id) : null
-  } catch {
-    // CMS unavailable — skip the button
-    return null
-  }
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (data?.editUrl) setEditUrl(data.editUrl)
+      })
+      .catch(() => {})
+  }, [collection, documentSlug])
 
-  if (!docId) return null
-
-  const adminBase = process.env.NEXT_PUBLIC_URL || ''
-  const editUrl = `${adminBase}/admin/collections/${collection}/${docId}`
+  if (!editUrl) return null
 
   return (
     <div
