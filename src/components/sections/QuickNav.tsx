@@ -63,7 +63,7 @@ const pillars = [
 const pillarColorMap = {
   blue: {
     border: "border-blue-500/25 hover:border-blue-400/50",
-    bg: "bg-blue-950/40",
+    bg: "bg-white/10",
     numberBg: "bg-blue-500",
     tag: "bg-white/10 text-blue-200 border-blue-400/20",
     gradient: "from-blue-500 to-blue-600",
@@ -71,7 +71,7 @@ const pillarColorMap = {
   },
   purple: {
     border: "border-purple-500/25 hover:border-purple-400/50",
-    bg: "bg-purple-950/40",
+    bg: "bg-white/10",
     numberBg: "bg-purple-500",
     tag: "bg-white/10 text-purple-200 border-purple-400/20",
     gradient: "from-purple-500 to-purple-600",
@@ -79,7 +79,7 @@ const pillarColorMap = {
   },
   cyan: {
     border: "border-cyan-500/25 hover:border-cyan-400/50",
-    bg: "bg-cyan-950/40",
+    bg: "bg-white/10",
     numberBg: "bg-cyan-500",
     tag: "bg-white/10 text-cyan-200 border-cyan-400/20",
     gradient: "from-cyan-500 to-cyan-600",
