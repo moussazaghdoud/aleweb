@@ -63,7 +63,7 @@ const pillars = [
 const pillarColorMap = {
   blue: {
     border: "border-gray-200 hover:border-blue-300",
-    bg: "bg-white",
+    bg: "bg-gray-100",
     numberBg: "bg-blue-500",
     tag: "bg-blue-50 text-blue-700 border-blue-200",
     gradient: "from-blue-500 to-blue-600",
@@ -71,7 +71,7 @@ const pillarColorMap = {
   },
   purple: {
     border: "border-gray-200 hover:border-purple-300",
-    bg: "bg-white",
+    bg: "bg-gray-100",
     numberBg: "bg-purple-500",
     tag: "bg-purple-50 text-purple-700 border-purple-200",
     gradient: "from-purple-500 to-purple-600",
@@ -79,7 +79,7 @@ const pillarColorMap = {
   },
   cyan: {
     border: "border-gray-200 hover:border-cyan-300",
-    bg: "bg-white",
+    bg: "bg-gray-100",
     numberBg: "bg-cyan-500",
     tag: "bg-cyan-50 text-cyan-700 border-cyan-200",
     gradient: "from-cyan-500 to-cyan-600",
@@ -285,7 +285,7 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="py-20 bg-gradient-to-b from-gray-950 via-gray-900 to-white relative overflow-hidden">
+      <section className="py-20 bg-gradient-to-b from-gray-800 via-gray-700 to-white relative overflow-hidden">
         {/* Subtle glow blobs */}
         <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/8 rounded-full blur-[120px]" />
         <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/8 rounded-full blur-[120px]" />
