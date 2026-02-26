@@ -202,7 +202,8 @@ export default async function ProductDetailPage({
                     <p className="text-sm text-text-secondary leading-relaxed">{feat.description}</p>
                   </div>
                 </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
