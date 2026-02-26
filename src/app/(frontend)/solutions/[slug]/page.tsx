@@ -195,30 +195,46 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       </section>
 
       {/* Capabilities */}
-      <section className="py-16 bg-light-50">
-        <div className="mx-auto max-w-[1320px] px-6">
+      <section className="py-16 bg-gradient-to-b from-gray-900 to-gray-800 relative overflow-hidden">
+        {/* Subtle glow */}
+        <div className="absolute top-0 right-[20%] w-[400px] h-[300px] bg-ale/10 rounded-full blur-[120px]" />
+        <div className="relative mx-auto max-w-[1320px] px-6">
           <FadeIn>
-            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
-              Key capabilities
-            </h2>
+            <div className="mb-10">
+              <p className="text-sm font-medium uppercase tracking-widest text-white/40 mb-2">What sets us apart</p>
+              <h2 className="text-2xl font-extrabold text-white tracking-tight">
+                Key capabilities
+              </h2>
+            </div>
           </FadeIn>
           <div className="grid sm:grid-cols-2 gap-5">
-            {solution.capabilities.map((cap, i) => (
-              <div
-                key={i}
-                className="bg-white rounded-xl border border-light-200 p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-ale-50 flex items-center justify-center shrink-0">
-                    <span className="text-ale font-bold text-sm">{String(i + 1).padStart(2, "0")}</span>
+            {solution.capabilities.map((cap, i) => {
+              const colors = [
+                { border: "border-l-blue-400", num: "text-blue-400", glow: "bg-blue-400" },
+                { border: "border-l-purple-400", num: "text-purple-400", glow: "bg-purple-400" },
+                { border: "border-l-cyan-400", num: "text-cyan-400", glow: "bg-cyan-400" },
+                { border: "border-l-amber-400", num: "text-amber-400", glow: "bg-amber-400" },
+              ];
+              const c = colors[i % colors.length];
+              return (
+                <FadeIn key={i} delay={i * 100}>
+                  <div
+                    className={`group relative bg-white/5 backdrop-blur-sm rounded-xl border border-white/10 border-l-4 ${c.border} p-6 hover:bg-white/10 transition-all duration-300`}
+                  >
+                    <div className={`absolute top-6 right-6 w-8 h-8 rounded-full ${c.glow} opacity-10 blur-lg`} />
+                    <div className="flex items-start gap-4">
+                      <span className={`text-2xl font-extrabold ${c.num} opacity-80 leading-none mt-0.5`}>
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <div>
+                        <h3 className="text-base font-bold text-white mb-2">{cap.title}</h3>
+                        <p className="text-sm text-white/55 leading-relaxed">{cap.description}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="text-base font-bold text-text mb-2">{cap.title}</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">{cap.description}</p>
-                  </div>
-                </div>
-              </div>
-            ))}
+                </FadeIn>
+              );
+            })}
           </div>
         </div>
       </section>
