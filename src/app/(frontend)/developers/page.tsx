@@ -88,10 +88,10 @@ export default function DevelopersPage() {
               { step: "03", title: "Build & Deploy", desc: "Develop your integration, test in the sandbox, and deploy to production with full enterprise support." },
             ].map((s) => (
               <div key={s.step} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="bg-gray-100 px-6 py-4 flex items-center gap-3">
-                  <span className="text-2xl font-extrabold text-gray-300">{s.step}</span>
-                  <div className="h-5 w-px bg-gray-300 rounded-full" />
-                  <h3 className="text-sm font-bold text-gray-900">{s.title}</h3>
+                <div className="bg-blue-50 px-6 py-4 flex items-center gap-3">
+                  <span className="text-2xl font-extrabold text-blue-300">{s.step}</span>
+                  <div className="h-5 w-px bg-blue-200 rounded-full" />
+                  <h3 className="text-sm font-bold text-blue-900">{s.title}</h3>
                 </div>
                 <div className="px-6 py-4">
                   <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>

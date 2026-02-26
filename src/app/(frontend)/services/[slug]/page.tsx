@@ -73,10 +73,10 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div className="grid sm:grid-cols-2 gap-5">
             {service.features.map((feat, i) => (
               <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="bg-gray-100 px-6 py-4 flex items-center gap-3">
-                  <span className="text-2xl font-extrabold text-gray-300">{String(i + 1).padStart(2, "0")}</span>
-                  <div className="h-5 w-px bg-gray-300 rounded-full" />
-                  <h3 className="text-base font-bold text-gray-900">{feat.title}</h3>
+                <div className="bg-blue-50 px-6 py-4 flex items-center gap-3">
+                  <span className="text-2xl font-extrabold text-blue-300">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="h-5 w-px bg-blue-200 rounded-full" />
+                  <h3 className="text-base font-bold text-blue-900">{feat.title}</h3>
                 </div>
                 <div className="px-6 py-4">
                   <p className="text-sm text-text-secondary leading-relaxed">{feat.description}</p>
