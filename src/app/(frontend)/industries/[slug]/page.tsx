@@ -184,15 +184,14 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           </h2>
           <div className="grid sm:grid-cols-2 gap-5">
             {industry.solutions.map((sol, i) => (
-              <div key={i} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
-                    <span className="text-white text-sm font-bold">{String(i + 1).padStart(2, "0")}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-base font-bold text-text mb-1.5">{sol.title}</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">{sol.description}</p>
-                  </div>
+              <div key={i} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className="bg-gray-100 px-6 py-4 flex items-center gap-3">
+                  <span className="text-2xl font-extrabold text-gray-300">{String(i + 1).padStart(2, "0")}</span>
+                  <div className="h-5 w-px bg-gray-300 rounded-full" />
+                  <h3 className="text-base font-bold text-gray-900">{sol.title}</h3>
+                </div>
+                <div className="px-6 py-4">
+                  <p className="text-sm text-text-secondary leading-relaxed">{sol.description}</p>
                 </div>
               </div>
             ))}

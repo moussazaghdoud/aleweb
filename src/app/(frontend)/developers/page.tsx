@@ -87,15 +87,14 @@ export default function DevelopersPage() {
               { step: "02", title: "Explore the Docs", desc: "Browse API references, quick-start guides, and sample code to accelerate your integration." },
               { step: "03", title: "Build & Deploy", desc: "Develop your integration, test in the sandbox, and deploy to production with full enterprise support." },
             ].map((s) => (
-              <div key={s.step} className="bg-white rounded-2xl border border-gray-100 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center shrink-0">
-                    <span className="text-white text-sm font-bold">{s.step}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-text mb-1.5">{s.title}</h3>
-                    <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>
-                  </div>
+              <div key={s.step} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                <div className="bg-gray-100 px-6 py-4 flex items-center gap-3">
+                  <span className="text-2xl font-extrabold text-gray-300">{s.step}</span>
+                  <div className="h-5 w-px bg-gray-300 rounded-full" />
+                  <h3 className="text-sm font-bold text-gray-900">{s.title}</h3>
+                </div>
+                <div className="px-6 py-4">
+                  <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>
                 </div>
               </div>
             ))}
