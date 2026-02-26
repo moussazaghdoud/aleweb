@@ -1,15 +1,13 @@
 /**
  * Server-side admin authentication check.
  *
- * Reads the Payload CMS `payload-token` cookie and verifies it
- * against the Payload Local API to determine if the current
- * request is from an authenticated admin/editor.
+ * Reads the Payload CMS `payload-token` cookie and decodes the JWT
+ * to determine if the current request is from an authenticated admin.
+ * Falls back to querying Payload if the role isn't in the JWT claims.
  *
  * Returns null for anonymous users — no user data is leaked.
+ * Returns null during SSG build (no request context) — safe for static pages.
  */
-
-import { cookies } from 'next/headers'
-import { getPayload } from './payload'
 
 export type AdminUser = {
   id: string
@@ -28,30 +26,49 @@ export async function getAdminUser(): Promise<AdminUser | null> {
   if (process.env.ADMIN_EDIT_BUTTON_ENABLED !== 'true') return null
 
   try {
+    // Dynamic import — cookies() throws during SSG build, caught below
+    const { cookies } = await import('next/headers')
     const cookieStore = await cookies()
     const token = cookieStore.get('payload-token')?.value
     if (!token) return null
 
-    const payload = await getPayload()
+    // Decode the JWT payload (base64url-encoded middle segment)
+    const parts = token.split('.')
+    if (parts.length !== 3) return null
 
-    // Verify the JWT token against Payload's auth
-    const { user } = await payload.auth({ headers: new Headers({ Authorization: `JWT ${token}` }) })
+    const claims = JSON.parse(
+      Buffer.from(parts[1], 'base64url').toString('utf-8'),
+    )
+    if (!claims?.id) return null
 
-    if (!user) return null
+    // Try to get role from JWT claims first
+    let role: string | null = claims.role || null
 
-    const role = (user as any).role as string
-    // Only allow admin and editor roles to see the edit button
-    if (!['admin', 'editor', 'product-manager', 'legal-approver'].includes(role)) {
+    if (!role) {
+      // Role not embedded in JWT — look it up from Payload
+      const { getPayload } = await import('./payload')
+      const payload = await getPayload()
+      const user = await payload.findByID({
+        collection: 'users',
+        id: claims.id,
+        depth: 0,
+      })
+      if (!user) return null
+      role = (user as any).role as string
+    }
+
+    // Only these roles can see the edit button
+    if (!role || !['admin', 'editor', 'product-manager', 'legal-approver'].includes(role)) {
       return null
     }
 
     return {
-      id: String(user.id),
-      email: (user as any).email || '',
+      id: String(claims.id),
+      email: claims.email || '',
       role,
     }
   } catch {
-    // Any failure (CMS down, invalid token, etc.) — treat as anonymous
+    // SSG build (no request context), CMS down, invalid token, etc.
     return null
   }
 }
