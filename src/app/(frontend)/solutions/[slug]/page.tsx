@@ -205,25 +205,24 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           <div className="grid sm:grid-cols-2 gap-5">
             {solution.capabilities.map((cap, i) => {
               const accents = [
-                { bg: "bg-blue-50", text: "text-blue-600", border: "border-blue-100", card: "bg-blue-50/40" },
-                { bg: "bg-purple-50", text: "text-purple-600", border: "border-purple-100", card: "bg-purple-50/40" },
-                { bg: "bg-cyan-50", text: "text-cyan-600", border: "border-cyan-100", card: "bg-cyan-50/40" },
-                { bg: "bg-amber-50", text: "text-amber-600", border: "border-amber-100", card: "bg-amber-50/40" },
+                { bar: "bg-blue-500", num: "text-blue-500", topBg: "bg-blue-50" },
+                { bar: "bg-purple-500", num: "text-purple-500", topBg: "bg-purple-50" },
+                { bar: "bg-cyan-500", num: "text-cyan-500", topBg: "bg-cyan-50" },
+                { bar: "bg-amber-500", num: "text-amber-500", topBg: "bg-amber-50" },
               ];
               const a = accents[i % accents.length];
               return (
                 <div
                   key={i}
-                  className={`${a.card} rounded-xl border border-light-200 p-6 hover:shadow-md hover:-translate-y-0.5 transition-all duration-300`}
+                  className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                 >
-                  <div className="flex items-start gap-4">
-                    <div className={`w-11 h-11 rounded-xl ${a.bg} border ${a.border} flex items-center justify-center shrink-0`}>
-                      <span className={`${a.text} font-bold text-sm`}>{String(i + 1).padStart(2, "0")}</span>
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-text mb-1.5">{cap.title}</h3>
-                      <p className="text-sm text-text-secondary leading-relaxed">{cap.description}</p>
-                    </div>
+                  <div className={`${a.topBg} px-6 py-4 flex items-center gap-3`}>
+                    <span className={`text-2xl font-extrabold ${a.num} opacity-70`}>{String(i + 1).padStart(2, "0")}</span>
+                    <div className={`h-5 w-0.5 ${a.bar} opacity-30 rounded-full`} />
+                    <h3 className="text-base font-bold text-text">{cap.title}</h3>
+                  </div>
+                  <div className="px-6 py-4">
+                    <p className="text-sm text-text-secondary leading-relaxed">{cap.description}</p>
                   </div>
                 </div>
               );
