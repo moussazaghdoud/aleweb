@@ -50,6 +50,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://www.al-enterprise.com",
+    languages: {
+      "en": "https://www.al-enterprise.com",
+      "fr": "https://www.al-enterprise.com/fr",
+      "x-default": "https://www.al-enterprise.com",
+    },
   },
 };
 

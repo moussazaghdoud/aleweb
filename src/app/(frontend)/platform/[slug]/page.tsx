@@ -46,7 +46,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: `${product.name} | Platform`,
     description: product.tagline,
-    alternates: { canonical: `/platform/${slug}` },
+    alternates: {
+      canonical: `/platform/${slug}`,
+      languages: { "en": `/platform/${slug}`, "fr": `/fr/platform/${slug}`, "x-default": `/platform/${slug}` },
+    },
   };
 }
 

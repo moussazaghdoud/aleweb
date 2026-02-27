@@ -21,7 +21,10 @@ export async function generateMetadata({
   return {
     title: `${cat.name} | Products`,
     description: cat.description,
-    alternates: { canonical: `/products/${category}` },
+    alternates: {
+      canonical: `/products/${category}`,
+      languages: { "en": `/products/${category}`, "fr": `/fr/products/${category}`, "x-default": `/products/${category}` },
+    },
   };
 }
 

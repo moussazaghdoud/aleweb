@@ -25,7 +25,10 @@ export function generateMetadata({
     return {
       title: `${subPage.name} | Industries`,
       description: subPage.tagline,
-      alternates: { canonical: `/industries/${slug}/${subslug}` },
+      alternates: {
+        canonical: `/industries/${slug}/${subslug}`,
+        languages: { "en": `/industries/${slug}/${subslug}`, "fr": `/fr/industries/${slug}/${subslug}`, "x-default": `/industries/${slug}/${subslug}` },
+      },
     };
   });
 }

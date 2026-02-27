@@ -18,7 +18,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   return {
     title: page.name,
     description: `${page.name} for Alcatel-Lucent Enterprise`,
-    alternates: { canonical: `/legal/${slug}` },
+    alternates: {
+      canonical: `/legal/${slug}`,
+      languages: { "en": `/legal/${slug}`, "fr": `/fr/legal/${slug}`, "x-default": `/legal/${slug}` },
+    },
   };
 }
 

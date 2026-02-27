@@ -32,7 +32,10 @@ export async function generateMetadata({
   return {
     title: `${product.name} | Products`,
     description: product.tagline,
-    alternates: { canonical: `/products/${category}/${slug}` },
+    alternates: {
+      canonical: `/products/${category}/${slug}`,
+      languages: { "en": `/products/${category}/${slug}`, "fr": `/fr/products/${category}/${slug}`, "x-default": `/products/${category}/${slug}` },
+    },
     openGraph: {
       title: `${product.name} | Alcatel-Lucent Enterprise`,
       description: product.tagline,
