@@ -86,4 +86,46 @@ export const partnersData: PartnerPageData[] = [
       },
     ],
   },
+  {
+    slug: "become-a-partner",
+    name: "Become a Partner",
+    tagline: "Join ALE's global partner ecosystem and grow your business",
+    description:
+      "Partner with Alcatel-Lucent Enterprise to expand your portfolio, increase revenue, and deliver enterprise-grade networking and communications solutions to your customers. Whether you are a reseller, systems integrator, managed service provider, or technology developer, ALE offers a partner program designed to accelerate your growth with comprehensive training, marketing resources, and technical support.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/business-partner-360-header-v3.jpg?h=600&w=1440",
+    features: [
+      { title: "Multiple Partner Tracks", description: "Choose from Business Partner (reseller/SI), Consultants (advisory), or Developer & Solution Partner (DSPP) tracks — each tailored to your business model and go-to-market strategy." },
+      { title: "Competitive Margins & Incentives", description: "Tiered discount structures, deal registration protection, rebate programs, and performance-based rewards that grow as your partnership matures." },
+      { title: "Training & Certification", description: "Free access to ALE University with instructor-led and self-paced courses. Build certified expertise across networking, communications, and cloud solutions to differentiate your practice." },
+      { title: "Marketing & Lead Generation", description: "Co-branded campaigns, marketing development funds, lead sharing, and campaign-in-a-box kits to help you generate pipeline and close deals faster." },
+    ],
+  },
+  {
+    slug: "dspp",
+    name: "Developer & Solution Partner Program",
+    tagline: "Build, certify, and market integrated solutions on the ALE platform",
+    description:
+      "The ALE Developer and Solution Partner Program (DSPP) enables technology companies to develop certified applications that extend and integrate with ALE solutions. Gain access to APIs, SDKs, development labs, certification testing, and go-to-market support — building a thriving ecosystem of interoperable solutions that deliver greater value to enterprise customers worldwide.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/partners-directory-page-homepage-header-image-495x275.jpg?h=600&w=1440",
+    features: [
+      { title: "APIs & SDKs", description: "Standards-based REST APIs, JavaScript, iOS, and Android SDKs for Rainbow, OmniPCX Enterprise, and OmniVista platforms — with comprehensive documentation and sample code." },
+      { title: "Certification Labs", description: "Access to remote and on-site certification environments. Validated solutions earn official ALE certification, are listed in the partner directory, and benefit from joint marketing." },
+      { title: "Interoperability Testing", description: "IWR (Interoperability Validation Reports) program ensures your solution works seamlessly with ALE infrastructure and receives ongoing compatibility testing with new releases." },
+      { title: "Ecosystem Directory", description: "Certified solutions are promoted in the ALE Technology Partner directory, giving you visibility to ALE's global customer base and 3,400+ channel partners." },
+    ],
+  },
+  {
+    slug: "partner-resources",
+    name: "Partner Resources",
+    tagline: "Tools, training, and support to help you succeed as an ALE partner",
+    description:
+      "Access the resources you need to grow your ALE business. From technical documentation and sales tools to marketing assets and training programs, our partner portal provides everything required to design, sell, deploy, and support ALE solutions for your customers.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/business-partner-360-header-v3.jpg?h=600&w=1440",
+    features: [
+      { title: "Partner Portal", description: "Centralized access to deal registration, quoting tools, order management, and support case tracking through the ALE Business Partner Portal." },
+      { title: "ALE University", description: "Comprehensive training platform with certification tracks for sales, pre-sales, and technical roles across the full ALE networking and communications portfolio." },
+      { title: "Technical Documentation", description: "Product documentation, configuration guides, deployment best practices, and reference architectures for all ALE solutions — updated with each product release." },
+      { title: "Marketing Assets", description: "Co-brandable collateral, solution briefs, customer presentations, demo scripts, and video content to support your sales and marketing activities." },
+    ],
+  },
 ];

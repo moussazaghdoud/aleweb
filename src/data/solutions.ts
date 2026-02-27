@@ -707,4 +707,88 @@ export const solutionsData: SolutionData[] = [
     ],
     industries: ["healthcare", "education", "hospitality", "government", "manufacturing", "smart-buildings"],
   },
+  {
+    slug: "cloud-communications",
+    name: "Cloud Communications",
+    tagline: "Transform your enterprise communications with secure, sovereign cloud solutions",
+    description:
+      "ALE cloud communications solutions deliver enterprise-grade voice, video, messaging, and contact center capabilities from the cloud — with full GDPR compliance, ISO 27001 certification, and data sovereignty guarantees. Whether you choose public cloud with Rainbow, private cloud with Rainbow Edge, or hybrid configurations, ALE provides the flexibility to migrate at your own pace while maintaining the security and reliability your organization requires.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/converged-everthing-aas-solution-1140x600-banner.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Rainbow Cloud Platform", description: "Enterprise UCaaS with team collaboration, HD video conferencing, instant messaging, file sharing, and presence — all delivered from secure European data centers." },
+      { title: "Cloud Contact Center", description: "ALE Connect CCaaS provides omnichannel customer engagement across voice, email, chat, social media, and messaging with cloud-native scalability." },
+      { title: "Private Cloud Option", description: "Rainbow Edge enables private cloud deployment with local data center hosting, giving organizations full control over data residency and compliance requirements." },
+      { title: "Migration Services", description: "Phased migration paths from on-premises OmniPCX Enterprise to cloud Rainbow — protecting existing investments while progressively adopting cloud benefits." },
+    ],
+    products: ["Rainbow", "Rainbow Edge", "ALE Connect", "OmniPCX Enterprise", "Purple on Demand"],
+    benefits: [
+      { stat: "GDPR", label: "compliant with data sovereignty" },
+      { stat: "99.999%", label: "platform availability" },
+      { stat: "Hybrid", label: "cloud, on-prem, or both" },
+    ],
+    industries: ["healthcare", "education", "hospitality", "government", "energy", "manufacturing", "smart-buildings"],
+  },
+  {
+    slug: "collaboration-solutions",
+    name: "Collaboration Solutions",
+    tagline: "Unite your teams with seamless collaboration across any device, any location, any channel",
+    description:
+      "ALE collaboration solutions bring together voice, video, messaging, file sharing, and conferencing into a seamless experience that keeps teams productive regardless of location. Rainbow delivers enterprise-grade collaboration with integrations into Microsoft Teams, Salesforce, and hundreds of business applications — while maintaining European data sovereignty and GDPR compliance.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-collaboration-solutions-header-l2-l3-1440x600-web.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Team Collaboration", description: "Persistent channels, file sharing, and real-time messaging with Rainbow. Create project spaces, share documents, and maintain context across conversations." },
+      { title: "Video Conferencing", description: "HD video meetings with up to 120 participants, screen sharing, recording, virtual meeting rooms, and breakout sessions — accessible from any device." },
+      { title: "Business App Integration", description: "Native connectors for Microsoft Teams, Salesforce, ServiceNow, and more. Rainbow App Connector enables deep integration with CRM and business applications." },
+      { title: "Mobile Collaboration", description: "Full-featured Rainbow mobile app for iOS and Android gives remote and frontline workers access to all collaboration features from their personal or corporate devices." },
+    ],
+    products: ["Rainbow", "Rainbow CPaaS", "OmniPCX Enterprise", "ALE Connect", "Smart DeskPhones"],
+    benefits: [
+      { stat: "120", label: "participants per video meeting" },
+      { stat: "300+", label: "app integrations available" },
+      { stat: "Any device", label: "desktop, mobile, browser" },
+    ],
+    industries: ["healthcare", "education", "hospitality", "government", "manufacturing", "smart-buildings"],
+  },
+  {
+    slug: "communications-security",
+    name: "Communications Security",
+    tagline: "Protect your enterprise communications with end-to-end encryption and sovereign data hosting",
+    description:
+      "ALE communications security solutions provide comprehensive protection for enterprise voice, video, and messaging. From TLS/SRTP encryption on all calls to session border controllers that protect against SIP-based attacks, to GDPR-compliant data hosting outside the reach of the Cloud Act — ALE ensures your communications remain confidential, compliant, and resilient against modern threats.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "End-to-End Encryption", description: "TLS 1.3 and SRTP encryption on all voice and video communications. Rainbow provides encrypted messaging and file sharing with keys managed in European data centers." },
+      { title: "Session Border Control", description: "OpenTouch SBC protects SIP trunks and UC infrastructure against toll fraud, denial of service, and protocol-based attacks at the network perimeter." },
+      { title: "Data Sovereignty", description: "Communications data hosted in European data centers, GDPR compliant and ISO 27001 certified — not subject to the US Cloud Act or Patriot Act." },
+      { title: "Identity & Access Management", description: "Multi-factor authentication, role-based access control, and SSO integration for all communications platforms — ensuring only authorized users access sensitive resources." },
+    ],
+    products: ["Rainbow", "OpenTouch SBC", "OmniPCX Enterprise", "OmniVista 8770"],
+    benefits: [
+      { stat: "TLS 1.3", label: "encryption on all communications" },
+      { stat: "ISO 27001", label: "certified infrastructure" },
+      { stat: "GDPR", label: "compliant data hosting" },
+    ],
+    industries: ["healthcare", "government", "education", "energy", "manufacturing", "transportation"],
+  },
+  {
+    slug: "private-5g-solution",
+    name: "Private 5G Networks",
+    tagline: "Deploy dedicated cellular connectivity for mission-critical enterprise operations",
+    description:
+      "ALE Private 5G solutions provide dedicated, high-performance cellular connectivity for enterprise environments where Wi-Fi alone cannot meet requirements. With ultra-low latency, massive device density, and guaranteed bandwidth, Private 5G enables mission-critical applications in manufacturing, logistics, healthcare, and transportation — all managed through familiar ALE network management tools.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/industrial-networks-header-image-v1.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Ultra-Low Latency", description: "Sub-10ms round-trip latency enables real-time control of robots, AGVs, and automated systems on manufacturing floors and in logistics operations." },
+      { title: "Massive Device Density", description: "Support thousands of connected devices per cell — sensors, cameras, handhelds, and machines — without the interference issues of shared spectrum." },
+      { title: "Dedicated Spectrum", description: "Operate on licensed or shared spectrum (CBRS) with no interference from neighboring networks, ensuring consistent performance for critical applications." },
+      { title: "Unified Management", description: "Manage Private 5G alongside Wi-Fi and wired infrastructure through OmniVista, providing a single pane of glass for your entire network." },
+    ],
+    products: ["Private 5G", "OmniAccess Stellar", "OmniVista Cirrus", "OmniSwitch"],
+    benefits: [
+      { stat: "<10ms", label: "ultra-low latency" },
+      { stat: "1000s", label: "of devices per cell" },
+      { stat: "Dedicated", label: "spectrum, no interference" },
+    ],
+    industries: ["manufacturing", "transportation", "healthcare", "energy", "government"],
+  },
 ];

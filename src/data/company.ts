@@ -433,6 +433,79 @@ export const companyData: CompanyPageData[] = [
     ],
   },
   {
+    slug: "history",
+    name: "Our History",
+    tagline: "Over a century of telecommunications innovation — from the telephone to the cloud",
+    description:
+      "Alcatel-Lucent Enterprise carries a heritage spanning more than 100 years of innovation in telecommunications and networking. From the early days of the telephone to today's cloud-native platforms, our journey reflects the evolution of enterprise communications itself.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-page-history-executive-homepage-header-l2-l3-1440x600-v3.jpg?h=600&w=1440",
+    sections: [
+      {
+        title: "The Early Years (1898–1970s)",
+        content:
+          "Our roots trace back to the Compagnie Générale d'Electricité (CGE), founded in 1898 in France. Through decades of innovation in telephony and switching technology, CGE's telecommunications division became a driving force in the European telecom industry, developing some of the world's first electronic switching systems.",
+      },
+      {
+        title: "The Alcatel Era (1980s–2006)",
+        content:
+          "In 1986, CGE's telecom operations were reorganized under the Alcatel brand. Alcatel quickly became a global leader in telecommunications infrastructure, pioneering ISDN, DSL, and fiber optic technologies. The enterprise division developed the groundbreaking OmniPCX communications platform and OmniSwitch networking portfolio.",
+      },
+      {
+        title: "Alcatel-Lucent (2006–2014)",
+        content:
+          "The merger of Alcatel and Lucent Technologies in 2006 created a global communications powerhouse combining European and American engineering excellence. The enterprise business unit continued to innovate with unified communications, IP telephony, and next-generation networking solutions.",
+      },
+      {
+        title: "ALE is Born (2014–Present)",
+        content:
+          "In 2014, the enterprise division was established as a standalone company — Alcatel-Lucent Enterprise — in partnership with China Huaxin. This strategic move gave ALE the independence and agility to focus exclusively on enterprise customers, launching the Rainbow cloud platform, OmniAccess Stellar Wi-Fi, and expanding into Private 5G.",
+      },
+      {
+        title: "Looking Forward",
+        content:
+          "Today, ALE serves over one million customers worldwide through 3,400+ business partners in more than 50 countries. Our mission remains unchanged: to make everything connect by delivering digital-age networking, communications, and cloud solutions with services tailored for business success.",
+      },
+    ],
+    stats: [
+      { label: "Founded", value: "1898" },
+      { label: "Years of Innovation", value: "125+" },
+      { label: "ALE Established", value: "2014" },
+      { label: "Customers Worldwide", value: "1,000,000+" },
+      { label: "Countries", value: "50+" },
+      { label: "Business Partners", value: "3,400+" },
+    ],
+  },
+  {
+    slug: "awards",
+    name: "Awards & Recognition",
+    tagline: "Industry recognition for innovation and excellence",
+    description:
+      "Alcatel-Lucent Enterprise has been recognized by leading industry analysts, technology publications, and channel organizations for innovation and excellence across our networking, communications, and cloud portfolio.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440",
+    sections: [
+      {
+        title: "Analyst Recognition",
+        content:
+          "ALE is recognized in Gartner Magic Quadrant evaluations for unified communications and enterprise networking. IDC MarketScape reports position ALE among leaders in cloud communications platforms. Frost & Sullivan has awarded ALE for innovation in European UCaaS and enterprise networking.",
+      },
+      {
+        title: "Industry Awards",
+        content:
+          "ALE solutions have received awards from UC Today, CRN, Network Computing, and other leading technology publications for product innovation, customer satisfaction, and channel excellence across our portfolio.",
+      },
+      {
+        title: "Channel Partner Awards",
+        content:
+          "Our 360 Partner Experience program and partner enablement have been recognized by channel organizations worldwide. ALE partners consistently rank among top performers in customer satisfaction and project delivery.",
+      },
+      {
+        title: "Sustainability Recognition",
+        content:
+          "ALE's ESG commitments and sustainable product design initiatives have earned recognition from environmental and corporate responsibility organizations, including our participation in the UN Global Compact since 2019.",
+      },
+    ],
+  },
+  {
     slug: "executive-team",
     name: "Executive Team",
     tagline: "Our Executive team has a wealth of experience within Alcatel-Lucent Enterprise and the telecoms industry",

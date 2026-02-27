@@ -600,4 +600,72 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       },
     ],
   },
+
+  // ─── Education: Intelligent Campus ─────────────────────────────────────────
+
+  {
+    parentSlug: "education",
+    slug: "intelligent-campus",
+    name: "Intelligent Campus",
+    tagline: "Create smart, connected campuses that enhance learning, safety, and operational efficiency",
+    description:
+      "ALE Intelligent Campus solutions transform educational institutions into smart, connected environments where technology enhances every aspect of campus life. From high-performance Wi-Fi that supports thousands of simultaneous devices to IoT-enabled building systems and real-time location services, ALE helps universities and schools create safe, sustainable, and student-centric campuses.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-education-topic1-image.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Campus-Wide Connectivity", description: "High-density Wi-Fi 6/7 coverage across classrooms, libraries, dormitories, and outdoor areas — supporting thousands of concurrent devices with seamless roaming." },
+      { title: "Smart Building Integration", description: "IoT-ready network infrastructure connecting HVAC, lighting, access control, and energy management systems for sustainable campus operations." },
+      { title: "Campus Safety & Security", description: "Real-time location services, mass notification systems, and video surveillance networking provide comprehensive campus safety with automated emergency response." },
+      { title: "Student-Centric Services", description: "Personalized digital experiences including wayfinding, room booking, equipment location, and mobile-first student services through Rainbow platform integration." },
+    ],
+    products: ["OmniAccess Stellar", "OmniSwitch", "OmniVista Cirrus", "Rainbow", "OmniAccess Stellar Asset Tracking"],
+    customers: [
+      { name: "Arizona State University", detail: "Campus-wide Wi-Fi upgrade supporting 100,000+ students and IoT integration" },
+      { name: "University of Manchester", detail: "Intelligent building automation and energy management across campus" },
+    ],
+  },
+
+  // ─── Education: E-Rate ─────────────────────────────────────────────────────
+
+  {
+    parentSlug: "education",
+    slug: "e-rate",
+    name: "E-Rate Solutions",
+    tagline: "Maximize your E-Rate funding with eligible ALE networking and Wi-Fi solutions",
+    description:
+      "ALE provides E-Rate eligible networking and Wi-Fi solutions that help K-12 schools and libraries maximize their federal funding to build modern, high-performance network infrastructure. Our OmniSwitch and OmniAccess Stellar portfolios are Category 1 and Category 2 eligible, with simplified pricing and deployment designed specifically for education environments.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-education-topic1-image.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Category 2 Eligible", description: "OmniAccess Stellar Wi-Fi access points and OmniSwitch LAN switches are Category 2 eligible for internal connections funding under the E-Rate program." },
+      { title: "Simplified Pricing", description: "Education-specific pricing structures designed to align with E-Rate procurement requirements, making it easier to submit competitive bids." },
+      { title: "CIPA Compliance", description: "Built-in content filtering and access control capabilities help schools meet Children's Internet Protection Act requirements for E-Rate eligibility." },
+      { title: "Scalable Deployment", description: "Solutions designed for school district-wide deployment with centralized management, zero-touch provisioning, and cloud-based monitoring." },
+    ],
+    products: ["OmniAccess Stellar", "OmniSwitch", "OmniVista Cirrus"],
+    customers: [
+      { name: "Houston Independent School District", detail: "District-wide Wi-Fi modernization funded through E-Rate Category 2" },
+    ],
+  },
+
+  // ─── Hospitality: Guest Experience ─────────────────────────────────────────
+
+  {
+    parentSlug: "hospitality",
+    slug: "guest-experience",
+    name: "Guest Experience",
+    tagline: "Deliver personalized, connected experiences that delight guests and drive loyalty",
+    description:
+      "ALE hospitality solutions transform the guest experience from check-in to checkout with personalized digital services, seamless connectivity, and intelligent building automation. From high-speed Wi-Fi and in-room entertainment to mobile check-in and location-based services, ALE helps hotels and resorts create memorable experiences that drive guest satisfaction and loyalty.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-l2-topic1-body-copy-image-810x540.jpg?h=600&w=1440",
+    capabilities: [
+      { title: "Seamless Guest Wi-Fi", description: "High-performance Wi-Fi with captive portal, tiered access levels, and seamless roaming across the entire property — from lobby to pool to conference rooms." },
+      { title: "Mobile Guest Services", description: "Mobile check-in/checkout, digital room keys, in-room service ordering, and property wayfinding through Rainbow-powered guest apps." },
+      { title: "Smart Room Technology", description: "IoT-enabled rooms with automated climate control, lighting, and entertainment that adjust to guest preferences for a personalized stay." },
+      { title: "Staff Communications", description: "DECT handsets and Rainbow messaging keep housekeeping, maintenance, and front desk teams connected with real-time task management and escalation." },
+    ],
+    products: ["OmniAccess Stellar", "Rainbow", "DECT Handsets", "OmniSwitch", "OmniPCX Enterprise"],
+    customers: [
+      { name: "Mandarin Oriental Hotel Group", detail: "Property-wide smart room and guest connectivity transformation" },
+      { name: "Accor Hotels", detail: "Multi-property Wi-Fi and staff communications deployment across European portfolio" },
+    ],
+  },
 ];
