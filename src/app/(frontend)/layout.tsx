@@ -74,6 +74,11 @@ export default async function FrontendLayout({
   return (
     <html lang="en" className={inter.variable}>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('theme')||'system';var d=t==='system'?window.matchMedia('(prefers-color-scheme:dark)').matches:t==='dark';if(d)document.documentElement.classList.add('dark')}catch(e){}})()`,
+          }}
+        />
         <GoogleAnalytics gaId={gaId} />
         <GoogleTagManager gtmId={gtmId} />
         <OrganizationJsonLd />

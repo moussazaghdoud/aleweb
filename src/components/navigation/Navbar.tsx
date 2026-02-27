@@ -7,6 +7,8 @@ import { primaryNav, type MegaNavItem } from "@/data/navigation";
 import { MegaPanel } from "./MegaPanel";
 import MobileMenu from "./MobileMenu";
 import { SearchModal } from "../search/SearchModal";
+import { ThemeToggle } from "../shared/ThemeToggle";
+import { LanguageSwitcher } from "../shared/LanguageSwitcher";
 
 /* ================================================================== */
 /*  NAVBAR SHELL                                                       */
@@ -115,6 +117,8 @@ export function Navbar() {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
             </button>
+            <ThemeToggle />
+            <LanguageSwitcher />
             <Link
               href="/company/contact"
               className="hidden sm:inline-flex items-center h-9 px-5 text-[13px] font-semibold bg-ale text-white rounded-full hover:bg-ale-dark transition-colors"
