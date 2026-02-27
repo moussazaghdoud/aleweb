@@ -2,6 +2,7 @@ export interface ExecutiveMember {
   name: string;
   title: string;
   image: string;
+  bio?: string;
 }
 
 export interface CompanyPageData {
@@ -461,13 +462,48 @@ export const companyData: CompanyPageData[] = [
       },
     ],
     executives: [
-      { name: "Yann Zhang", title: "CEO", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/yann-zhang-headshot-web.jpg" },
-      { name: "Rasheed Mohamad", title: "Global Revenue and Operations Officer", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/rasheed-mohamad-150x160-web.jpg" },
-      { name: "Nicolas Brunel", title: "EVP, Strategy, People and Transformation Office & President of ALE International", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/nicolas-brunel-150x160-web.jpg" },
-      { name: "Stephan Robineau", title: "EVP, Product Business Group & President of ALE USA", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/stephan-robineau-150x160-web.jpg" },
-      { name: "Moussa Zaghdoud", title: "EVP, Customer Experience & Services", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/moussa-zaghdoud-150x160-web.jpg" },
-      { name: "Marc Blecken", title: "EVP, Finance", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/marc-blecken-150x160-web.jpg" },
-      { name: "Sandrine El Khodry", title: "EVP, Global Sales and Marketing", image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/sandrine-headshot-72dpi.jpg" },
+      {
+        name: "Yann Zhang",
+        title: "CEO",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/yann-zhang-headshot-web.jpg",
+        bio: "As CEO and Board Member of Alcatel-Lucent Enterprise, Yann Zhang provides strategic, financial, and operational leadership, working with the Executive Management Team and Board of Directors. He brings over 29 years of experience in telecommunications and IT with expertise in sales, service, R&D, product management and business division leadership. Previously, he served as Executive Vice President of Enterprise Business at Nokia Shanghai Bell.",
+      },
+      {
+        name: "Rasheed Mohamad",
+        title: "Global Revenue and Operations Officer",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/rasheed-mohamad-150x160-web.jpg",
+        bio: "An expert international executive with global leadership experience in business transformation, Rasheed leads the Global Operations, Business Technology, Quality and ESG teams while maximizing revenue generation. As sponsor of the company's #GoGreen program, he focuses on sustainable technologies and climate protection. He has 25+ years in telecommunications, holding various management positions in project management, R&D, supply chain, IT/IS and business operations.",
+      },
+      {
+        name: "Nicolas Brunel",
+        title: "EVP, Strategy, People and Transformation Office & President of ALE International",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/nicolas-brunel-150x160-web.jpg",
+        bio: "Nicolas supports the CEO and executive management in defining strategy while integrating Transformation, HR and Real Estate functions. As President of ALE International since March 2019, he represents the company legally, manages employee and union relationships, and promotes ALE in France.",
+      },
+      {
+        name: "Stephan Robineau",
+        title: "EVP, Product Business Group & President of ALE USA",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/stephan-robineau-150x160-web.jpg",
+        bio: "A seasoned international business executive and board member with global leadership experience, Stephan leads the Product Business Group overseeing consolidated talent focused on growth and innovation. Throughout 20+ years in executive networking roles, he has delivered growth and innovation to transform organizations and processes for business-driven automation, simplification and quality.",
+      },
+      {
+        name: "Moussa Zaghdoud",
+        title: "EVP, Customer Experience & Services",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/moussa-zaghdoud-150x160-web.jpg",
+        bio: "An entrepreneur by nature, passionate about innovation, creativity, and enabling customer success, Moussa leads the CES organisation that designs value-added services and vertical solutions maximizing recurring revenue, renewals and upselling across the customer journey. His expertise spans software development, artificial intelligence, security, big data, data centre operations, business development and customer care.",
+      },
+      {
+        name: "Marc Blecken",
+        title: "EVP, Finance",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/marc-blecken-150x160-web.jpg",
+        bio: "As EVP of Finance, Marc manages controlling, accounting, treasury, tax, reporting and mergers and acquisitions functions. He brings 20+ years of international finance leadership experience across Germany, France and the United States. He was instrumental in establishing ALE as a standalone company after the Alcatel-Lucent spin-off and has shaped the Finance organization focusing on digital transformation and sustainable growth.",
+      },
+      {
+        name: "Sandrine El Khodry",
+        title: "EVP, Global Sales and Marketing",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/sandrine-headshot-72dpi.jpg",
+        bio: "A senior executive with over three decades of experience in the ICT and telecommunications sectors, Sandrine oversees worldwide strategic growth, transformation and market expansion. Her career includes key roles at Airbus, British Telecom and euNetworks managing complex initiatives and multicultural teams. She is known for driving sustainable growth and leading through change with strategic clarity, market insight, and an empowering leadership style.",
+      },
     ],
   },
 ];

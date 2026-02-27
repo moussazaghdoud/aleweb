@@ -190,20 +190,27 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
               Leadership Team
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            <div className="space-y-10">
               {page.executives.map((exec) => (
-                <div key={exec.name} className="text-center">
-                  <div className="w-36 h-36 mx-auto mb-4 rounded-full overflow-hidden bg-light-200 border-4 border-white shadow-lg">
-                    <Image
-                      src={exec.image}
-                      alt={exec.name}
-                      width={160}
-                      height={160}
-                      className="w-full h-full object-cover"
-                    />
+                <div key={exec.name} className="flex flex-col sm:flex-row items-start gap-6 p-6 bg-white rounded-2xl border border-light-200">
+                  <div className="shrink-0">
+                    <div className="w-28 h-28 rounded-full overflow-hidden bg-light-200 border-4 border-white shadow-lg">
+                      <Image
+                        src={exec.image}
+                        alt={exec.name}
+                        width={160}
+                        height={160}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
                   </div>
-                  <h3 className="text-base font-bold text-text">{exec.name}</h3>
-                  <p className="text-sm text-text-secondary mt-1 leading-relaxed">{exec.title}</p>
+                  <div>
+                    <h3 className="text-lg font-bold text-text">{exec.name}</h3>
+                    <p className="text-sm font-semibold text-ale mt-0.5">{exec.title}</p>
+                    {exec.bio && (
+                      <p className="text-sm text-text-secondary leading-relaxed mt-3">{exec.bio}</p>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
