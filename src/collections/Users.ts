@@ -10,7 +10,7 @@ export const Users: CollectionConfig = {
   },
   access: {
     create: isAdmin,
-    read: () => true,
+    read: isAdmin,
     update: isAdmin,
     delete: isAdmin,
   },

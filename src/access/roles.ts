@@ -22,7 +22,7 @@ export const isAdminFieldLevel: FieldAccess = ({ req: { user } }) =>
 // ---------- collection-level ----------
 export const adminOnly = {
   create: isAdmin,
-  read: () => true,
+  read: isAdmin,
   update: isAdmin,
   delete: isAdmin,
 }

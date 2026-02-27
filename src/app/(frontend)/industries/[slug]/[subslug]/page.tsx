@@ -25,6 +25,7 @@ export function generateMetadata({
     return {
       title: `${subPage.name} | Industries`,
       description: subPage.tagline,
+      alternates: { canonical: `/industries/${slug}/${subslug}` },
     };
   });
 }

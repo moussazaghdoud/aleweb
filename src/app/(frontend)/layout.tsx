@@ -40,6 +40,9 @@ export const metadata: Metadata = {
     description:
       "Enterprise technology that transforms industries. Cloud communications, secure networking, and AI-driven operations.",
   },
+  alternates: {
+    canonical: "https://www.al-enterprise.com",
+  },
 };
 
 export default async function FrontendLayout({
