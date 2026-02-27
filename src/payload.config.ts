@@ -21,6 +21,7 @@ import { Partners } from './collections/Partners'
 import { CompanyPages } from './collections/CompanyPages'
 import { LegalPages } from './collections/LegalPages'
 import { Resources } from './collections/Resources'
+import { ContactSubmissions } from './collections/ContactSubmissions'
 
 // Globals
 import { Navigation } from './globals/Navigation'
@@ -102,6 +103,7 @@ export default buildConfig({
     CompanyPages,
     LegalPages,
     Resources,
+    ContactSubmissions,
   ],
 
   // ── Globals ──────────────────────────────────────────────────

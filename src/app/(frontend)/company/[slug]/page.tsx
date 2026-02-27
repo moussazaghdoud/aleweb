@@ -4,6 +4,7 @@ import Image from "next/image";
 import { getCompanyData } from "@/lib/cms";
 import { companyVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
+import { ContactForm } from "@/components/forms/ContactForm";
 
 export async function generateStaticParams() {
   const companyData = await getCompanyData();
@@ -122,36 +123,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
                 <h2 className="text-xl font-extrabold text-text tracking-tight mb-6">
                   Send us a message
                 </h2>
-                <form className="space-y-4">
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div>
-                      <label className="text-xs font-semibold text-text-secondary block mb-1.5">First Name</label>
-                      <input type="text" className="w-full h-10 px-3 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale" />
-                    </div>
-                    <div>
-                      <label className="text-xs font-semibold text-text-secondary block mb-1.5">Last Name</label>
-                      <input type="text" className="w-full h-10 px-3 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale" />
-                    </div>
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-text-secondary block mb-1.5">Work Email</label>
-                    <input type="email" className="w-full h-10 px-3 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-text-secondary block mb-1.5">Company</label>
-                    <input type="text" className="w-full h-10 px-3 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale" />
-                  </div>
-                  <div>
-                    <label className="text-xs font-semibold text-text-secondary block mb-1.5">Message</label>
-                    <textarea rows={4} className="w-full px-3 py-2 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale resize-none" />
-                  </div>
-                  <button
-                    type="submit"
-                    className="w-full h-11 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-colors"
-                  >
-                    Submit Inquiry
-                  </button>
-                </form>
+                <ContactForm />
               </div>
             </div>
           </section>

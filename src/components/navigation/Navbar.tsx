@@ -6,6 +6,7 @@ import Image from "next/image";
 import { primaryNav, type MegaNavItem } from "@/data/navigation";
 import { MegaPanel } from "./MegaPanel";
 import MobileMenu from "./MobileMenu";
+import { SearchModal } from "../search/SearchModal";
 
 /* ================================================================== */
 /*  NAVBAR SHELL                                                       */
@@ -17,6 +18,7 @@ import MobileMenu from "./MobileMenu";
 export function Navbar() {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
@@ -29,12 +31,17 @@ export function Navbar() {
     timeoutRef.current = setTimeout(() => setOpenDropdown(null), 150);
   }, []);
 
-  // Close on Escape
+  // Keyboard shortcuts
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         setOpenDropdown(null);
         setMobileOpen(false);
+      }
+      // Ctrl+K / Cmd+K to open search
+      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
+        e.preventDefault();
+        setSearchOpen((prev) => !prev);
       }
     };
     window.addEventListener("keydown", onKey);
@@ -99,7 +106,11 @@ export function Navbar() {
 
           {/* Right actions */}
           <div className="flex items-center gap-3">
-            <button className="p-2 text-text-muted hover:text-text transition-colors rounded-lg hover:bg-light-50" aria-label="Search">
+            <button
+              className="p-2 text-text-muted hover:text-text transition-colors rounded-lg hover:bg-light-50"
+              aria-label="Search"
+              onClick={() => setSearchOpen(true)}
+            >
               <svg className="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
@@ -156,6 +167,9 @@ export function Navbar() {
 
       {/* ── Mobile drawer ── */}
       {mobileOpen && <MobileMenu onClose={() => setMobileOpen(false)} />}
+
+      {/* ── Search modal ── */}
+      <SearchModal isOpen={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );
 }
