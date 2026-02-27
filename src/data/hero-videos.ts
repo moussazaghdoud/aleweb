@@ -76,7 +76,7 @@ export const industrySubPageVideos: Record<string, string> = {
   "government/connected-cities": v(23312),
   // Transportation
   "transportation/air": v(36351),
-  "transportation/rail": v(4455),
+  "transportation/rail": v(6778),
   "transportation/ports": v(31094),
   "transportation/its": v(3976),
 };
