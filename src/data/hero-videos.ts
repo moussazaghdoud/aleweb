@@ -123,7 +123,7 @@ export const companyVideos: Record<string, string> = {
   events: v(36817),
   "video-library": v(44071),
   "analyst-reports": v(42664),
-  "executive-team": v(46678),
+  "executive-team": v(3205),
 };
 
 // ── Blog ─────────────────────────────────────────────────────

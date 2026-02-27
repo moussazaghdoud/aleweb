@@ -434,9 +434,9 @@ export const companyData: CompanyPageData[] = [
   {
     slug: "executive-team",
     name: "Executive Team",
-    tagline: "Meet the leadership team driving ALE's innovation and growth",
+    tagline: "Our Executive team has a wealth of experience within Alcatel-Lucent Enterprise and the telecoms industry",
     description:
-      "Alcatel-Lucent Enterprise is led by an experienced team of technology executives committed to delivering digital-age solutions for enterprises worldwide. Our leadership team brings decades of experience in networking, communications, cloud technology, and enterprise transformation.",
+      "Our Executive team has a wealth of experience within Alcatel-Lucent Enterprise and the telecoms industry. Together, they bring decades of leadership in networking, communications, cloud technology, and enterprise transformation — driving ALE's strategy to deliver digital-age solutions for enterprises worldwide.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-page-history-executive-homepage-header-l2-l3-1440x600-v3.jpg?h=600&w=1440",
     sections: [
       {
