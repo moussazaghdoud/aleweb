@@ -74,7 +74,8 @@ export async function getSolutionsData(options?: { draft?: boolean }): Promise<S
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
@@ -85,7 +86,9 @@ export async function getSolutionsData(options?: { draft?: boolean }): Promise<S
       benefits: doc.benefits || [],
       industries: [],
     }))
-  }, [])
+    const fromStatic = staticData.filter(s => !cmsSlugs.has(s.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Industries ──────────────────────────────────────────────
@@ -103,7 +106,8 @@ export async function getIndustriesData(options?: { draft?: boolean }): Promise<
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
@@ -115,7 +119,9 @@ export async function getIndustriesData(options?: { draft?: boolean }): Promise<
       products: (doc.productNames || []).map((p: any) => p.name),
       subPages: doc.subPages || [],
     }))
-  }, [])
+    const fromStatic = staticData.filter(i => !cmsSlugs.has(i.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Products ────────────────────────────────────────────────
@@ -192,7 +198,8 @@ export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPo
       sort: '-publishedDate',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       title: doc.title,
       excerpt: doc.excerpt,
@@ -202,7 +209,9 @@ export async function getBlogData(options?: { draft?: boolean }): Promise<BlogPo
       heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       content: lexicalToStrings(doc.content),
     }))
-  }, [])
+    const fromStatic = staticData.filter(b => !cmsSlugs.has(b.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Platforms ────────────────────────────────────────────────
@@ -252,7 +261,8 @@ export async function getServicesData(options?: { draft?: boolean }): Promise<Se
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
@@ -260,7 +270,9 @@ export async function getServicesData(options?: { draft?: boolean }): Promise<Se
       heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       features: doc.offerings || [],
     }))
-  }, [])
+    const fromStatic = staticData.filter(s => !cmsSlugs.has(s.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Partners ────────────────────────────────────────────────
@@ -278,7 +290,8 @@ export async function getPartnersData(options?: { draft?: boolean }): Promise<Pa
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.name,
       tagline: doc.tagline,
@@ -286,7 +299,9 @@ export async function getPartnersData(options?: { draft?: boolean }): Promise<Pa
       heroImage: resolveHeroImage(doc.heroImage?.url, staticBySlug[doc.slug]?.heroImage),
       features: doc.benefits || [],
     }))
-  }, [])
+    const fromStatic = staticData.filter(p => !cmsSlugs.has(p.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Company ─────────────────────────────────────────────────
@@ -382,6 +397,8 @@ function lexicalToSections(richText: any): { title: string; content: string }[] 
 }
 
 export async function getLegalData(options?: { draft?: boolean }): Promise<LegalPageData[]> {
+  const { legalData: staticData } = await import('@/data/legal')
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -391,18 +408,23 @@ export async function getLegalData(options?: { draft?: boolean }): Promise<Legal
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       name: doc.title,
       lastUpdated: doc.lastUpdated || '',
       sections: lexicalToSections(doc.content),
     }))
-  }, [])
+    const fromStatic = staticData.filter(l => !cmsSlugs.has(l.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Resources ───────────────────────────────────────────────
 
 export async function getResourcesData(options?: { draft?: boolean }): Promise<Resource[]> {
+  const { resourcesData: staticData } = await import('@/data/resources')
+
   return safeFetch(async () => {
     const payload = await getPayload()
     const { docs } = await payload.find({
@@ -412,7 +434,8 @@ export async function getResourcesData(options?: { draft?: boolean }): Promise<R
       sort: '-createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => ({
+    const cmsSlugs = new Set(docs.map((d: any) => d.slug))
+    const fromCms = docs.map((doc: any) => ({
       slug: doc.slug,
       title: doc.title,
       type: (doc.type || 'whitepaper') as Resource['type'],
@@ -421,7 +444,9 @@ export async function getResourcesData(options?: { draft?: boolean }): Promise<R
       industry: undefined,
       solution: undefined,
     }))
-  }, [])
+    const fromStatic = staticData.filter(r => !cmsSlugs.has(r.slug))
+    return [...fromCms, ...fromStatic]
+  }, staticData as any)
 }
 
 // ── Navigation ──────────────────────────────────────────────
