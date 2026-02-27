@@ -77,7 +77,7 @@ export const industrySubPageVideos: Record<string, string> = {
   // Transportation
   "transportation/air": v(23697),
   "transportation/rail": v(4455),
-  "transportation/ports": v(38977),
+  "transportation/ports": v(6189),
   "transportation/its": v(3976),
 };
 
