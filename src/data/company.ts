@@ -439,28 +439,7 @@ export const companyData: CompanyPageData[] = [
     description:
       "Our Executive team has a wealth of experience within Alcatel-Lucent Enterprise and the telecoms industry. Together, they bring decades of leadership in networking, communications, cloud technology, and enterprise transformation — driving ALE's strategy to deliver digital-age solutions for enterprises worldwide.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/company-page-history-executive-homepage-header-l2-l3-1440x600-v3.jpg?h=600&w=1440",
-    sections: [
-      {
-        title: "CEO & Executive Leadership",
-        content:
-          "Our CEO and executive leadership team set the strategic direction for ALE, driving innovation across our portfolio of networking, communications, and cloud solutions while maintaining our commitment to customer success and partner growth.",
-      },
-      {
-        title: "Technology & Innovation",
-        content:
-          "Our CTO and R&D leadership oversee the development of next-generation solutions including Rainbow cloud communications, AI Ops, Private 5G, and Wi-Fi 7 — investing in the technologies that will define enterprise connectivity for the next decade.",
-      },
-      {
-        title: "Sales & Partners",
-        content:
-          "Our global sales and partner leadership manage relationships with 3,400+ business partners across 50+ countries, ensuring customers receive best-in-class solutions tailored to their industry and business needs.",
-      },
-      {
-        title: "Operations & Finance",
-        content:
-          "Our operations and finance leadership ensures ALE maintains financial strength, operational efficiency, and the supply chain resilience needed to serve over one million customers worldwide.",
-      },
-    ],
+    sections: [],
     executives: [
       {
         name: "Yann Zhang",
