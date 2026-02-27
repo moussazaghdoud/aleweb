@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
-import { withSentryConfig } from "@sentry/nextjs";
+
 
 const nextConfig: NextConfig = {
   output: "standalone",
@@ -237,7 +237,7 @@ const nextConfig: NextConfig = {
               "style-src 'self' 'unsafe-inline'",
               "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://web-assets.al-enterprise.com https://www.al-enterprise.com https://assets.mixkit.co",
               "font-src 'self' data:",
-              "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.onetrust.com https://*.sentry.io https://*.ingest.sentry.io",
+              "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.onetrust.com",
               "media-src 'self' https://web-assets.al-enterprise.com https://assets.mixkit.co blob:",
               "frame-src 'self' https://www.googletagmanager.com https://consentcdn.cookiebot.com",
               "object-src 'none'",
@@ -253,9 +253,4 @@ const nextConfig: NextConfig = {
   },
 };
 
-export default withSentryConfig(withPayload(nextConfig), {
-  org: process.env.SENTRY_ORG,
-  project: process.env.SENTRY_PROJECT,
-  silent: !process.env.SENTRY_AUTH_TOKEN,
-  disableSourceMapUpload: !process.env.SENTRY_AUTH_TOKEN,
-});
+export default withPayload(nextConfig);
