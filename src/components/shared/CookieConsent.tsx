@@ -57,7 +57,7 @@ export function CookieConsent({ config }: Props) {
         <p className="text-sm text-gray-600 flex-1">
           We use cookies to enhance your experience. By continuing to visit this site you agree to
           our use of cookies.{' '}
-          <a href="/legal/cookie-policy" className="text-ale underline hover:text-ale-dark">
+          <a href="/legal/cookies" className="text-ale underline hover:text-ale-dark">
             Learn more
           </a>
         </p>

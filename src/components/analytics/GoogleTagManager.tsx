@@ -1,11 +1,34 @@
+'use client'
+
 import Script from 'next/script'
+import { useEffect, useState } from 'react'
 
 type Props = {
   gtmId?: string | null
 }
 
+function hasConsent(): boolean {
+  return document.cookie.split('; ').some((c) => c === 'ale_cookie_consent=accepted')
+}
+
 export function GoogleTagManager({ gtmId }: Props) {
-  if (!gtmId) return null
+  const [consented, setConsented] = useState(false)
+
+  useEffect(() => {
+    if (hasConsent()) {
+      setConsented(true)
+      return
+    }
+    const interval = setInterval(() => {
+      if (hasConsent()) {
+        setConsented(true)
+        clearInterval(interval)
+      }
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
+
+  if (!gtmId || !consented) return null
 
   return (
     <Script id="google-tag-manager" strategy="afterInteractive">
