@@ -305,7 +305,7 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
       sort: 'createdAt',
       draft: options?.draft,
     })
-    return docs.map((doc: any) => {
+    const cmsPages = docs.map((doc: any) => {
       const staticPage = staticBySlug[doc.slug]
       return {
         slug: doc.slug,
@@ -335,7 +335,24 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
         executives: staticPage?.executives,
       }
     })
-  }, [])
+    // Merge static pages not yet in CMS
+    const cmsSlugs = new Set(cmsPages.map(p => p.slug))
+    const missingPages = staticCompanyData
+      .filter(p => !cmsSlugs.has(p.slug))
+      .map(p => ({
+        slug: p.slug,
+        name: p.name,
+        tagline: p.tagline,
+        description: p.description,
+        heroImage: p.heroImage,
+        sections: p.sections,
+        stats: p.stats,
+        offices: p.offices,
+        pressReleases: p.pressReleases,
+        executives: p.executives,
+      }))
+    return [...cmsPages, ...missingPages]
+  }, staticCompanyData as any)
 }
 
 // ── Legal ───────────────────────────────────────────────────
