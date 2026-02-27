@@ -86,6 +86,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${solution.name} | Solutions`,
     description: solution.tagline,
     alternates: { canonical: `/solutions/${slug}` },
+    openGraph: {
+      title: `${solution.name} | Alcatel-Lucent Enterprise`,
+      description: solution.tagline,
+    },
   };
 }
 

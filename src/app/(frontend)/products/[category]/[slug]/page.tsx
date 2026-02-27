@@ -8,6 +8,8 @@ import { FadeIn } from "@/components/shared/FadeIn";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import downloadsIndex from "@/data/downloads-index.json";
 import { productDetailVideos } from "@/data/hero-videos";
+import { ProductJsonLd } from "@/components/seo/ProductJsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export async function generateStaticParams() {
   const catalogProducts = await getCatalogProducts();
@@ -26,10 +28,19 @@ export async function generateMetadata({
   const catalogProducts = await getCatalogProducts();
   const product = catalogProducts.find((p) => p.slug === slug);
   if (!product) return { title: "Product Not Found" };
+  const { category } = await params;
   return {
     title: `${product.name} | Products`,
     description: product.tagline,
-    alternates: { canonical: `/products/${(await params).category}/${slug}` },
+    alternates: { canonical: `/products/${category}/${slug}` },
+    openGraph: {
+      title: `${product.name} | Alcatel-Lucent Enterprise`,
+      description: product.tagline,
+      type: "website",
+      ...(product.image && {
+        images: [{ url: product.image, alt: product.name }],
+      }),
+    },
   };
 }
 
@@ -83,6 +94,21 @@ export default async function ProductDetailPage({
 
   return (
     <>
+      <ProductJsonLd
+        name={product.name}
+        description={product.tagline}
+        image={product.image}
+        category={cat?.name}
+        slug={slug}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Products", href: "/products" },
+          { name: cat?.name || category, href: `/products/${category}` },
+          { name: product.name, href: `/products/${category}/${slug}` },
+        ]}
+      />
       <AdminEditButton collection="products" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">

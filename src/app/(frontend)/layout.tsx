@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
 import { draftMode } from "next/headers";
 import { Navbar } from "@/components/navigation/Navbar";
 import { Footer } from "@/components/navigation/Footer";
@@ -9,6 +10,13 @@ import { CookieConsent } from "@/components/shared/CookieConsent";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { getSiteConfig } from "@/lib/payload";
 import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  display: "swap",
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.al-enterprise.com"),
@@ -64,23 +72,23 @@ export default async function FrontendLayout({
   const consentConfig = siteConfig?.consent;
 
   return (
-    <html lang="en">
+    <html lang="en" className={inter.variable}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-          rel="stylesheet"
-        />
         <GoogleAnalytics gaId={gaId} />
         <GoogleTagManager gtmId={gtmId} />
         <OrganizationJsonLd />
       </head>
       <body className={`font-sans antialiased bg-light text-text${isPreview ? ' pt-10' : ''}`}>
         <GoogleTagManagerNoScript gtmId={gtmId} />
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[100] focus:bg-ale focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:text-sm focus:font-medium"
+        >
+          Skip to main content
+        </a>
         {isPreview && <PreviewBanner />}
         <Navbar />
-        <main>{children}</main>
+        <main id="main-content">{children}</main>
         <Footer />
         <CookieConsent config={consentConfig} />
       </body>

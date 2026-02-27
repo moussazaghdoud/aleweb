@@ -62,31 +62,39 @@ export function Navbar() {
           </Link>
 
           {/* Desktop nav */}
-          <nav className="hidden lg:flex items-center gap-1">
-            {primaryNav.map((item) => (
-              <div
-                key={item.label}
-                onMouseEnter={() => open(item.label)}
-                onMouseLeave={close}
-              >
-                <Link
-                  href={item.href}
-                  className={`inline-flex items-center gap-1 text-[13px] font-medium px-3.5 py-2 rounded-lg transition-colors ${
-                    openDropdown === item.label
-                      ? "text-ale bg-ale-50"
-                      : "text-text-secondary hover:text-text hover:bg-light-50"
-                  }`}
-                  onFocus={() => open(item.label)}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Main navigation">
+            {primaryNav.map((item) => {
+              const isMega = hasMega(item);
+              const isOpen = openDropdown === item.label;
+              return (
+                <div
+                  key={item.label}
+                  onMouseEnter={() => open(item.label)}
+                  onMouseLeave={close}
                 >
-                  {item.label}
-                  {hasMega(item) && (
-                    <svg className={`w-3 h-3 transition-transform ${openDropdown === item.label ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
-                  )}
-                </Link>
-              </div>
-            ))}
+                  <Link
+                    href={item.href}
+                    className={`inline-flex items-center gap-1 text-[13px] font-medium px-3.5 py-2 rounded-lg transition-colors ${
+                      isOpen
+                        ? "text-ale bg-ale-50"
+                        : "text-text-secondary hover:text-text hover:bg-light-50"
+                    }`}
+                    onFocus={() => open(item.label)}
+                    {...(isMega && {
+                      "aria-haspopup": "true" as const,
+                      "aria-expanded": isOpen,
+                    })}
+                  >
+                    {item.label}
+                    {isMega && (
+                      <svg className={`w-3 h-3 transition-transform ${isOpen ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                      </svg>
+                    )}
+                  </Link>
+                </div>
+              );
+            })}
           </nav>
 
           {/* Right actions */}
@@ -108,6 +116,7 @@ export function Navbar() {
               className="lg:hidden p-2 text-text rounded-lg hover:bg-light-50"
               onClick={() => setMobileOpen(!mobileOpen)}
               aria-label="Menu"
+              aria-expanded={mobileOpen}
             >
               {mobileOpen ? (
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

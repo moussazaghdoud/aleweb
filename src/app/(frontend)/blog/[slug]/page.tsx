@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getBlogData } from "@/lib/cms";
 import { blogVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
+import { ArticleJsonLd } from "@/components/seo/ArticleJsonLd";
+import { BreadcrumbJsonLd } from "@/components/seo/BreadcrumbJsonLd";
 
 export async function generateStaticParams() {
   const blogData = await getBlogData();
@@ -19,6 +21,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
     title: `${post.title} | Blog`,
     description: post.excerpt,
     alternates: { canonical: `/blog/${slug}` },
+    openGraph: {
+      title: post.title,
+      description: post.excerpt,
+      type: "article",
+    },
   };
 }
 
@@ -34,6 +41,20 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <>
+      <ArticleJsonLd
+        title={post.title}
+        description={post.excerpt}
+        author={post.author}
+        publishedDate={post.date}
+        slug={slug}
+      />
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", href: "/" },
+          { name: "Blog", href: "/blog" },
+          { name: post.title, href: `/blog/${slug}` },
+        ]}
+      />
       <AdminEditButton collection="blog-posts" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[400px] flex items-end overflow-hidden">

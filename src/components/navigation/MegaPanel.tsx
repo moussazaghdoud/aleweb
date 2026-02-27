@@ -16,7 +16,7 @@ interface MegaPanelProps {
 
 export function MegaPanel({ item, onClose }: MegaPanelProps) {
   return (
-    <div className="absolute top-full left-0 right-0 pt-2 z-50">
+    <div className="absolute top-full left-0 right-0 pt-2 z-50" role="region" aria-label={`${item.label} menu`}>
       <div className="mx-auto max-w-[1320px] px-6 animate-mega-enter">
         {item.variant === "tabbed" ? (
           <MegaPanelTabbed item={item} onClose={onClose} />
