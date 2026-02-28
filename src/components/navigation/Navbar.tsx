@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import { primaryNav, type MegaNavItem } from "@/data/navigation";
 import { MegaPanel } from "./MegaPanel";
 import MobileMenu from "./MobileMenu";
@@ -23,6 +24,7 @@ export function Navbar() {
   const [searchOpen, setSearchOpen] = useState(false);
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const navRef = useRef<HTMLElement>(null);
+  const pathname = usePathname();
 
   const open = useCallback((label: string) => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
@@ -75,6 +77,7 @@ export function Navbar() {
             {primaryNav.map((item) => {
               const isMega = hasMega(item);
               const isOpen = openDropdown === item.label;
+              const isCurrent = pathname === item.href || pathname.startsWith(item.href + "/");
               return (
                 <div
                   key={item.label}
@@ -89,6 +92,7 @@ export function Navbar() {
                         : "text-text-secondary hover:text-text hover:bg-light-50"
                     }`}
                     onFocus={() => open(item.label)}
+                    {...(isCurrent && { "aria-current": "page" as const })}
                     {...(isMega && {
                       "aria-haspopup": "true" as const,
                       "aria-expanded": isOpen,

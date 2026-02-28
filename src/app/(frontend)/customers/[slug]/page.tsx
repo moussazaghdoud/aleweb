@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { caseStudiesData } from "@/data/case-studies";
+import { getCatalogProducts } from "@/lib/cms";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { landingVideos } from "@/data/hero-videos";
 
@@ -34,6 +35,17 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
   // prev/next within same industry
   const prev = currentIdx > 0 ? allInIndustry[currentIdx - 1] : null;
   const next = currentIdx < allInIndustry.length - 1 ? allInIndustry[currentIdx + 1] : null;
+
+  // Match product names to catalog entries for linking
+  const catalogProducts = await getCatalogProducts();
+  const matchedProducts = cs.products.map((productName) => {
+    const match = catalogProducts.find(
+      (p) =>
+        p.name.toLowerCase() === productName.toLowerCase() ||
+        p.slug.toLowerCase() === productName.toLowerCase().replace(/\s+/g, "-")
+    );
+    return { name: productName, match: match || null };
+  });
 
   return (
     <>
@@ -166,14 +178,24 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
         <div className="mx-auto max-w-[1320px] px-6">
           <h2 className="text-xl font-extrabold text-text tracking-tight mb-8">Products & Solutions Used</h2>
           <div className="flex flex-wrap gap-3">
-            {cs.products.map((product) => (
-              <span
-                key={product}
-                className="inline-flex items-center h-10 px-5 bg-white border border-light-200 rounded-full text-sm font-semibold text-text hover:border-ale-200 hover:text-ale transition-colors"
-              >
-                {product}
-              </span>
-            ))}
+            {matchedProducts.map(({ name, match }) =>
+              match ? (
+                <Link
+                  key={name}
+                  href={`/products/${match.category}/${match.slug}`}
+                  className="inline-flex items-center h-10 px-5 bg-white border border-light-200 rounded-full text-sm font-semibold text-text hover:border-ale-200 hover:text-ale transition-colors"
+                >
+                  {name}
+                </Link>
+              ) : (
+                <span
+                  key={name}
+                  className="inline-flex items-center h-10 px-5 bg-white border border-light-200 rounded-full text-sm font-semibold text-text"
+                >
+                  {name}
+                </span>
+              )
+            )}
           </div>
         </div>
       </section>
