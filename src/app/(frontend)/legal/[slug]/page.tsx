@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getLegalData } from "@/lib/cms";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { legalVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
@@ -59,6 +60,11 @@ export default async function LegalDetailPage({ params }: { params: Promise<{ sl
           </p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Legal", href: "/legal" },
+        { label: page.name, href: `/legal/${page.slug}` },
+      ]} />
 
       {/* Table of contents */}
       <section className="py-6 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900">

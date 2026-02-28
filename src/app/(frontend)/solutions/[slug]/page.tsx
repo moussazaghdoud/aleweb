@@ -10,6 +10,7 @@ import {
   IconHealthcare, IconEducation, IconHospitality, IconGovernment,
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
 } from "@/components/primitives/Icons";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { solutionVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import { caseStudiesData } from "@/data/case-studies";
@@ -40,6 +41,20 @@ const solutionImages: Record<string, string> = {
   "video-surveillance-networking": `${cdn}/network-video-surveillance-focus-topic-web.jpg`,
   "purple-on-demand": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
   "network-as-a-service": `${cdn}/solutions-naas-focus-topic-1-810x380.jpg`,
+  "cloud-communications": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
+  "collaboration-solutions": `${cdn}/solutions-unified-communications-focus-topic-1-810x380.jpg`,
+  "communications-security": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
+  "private-5g-solution": `${cdn}/industrial-networks-header-image-v1.jpg`,
+  "e-services": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
+  "wifi-solutions": `${cdn}/solutions-digital-age-networking-focus-topic-1-810x340.jpg`,
+  "mission-critical-networks": `${cdn}/solutions-business-continuity-homepage-header-l2-l3-1440x600.jpg`,
+  "shortest-path-bridging": `${cdn}/solutions-automomous-network-focus-topic-1-810x380.jpg`,
+  "hybrid-pol": `${cdn}/solutions-digital-age-networking-focus-topic-1-810x340.jpg`,
+  "omnifabric": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
+  "optical-solutions": `${cdn}/solutions-data-center-focus-topic-1-810x340.jpg`,
+  "digital-dividends": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
+  "business-innovation": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
+  "distributed-wifi": `${cdn}/solutions-digital-age-networking-focus-topic-1-810x340.jpg`,
 };
 
 const solutionIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -63,6 +78,20 @@ const solutionIconMap: Record<string, React.ComponentType<{ className?: string }
   "industrial-networks": IconShield,
   "video-surveillance-networking": IconGlobe,
   "purple-on-demand": IconCloud,
+  "cloud-communications": IconCloud,
+  "collaboration-solutions": IconChat,
+  "communications-security": IconShield,
+  "private-5g-solution": IconSignal,
+  "e-services": IconChat,
+  "wifi-solutions": IconSignal,
+  "mission-critical-networks": IconShield,
+  "shortest-path-bridging": IconSignal,
+  "hybrid-pol": IconSignal,
+  "omnifabric": IconShield,
+  "optical-solutions": IconSignal,
+  "digital-dividends": IconAI,
+  "business-innovation": IconGlobe,
+  "distributed-wifi": IconSignal,
 };
 
 const industryIconMap: Record<string, React.ComponentType<{ className?: string }>> = {
@@ -200,6 +229,11 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
           <p className="text-lg text-white/70 max-w-2xl font-light">{solution.tagline}</p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Solutions", href: "/solutions" },
+        { label: solution.name, href: `/solutions/${solution.slug}` },
+      ]} />
 
       {/* Benefits strip */}
       <section className="py-10 bg-ale">

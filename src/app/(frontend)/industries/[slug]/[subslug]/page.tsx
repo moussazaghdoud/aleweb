@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { getIndustriesData } from "@/lib/cms";
 import { industrySubPagesData } from "@/data/industry-subpages";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { industryVideos, industrySubPageVideos } from "@/data/hero-videos";
 import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadCenter";
 import downloadsIndex from "@/data/downloads-index.json";
@@ -124,6 +125,12 @@ export default async function IndustrySubPage({
           <p className="text-lg text-white/70 max-w-2xl font-light">{subPage.tagline}</p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Industries", href: "/industries" },
+        { label: parent.name, href: `/industries/${parent.slug}` },
+        { label: subPage.name, href: `/industries/${parent.slug}/${subPage.slug}` },
+      ]} />
 
       {/* Description + Quick CTA */}
       <section className="py-20 bg-white relative overflow-hidden">

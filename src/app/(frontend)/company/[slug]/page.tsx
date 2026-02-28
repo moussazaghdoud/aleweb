@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import { getCompanyData } from "@/lib/cms";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { companyVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import { ContactForm } from "@/components/forms/ContactForm";
@@ -77,6 +78,11 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
           </p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Company", href: "/company" },
+        { label: page.name, href: `/company/${page.slug}` },
+      ]} />
 
       {/* Stats band (glass-morphism) */}
       {page.stats && (

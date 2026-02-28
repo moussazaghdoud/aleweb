@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { caseStudiesData } from "@/data/case-studies";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { landingVideos } from "@/data/hero-videos";
 
 export function generateStaticParams() {
@@ -73,6 +74,11 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
           </div>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Customer Stories", href: "/customers/case-studies" },
+        { label: cs.name, href: `/customers/${cs.slug}` },
+      ]} />
 
       {/* Challenge + Solution */}
       <section className="relative py-16 bg-white overflow-hidden">

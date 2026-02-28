@@ -5,6 +5,7 @@ import { getPlatformData } from "@/lib/cms";
 import {
   IconChat, IconShield, IconAI, IconSignal, IconGlobe,
 } from "@/components/primitives/Icons";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { platformVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
@@ -102,6 +103,11 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
           <p className="text-lg text-white/70 max-w-2xl font-light">{product.tagline}</p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Platform", href: "/platform" },
+        { label: product.name, href: `/platform/${product.slug}` },
+      ]} />
 
       {/* Stats Band */}
       <section className="py-16 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 relative overflow-hidden">

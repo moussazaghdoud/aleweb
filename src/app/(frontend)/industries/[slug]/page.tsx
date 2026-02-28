@@ -10,6 +10,7 @@ import {
   IconTransportation, IconEnergy, IconManufacturing, IconSmartBuildings,
   IconSMB,
 } from "@/components/primitives/Icons";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { industryVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import { blogData } from "@/data/blog";
@@ -148,6 +149,11 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
           <p className="text-lg text-white/70 max-w-xl font-light">{industry.tagline}</p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Industries", href: "/industries" },
+        { label: industry.name, href: `/industries/${industry.slug}` },
+      ]} />
 
       {/* Description + Illustration + Sub-pages */}
       <section className="py-16 bg-white">

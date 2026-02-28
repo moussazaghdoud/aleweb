@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { getServicesData } from "@/lib/cms";
+import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { serviceVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
 
@@ -66,6 +67,11 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <p className="text-lg text-white/70 max-w-2xl font-light">{service.tagline}</p>
         </div>
       </section>
+
+      <Breadcrumbs items={[
+        { label: "Services", href: "/services" },
+        { label: service.name, href: `/services/${service.slug}` },
+      ]} />
 
       {/* Description + Quick CTA */}
       <section className="py-20 bg-white relative overflow-hidden">
