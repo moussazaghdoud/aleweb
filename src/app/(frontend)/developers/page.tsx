@@ -2,6 +2,12 @@ import Link from "next/link";
 import { IconCode, IconChat, IconCloud, IconAI } from "@/components/primitives/Icons";
 import { landingVideos } from "@/data/hero-videos";
 
+const colorSchemes = [
+  { bg: "bg-blue-50", border: "border-blue-100", icon: "text-blue-600", tag: "bg-blue-100 text-blue-700" },
+  { bg: "bg-purple-50", border: "border-purple-100", icon: "text-purple-600", tag: "bg-purple-100 text-purple-700" },
+  { bg: "bg-cyan-50", border: "border-cyan-100", icon: "text-cyan-600", tag: "bg-cyan-100 text-cyan-700" },
+];
+
 const apis = [
   {
     name: "Rainbow CPaaS",
@@ -48,29 +54,54 @@ export default function DevelopersPage() {
         </div>
       </section>
 
-      {/* APIs */}
-      <section className="py-20 bg-white">
-        <div className="mx-auto max-w-[1320px] px-6">
-          <div className="grid sm:grid-cols-3 gap-6">
-            {apis.map((api) => (
-              <div
-                key={api.name}
-                className="p-6 rounded-xl border border-light-200 hover:border-ale-200 hover:shadow-md transition-all"
-              >
-                <div className="w-11 h-11 rounded-lg bg-ale-50 flex items-center justify-center mb-4">
-                  <api.Icon className="w-5 h-5 text-ale" />
-                </div>
-                <h2 className="text-base font-bold text-text mb-2">{api.name}</h2>
-                <p className="text-sm text-text-secondary leading-relaxed mb-4">{api.description}</p>
-                <div className="flex flex-wrap gap-2">
-                  {api.features.map((f) => (
-                    <span key={f} className="text-[11px] font-medium text-text-muted bg-light-100 rounded-full px-2.5 py-0.5">
-                      {f}
-                    </span>
-                  ))}
-                </div>
+      {/* Stats band */}
+      <section className="relative py-10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-ale/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-purple-500/15 rounded-full blur-[80px]" />
+        <div className="relative mx-auto max-w-[1320px] px-6">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            {[
+              { value: "REST", label: "standards-based APIs" },
+              { value: "3", label: "platform SDKs" },
+              { value: "WebRTC", label: "real-time comms" },
+              { value: "Open", label: "developer community" },
+            ].map((s) => (
+              <div key={s.label} className="text-center p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
+                <div className="text-xl font-extrabold text-white">{s.value}</div>
+                <div className="text-[11px] text-white/50 mt-1">{s.label}</div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* APIs */}
+      <section className="relative py-20 bg-white overflow-hidden">
+        <div className="absolute top-20 right-0 w-[200px] h-[200px] opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
+        <div className="mx-auto max-w-[1320px] px-6">
+          <div className="grid sm:grid-cols-3 gap-6">
+            {apis.map((api, i) => {
+              const color = colorSchemes[i % colorSchemes.length];
+              return (
+                <div
+                  key={api.name}
+                  className={`p-6 rounded-2xl border ${color.border} hover:shadow-md transition-all`}
+                >
+                  <div className={`w-11 h-11 rounded-xl ${color.bg} flex items-center justify-center mb-4`}>
+                    <api.Icon className={`w-5 h-5 ${color.icon}`} />
+                  </div>
+                  <h2 className="text-base font-bold text-text mb-2">{api.name}</h2>
+                  <p className="text-sm text-text-secondary leading-relaxed mb-4">{api.description}</p>
+                  <div className="flex flex-wrap gap-2">
+                    {api.features.map((f) => (
+                      <span key={f} className={`text-[11px] font-medium ${color.tag} rounded-full px-2.5 py-0.5`}>
+                        {f}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -83,15 +114,15 @@ export default function DevelopersPage() {
           </h2>
           <div className="grid sm:grid-cols-3 gap-5">
             {[
-              { step: "01", title: "Create an Account", desc: "Sign up for a free Rainbow developer account to access APIs, documentation, and sandbox environments." },
-              { step: "02", title: "Explore the Docs", desc: "Browse API references, quick-start guides, and sample code to accelerate your integration." },
-              { step: "03", title: "Build & Deploy", desc: "Develop your integration, test in the sandbox, and deploy to production with full enterprise support." },
+              { step: "01", title: "Create an Account", desc: "Sign up for a free Rainbow developer account to access APIs, documentation, and sandbox environments.", color: "bg-blue-50 text-blue-900", numColor: "text-blue-300", divider: "bg-blue-200" },
+              { step: "02", title: "Explore the Docs", desc: "Browse API references, quick-start guides, and sample code to accelerate your integration.", color: "bg-purple-50 text-purple-900", numColor: "text-purple-300", divider: "bg-purple-200" },
+              { step: "03", title: "Build & Deploy", desc: "Develop your integration, test in the sandbox, and deploy to production with full enterprise support.", color: "bg-cyan-50 text-cyan-900", numColor: "text-cyan-300", divider: "bg-cyan-200" },
             ].map((s) => (
               <div key={s.step} className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                <div className="bg-blue-50 px-6 py-4 flex items-center gap-3">
-                  <span className="text-2xl font-extrabold text-blue-300">{s.step}</span>
-                  <div className="h-5 w-px bg-blue-200 rounded-full" />
-                  <h3 className="text-sm font-bold text-blue-900">{s.title}</h3>
+                <div className={`${s.color} px-6 py-4 flex items-center gap-3`}>
+                  <span className={`text-2xl font-extrabold ${s.numColor}`}>{s.step}</span>
+                  <div className={`h-5 w-px ${s.divider} rounded-full`} />
+                  <h3 className="text-sm font-bold">{s.title}</h3>
                 </div>
                 <div className="px-6 py-4">
                   <p className="text-sm text-text-secondary leading-relaxed">{s.desc}</p>
@@ -102,19 +133,21 @@ export default function DevelopersPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="py-16 bg-ale">
-        <div className="mx-auto max-w-[1320px] px-6 text-center">
+      {/* Dark gradient CTA */}
+      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-72 h-72 bg-ale/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-56 h-56 bg-purple-500/15 rounded-full blur-[80px]" />
+        <div className="relative mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Ready to start building?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
+          <p className="text-white/50 max-w-lg mx-auto mb-8">
             Join the ALE developer community and start integrating enterprise communications today.
           </p>
           <div className="flex flex-wrap justify-center gap-3">
             <Link
               href="/company/contact"
-              className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all"
+              className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all shadow-lg shadow-ale/25"
             >
               Get Developer Access
             </Link>

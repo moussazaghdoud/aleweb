@@ -1,6 +1,15 @@
 import Link from "next/link";
 import { landingVideos } from "@/data/hero-videos";
 
+const colorSchemes = [
+  { bg: "bg-blue-50", border: "border-blue-100", icon: "text-blue-500", hover: "hover:border-blue-200" },
+  { bg: "bg-purple-50", border: "border-purple-100", icon: "text-purple-500", hover: "hover:border-purple-200" },
+  { bg: "bg-cyan-50", border: "border-cyan-100", icon: "text-cyan-500", hover: "hover:border-cyan-200" },
+  { bg: "bg-amber-50", border: "border-amber-100", icon: "text-amber-500", hover: "hover:border-amber-200" },
+  { bg: "bg-green-50", border: "border-green-100", icon: "text-green-500", hover: "hover:border-green-200" },
+  { bg: "bg-rose-50", border: "border-rose-100", icon: "text-rose-500", hover: "hover:border-rose-200" },
+];
+
 const supportLinks = [
   {
     title: "Technical Support Portal",
@@ -60,48 +69,50 @@ export default function SupportPage() {
       </section>
 
       {/* Support links */}
-      <section className="py-20 bg-white">
+      <section className="relative py-20 bg-white overflow-hidden">
+        <div className="absolute top-20 right-0 w-[200px] h-[200px] opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {supportLinks.map((link) => (
-              <div
-                key={link.title}
-                className="group p-6 rounded-xl border border-light-200 hover:border-ale-200 hover:shadow-md transition-all cursor-pointer"
-              >
-                <div className="w-11 h-11 rounded-lg bg-ale-50 flex items-center justify-center mb-4 group-hover:bg-ale transition-colors">
-                  <svg className="w-5 h-5 text-ale group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d={link.icon} />
-                  </svg>
+            {supportLinks.map((link, i) => {
+              const color = colorSchemes[i % colorSchemes.length];
+              return (
+                <div
+                  key={link.title}
+                  className={`group p-6 rounded-2xl border ${color.border} ${color.hover} hover:shadow-md transition-all cursor-pointer`}
+                >
+                  <div className={`w-11 h-11 rounded-xl ${color.bg} flex items-center justify-center mb-4 group-hover:scale-110 transition-transform`}>
+                    <svg className={`w-5 h-5 ${color.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={link.icon} />
+                    </svg>
+                  </div>
+                  <h3 className="text-base font-bold text-text group-hover:text-ale transition-colors mb-2">
+                    {link.title}
+                  </h3>
+                  <p className="text-sm text-text-secondary leading-relaxed">{link.description}</p>
                 </div>
-                <h3 className="text-base font-bold text-text group-hover:text-ale transition-colors mb-2">
-                  {link.title}
-                </h3>
-                <p className="text-sm text-text-secondary leading-relaxed">{link.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
 
       {/* Quick help CTA */}
-      <section className="py-16 bg-light-50">
-        <div className="mx-auto max-w-[1320px] px-6">
-          <div className="bg-white rounded-2xl border border-light-200 p-8 sm:p-10 flex flex-col sm:flex-row items-center justify-between gap-6">
-            <div>
-              <h2 className="text-xl font-extrabold text-text tracking-tight mb-2">
-                Can&apos;t find what you need?
-              </h2>
-              <p className="text-sm text-text-secondary">
-                Our support team is available to help resolve your issue quickly.
-              </p>
-            </div>
-            <Link
-              href="/company/contact"
-              className="inline-flex items-center h-11 px-6 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-colors shrink-0"
-            >
-              Contact Support
-            </Link>
-          </div>
+      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-72 h-72 bg-ale/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-56 h-56 bg-purple-500/15 rounded-full blur-[80px]" />
+        <div className="relative mx-auto max-w-[1320px] px-6 text-center">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
+            Can&apos;t find what you need?
+          </h2>
+          <p className="text-white/50 max-w-lg mx-auto mb-8">
+            Our support team is available to help resolve your issue quickly.
+          </p>
+          <Link
+            href="/company/contact"
+            className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all shadow-lg shadow-ale/25"
+          >
+            Contact Support
+          </Link>
         </div>
       </section>
     </>
