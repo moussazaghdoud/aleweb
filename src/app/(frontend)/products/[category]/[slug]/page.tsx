@@ -134,10 +134,12 @@ export default async function ProductDetailPage({
     )
   );
 
-  // Related products (same subcategory, excluding self)
-  const relatedProducts = catalogProducts
-    .filter((p) => p.category === category && p.slug !== slug && p.subcategory === product.subcategory)
-    .slice(0, 4);
+  // Related products — prefer same subcategory, then same category
+  const sameSubcategory = catalogProducts
+    .filter((p) => p.category === category && p.slug !== slug && p.subcategory === product.subcategory);
+  const sameCategory = catalogProducts
+    .filter((p) => p.category === category && p.slug !== slug && p.subcategory !== product.subcategory);
+  const relatedProducts = [...sameSubcategory, ...sameCategory].slice(0, 8);
 
   return (
     <>
@@ -273,6 +275,35 @@ export default async function ProductDetailPage({
         </div>
       </section>
 
+      {/* Model Variants */}
+      {product.variants && product.variants.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
+              Available models
+            </h2>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b-2 border-light-200">
+                    <th className="text-left py-3 pr-6 font-bold text-text whitespace-nowrap">Model</th>
+                    <th className="text-left py-3 font-bold text-text">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {product.variants.map((v) => (
+                    <tr key={v.model} className="border-b border-light-100 hover:bg-light-50 transition-colors">
+                      <td className="py-3 pr-6 font-semibold text-ale whitespace-nowrap">{v.model}</td>
+                      <td className="py-3 text-text-secondary">{v.description}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Download Center */}
       <DownloadCenter downloads={downloads} />
 
@@ -305,7 +336,7 @@ export default async function ProductDetailPage({
             <h2 className="text-2xl font-extrabold text-text tracking-tight mb-8">
               Related products
             </h2>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
               {relatedProducts.map((rp) => (
                 <Link
                   key={rp.slug}

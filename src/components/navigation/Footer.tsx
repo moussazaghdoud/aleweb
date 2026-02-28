@@ -53,6 +53,7 @@ const footerLinks = [
       { label: "Innovation", href: "/company/innovation" },
       { label: "Careers", href: "/company/careers" },
       { label: "ESG", href: "/company/esg" },
+      { label: "Worldwide Presence", href: "/company/worldwide-presence" },
       { label: "Newsroom", href: "/company/newsroom" },
       { label: "Contact", href: "/company/contact" },
     ],

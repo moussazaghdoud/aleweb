@@ -8,6 +8,8 @@ export interface CatalogProduct {
   image?: string;
   features: { title: string; description: string }[];
   highlights: { stat: string; label: string }[];
+  /** Hardware model variants / SKUs for this product */
+  variants?: { model: string; description: string }[];
 }
 
 export interface ProductCategory {
@@ -50,6 +52,15 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "PoE+", label: "30W per port" },
       { stat: "AOS", label: "unified OS" },
     ],
+    variants: [
+      { model: "OS6360-10", description: "8x 1G RJ-45 + 2x SFP, non-PoE compact model" },
+      { model: "OS6360-24", description: "24x 1G RJ-45 + 2x SFP, non-PoE" },
+      { model: "OS6360-48", description: "48x 1G RJ-45 + 2x SFP, non-PoE" },
+      { model: "OS6360-P24", description: "24x 1G RJ-45 PoE+ + 2x SFP, 370W PoE budget" },
+      { model: "OS6360-P48", description: "48x 1G RJ-45 PoE+ + 2x SFP, 740W PoE budget" },
+      { model: "OS6360-PH24", description: "24x 1G RJ-45 PoE++ + 2x SFP, high PoE model" },
+      { model: "OS6360-PH48", description: "48x 1G RJ-45 PoE++ + 2x SFP, high PoE model" },
+    ],
   },
   {
     slug: "omniswitch-6560",
@@ -70,6 +81,14 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "PoE++", label: "60W per port" },
       { stat: "10G", label: "uplinks" },
       { stat: "Wi-Fi 6E", label: "optimized" },
+    ],
+    variants: [
+      { model: "OS6560-24X4", description: "24x 1G + 4x 10G SFP+ uplinks, non-PoE" },
+      { model: "OS6560-P24X4", description: "24x 1G PoE+ + 4x 10G SFP+ uplinks" },
+      { model: "OS6560-48X4", description: "48x 1G + 4x 10G SFP+ uplinks, non-PoE" },
+      { model: "OS6560-P48X4", description: "48x 1G PoE+ + 4x 10G SFP+ uplinks" },
+      { model: "OS6560E-P48X4", description: "48x mGig PoE++ + 4x 10G SFP+, Wi-Fi 6E ready" },
+      { model: "OS6560E-P28X4", description: "24x mGig PoE++ + 4x 10G SFP+, Wi-Fi 6E ready" },
     ],
   },
   {
@@ -112,6 +131,15 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "SPB", label: "network fabric" },
       { stat: "L3", label: "full routing" },
       { stat: "HA", label: "high availability" },
+    ],
+    variants: [
+      { model: "OS6860-24", description: "24x 1G RJ-45 + 4x 10G SFP+, non-PoE" },
+      { model: "OS6860-P24", description: "24x 1G RJ-45 PoE+ + 4x 10G SFP+" },
+      { model: "OS6860-48", description: "48x 1G RJ-45 + 4x 10G SFP+, non-PoE" },
+      { model: "OS6860-P48", description: "48x 1G RJ-45 PoE+ + 4x 10G SFP+" },
+      { model: "OS6860E-24", description: "24x mGig + 2x 10G SFP+ + 2x 25G SFP28" },
+      { model: "OS6860E-P24", description: "24x mGig PoE++ + 2x 10G SFP+ + 2x 25G SFP28" },
+      { model: "OS6860E-U28", description: "24x 10G SFP+ + 4x 25G SFP28, aggregation model" },
     ],
   },
   {
@@ -159,6 +187,14 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "VXLAN", label: "overlay support" },
       { stat: "SPB", label: "auto-fabric" },
     ],
+    variants: [
+      { model: "OS6900-X20", description: "20x 10G SFP+ ports, core/aggregation" },
+      { model: "OS6900-X40", description: "40x 10G SFP+ ports, high-density core" },
+      { model: "OS6900-T20", description: "20x 10GBase-T ports, data center access" },
+      { model: "OS6900-T40", description: "40x 10GBase-T ports, high-density data center" },
+      { model: "OS6900-X72", description: "72x 10G SFP+ chassis, modular core" },
+      { model: "OS6900-V72", description: "Modular chassis with 100G uplinks" },
+    ],
   },
   {
     slug: "omniswitch-6920",
@@ -201,6 +237,10 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "99.999%", label: "availability" },
       { stat: "ISSU", label: "hitless upgrades" },
     ],
+    variants: [
+      { model: "OS9907", description: "7-slot modular chassis, campus core" },
+      { model: "OS9912", description: "12-slot modular chassis, large campus/DC core" },
+    ],
   },
 
   // ═══════════════════════════════════════════════════════════════════════
@@ -225,6 +265,13 @@ export const catalogProducts: CatalogProduct[] = [
       { stat: "Fan-less", label: "no moving parts" },
       { stat: "DIN rail", label: "industrial mount" },
       { stat: "PTP", label: "precision timing" },
+    ],
+    variants: [
+      { model: "OS6465-P6", description: "4x 1G PoE + 2x SFP, compact DIN-rail mount" },
+      { model: "OS6465-P12", description: "8x 1G PoE + 4x SFP, industrial mid-range" },
+      { model: "OS6465-P28", description: "24x 1G PoE + 4x SFP, industrial high-density" },
+      { model: "OS6465T-P12", description: "Extended temperature, 8x 1G PoE + 4x SFP" },
+      { model: "OS6465T-P28", description: "Extended temperature, 24x 1G PoE + 4x SFP" },
     ],
   },
   {

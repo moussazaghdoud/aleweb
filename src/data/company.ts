@@ -506,6 +506,44 @@ export const companyData: CompanyPageData[] = [
     ],
   },
   {
+    slug: "worldwide-presence",
+    name: "Worldwide Presence",
+    tagline: "Serving enterprises in 50+ countries through 3,400+ partners",
+    description:
+      "Alcatel-Lucent Enterprise operates in more than 50 countries worldwide, serving over one million customers through a global network of 3,400+ business partners. Our regional teams provide local expertise, language support, and on-the-ground service delivery — ensuring that wherever your business operates, ALE is there to support you.",
+    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/about-us-header-bar-v2.jpg?h=600&w=1440",
+    sections: [
+      {
+        title: "Europe, Middle East & Africa",
+        content:
+          "Headquartered in Paris, France, ALE has a strong presence across Europe, the Middle East, and Africa. Key offices include Paris (global HQ), Berlin, London, Madrid, Dubai, and Johannesburg. Our EMEA team supports enterprises across healthcare, education, government, hospitality, and transportation with localized solutions and multilingual support.",
+      },
+      {
+        title: "Asia Pacific",
+        content:
+          "ALE's Asia Pacific operations are anchored by our strategic partnership with China Huaxin. We maintain offices and partner networks across China, India, Singapore, Australia, Japan, and Southeast Asia — delivering enterprise networking and communications solutions tailored to the region's dynamic growth markets.",
+      },
+      {
+        title: "Americas",
+        content:
+          "Our Americas operations serve enterprises across North America, Latin America, and the Caribbean from offices in the United States, Canada, Mexico, and Brazil. The team supports large-scale deployments in healthcare, education, government, and critical infrastructure sectors with dedicated pre-sales and post-sales expertise.",
+      },
+      {
+        title: "Global Partner Network",
+        content:
+          "ALE's 3,400+ business partners — including distributors, resellers, systems integrators, and managed service providers — extend our reach to every corner of the globe. Our 360 Partner Experience (360PX) program ensures partners have the training, tools, and support needed to deliver world-class customer outcomes in any market.",
+      },
+    ],
+    stats: [
+      { label: "Countries", value: "50+" },
+      { label: "Business Partners", value: "3,400+" },
+      { label: "Customers Worldwide", value: "1,000,000+" },
+      { label: "Headquarters", value: "Paris, France" },
+      { label: "Employees", value: "2,300+" },
+      { label: "Languages Supported", value: "15+" },
+    ],
+  },
+  {
     slug: "executive-team",
     name: "Executive Team",
     tagline: "Our Executive team has a wealth of experience within Alcatel-Lucent Enterprise and the telecoms industry",

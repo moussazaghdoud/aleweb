@@ -96,6 +96,7 @@ const nextConfig: NextConfig = {
       { source: '/en/products/network-management-security/clearpass-policy-management-system', destination: '/products/management', permanent: true },
 
       // ── Products: platforms slug changes ───────────────────────────
+      { source: '/en/products/platforms/omnipcx-open-gateway', destination: '/products/platforms/omnipcx-enterprise', permanent: true },
       { source: '/en/products/platforms/omnipcx-enterprise-communication-server', destination: '/products/platforms/omnipcx-enterprise', permanent: true },
       { source: '/en/products/platforms/sip-dect-infrastructure', destination: '/products/platforms/sip-dect-base-stations', permanent: true },
       { source: '/en/products/platforms/dect-infrastructure', destination: '/products/platforms/dect-base-stations', permanent: true },
@@ -151,9 +152,10 @@ const nextConfig: NextConfig = {
       { source: '/en/company/about-us/executive-team', destination: '/company/executive-team', permanent: true },
       { source: '/en/company/about-us/careers', destination: '/company/careers', permanent: true },
       { source: '/en/company/about-us/esg', destination: '/company/esg', permanent: true },
-      { source: '/en/company/about-us/awards', destination: '/company/about', permanent: true },
-      { source: '/en/company/about-us/history', destination: '/company/about', permanent: true },
+      { source: '/en/company/about-us/awards', destination: '/company/awards', permanent: true },
+      { source: '/en/company/about-us/history', destination: '/company/history', permanent: true },
       { source: '/en/company/about-us/ebc', destination: '/company/about', permanent: true },
+      { source: '/en/company/ale-worldwide-presence', destination: '/company/worldwide-presence', permanent: true },
       { source: '/en/company/news', destination: '/company/newsroom', permanent: true },
       { source: '/en/company/news/:path*', destination: '/company/newsroom', permanent: true },
       { source: '/en/company/analyst', destination: '/company/analyst-reports', permanent: true },
