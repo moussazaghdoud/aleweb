@@ -41,11 +41,11 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Korea University Medicine", detail: "Unified clinical communications" },
-      { name: "Istituto Ortopedico Rizzoli", detail: "Hospital network modernization" },
-      { name: "Kaiserswerther Diakonie", detail: "Senior living connectivity" },
-      { name: "Mayotte Hospital", detail: "Secure patient communications" },
-      { name: "AZ Rivierenland Hospital", detail: "Integrated care pathways" },
+      { name: "Korea University Medicine", detail: "Unified clinical communications", slug: "korea-university-medicine" },
+      { name: "Istituto Ortopedico Rizzoli", detail: "Hospital network modernization", slug: "istituto-ortopedico-rizzoli" },
+      { name: "Kaiserswerther Diakonie", detail: "Senior living connectivity", slug: "kaiserswerther-diakonie" },
+      { name: "Groupe EDENIS", detail: "Senior living digital transformation", slug: "groupe-edenis" },
+      { name: "John Flynn Private Hospital", detail: "Digital alarm and notification systems", slug: "john-flynn-private-hospital" },
     ],
     products: ["Rainbow", "OmniPCX Enterprise", "OmniSwitch 6900", "OmniAccess Stellar", "OmniVista Cirrus"],
     subPages: [
@@ -83,15 +83,17 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Javeriana University", detail: "Campus-wide digital transformation" },
-      { name: "Alamo Colleges", detail: "Multi-campus networking" },
-      { name: "Colegio Felix Jesus Rougier", detail: "Connected learning environment" },
-      { name: "Kennewick School District", detail: "Safe campus communications" },
+      { name: "Javeriana University", detail: "Campus-wide digital transformation", slug: "javeriana-university" },
+      { name: "Alamo Colleges", detail: "Multi-campus networking", slug: "alamo-colleges" },
+      { name: "Colegio Felix Jesus Rougier", detail: "Connected learning environment", slug: "colegio-felix-jesus-rougier" },
+      { name: "Kennewick School District", detail: "Safe campus communications", slug: "kennewick-school-district" },
     ],
     products: ["Rainbow", "OmniPCX Enterprise", "Visual Notification Assistant", "OmniAccess Stellar"],
     subPages: [
       { label: "Higher Education", slug: "higher-education" },
       { label: "K-12", slug: "k-12" },
+      { label: "Intelligent Campus", slug: "intelligent-campus" },
+      { label: "E-Rate", slug: "e-rate" },
     ],
   },
   {
@@ -124,12 +126,15 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Okada Manila Resort", detail: "Converged network for gaming & hospitality" },
-      { name: "South Palms Resort", detail: "Seamless guest experiences" },
-      { name: "Cordish Gaming LIVE!", detail: "Security and service improvements" },
-      { name: "Little National Hotel", detail: "In-room experience modernization" },
+      { name: "Okada Manila Resort", detail: "Converged network for gaming & hospitality", slug: "okada-manila-resort" },
+      { name: "South Palms Resort", detail: "Seamless guest experiences", slug: "south-palms-resort-and-spa-panglao" },
+      { name: "Cordish Gaming LIVE!", detail: "Security and service improvements", slug: "cordish-live" },
+      { name: "Mogador Hotels", detail: "Connected guest experience across hotel chain", slug: "mogador-hotels" },
     ],
     products: ["Rainbow", "OmniPCX Enterprise", "Smart DeskPhones", "OmniAccess Stellar AP1230", "Visual Automated Attendant"],
+    subPages: [
+      { label: "Guest Experience", slug: "guest-experience" },
+    ],
   },
   {
     slug: "government",
@@ -161,16 +166,17 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Gemeinde Pratteln", detail: "Flexible crisis management" },
-      { name: "Seine-Saint-Denis Council", detail: "Cost reduction through digital" },
-      { name: "Strasbourg Eurometropolis", detail: "Digital efficiency programs" },
-      { name: "Hidalgo State Government", detail: "Centralized communications" },
+      { name: "Gemeinde Pratteln", detail: "Flexible crisis management", slug: "gemeinde-pratteln" },
+      { name: "Seine-Saint-Denis Council", detail: "Cost reduction through digital", slug: "cd-seine-saint-denis" },
+      { name: "Strasbourg Eurometropolis", detail: "Digital efficiency programs", slug: "strasbourg-eurometropolis" },
+      { name: "Hidalgo State Government", detail: "Centralized communications", slug: "hidalgo-state-government" },
     ],
     products: ["OmniPCX Enterprise", "Rainbow", "Visual Notification Assistant", "Dispatch Console", "OmniSwitch"],
     subPages: [
       { label: "Defense", slug: "defense" },
       { label: "Public Safety", slug: "public-safety" },
       { label: "Connected Cities", slug: "connected-cities" },
+      { label: "Smart Buildings", slug: "smart-buildings" },
     ],
   },
   {
@@ -203,10 +209,10 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Saint Gotthard Tunnel", detail: "Mission-critical tunnel communications" },
-      { name: "Future Mobility Park", detail: "Autonomous mobility infrastructure" },
-      { name: "Kanton Aargau", detail: "Network security and availability" },
-      { name: "Liverpool City Region", detail: "Mission-critical IoT deployment" },
+      { name: "Saint Gotthard Tunnel", detail: "Mission-critical tunnel communications", slug: "saint-gotthard-tunnel" },
+      { name: "Future Mobility Park", detail: "Autonomous mobility infrastructure", slug: "future-mobility-park" },
+      { name: "Kanton Aargau", detail: "Network security and availability", slug: "kanton-aargau" },
+      { name: "Liverpool City Region", detail: "Mission-critical IoT deployment", slug: "liverpool-city-region-combined-authority" },
     ],
     products: ["OmniPCX Enterprise", "OmniSwitch 6465", "DECT Base Stations", "OmniAccess Stellar", "Dispatch Console"],
     subPages: [
@@ -219,44 +225,47 @@ export const industriesData: IndustryData[] = [
   {
     slug: "energy",
     name: "Energy & Utilities",
-    tagline: "Reliable networks for critical energy infrastructure",
+    tagline: "Enabling smarter, safer and greener energy & utilities",
     description:
-      "ALE provides secure, resilient communications and networking for energy producers, distributors, and utility companies operating in mission-critical environments — from power plants and substations to remote field operations.",
+      "ALE enables energy and utility companies to achieve three zeros — zero unplanned downtime, zero security breaches, and zero wasted resources. Through Digital Age Networking and Communications, ALE helps energy producers, distributors, and utility operators securely connect operational technology with enterprise IT, ensuring mission-critical reliability across power plants, substations, and remote field operations.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/energy-utilities-banner-1440x600.jpg?h=600&w=1440",
     solutions: [
       {
         title: "SCADA & OT Connectivity",
         description:
-          "Industrial-grade networking connecting operational technology systems with secure, segmented network architectures.",
+          "Industrial-grade networking connecting operational technology systems with secure, segmented network architectures and OmniFabric network fabric.",
       },
       {
         title: "Field Worker Communications",
         description:
-          "DECT and mobile communications for field teams working in remote substations, plants, and distribution sites.",
+          "DECT and mobile communications for field teams working in remote substations, plants, and distribution sites with Dispatch Console coordination.",
       },
       {
         title: "Remote Site Networking",
         description:
-          "Ruggedized networking equipment and SD-WAN for connecting distributed energy assets across wide geographies.",
+          "Ruggedized networking equipment and SD-WAN for connecting distributed energy assets across wide geographies with zero-trust network access.",
       },
       {
         title: "Safety & Compliance",
         description:
-          "Emergency notification systems, recording solutions, and compliance tools for regulatory requirements.",
+          "Emergency notification systems, OmniPCX RECORD Suite for call recording, and Visual Notification Assistant for regulatory compliance and crisis management.",
       },
     ],
     customers: [
-      { name: "Major European Utility", detail: "Wide-area network modernization" },
-      { name: "Regional Power Authority", detail: "Substation connectivity upgrade" },
+      { name: "DILO Armaturen und Anlagen GmbH", detail: "Industrial communications modernization", slug: "dilo" },
+      { name: "Energy One", detail: "Unified communications for energy trading", slug: "energy-one" },
+      { name: "SEEG", detail: "Utility network infrastructure upgrade", slug: "seeg" },
+      { name: "SMC Electric", detail: "Electrical contractor communications", slug: "smc-electric" },
+      { name: "Gelsenwasser", detail: "Mission-critical utility networking", slug: "gelsenwasser" },
     ],
-    products: ["OmniSwitch 6465", "OmniPCX Enterprise", "DECT Handsets", "OmniAccess Stellar", "OmniVista 2500"],
+    products: ["OmniSwitch 6465", "OmniPCX Enterprise", "DECT Handsets", "OmniAccess Stellar", "OmniVista Cirrus", "Dispatch Console", "Visual Notification Assistant", "OmniPCX RECORD Suite", "ALE Connect"],
   },
   {
     slug: "manufacturing",
     name: "Manufacturing",
-    tagline: "Secure, seamless technology for connected manufacturing",
+    tagline: "Secure, seamless and future-proof technology to enable connected manufacturing",
     description:
-      "Modern manufacturing requires connected, secure, intelligent operations. ALE securely connects people, machines, objects and processes for real-time, data-driven production that drives faster decisions and increased agility.",
+      "Modern manufacturing requires connected, secure, intelligent operations. ALE securely connects people, machines, objects and processes for real-time, data-driven production that drives faster decisions and increased agility while addressing NIS2 and Cyber Resilience Act compliance requirements.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/man-holding-a-tablet-image-1440x600.jpg?h=600&w=1440",
     solutions: [
       {
@@ -281,47 +290,14 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "C. Josef LAMY GmbH", detail: "Unified communications deployment" },
-      { name: "Polytype AG", detail: "Industrial infrastructure modernization" },
-      { name: "Brohl Wellpappe", detail: "Network resilience for production" },
-      { name: "ALS Labelling Solutions", detail: "Field communications" },
+      { name: "Oechsler AG", detail: "Industrial communications modernization", slug: "oechsler-ag" },
+      { name: "CSF Inox", detail: "Factory network infrastructure", slug: "csf-inox" },
+      { name: "Asmodee", detail: "Distribution and logistics communications", slug: "asmodee" },
+      { name: "Signaux Girod", detail: "Manufacturing site connectivity" },
+      { name: "Stahl Judenburg", detail: "Industrial network resilience" },
+      { name: "Baosteel Group", detail: "Large-scale production connectivity" },
     ],
-    products: ["OmniSwitch 6465", "OmniPCX Enterprise", "Private 5G", "DECT Handsets", "OmniAccess Stellar"],
-  },
-  {
-    slug: "smart-buildings",
-    name: "Smart Buildings",
-    tagline: "Intelligent networks for modern workspaces",
-    description:
-      "ALE transforms buildings into smart, connected environments that optimize energy consumption, enhance occupant comfort, and streamline facility management through unified networking, IoT integration, and AI-driven building analytics.",
-    heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-banner-image-1440x600-v2.jpg?h=600&w=1440",
-    solutions: [
-      {
-        title: "Building Automation",
-        description:
-          "IoT-connected HVAC, lighting, and access systems unified on a single converged network for centralized control.",
-      },
-      {
-        title: "Occupancy Analytics",
-        description:
-          "Location-based services and sensors providing real-time space utilization data for optimized workplace planning.",
-      },
-      {
-        title: "Unified Building Networks",
-        description:
-          "Single converged IP network carrying data, voice, video, and IoT — reducing infrastructure cost and complexity.",
-      },
-      {
-        title: "Workplace Experience",
-        description:
-          "Smart meeting rooms, wayfinding, desk booking, and environmental comfort powered by integrated communications and IoT.",
-      },
-    ],
-    customers: [
-      { name: "Paris La Défense", detail: "Smart district networking" },
-      { name: "Major Corporate HQ", detail: "Intelligent building transformation" },
-    ],
-    products: ["OmniSwitch", "OmniAccess Stellar", "OmniVista Cirrus", "IoT Location Services", "Rainbow"],
+    products: ["OmniPCX Enterprise", "OmniSwitch 6465", "Private 5G", "DECT Handsets", "OmniAccess Stellar", "OmniFabric", "Rainbow", "OXO Connect"],
   },
   {
     slug: "smb",
@@ -353,9 +329,9 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Regional Law Firm", detail: "Unified communications for 50 employees" },
-      { name: "Boutique Hotel Group", detail: "Guest Wi-Fi and staff collaboration" },
-      { name: "Medical Practice", detail: "HIPAA-compliant communications" },
+      { name: "Asmodee GmbH", detail: "100% cloud-based communications with Rainbow Hub", slug: "asmodee" },
+      { name: "PT Cendikia Global Solusi", detail: "Near-zero downtime with SPB networking", slug: "pt-cendikia-global-solusi" },
+      { name: "Fertilys Clinic", detail: "Reliable telephony for patient experience", slug: "fertilys-clinic" },
     ],
     products: ["OXO Connect", "Rainbow", "OmniSwitch 2360", "OmniAccess Stellar", "Purple on Demand"],
   },

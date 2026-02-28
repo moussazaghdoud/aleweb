@@ -67,11 +67,12 @@ const nextConfig: NextConfig = {
       { source: '/en/industries/energy-and-utilities', destination: '/industries/energy', permanent: true },
       { source: '/en/industries/government/defense-solutions', destination: '/industries/government/defense', permanent: true },
       { source: '/en/industries/government/public-safety-solutions', destination: '/industries/government/public-safety', permanent: true },
-      { source: '/en/industries/government/smart-buildings', destination: '/industries/smart-buildings', permanent: true },
-      // Missing sub-pages → parent
-      { source: '/en/industries/education/intelligent-campus', destination: '/industries/education', permanent: true },
-      { source: '/en/industries/education/intelligent-campus/:path*', destination: '/industries/education', permanent: true },
-      { source: '/en/industries/education/e-rate', destination: '/industries/education', permanent: true },
+      { source: '/en/industries/government/smart-buildings', destination: '/industries/government/smart-buildings', permanent: true },
+      { source: '/industries/smart-buildings', destination: '/industries/government/smart-buildings', permanent: true },
+      // Education sub-pages
+      { source: '/en/industries/education/intelligent-campus', destination: '/industries/education/intelligent-campus', permanent: true },
+      { source: '/en/industries/education/intelligent-campus/:path*', destination: '/industries/education/intelligent-campus', permanent: true },
+      { source: '/en/industries/education/e-rate', destination: '/industries/education/e-rate', permanent: true },
       { source: '/en/industries/hospitality/guest-experience', destination: '/industries/hospitality', permanent: true },
 
       // ── Products: category merges ──────────────────────────────────

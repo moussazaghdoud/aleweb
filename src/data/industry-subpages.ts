@@ -402,6 +402,55 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     ],
   },
 
+  {
+    parentSlug: "government",
+    slug: "smart-buildings",
+    name: "Smart Buildings",
+    tagline:
+      "Transform buildings into efficient, sustainable spaces with smart building technology",
+    description:
+      "ALE smart building solutions transform buildings into efficient, sustainable spaces by converging IT and operational technology onto a single network. Through Digital Age Networking, IoT enablement, and intelligent building management, ALE helps facility managers reduce energy consumption, enhance occupant comfort, and streamline operations with automated systems and real-time analytics.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-banner-image-1440x600-v2.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Converged Building Networks",
+        description:
+          "Single IP network carrying data, voice, video, and IoT traffic using Shortest Path Bridging (SPB) — reducing infrastructure cost and complexity while improving reliability.",
+      },
+      {
+        title: "IoT Enablement & Automation",
+        description:
+          "Securely connect and automate building systems including HVAC, lighting, access control, and energy management through OmniAccess Stellar WLAN and IoT containers.",
+      },
+      {
+        title: "Occupant Experience",
+        description:
+          "Smart meeting rooms, wayfinding, desk booking, and environmental comfort powered by Rainbow collaboration, OmniAccess Stellar Asset Tracking, and digital signage.",
+      },
+      {
+        title: "Energy & Sustainability",
+        description:
+          "Real-time energy monitoring and automated optimization using Digital Age Networking to reduce carbon footprint and operational costs across building portfolios.",
+      },
+    ],
+    products: [
+      "OmniAccess Stellar",
+      "OmniSwitch",
+      "Rainbow",
+      "OmniAccess Stellar Asset Tracking",
+      "OmniFabric",
+      "SD-WAN",
+    ],
+    customers: [
+      {
+        name: "Wembley Park",
+        detail: "Smart district networking and IoT-connected buildings",
+        slug: "wembley-park",
+      },
+    ],
+  },
+
   // ─── Transportation ────────────────────────────────────────────────────────────
 
   {
@@ -624,20 +673,21 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     parentSlug: "education",
     slug: "intelligent-campus",
     name: "Intelligent Campus",
-    tagline: "Create smart, connected campuses that enhance learning, safety, and operational efficiency",
+    tagline: "Smart campus foundations empower technology in schools",
     description:
-      "ALE Intelligent Campus solutions transform educational institutions into smart, connected environments where technology enhances every aspect of campus life. From high-performance Wi-Fi that supports thousands of simultaneous devices to IoT-enabled building systems and real-time location services, ALE helps universities and schools create safe, sustainable, and student-centric campuses.",
+      "Deliver student success by enabling a smart campus and a secure, high-performance, predictive network infrastructure. ALE Intelligent Campus solutions provide the foundation for digital transformation in education — from carrier-grade non-blocking network architecture and controller-less Wi-Fi to IoT enablement and zero-trust network security.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-education-topic1-image.jpg?h=600&w=1440",
     capabilities: [
-      { title: "Campus-Wide Connectivity", description: "High-density Wi-Fi 6/7 coverage across classrooms, libraries, dormitories, and outdoor areas — supporting thousands of concurrent devices with seamless roaming." },
+      { title: "Campus-Wide Connectivity", description: "High-density Wi-Fi 6/7 coverage across classrooms, libraries, dormitories, and outdoor areas — supporting thousands of concurrent devices with seamless roaming and controller-less design." },
       { title: "Smart Building Integration", description: "IoT-ready network infrastructure connecting HVAC, lighting, access control, and energy management systems for sustainable campus operations." },
       { title: "Campus Safety & Security", description: "Real-time location services, mass notification systems, and video surveillance networking provide comprehensive campus safety with automated emergency response." },
-      { title: "Student-Centric Services", description: "Personalized digital experiences including wayfinding, room booking, equipment location, and mobile-first student services through Rainbow platform integration." },
+      { title: "Zero-Trust Network Security", description: "Multi-layered security with unified network access profiles, granular ACL and QoS control, automatic device quarantine, and SD-WAN connectivity." },
     ],
-    products: ["OmniAccess Stellar", "OmniSwitch", "OmniVista Cirrus", "Rainbow", "OmniAccess Stellar Asset Tracking"],
+    products: ["OmniAccess Stellar", "OmniSwitch", "OmniVista Cirrus", "OmniVista Network Advisor", "Rainbow", "OmniPCX Enterprise", "SD-WAN"],
     customers: [
-      { name: "Arizona State University", detail: "Campus-wide Wi-Fi upgrade supporting 100,000+ students and IoT integration" },
-      { name: "University of Manchester", detail: "Intelligent building automation and energy management across campus" },
+      { name: "Javeriana University", detail: "Campus-wide digital transformation", slug: "javeriana-university" },
+      { name: "California State University", detail: "Multi-campus network modernization", slug: "california-state-university" },
+      { name: "University of Technology Sydney", detail: "Smart campus infrastructure", slug: "university-of-technology-sydney" },
     ],
   },
 
@@ -647,19 +697,21 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     parentSlug: "education",
     slug: "e-rate",
     name: "E-Rate Solutions",
-    tagline: "Maximize your E-Rate funding with eligible ALE networking and Wi-Fi solutions",
+    tagline: "Make Category 2 dollars go farther with ALE networking and Wi-Fi",
     description:
-      "ALE provides E-Rate eligible networking and Wi-Fi solutions that help K-12 schools and libraries maximize their federal funding to build modern, high-performance network infrastructure. Our OmniSwitch and OmniAccess Stellar portfolios are Category 1 and Category 2 eligible, with simplified pricing and deployment designed specifically for education environments.",
+      "Alcatel-Lucent Enterprise technology helps schools and libraries bridge the digital divide for 21st century teaching and learning. With 20+ years of E-Rate experience since the program's inception in 1998, ALE provides Category 1 and Category 2 eligible networking and Wi-Fi solutions with simplified pricing and deployment designed specifically for education environments.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-education-topic1-image.jpg?h=600&w=1440",
     capabilities: [
       { title: "Category 2 Eligible", description: "OmniAccess Stellar Wi-Fi access points and OmniSwitch LAN switches are Category 2 eligible for internal connections funding under the E-Rate program." },
       { title: "Simplified Pricing", description: "Education-specific pricing structures designed to align with E-Rate procurement requirements, making it easier to submit competitive bids." },
       { title: "CIPA Compliance", description: "Built-in content filtering and access control capabilities help schools meet Children's Internet Protection Act requirements for E-Rate eligibility." },
-      { title: "Scalable Deployment", description: "Solutions designed for school district-wide deployment with centralized management, zero-touch provisioning, and cloud-based monitoring." },
+      { title: "Scalable Deployment", description: "Solutions designed for school district-wide deployment with centralized management, zero-touch provisioning, and cloud-based monitoring via OmniVista Cirrus." },
     ],
-    products: ["OmniAccess Stellar", "OmniSwitch", "OmniVista Cirrus"],
+    products: ["OmniAccess Stellar", "OmniSwitch", "OmniSwitch 6865", "OmniVista Cirrus", "OmniVista 2500", "OmniFabric"],
     customers: [
-      { name: "Houston Independent School District", detail: "District-wide Wi-Fi modernization funded through E-Rate Category 2" },
+      { name: "Kennewick School District", detail: "Emergency notification and campus safety infrastructure", slug: "kennewick-school-district" },
+      { name: "Elkhorn Public Schools", detail: "District-wide network modernization", slug: "elkhorn-public-schools" },
+      { name: "State College Area School District", detail: "Campus connectivity upgrade", slug: "state-college-area-school-district" },
     ],
   },
 
@@ -669,20 +721,21 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     parentSlug: "hospitality",
     slug: "guest-experience",
     name: "Guest Experience",
-    tagline: "Deliver personalized, connected experiences that delight guests and drive loyalty",
+    tagline: "Create a frictionless guest experience anywhere, anytime, with smart hotel solutions",
     description:
-      "ALE hospitality solutions transform the guest experience from check-in to checkout with personalized digital services, seamless connectivity, and intelligent building automation. From high-speed Wi-Fi and in-room entertainment to mobile check-in and location-based services, ALE helps hotels and resorts create memorable experiences that drive guest satisfaction and loyalty.",
+      "ALE hospitality solutions create frictionless guest experiences by delivering personalized digital services on guest devices anywhere, anytime. From Rainbow Guest Connect and smart in-room applications to contactless check-in and location-based services, ALE helps hotels, resorts, and cruise ships create memorable experiences that drive guest satisfaction and new revenue streams.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-l2-topic1-body-copy-image-810x540.jpg?h=600&w=1440",
     capabilities: [
-      { title: "Seamless Guest Wi-Fi", description: "High-performance Wi-Fi with captive portal, tiered access levels, and seamless roaming across the entire property — from lobby to pool to conference rooms." },
-      { title: "Mobile Guest Services", description: "Mobile check-in/checkout, digital room keys, in-room service ordering, and property wayfinding through Rainbow-powered guest apps." },
-      { title: "Smart Room Technology", description: "IoT-enabled rooms with automated climate control, lighting, and entertainment that adjust to guest preferences for a personalized stay." },
-      { title: "Staff Communications", description: "DECT handsets and Rainbow messaging keep housekeeping, maintenance, and front desk teams connected with real-time task management and escalation." },
+      { title: "Rainbow Guest Connect", description: "Personalized guest engagement via mobile devices — including digital concierge, in-room service ordering, and real-time chat with hotel staff through Rainbow cloud platform." },
+      { title: "Smart Guest Applications", description: "Contactless digital services for check-in/checkout, mobile room keys, spa bookings, restaurant reservations, and property wayfinding — all on the guest's own device." },
+      { title: "Connected Property Wi-Fi", description: "High-performance OmniAccess Stellar Wi-Fi with captive portal, tiered access levels, and seamless roaming across the entire property — from lobby to pool to conference rooms." },
+      { title: "Staff Communications", description: "OXO Connect and Rainbow messaging keep housekeeping, maintenance, and front desk teams connected with real-time task management and escalation." },
     ],
-    products: ["OmniAccess Stellar", "Rainbow", "DECT Handsets", "OmniSwitch", "OmniPCX Enterprise"],
+    products: ["Rainbow", "OmniAccess Stellar", "OXO Connect", "OmniPCX Enterprise", "OmniSwitch", "ALE Connect", "OmniVista"],
     customers: [
-      { name: "Mandarin Oriental Hotel Group", detail: "Property-wide smart room and guest connectivity transformation" },
-      { name: "Accor Hotels", detail: "Multi-property Wi-Fi and staff communications deployment across European portfolio" },
+      { name: "Mogador Hotels", detail: "Connected guest experience across hotel chain", slug: "mogador-hotels" },
+      { name: "Sanabel Al Khair Hotel", detail: "Smart guest services and staff coordination", slug: "sanabel-al-khair-hotel" },
+      { name: "South Palms Resort", detail: "Seamless guest connectivity", slug: "south-palms-resort-and-spa-panglao" },
     ],
   },
 ];

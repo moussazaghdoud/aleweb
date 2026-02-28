@@ -211,22 +211,37 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
               Trusted by leaders in {industry.name.toLowerCase()}
             </h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {industry.customers.map((cust, i) => (
-                <div
-                  key={i}
-                  className="flex items-center gap-4 p-5 rounded-xl border border-light-200"
-                >
-                  <div className="w-10 h-10 rounded-full bg-ale-50 flex items-center justify-center shrink-0">
-                    <span className="text-ale font-bold text-xs">
-                      {cust.name.split(" ").map(w => w[0]).join("").slice(0, 2)}
-                    </span>
+              {industry.customers.map((cust, i) => {
+                const inner = (
+                  <>
+                    <div className="w-10 h-10 rounded-full bg-ale-50 flex items-center justify-center shrink-0">
+                      <span className="text-ale font-bold text-xs">
+                        {cust.name.split(" ").map(w => w[0]).join("").slice(0, 2)}
+                      </span>
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors">{cust.name}</h3>
+                      <p className="text-xs text-text-muted mt-0.5">{cust.detail}</p>
+                    </div>
+                  </>
+                );
+                return cust.slug ? (
+                  <Link
+                    key={i}
+                    href={`/customers/${cust.slug}`}
+                    className="group flex items-center gap-4 p-5 rounded-xl border border-light-200 bg-white hover:border-ale-200 hover:shadow-sm transition-all"
+                  >
+                    {inner}
+                  </Link>
+                ) : (
+                  <div
+                    key={i}
+                    className="flex items-center gap-4 p-5 rounded-xl border border-light-200"
+                  >
+                    {inner}
                   </div>
-                  <div>
-                    <h3 className="text-sm font-bold text-text">{cust.name}</h3>
-                    <p className="text-xs text-text-muted mt-0.5">{cust.detail}</p>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </section>

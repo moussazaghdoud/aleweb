@@ -50,7 +50,7 @@ export const industries = [
   },
   {
     name: "Smart Buildings",
-    slug: "smart-buildings",
+    slug: "government/smart-buildings",
     icon: "smart-buildings" as const,
     description: "Intelligent workspaces",
     solutions: ["Building automation", "Occupancy analytics", "Unified building networks"],

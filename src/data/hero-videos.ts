@@ -70,10 +70,15 @@ export const industrySubPageVideos: Record<string, string> = {
   // Education
   "education/higher-education": v(4531),
   "education/k-12": v(27984),
+  "education/intelligent-campus": v(4531),
+  "education/e-rate": v(27984),
   // Government
   "government/defense": v(44925),
   "government/public-safety": v(1580),
   "government/connected-cities": v(23312),
+  "government/smart-buildings": v(49845),
+  // Hospitality
+  "hospitality/guest-experience": v(34613),
   // Transportation
   "transportation/air": v(36351),
   "transportation/rail": v(40663),

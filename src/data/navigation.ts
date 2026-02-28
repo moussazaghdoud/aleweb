@@ -128,7 +128,7 @@ export const primaryNav: MegaNavItem[] = [
       },
       {
         heading: "Smart Buildings",
-        href: "/industries/smart-buildings",
+        href: "/industries/government/smart-buildings",
         links: [],
       },
       {
