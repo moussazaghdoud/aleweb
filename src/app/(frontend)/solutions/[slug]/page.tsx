@@ -12,6 +12,8 @@ import {
 } from "@/components/primitives/Icons";
 import { solutionVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
+import { caseStudiesData } from "@/data/case-studies";
+import { solutionCustomers } from "@/data/solution-customers";
 
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
@@ -154,6 +156,12 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       anchorText: d.anchorText,
       documentType: d.documentType,
     }));
+
+  // Customer references for this solution
+  const customerSlugs = solutionCustomers[slug] || [];
+  const customerRefs = customerSlugs
+    .map((cs) => caseStudiesData.find((c) => c.slug === cs))
+    .filter(Boolean);
 
   return (
     <>
@@ -314,6 +322,42 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
                   </Link>
                 );
               })}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Customer References */}
+      {customerRefs.length > 0 && (
+        <section className="py-16 bg-white">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
+              Customer success stories
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {customerRefs.map((cs) => (
+                <Link
+                  key={cs!.slug}
+                  href={`/customers/${cs!.slug}`}
+                  className="group flex items-center gap-4 p-5 rounded-xl border border-light-200 bg-white hover:border-ale-200 hover:shadow-sm transition-all"
+                >
+                  <div className="w-10 h-10 rounded-full bg-ale-50 flex items-center justify-center shrink-0">
+                    <span className="text-ale font-bold text-xs">
+                      {cs!.name
+                        .split(" ")
+                        .map((w) => w[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </span>
+                  </div>
+                  <div className="min-w-0">
+                    <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors truncate">
+                      {cs!.name}
+                    </h3>
+                    <p className="text-xs text-text-muted mt-0.5">{cs!.industry}</p>
+                  </div>
+                </Link>
+              ))}
             </div>
           </div>
         </section>

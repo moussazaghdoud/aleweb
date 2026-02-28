@@ -194,6 +194,43 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
+      {/* Explore Company hub cards (About page only) */}
+      {page.slug === "about" && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-10">
+              Explore ALE
+            </h2>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {[
+                { href: "/company/executive-team", title: "Executive Team", desc: "Meet the leadership team driving ALE forward", icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" },
+                { href: "/company/history", title: "Our History", desc: "125+ years of telecommunications innovation", icon: "M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" },
+                { href: "/company/awards", title: "Awards & Recognition", desc: "Industry recognition for innovation and excellence", icon: "M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" },
+                { href: "/company/careers", title: "Careers", desc: "Join our global team across 50+ countries", icon: "M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" },
+                { href: "/company/esg", title: "ESG & Sustainability", desc: "Tech for Good — responsible innovation at ALE", icon: "M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064" },
+                { href: "/company/innovation", title: "Innovation", desc: "Pioneering digital-age technology for the enterprise", icon: "M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" },
+              ].map((card) => (
+                <Link
+                  key={card.href}
+                  href={card.href}
+                  className="group flex items-start gap-4 p-6 rounded-2xl bg-white border border-light-200 hover:border-ale-200 hover:shadow-md transition-all"
+                >
+                  <div className="w-11 h-11 rounded-xl bg-ale-50 flex items-center justify-center shrink-0 group-hover:bg-ale transition-colors">
+                    <svg className="w-5 h-5 text-ale group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d={card.icon} />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors">{card.title}</h3>
+                    <p className="text-xs text-text-muted mt-1 leading-relaxed">{card.desc}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* CTA */}
       {page.slug !== "contact" && (
         <section className="py-16 bg-ale">

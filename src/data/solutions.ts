@@ -791,4 +791,230 @@ export const solutionsData: SolutionData[] = [
     ],
     industries: ["manufacturing", "transportation", "healthcare", "energy", "government"],
   },
+  {
+    slug: "e-services",
+    name: "Customer Service Applications",
+    tagline:
+      "Applications for customer welcome, contact center and communications for successful customer interactions",
+    description:
+      "ALE's customer service solutions enable organizations to streamline interactions through automated welcome services, contact center capabilities, and real-time collaboration tools. These applications support multi-channel engagement across phones, softphones, websites, and social networks while accommodating remote and hybrid work environments — delivering the flexibility service teams need to manage customer interactions from anywhere.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/e-services-banner-901x339.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Automated Customer Welcome",
+        description:
+          "Visual Automated Attendant is a centralized application that routes calls through interactive menus without the intervention of a receptionist, reducing wait times and improving first-contact resolution.",
+      },
+      {
+        title: "Omnichannel Contact Center",
+        description:
+          "Manage web chat, social networks, email, and telephone interactions from a single platform with ALE Connect — delivering consistent customer experiences across every channel.",
+      },
+      {
+        title: "Remote & Hybrid Flexibility",
+        description:
+          "Enable customer service teams to manage interactions from anywhere using phones or softphones, ensuring business continuity regardless of work location or staffing model.",
+      },
+      {
+        title: "Collaborative Problem-Solving",
+        description:
+          "Teams access customer data during calls, share screens, and use chat features to improve first-call resolution rates through real-time collaboration with Rainbow.",
+      },
+    ],
+    products: [
+      "Visual Automated Attendant",
+      "ALE Connect",
+      "OmniPCX RECORD Suite",
+      "IP Desktop Softphone",
+      "Rainbow",
+      "OmniPCX Enterprise",
+    ],
+    benefits: [
+      { stat: "24/7", label: "automated customer welcome" },
+      { stat: "Omni", label: "channel engagement platform" },
+      { stat: "100%", label: "remote-ready service delivery" },
+    ],
+    industries: ["hospitality", "government", "healthcare", "transportation", "manufacturing"],
+  },
+  {
+    slug: "wifi-solutions",
+    name: "Enterprise Wi-Fi Solutions",
+    tagline:
+      "Enhance your mobile and IoT connectivity with enterprise Wi-Fi solutions that are smarter, resilient and highly secure",
+    description:
+      "The OmniAccess Stellar WLAN solution uses Wi-Fi 5, Wi-Fi 6/6E, and Wi-Fi 7 technologies with a distributed intelligence architecture designed to simplify deployment and management while improving network performance. Without a central controller, Stellar delivers superior availability, resilience, and scalability — with smart analytics, IoT containment, and automated secure connectivity at a lower total cost of ownership.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/wifi-solutions-banner-901x339.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Quick Deployment & Management",
+        description:
+          "Flexible deployment options with unified management across equipment, users, devices, and applications accessible from a single dashboard — on-premises or cloud via OmniVista Cirrus.",
+      },
+      {
+        title: "Performance & Scalability",
+        description:
+          "Distributed control architecture without a central controller, offering superior availability, resilience, and scalability with optimal user experience across Wi-Fi 5/6/6E/7.",
+      },
+      {
+        title: "Security & Automation",
+        description:
+          "Latest technologies including IoT containment, micro-segmentation, and automated secure connectivity for users, devices, and IoT objects with zero-trust network access.",
+      },
+      {
+        title: "Smart Analytics",
+        description:
+          "Wi-Fi Quality of Experience metrics, behavioral analytics, and location services enabling proactive troubleshooting and data-driven network optimization.",
+      },
+    ],
+    products: [
+      "OmniAccess Stellar AP1451",
+      "OmniAccess Stellar AP1360",
+      "OmniAccess Stellar AP1351",
+      "OmniAccess Stellar AP1331",
+      "OmniAccess Stellar AP1320",
+      "OmniAccess Stellar AP1301",
+      "OmniVista Cirrus",
+    ],
+    benefits: [
+      { stat: "Wi-Fi 7", label: "ready with latest Stellar APs" },
+      { stat: "No", label: "central controller required" },
+      { stat: "Lower", label: "TCO vs. controller-based Wi-Fi" },
+    ],
+    industries: ["education", "healthcare", "hospitality", "government", "manufacturing", "transportation"],
+  },
+  {
+    slug: "mission-critical-networks",
+    name: "Mission Critical Networks",
+    tagline:
+      "Optimized, resilient, reliable, highly secure and scalable infrastructure for uninterrupted operations",
+    description:
+      "Organizations requiring uninterrupted operations — particularly in transportation, healthcare, and smart cities — need multi-layered network resilience. ALE mission critical networks address network segmentation, multi-service convergence, deterministic QoS, high availability, security, synchronization, and simplified management through Shortest Path Bridging (SPB) with sub-100ms convergence and IP/MPLS with sub-50ms convergence.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/mission-critical-networks-901x339.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "High Network Efficiency",
+        description:
+          "Service convergence capabilities and assured application performance with deterministic QoS — delivering multiple services over a single, optimized infrastructure.",
+      },
+      {
+        title: "Network Resilience",
+        description:
+          "Non-blocking architecture with sub-100ms convergence (SPB) or sub-50ms (MPLS), ensuring high network availability and uninterrupted operations for critical workloads.",
+      },
+      {
+        title: "Security & Segmentation",
+        description:
+          "Layer 2 network segmentation limiting human error risks with secured multi-tenant architecture that isolates services without complex overlay configurations.",
+      },
+      {
+        title: "Operational Excellence",
+        description:
+          "Optimized network design with multiservice integration, flexible end-to-end synchronization, and unified management platform for increased operational speed.",
+      },
+    ],
+    products: [
+      "OmniSwitch 9900",
+      "OmniSwitch 6900",
+      "OmniSwitch 6865",
+      "OmniSwitch 6860",
+      "OmniVista Network Management",
+    ],
+    benefits: [
+      { stat: "<100ms", label: "SPB convergence time" },
+      { stat: "<50ms", label: "MPLS convergence time" },
+      { stat: "Zero", label: "blocking links in SPB fabric" },
+    ],
+    industries: ["transportation", "healthcare", "government", "energy", "manufacturing"],
+  },
+  {
+    slug: "shortest-path-bridging",
+    name: "Shortest Path Bridging (SPB)",
+    tagline:
+      "MPLS-like VPN services that are significantly simpler to deploy and maintain with a lower total cost of ownership",
+    description:
+      "Shortest Path Bridging delivers traffic on the shortest available path and enables network virtualization in carrier-grade networks and data centers. Unlike MPLS which requires multiple protocols, SPB relies on a single protocol — IS-IS (Intermediate System to Intermediate System). Alcatel-Lucent Enterprise's Intelligent Fabric (iFab) adds automation for network provisioning, device attachment, and service instantiation, resulting in high-end services at a significantly reduced total cost of ownership.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/spb-banner-1440x600.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Scalable Multi-Path Fabric",
+        description:
+          "Fast-converging multi-path fabric with multi-tenancy support, IEEE 802.1aq and RFC 6329 standardization ensuring multi-vendor compatibility and future-proof investment.",
+      },
+      {
+        title: "Dynamic Service Instantiation",
+        description:
+          "Edge-only provisioning with automatic configuration reduces human error and accelerates service deployment — no core changes needed when adding new services.",
+      },
+      {
+        title: "Micro-Segmentation",
+        description:
+          "Non-IP core capabilities and loop-free topology without blocking links — providing native network segmentation that simplifies security architecture.",
+      },
+      {
+        title: "Cloud-Ready Data Center",
+        description:
+          "Cloud-ready data center transformation with efficient load sharing across all physical connections, sub-second convergence, and reduced time for VM management tasks.",
+      },
+    ],
+    products: [
+      "OmniSwitch 9900",
+      "OmniSwitch 6900",
+      "OmniSwitch 6865",
+      "OmniVista Network Management",
+    ],
+    benefits: [
+      { stat: "1", label: "protocol (IS-IS) vs multiple for MPLS" },
+      { stat: "Edge", label: "only provisioning, no core changes" },
+      { stat: "802.1aq", label: "IEEE standardized" },
+    ],
+    industries: ["education", "government", "transportation", "healthcare", "energy"],
+  },
+  {
+    slug: "hybrid-pol",
+    name: "Hybrid Passive Optical LAN",
+    tagline:
+      "A mix of Passive Optical LAN and Ethernet LAN for large premises with better network performance and security",
+    description:
+      "The Hybrid POL solution combines Passive Optical LAN and Ethernet LAN technologies for medium to high user density networks across large premises spanning multiple buildings and long distances. It leverages a single fiber link to deliver enterprise services with high bandwidth and low latency, connecting core and access layers through Nokia POL infrastructure — eliminating dedicated telecom closets and reducing infrastructure costs.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hybrid-pol-banner-1440x600.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Networking Services",
+        description:
+          "Full Layer 2 services, HPOE, and security features with optional redundant uplinks — delivering enterprise-grade connectivity over a passive optical infrastructure.",
+      },
+      {
+        title: "Unified Network Management",
+        description:
+          "Unified management for both POL and Ethernet LAN components through a powerful, user-friendly management system — eliminating operational silos between fiber and copper.",
+      },
+      {
+        title: "Infrastructure Cost Reduction",
+        description:
+          "Eliminates dedicated telecom closets and cooling systems per floor, reduces the distribution switching layer, and lowers overall infrastructure costs significantly.",
+      },
+      {
+        title: "Future-Proof Fiber Connectivity",
+        description:
+          "Extended distance connectivity with cabling reduction, space savings, and power consumption optimization — providing a single vendor end-to-end solution with flexible, scalable design.",
+      },
+    ],
+    products: [
+      "OmniSwitch 6900",
+      "OmniSwitch 6860",
+      "Nokia ONT Terminals",
+      "Nokia Altiplano Access Controller",
+    ],
+    benefits: [
+      { stat: "Zero", label: "telecom closets needed per floor" },
+      { stat: "Single", label: "fiber link for all services" },
+      { stat: "Lower", label: "OPEX vs. traditional Ethernet LAN" },
+    ],
+    industries: ["education", "healthcare", "government", "hospitality"],
+  },
 ];
