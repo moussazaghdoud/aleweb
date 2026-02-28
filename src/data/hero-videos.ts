@@ -80,7 +80,7 @@ export const industryVideos: Record<string, string> = {
 export const industrySubPageVideos: Record<string, string> = {
   // Healthcare
   "healthcare/digital-health": v(40739),
-  "healthcare/senior-living": v(38757),
+  "healthcare/senior-living": v(33307),
   // Education
   "education/higher-education": v(4531),
   "education/k-12": v(27984),
