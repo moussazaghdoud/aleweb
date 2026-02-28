@@ -116,25 +116,22 @@ const legacyRedirects: Record<string, string> = {
 
   // ── Missing solution redirects ──
   '/en/solutions/e-services': '/solutions/e-services',
-  '/en/solutions/omnifabric': '/solutions/secure-your-network',
+  '/en/solutions/omnifabric': '/solutions/omnifabric',
   '/en/solutions/mission-critical-networks': '/solutions/mission-critical-networks',
   '/en/solutions/shortest-path-bridging': '/solutions/shortest-path-bridging',
   '/en/solutions/hybrid-pol': '/solutions/hybrid-pol',
-  '/en/solutions/optical-solutions': '/solutions/digital-age-networking',
-  '/en/solutions/digital-dividends': '/solutions',
-  '/en/solutions/business-innovation': '/solutions/connect-everything',
-  '/en/solutions/distributed-wi-fi-control-architecture': '/products/wlan',
+  '/en/solutions/optical-solutions': '/solutions/optical-solutions',
+  '/en/solutions/digital-dividends': '/solutions/digital-dividends',
+  '/en/solutions/business-innovation': '/solutions/business-innovation',
+  '/en/solutions/distributed-wi-fi-control-architecture': '/solutions/distributed-wifi',
   '/en/solutions/business-continuity/continuity-of-learning': '/solutions/business-continuity',
   '/en/solutions/business-continuity/return-to-business': '/solutions/business-continuity',
   '/en/solutions/unified-access': '/solutions/secure-your-network',
-  '/en/solutions/smb': '/industries/smb',
 
   // ── Missing company redirects ──
-  '/en/company/about-us/awards': '/company/about',
-  '/en/company/about-us/ebc': '/company/about',
-  '/en/company/about-us/history': '/company/about',
-  '/en/company/ale-worldwide-presence': '/company/contact',
-  '/en/company/customers': '/customers/case-studies',
+  '/en/company/about-us/awards': '/company/awards',
+  '/en/company/about-us/ebc': '/company/innovation',
+  '/en/company/about-us/history': '/company/history',
 
   // ── Missing partner redirects ──
   '/en/partners/about-our-partners': '/partners',

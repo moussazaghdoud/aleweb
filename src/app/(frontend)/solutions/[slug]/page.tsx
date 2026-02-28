@@ -139,9 +139,10 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
     "connect-everything": ["connected-solutions-and-devices"],
     "private-5g-solution": ["private-5g-network"],
     "modernize-communications": ["unified-communications", "collaboration-solutions", "cloud-communications"],
-    "secure-your-network": ["omnifabric", "mission-critical-networks"],
+    "secure-your-network": [],
     "optimize-with-ai": ["autonomous-network"],
     "communications-security": ["security"],
+    "distributed-wifi": ["distributed-wi-fi-control-architecture"],
   };
   const slugsToSearch = [slug, ...(solutionSlugAliases[slug] || [])];
   const downloads: DownloadItem[] = (downloadsIndex as any[])

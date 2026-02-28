@@ -160,4 +160,32 @@ export const solutionCustomers: Record<string, string[]> = {
     "javeriana-university",
     "university-of-johannesburg",
   ],
+  "omnifabric": [
+    "saint-gotthard-tunnel",
+    "kanton-aargau",
+    "korea-university-medicine",
+    "transit-wireless",
+  ],
+  "optical-solutions": [
+    "saint-gotthard-tunnel",
+    "transit-wireless",
+    "schweizerische-bundesbahnen",
+  ],
+  "digital-dividends": [
+    "asmodee",
+    "mogador-hotels",
+    "istituto-ortopedico-rizzoli",
+    "strasbourg-eurometropolis",
+  ],
+  "business-innovation": [
+    "future-mobility-park",
+    "okada-manila-resort",
+    "oechsler-ag",
+  ],
+  "distributed-wifi": [
+    "us-department-of-defense",
+    "alamo-colleges",
+    "cordish-live",
+    "groupe-edenis",
+  ],
 };

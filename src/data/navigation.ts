@@ -90,6 +90,8 @@ export const primaryNav: MegaNavItem[] = [
         links: [
           { label: "Higher Education", href: "/industries/education/higher-education" },
           { label: "K-12", href: "/industries/education/k-12" },
+          { label: "Intelligent Campus", href: "/industries/education/intelligent-campus" },
+          { label: "E-Rate", href: "/industries/education/e-rate" },
         ],
       },
       {
@@ -99,6 +101,7 @@ export const primaryNav: MegaNavItem[] = [
           { label: "Defense", href: "/industries/government/defense" },
           { label: "Public Safety", href: "/industries/government/public-safety" },
           { label: "Connected Cities", href: "/industries/government/connected-cities" },
+          { label: "Smart Buildings", href: "/industries/government/smart-buildings" },
         ],
       },
       {
@@ -114,7 +117,9 @@ export const primaryNav: MegaNavItem[] = [
       {
         heading: "Hospitality",
         href: "/industries/hospitality",
-        links: [],
+        links: [
+          { label: "Guest Experience", href: "/industries/hospitality/guest-experience" },
+        ],
       },
       {
         heading: "Energy & Utilities",
@@ -124,11 +129,6 @@ export const primaryNav: MegaNavItem[] = [
       {
         heading: "Manufacturing",
         href: "/industries/manufacturing",
-        links: [],
-      },
-      {
-        heading: "Smart Buildings",
-        href: "/industries/government/smart-buildings",
         links: [],
       },
       {
@@ -158,6 +158,7 @@ export const primaryNav: MegaNavItem[] = [
           { label: "Cloud Communications", href: "/solutions/move-to-cloud" },
           { label: "CPaaS", href: "/solutions/cpaas" },
           { label: "Hybrid Workplace", href: "/solutions/enable-hybrid-work" },
+          { label: "Customer Service Apps", href: "/solutions/e-services" },
         ],
       },
       {
@@ -166,6 +167,10 @@ export const primaryNav: MegaNavItem[] = [
           { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase" },
           { label: "Network Security", href: "/solutions/network-security" },
           { label: "Data Center", href: "/solutions/data-center-networking" },
+          { label: "Mission Critical Networks", href: "/solutions/mission-critical-networks" },
+          { label: "Shortest Path Bridging", href: "/solutions/shortest-path-bridging" },
+          { label: "Enterprise Wi-Fi", href: "/solutions/wifi-solutions" },
+          { label: "Hybrid POL", href: "/solutions/hybrid-pol" },
         ],
       },
       {
@@ -175,6 +180,8 @@ export const primaryNav: MegaNavItem[] = [
           { label: "IoT Networks", href: "/solutions/iot-networks" },
           { label: "Asset Tracking", href: "/solutions/connect-everything" },
           { label: "Network as a Service", href: "/solutions/network-as-a-service" },
+          { label: "Industrial Networks", href: "/solutions/industrial-networks" },
+          { label: "Private 5G", href: "/solutions/private-5g-solution" },
         ],
       },
       {
@@ -269,6 +276,8 @@ export const primaryNav: MegaNavItem[] = [
           { label: "Innovation", href: "/company/innovation" },
           { label: "Careers", href: "/company/careers" },
           { label: "ESG", href: "/company/esg" },
+          { label: "History", href: "/company/history" },
+          { label: "Awards", href: "/company/awards" },
         ],
       },
       {

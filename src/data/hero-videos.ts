@@ -56,6 +56,11 @@ export const solutionVideos: Record<string, string> = {
   "mission-critical-networks": v(47051),
   "shortest-path-bridging": v(19653),
   "hybrid-pol": v(7890),
+  "omnifabric": v(5728),
+  "optical-solutions": v(20822),
+  "digital-dividends": v(26774),
+  "business-innovation": v(26770),
+  "distributed-wifi": v(14142),
 };
 
 // ── Industries ───────────────────────────────────────────────

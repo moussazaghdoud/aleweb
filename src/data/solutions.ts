@@ -1017,4 +1017,228 @@ export const solutionsData: SolutionData[] = [
     ],
     industries: ["education", "healthcare", "government", "hospitality"],
   },
+  {
+    slug: "omnifabric",
+    name: "OmniFabric Network Fabric",
+    tagline:
+      "Multi-technology network fabric ensuring end-to-end security in a Zero Trust architecture with automated segmentation",
+    description:
+      "OmniFabric delivers a unified platform supporting SPB, MPLS, and EVPN protocols within a single operating system. The solution provides advanced automation capabilities that reduce operational complexity while incorporating built-in cybersecurity features like micro-segmentation and AI-powered analytics at no additional cost. It addresses requirements across healthcare, education, smart buildings, and critical infrastructure with IT/OT convergence across indoor and harsh outdoor environments.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/security-header-image-1400-600-v4.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Multi-Technology Integration",
+        description:
+          "Supports SPB, MPLS, and EVPN within one operating system — preventing vendor lock-in while maintaining the flexibility to choose the best technology for each deployment scenario.",
+      },
+      {
+        title: "Enhanced Cybersecurity",
+        description:
+          "Protects data integrity through Zero Trust network support and automatic micro-segmentation. Devices are detected, classified, and isolated in virtual segments without increasing attack exposure.",
+      },
+      {
+        title: "IT/OT Convergence",
+        description:
+          "Enables operational technology integration across indoor and harsh outdoor environments — connecting industrial systems to enterprise IT with secure, segmented network architecture.",
+      },
+      {
+        title: "Simplified Operations",
+        description:
+          "Unified management through OmniVista with single-pane-of-glass visibility, augmented by AI analytics. Transparent pricing with integrated security features and no hidden fees.",
+      },
+    ],
+    products: [
+      "OmniSwitch 9900",
+      "OmniSwitch 6900",
+      "OmniSwitch 6860",
+      "OmniSwitch 6865",
+      "OmniAccess Stellar",
+      "OmniVista Network Management",
+    ],
+    benefits: [
+      { stat: "3", label: "protocols in one OS (SPB, MPLS, EVPN)" },
+      { stat: "Zero Trust", label: "built-in network architecture" },
+      { stat: "IT+OT", label: "convergence in a single fabric" },
+    ],
+    industries: ["healthcare", "education", "government", "energy", "manufacturing", "transportation"],
+  },
+  {
+    slug: "optical-solutions",
+    name: "Optical Networking",
+    tagline:
+      "High-capacity data transport with secure optical networking for data center interconnect and enterprise WANs",
+    description:
+      "Organizations require robust optical networks to transport high-capacity data between data centers. High-capacity transport is necessary for reliable transmission of high-bandwidth applications and IoT devices. The OmniSwitch family provides scalable, power-efficient solutions for enterprise WANs connecting headquarters to branch offices — with AES-256 encryption, modular architecture, and network failure protection.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-digital-age-networking-focus-topic-1-810x340.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Data Center Interconnect",
+        description:
+          "Link data centers for business continuity, disaster recovery, and remote analytics computing — using leased dark fiber or dedicated service provider connectivity.",
+      },
+      {
+        title: "Enterprise WAN Connectivity",
+        description:
+          "Aggregate and transport multiple applications onto higher-rate optical links across headquarters, branch offices, and remote sites using compact 1RU chassis.",
+      },
+      {
+        title: "Built-in Security",
+        description:
+          "AES-256 encryption on both client and line-side, modular architecture for efficiency, and network failure protection for resilience.",
+      },
+      {
+        title: "Simplified Management",
+        description:
+          "Intuitive web-based configuration interface with low power consumption, AC/DC power support, and plug-and-play deployment capabilities.",
+      },
+    ],
+    products: [
+      "OmniSwitch 6900",
+      "OmniSwitch 9900",
+      "OmniVista Network Management",
+    ],
+    benefits: [
+      { stat: "AES-256", label: "encryption on all links" },
+      { stat: "1RU", label: "compact chassis form factor" },
+      { stat: "DCI", label: "data center interconnect ready" },
+    ],
+    industries: ["government", "healthcare", "transportation", "energy"],
+  },
+  {
+    slug: "digital-dividends",
+    name: "Digital Dividends",
+    tagline:
+      "Technology investment in communications and networking that creates tangible business outcomes",
+    description:
+      "Organizations face budget constraints, cyberthreats, and sustainability concerns. Strategic technology investments in communications and secure network infrastructure can help address these challenges through improved operational excellence, customer experience, and employee experience — delivering measurable business results and a strong return on investment.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-dac-focus-topic-810x380.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Operational Excellence",
+        description:
+          "IT simplification and automation that cut costs through workflow automation, AI, and cloud optimization — including cybersecurity strategies and budget predictability via as-a-Service models.",
+      },
+      {
+        title: "Customer Experience",
+        description:
+          "Resource optimization balancing self-service and agent support, quick response and first-call resolution, and multi-generational engagement preference management.",
+      },
+      {
+        title: "Employee Experience",
+        description:
+          "State-of-the-art digital workplace with cloud collaboration tools, empowered workforce with appropriate apps and anywhere access across hybrid work environments.",
+      },
+      {
+        title: "Sustainability",
+        description:
+          "Energy consumption reduction through efficient infrastructure, sustainable product design, and cloud-first deployment models that minimize environmental impact.",
+      },
+    ],
+    products: [
+      "ALE Connect",
+      "Rainbow",
+      "OmniPCX Enterprise",
+      "OmniVista Cirrus",
+      "Smart DeskPhones",
+      "Visual Automated Attendant",
+    ],
+    benefits: [
+      { stat: "3x", label: "pillars of digital value" },
+      { stat: "Cloud", label: "first, pay-as-you-grow" },
+      { stat: "ROI", label: "measurable business outcomes" },
+    ],
+    industries: ["healthcare", "education", "hospitality", "government", "manufacturing"],
+  },
+  {
+    slug: "business-innovation",
+    name: "Business Innovation",
+    tagline:
+      "Increase productivity and revenues by leveraging new technologies to automate business processes",
+    description:
+      "New business processes are optimized when they integrate user, application, and IoT metrics in real-time. Digital Age Networking helps businesses optimize processes and services to drive innovation, enhance productivity, and create new revenue-generating opportunities through location services, workflow automation, and cloud-based solutions.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-trends-iot-topic1-image.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Location Services",
+        description:
+          "OmniAccess Stellar Location Services generates revenues, increases safety, and reduces operational costs with real-time and historical location data of users or objects in indoor facilities.",
+      },
+      {
+        title: "Workflow Automation",
+        description:
+          "Integrate geolocation data with collaboration tools to automate simple or repetitive tasks — developing digital business processes triggered by rules and actions.",
+      },
+      {
+        title: "Cloud-Based Solutions",
+        description:
+          "Financial alternative to traditional CAPEX models with operational cost savings and new revenue stream creation through subscription-based services.",
+      },
+      {
+        title: "Portfolio Streamlining",
+        description:
+          "Single OS across edge-to-core infrastructure with unified LAN, WLAN, and branch security management — flexible deployment across office, outdoor, and industrial environments.",
+      },
+    ],
+    products: [
+      "Rainbow",
+      "OmniVista Network Management",
+      "OmniAccess Stellar Asset Tracking",
+      "OmniSwitch",
+      "OmniAccess Stellar",
+    ],
+    benefits: [
+      { stat: "Real-time", label: "IoT metrics integration" },
+      { stat: "Location", label: "services and asset tracking" },
+      { stat: "Lower", label: "CAPEX with cloud models" },
+    ],
+    industries: ["healthcare", "hospitality", "education", "manufacturing", "transportation"],
+  },
+  {
+    slug: "distributed-wifi",
+    name: "Distributed Wi-Fi Architecture",
+    tagline:
+      "Distributed intelligence Wi-Fi architecture providing highly available, scalable, and easy to manage wireless networks",
+    description:
+      "The distributed Wi-Fi control architecture employs smart access points managed as a unified system or cluster, handling control and forwarding in a distributed, coordinated manner without requiring a centralized controller. The architecture virtualizes the controller function across access points with coordinated intelligence — delivering enterprise-grade WPA3 security, lower total cost of ownership, and superior scalability independent of deployment size.",
+    heroImage:
+      "https://web-assets.al-enterprise.com/-/media/assets/internet/images/wifi-solutions-banner-901x339.jpg?h=600&w=1440",
+    capabilities: [
+      {
+        title: "Enterprise-Grade Security",
+        description:
+          "WPA3 security standard with advanced algorithms and 192-bit encryption suites, plus Enhanced Open standard support for public spaces using Opportunistic Wireless Encryption.",
+      },
+      {
+        title: "Unified Management",
+        description:
+          "OmniVista provides secure plug-and-play deployment, integrated policy authentication, built-in Deep Packet Inspection, and real-time application monitoring for large-scale environments.",
+      },
+      {
+        title: "Cost & Performance",
+        description:
+          "Lower CAPEX by eliminating central controllers and licensing costs; lower OPEX through reduced equipment and IT management overhead; increased resiliency through distributed control.",
+      },
+      {
+        title: "Scalable Architecture",
+        description:
+          "Eliminates traffic bottlenecks and latency with superior scalability independent of deployment size — three deployment modes available via a single software version.",
+      },
+    ],
+    products: [
+      "OmniAccess Stellar AP1451",
+      "OmniAccess Stellar AP1320",
+      "OmniAccess Stellar AP1301",
+      "OmniVista Network Management",
+    ],
+    benefits: [
+      { stat: "WPA3", label: "enterprise-grade security" },
+      { stat: "No", label: "central controller needed" },
+      { stat: "3", label: "deployment modes, one software" },
+    ],
+    industries: ["education", "healthcare", "hospitality", "government"],
+  },
 ];
