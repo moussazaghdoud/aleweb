@@ -700,7 +700,7 @@ export function QuickNav() {
                 </p>
               </div>
               <Link
-                href="/customer-references"
+                href="/customers/case-studies"
                 className="hidden sm:inline-flex items-center gap-1.5 text-sm font-semibold text-ale hover:text-ale-dark transition-colors"
               >
                 All case studies
@@ -714,7 +714,7 @@ export function QuickNav() {
             {featuredCaseStudies.map((cs, i) => (
               <FadeIn key={cs.slug} delay={i * 100}>
                 <Link
-                  href={`/customer-references/${cs.slug}`}
+                  href={`/customers/${cs.slug}`}
                   className="group flex flex-col rounded-xl border border-light-200 overflow-hidden hover:border-ale-200 hover:shadow-md transition-all h-full"
                 >
                   <div className="p-6 flex-1">
@@ -757,7 +757,7 @@ export function QuickNav() {
             ))}
           </div>
           <div className="sm:hidden text-center mt-6">
-            <Link href="/customer-references" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ale">
+            <Link href="/customers/case-studies" className="inline-flex items-center gap-1.5 text-sm font-semibold text-ale">
               All case studies
               <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />

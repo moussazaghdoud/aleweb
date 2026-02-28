@@ -61,7 +61,7 @@ const footerLinks = [
     heading: "Resources",
     links: [
       { label: "Blog", href: "/blog" },
-      { label: "Case Studies", href: "/customer-references" },
+      { label: "Case Studies", href: "/customers/case-studies" },
       { label: "Services", href: "/services" },
       { label: "Video Library", href: "/company/video-library" },
       { label: "Partners", href: "/partners" },

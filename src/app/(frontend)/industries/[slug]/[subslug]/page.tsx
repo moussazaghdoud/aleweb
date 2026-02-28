@@ -462,7 +462,7 @@ export default async function IndustrySubPage({
                 return cust.slug ? (
                   <Link
                     key={i}
-                    href={`/customer-references/${cust.slug}`}
+                    href={`/customers/${cust.slug}`}
                     className="group flex items-center gap-4 p-6 rounded-2xl border border-light-200 bg-white hover:border-ale-200 hover:shadow-lg transition-all duration-300"
                   >
                     {inner}
