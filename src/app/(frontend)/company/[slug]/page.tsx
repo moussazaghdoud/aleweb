@@ -26,11 +26,31 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
+const colorSchemes = [
+  { bg: "bg-blue-50", border: "border-blue-100", text: "text-blue-700", icon: "text-blue-500", dot: "bg-blue-500" },
+  { bg: "bg-purple-50", border: "border-purple-100", text: "text-purple-700", icon: "text-purple-500", dot: "bg-purple-500" },
+  { bg: "bg-cyan-50", border: "border-cyan-100", text: "text-cyan-700", icon: "text-cyan-500", dot: "bg-cyan-500" },
+  { bg: "bg-amber-50", border: "border-amber-100", text: "text-amber-700", icon: "text-amber-500", dot: "bg-amber-500" },
+];
+
+const sectionIcons = [
+  "M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0018 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25",
+  "M2.036 12.322a1.012 1.012 0 010-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178z M15 12a3 3 0 11-6 0 3 3 0 016 0z",
+  "M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.455 2.456L21.75 6l-1.036.259a3.375 3.375 0 00-2.455 2.456z",
+  "M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z",
+  "M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418",
+  "M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z",
+];
+
 export default async function CompanyPage({ params }: { params: Promise<{ slug: string }> }) {
   const companyData = await getCompanyData();
   const { slug } = await params;
   const page = companyData.find((p) => p.slug === slug);
   if (!page) notFound();
+
+  const currentIdx = companyData.findIndex((p) => p.slug === slug);
+  const prev = currentIdx > 0 ? companyData[currentIdx - 1] : null;
+  const next = currentIdx < companyData.length - 1 ? companyData[currentIdx + 1] : null;
 
   return (
     <>
@@ -58,13 +78,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
-      {/* Stats bar (About page only) */}
+      {/* Stats band (glass-morphism) */}
       {page.stats && (
-        <section className="py-10 bg-ale-dark">
-          <div className="mx-auto max-w-[1320px] px-6">
-            <div className="grid grid-cols-3 sm:grid-cols-6 gap-6">
+        <section className="relative py-10 bg-gradient-to-r from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+          <div className="absolute top-0 left-1/4 w-64 h-64 bg-ale/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 right-1/4 w-48 h-48 bg-purple-500/15 rounded-full blur-[80px]" />
+          <div className="relative mx-auto max-w-[1320px] px-6">
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
               {page.stats.map((s) => (
-                <div key={s.label} className="text-center">
+                <div key={s.label} className="text-center p-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-sm">
                   <div className="text-xl font-extrabold text-white">{s.value}</div>
                   <div className="text-[11px] text-white/50 mt-1">{s.label}</div>
                 </div>
@@ -75,19 +97,34 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
       )}
 
       {/* Description + Sections */}
-      <section className="py-16 bg-white">
+      <section className="relative py-16 bg-white overflow-hidden">
+        <div className="absolute top-20 right-0 w-[200px] h-[200px] opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "16px 16px" }} />
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="max-w-3xl mb-14">
             <p className="text-lg text-text-secondary leading-relaxed">{page.description}</p>
           </div>
-          <div className="grid sm:grid-cols-2 gap-8">
-            {page.sections.map((sec) => (
-              <div key={sec.title} className="border-l-[3px] border-ale-200 pl-5">
-                <h2 className="text-base font-bold text-text mb-2">{sec.title}</h2>
-                <p className="text-sm text-text-secondary leading-relaxed">{sec.content}</p>
-              </div>
-            ))}
-          </div>
+          {page.sections.length > 0 && (
+            <div className="grid sm:grid-cols-2 gap-6">
+              {page.sections.map((sec, i) => {
+                const color = colorSchemes[i % colorSchemes.length];
+                return (
+                  <div key={sec.title} className={`relative rounded-2xl ${color.bg} border ${color.border} p-6 hover:shadow-md transition-shadow`}>
+                    <div className="flex items-start gap-4">
+                      <div className={`w-10 h-10 rounded-xl ${color.bg} border ${color.border} flex items-center justify-center shrink-0`}>
+                        <svg className={`w-5 h-5 ${color.icon}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d={sectionIcons[i % sectionIcons.length]} />
+                        </svg>
+                      </div>
+                      <div>
+                        <h2 className={`text-base font-bold ${color.text} mb-2`}>{sec.title}</h2>
+                        <p className="text-sm text-text-secondary leading-relaxed">{sec.content}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          )}
         </div>
       </section>
 
@@ -102,10 +139,15 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
               {page.pressReleases.map((pr) => (
                 <div
                   key={pr.title}
-                  className="bg-white rounded-xl border border-light-200 p-6 hover:shadow-md transition-shadow"
+                  className="bg-white rounded-xl border border-light-200 p-6 hover:shadow-md hover:border-ale-200 transition-all"
                 >
-                  <div className="text-xs text-text-muted mb-2">
-                    {new Date(pr.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                  <div className="flex items-center gap-3 mb-3">
+                    <span className="inline-flex items-center h-6 px-2.5 rounded-full bg-ale-50 text-ale text-[10px] font-semibold">
+                      Press Release
+                    </span>
+                    <span className="text-xs text-text-muted">
+                      {new Date(pr.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                    </span>
                   </div>
                   <h3 className="text-base font-bold text-text mb-2">{pr.title}</h3>
                   <p className="text-sm text-text-secondary leading-relaxed">{pr.summary}</p>
@@ -116,13 +158,12 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* Contact form placeholder + Offices (Contact page only) */}
+      {/* Contact form + Offices (Contact page only) */}
       {page.slug === "contact" && (
         <>
-          {/* Contact form */}
           <section className="py-16 bg-light-50">
             <div className="mx-auto max-w-[1320px] px-6">
-              <div className="max-w-xl mx-auto bg-white rounded-2xl border border-light-200 p-8">
+              <div className="max-w-xl mx-auto bg-white rounded-2xl border border-light-200 p-8 shadow-sm">
                 <h2 className="text-xl font-extrabold text-text tracking-tight mb-6">
                   Send us a message
                 </h2>
@@ -131,7 +172,6 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             </div>
           </section>
 
-          {/* Offices */}
           {page.offices && (
             <section className="py-16 bg-white">
               <div className="mx-auto max-w-[1320px] px-6">
@@ -142,7 +182,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
                   {page.offices.map((office, i) => (
                     <div
                       key={i}
-                      className="p-4 rounded-xl border border-light-200 hover:border-ale-200 transition-colors"
+                      className="p-4 rounded-xl border border-light-200 hover:border-ale-200 hover:shadow-sm transition-all"
                     >
                       <h3 className="text-sm font-bold text-text">{office.city}</h3>
                       <p className="text-xs text-ale font-semibold mt-0.5">{office.country}</p>
@@ -159,7 +199,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </>
       )}
 
-      {/* Executive Team (Executive Team page only) */}
+      {/* Executive Team */}
       {page.executives && page.executives.length > 0 && (
         <section className="py-16 bg-light-50">
           <div className="mx-auto max-w-[1320px] px-6">
@@ -168,7 +208,7 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
             </h2>
             <div className="space-y-10">
               {page.executives.map((exec) => (
-                <div key={exec.name} className="flex flex-col sm:flex-row items-start gap-6 p-6 bg-white rounded-2xl border border-light-200">
+                <div key={exec.name} className="flex flex-col sm:flex-row items-start gap-6 p-6 bg-white rounded-2xl border border-light-200 hover:shadow-md transition-shadow">
                   <div className="shrink-0">
                     <div className="w-28 h-28 rounded-full overflow-hidden bg-light-200 border-4 border-white shadow-lg">
                       <Image
@@ -231,20 +271,22 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </section>
       )}
 
-      {/* CTA */}
+      {/* Dark gradient CTA */}
       {page.slug !== "contact" && (
-        <section className="py-16 bg-ale">
-          <div className="mx-auto max-w-[1320px] px-6 text-center">
+        <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+          <div className="absolute top-0 left-1/3 w-72 h-72 bg-ale/20 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 right-1/4 w-56 h-56 bg-purple-500/15 rounded-full blur-[80px]" />
+          <div className="relative mx-auto max-w-[1320px] px-6 text-center">
             <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
               Want to learn more about ALE?
             </h2>
-            <p className="text-white/60 max-w-lg mx-auto mb-8">
+            <p className="text-white/50 max-w-lg mx-auto mb-8">
               Get in touch with our team or explore our solutions.
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link
                 href="/company/contact"
-                className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all"
+                className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all shadow-lg shadow-ale/25"
               >
                 Contact Us
               </Link>
@@ -255,6 +297,46 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
                 Explore Solutions
               </Link>
             </div>
+          </div>
+        </section>
+      )}
+
+      {/* Prev / Next navigation */}
+      {(prev || next) && (
+        <section className="py-8 bg-white border-t border-light-200">
+          <div className="mx-auto max-w-[1320px] px-6 flex items-center justify-between">
+            {prev ? (
+              <Link
+                href={`/company/${prev.slug}`}
+                className="group flex items-center gap-3 max-w-[45%]"
+              >
+                <div className="w-9 h-9 rounded-full bg-ale-50 flex items-center justify-center shrink-0 group-hover:bg-ale transition-colors">
+                  <svg className="w-4 h-4 text-ale group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </div>
+                <div className="min-w-0">
+                  <div className="text-[10px] text-text-muted uppercase tracking-wider">Previous</div>
+                  <div className="text-sm font-semibold text-text truncate group-hover:text-ale transition-colors">{prev.name}</div>
+                </div>
+              </Link>
+            ) : <div />}
+            {next ? (
+              <Link
+                href={`/company/${next.slug}`}
+                className="group flex items-center gap-3 max-w-[45%] text-right"
+              >
+                <div className="min-w-0">
+                  <div className="text-[10px] text-text-muted uppercase tracking-wider">Next</div>
+                  <div className="text-sm font-semibold text-text truncate group-hover:text-ale transition-colors">{next.name}</div>
+                </div>
+                <div className="w-9 h-9 rounded-full bg-ale-50 flex items-center justify-center shrink-0 group-hover:bg-ale transition-colors">
+                  <svg className="w-4 h-4 text-ale group-hover:text-white transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </Link>
+            ) : <div />}
           </div>
         </section>
       )}
