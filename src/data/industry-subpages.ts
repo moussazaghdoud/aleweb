@@ -288,6 +288,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Transform your campus for student success",
         body: "Technology connects everything in higher education today — students and faculty are mobile, communications are app-based, and collaboration is digital. This is the immersive and borderless digital college experience students expect. ALE enables you to create and transform personalized interactions with nudge technologies — AI-enabled chatbots, predictive analytics, and integration with LMS, ITSM, and SIS platforms.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-student-centricity-topic1-image.jpg",
+        imageAlt: "Students collaborating with digital technology on campus",
         bullets: [
           "Connect people, resources, and facilities seamlessly and securely",
           "Deliver a personalized, connected student experience through innovative communications",
@@ -298,6 +300,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Connected experiences from applicant to alumni",
         body: "The Rainbow communications platform streamlines a visitor's web experience — from financial aid and admissions to help desk and campus services. AI-enabled chatbots connect visitors to experts instantly. Cognitive communications enable personalized experiences for students, visitors, and guests, while Rainbow Class recreates the physical classroom through LMS integration for remote learners.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-smart-campus-foundation-topic1-image.jpg",
+        imageAlt: "Smart campus digital infrastructure empowering education",
         bullets: [
           "AI chatbots connecting visitors to experts for admissions, financial aid, and help desk",
           "Rainbow Class improving remote student experiences through LMS integration",
@@ -391,6 +395,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Safe campus foundations for every school",
         body: "Throughout a child's primary and secondary education, teachers must share resources, communicate with students, and develop personalized learning plans. Schools must deliver a safe, connected experience with reliable infrastructure supporting growing numbers of students and IoT devices — from surveillance cameras and smart door locks to connected school buses.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/v1-web-refresh-education_campus_resiliency-topic1-image.jpg",
+        imageAlt: "Safe and secure school campus with emergency communication systems",
         bullets: [
           "Connect teachers, parents, and students for an optimal educational experience",
           "Enable learning and collaboration from anywhere, at any time",
@@ -402,6 +408,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Five pillars of campus safety",
         body: "ALE's approach to K-12 campus safety covers five essential dimensions — from risk-based planning and instant multi-channel communication to coordinated response, mass notification, and learning continuity. Each pillar is supported by proven technology deployed in thousands of school districts nationwide.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/scs-blog-5-blog-header-950x338.jpg",
+        imageAlt: "Parent and child using smart campus safety technology",
         bullets: [
           "Planning: Develop risk-based security plans addressing each campus's unique needs",
           "Communication: Connect teachers, parents, and students instantly using multiple methods",
@@ -502,6 +510,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Prepare the transformation with an experienced partner",
         body: "Turn disparate networks into one highly-available infrastructure that is secure, efficient, and easy to manage. Our network and communications solutions ensure 99.999% availability with end-to-end, multi-layer security protection for legacy and modern devices. A single management platform simplifies device configuration, troubleshooting, real-time monitoring, and reporting.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-defense-solutions-topic1-image.jpg",
+        imageAlt: "Connected defense infrastructure with secure networking",
         bullets: [
           "Real-time network and equipment analytics for faster decisions",
           "Field data, vehicle information, and security alerts from connected equipment",
@@ -512,6 +522,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Defense-adapted mobility and collaboration for more effectiveness",
         body: "Mobility and collaboration designed for defense help remote teams share information in real-time from any device, securely. Numerous military departments use Rainbow for remote work with defense-grade encryption ensuring data sovereignty. Ruggedized equipment makes a great difference for mobile teams in vehicles, shelters, or mobile command posts — resistant to shock, humidity, and extreme temperatures. Navy ship devices are anti-roll and humidity resistant.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-defense-solutions-topic2-image.jpg",
+        imageAlt: "Defense-adapted mobility and ruggedized collaboration equipment",
         bullets: [
           "Secure collaboration with Rainbow for distributed teams and soldier families",
           "Defense-grade encryption ensuring data sovereignty and privacy",
@@ -607,6 +619,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Next-generation public safety communications",
         body: "ALE solutions link different communication methods — radio, SMS, chat, calls, email, video, and more — connecting emergency responders, agencies, and authorities. By sharing information in real-time, responders gain better situational awareness, helping them act faster and send resources where they're needed most. IoT plays a key role, monitoring and alerting when risks arise, while AI can predict potential risks to prevent incidents before they happen.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/public-safety-blog-image-810x340.jpg",
+        imageAlt: "Public safety communications connecting emergency responders",
         bullets: [
           "Smart handling of emergency calls with mission-critical communications",
           "Manage large-scale incidents with command and control capabilities",
@@ -617,6 +631,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Resilient and secure network for public safety",
         body: "IoT devices deployed at scale require a resilient, intelligent, and secure network foundation. ALE provides an automated solution that efficiently and securely onboards IoT devices while protecting the network. From surveillance cameras and environmental sensors to emergency call points, every connected device is automatically configured with appropriate security policies.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/roadside-fire-blog-image.jpg",
+        imageAlt: "Emergency response infrastructure protecting communities",
         bullets: [
           "Automated, secure IoT device onboarding at scale",
           "AI-powered predictive risk analysis from IoT sensor data",
@@ -711,6 +727,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Smart city solutions keep your city running",
         body: "Smart city projects depend on a resilient network and communications foundation. A Digital Age Network is smart and automated, making it easy to connect users and devices to their specific applications securely while ensuring a coherent quality of experience everywhere. With a secure foundation in place, high-density Wi-Fi 6 connects objects, machines, and processes that fuel digital transformation.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-connected-cities-topic1-image.jpg",
+        imageAlt: "Smart city infrastructure with resilient network foundation",
         bullets: [
           "Create a transformation foundation for a smart city",
           "Connect people, objects, machines, and processes securely across the city",
@@ -721,6 +739,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Power smart, sustainable buildings across the city",
         body: "Sustainable buildings reduce city emissions, reinforce community spirit, and ensure citizen safety. City buildings offer smart services such as collaboration, wayfinding, automated room booking, secured access control, and parking status. Remote control and automation enhance resource efficiency and reduce energy consumption, while video surveillance and centralized notifications improve citizen security.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/government-connected-cities-topic2-image.jpg",
+        imageAlt: "Sustainable smart buildings reducing emissions and enhancing services",
         bullets: [
           "CPaaS making digital public services accessible 24/7 from any device",
           "Advanced amenities enhancing safety in public and private city buildings",
@@ -821,6 +841,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Smart building technology for a smarter future",
         body: "Smart building technology transforms buildings into intelligent, efficient, and human-centric spaces that enhance user experience and increase productivity. ALE Digital Age Networking and Communications provide the foundation — a unique set of solutions federating the physical, communications, and application layers to enable connectivity with IoT devices, applications, business processes, and people.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-blog-image-72dpi-402x226.jpg",
+        imageAlt: "Smart building office with connected technology and IoT devices",
         bullets: [
           "Seamless connectivity between objects, applications, and people",
           "Operational efficiency through automated and self-healing networks",
@@ -831,6 +853,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Build a secure foundation with the latest technology",
         body: "Smart buildings require a secure, resilient network foundation supporting multi-standard IoT devices, automated onboarding, and intelligent building management. ALE provides the building blocks — from OmniAccess Stellar WLAN and Shortest Path Bridging to network automation and Rainbow workflow APIs — ensuring every system in the building communicates seamlessly.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/video-surveillance-webinar-402x226-blog-image.jpg",
+        imageAlt: "Smart building video surveillance and security networking",
         bullets: [
           "Multi-standard IoT support with secure automated onboarding",
           "Shortest Path Bridging for multi-service network convergence",
@@ -920,6 +944,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Moving from a connected to a smart airport",
         body: "The passenger journey links travellers with airports and airlines from booking to arrival. Digital transformation moves this journey from a 'connected' experience to a 'smart' experience, satisfying new expectations at every step. Rainbow CPaaS and location-based services integrate into the airport's mobile application, allowing passengers to access boarding gates, book flights, discover points of interest, and request real-time assistance from staff via voice or video calls.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-transportation-focus-topic-1-transp-sol.jpg",
+        imageAlt: "Smart airport passenger experience with digital services",
         bullets: [
           "Exceed passenger expectations for a problem-free journey",
           "Optimize operational efficiency and adhere to schedules",
@@ -930,6 +956,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Powering safer, friendlier airports",
         body: "Optimizing daily operations means improving decision-making, enhancing maintenance, and adhering to schedules. Coordination and collaboration between stakeholders ensure quick recovery when operations are interrupted. IoT adoption, smart Operation Control Centers, asset tracking, and integrated communications are fundamental — flight managers, crew members, and stakeholders collaborate in real-time to ensure on-time departures.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/operations-control-center-occ-blog-image-402x226-72.jpg",
+        imageAlt: "Airport operations control center with integrated communications",
         bullets: [
           "Smart Operation Control Centers for real-time coordination",
           "Asset tracking across terminals, gates, and operational areas",
@@ -1031,6 +1059,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Accelerating toward SmartRail 4.0",
         body: "Digitalization supports new forms of interaction with passengers — knowing a passenger's geolocation in a station enables the closest agent to engage in a video interaction and provide assistance. Rainbow provides APIs for quick deployment and easy adoption, including building blocks for virtual ticketing and Mobility-as-a-Service (MaaS) deployment.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/web-transportation-focus-topic-1-railway-solutions.jpg",
+        imageAlt: "Digital railway infrastructure with connected passenger services",
         bullets: [
           "Enhance passenger services with contextual, location-aware interactions",
           "Strengthen safety and security with improved network and communications",
@@ -1041,6 +1071,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Powering safer and smarter rail transport",
         body: "Safety and security are always the top priority for railway operators. With ALE Digital Age Networking virtualization, you can deliver 4,000 multicast feeds for CCTV without compromising critical operational communications. MACsec-protected access ports, IoT containment security, the Dispatch Console, and Emergency Notification Server keep passengers and staff safe. With Web-RTC and Rainbow Edge, control centers can be expanded remotely while keeping services and data in your datacenter.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/onboard-telephony-blog-image-402x22672.jpg",
+        imageAlt: "Modern driverless train with onboard communication systems",
         bullets: [
           "4,000 multicast CCTV feeds without compromising operations",
           "MACsec-protected network ports with IoT containment security",
@@ -1140,6 +1172,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "When smart ports mimic smart cities",
         body: "Ports comprise large areas where everything must be visible — power cabinets, locks, tunnels, and bridges all need to be controlled or remotely managed. Devices require 24/7 monitoring in all weather conditions with energy consumption controlled through smart grid management. ALE's technology connects everything everywhere with high cybersecurity and minimal operations, combining Wi-Fi 6, LoRaWAN, optical fiber, Bluetooth Low Energy, ZigBee, GPS, and 5G interconnection.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-transportation-focus-topic-1-its-web.jpg",
+        imageAlt: "Smart port infrastructure with IoT connectivity and monitoring",
         bullets: [
           "Prepare sustainable future ports with smart grid energy management",
           "Transform customer experience for transparent B2B relationships",
@@ -1150,6 +1184,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "The smart port is coming",
         body: "Seamless collaboration between stakeholders is critical for a unique customer experience. Integration of collaboration services into Port Community Systems through CPaaS enables authorities, operators, and stakeholders to connect with real-time communications. Security innovations in the Operation Control Center — communication services, notification servers, and IoT interactions — form the cornerstone of successful port operations.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-transportation-focus-topic-2-ports-web.jpg",
+        imageAlt: "Smart port operations with stakeholder collaboration and security",
         bullets: [
           "CPaaS integration into Port Community Systems for real-time collaboration",
           "IoT monitoring of container status with intelligent video cameras",
@@ -1247,6 +1283,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Network infrastructure for mission-critical ITS applications",
         body: "ITS operators face significant challenges reducing congestion and incidents. New congestion monitoring and control systems require a robust mission-critical data network capable of supporting millions of IoT devices — some in remote and inhospitable areas where infrastructure must be installed automatically and operate in extreme temperatures and environments.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/transportation-its-applications-topic1-image-web.jpg",
+        imageAlt: "Intelligent transportation systems network infrastructure",
         bullets: [
           "Improve traveler experience by reducing congestion and delays",
           "Increase safety with cameras, automated speed reduction, and incident detection",
@@ -1257,6 +1295,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Simplified operations with Shortest Path Bridging",
         body: "The network must be easy to manage and maintain, which makes Shortest Path Bridging (SPB) the clear choice for many operators. SPB simplifies day-to-day operations and fault-finding compared to traditional protocols like Spanning Tree. Automated onboarding of devices and long-term support commitments are key elements in increasing operational efficiency for highway and road networks.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/multimodal-transport-blog-image-402x22672.jpg",
+        imageAlt: "Multimodal transport network with connected infrastructure",
         bullets: [
           "SPB simplifying day-to-day operations and fault finding",
           "Centralized provisioning and automated device deployment",
@@ -1350,6 +1390,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Empowering education in the 21st century",
         body: "Deploy an agile network that allows educators to confidently and securely introduce new ways of teaching, learning, and conducting research. This service-centric infrastructure is the foundation for a nimble and resilient network that can face unprecedented challenges, with multi-layered cybersecurity protecting campus assets and reputation.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/education-smart-campus-foundation-topic1-image.jpg",
+        imageAlt: "Modern campus with intelligent networking infrastructure",
         bullets: [
           "Agility to securely embrace new teaching modalities and operations",
           "Cybersecurity protecting intellectual property and institutional reputation",
@@ -1361,6 +1403,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "How ALE helps education customers",
         body: "Academic and research environments place even greater demands on the network. They require a high-performance foundation using carrier technology to create a non-blocking network and a controller-less Wi-Fi foundation for next-generation teaching, learning, and research. One platform manages both Wi-Fi and Ethernet networks through OmniVista for centralized operations, security, and reporting.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/scs-blog-3-blog-header-950x338.jpg",
+        imageAlt: "Students in library using campus Wi-Fi connectivity",
         bullets: [
           "Unified network access profiles enabling common security across all access",
           "OmniSwitch with low-latency, DoS protection, automatic quarantine, and multi-gig",
@@ -1424,6 +1468,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Transform your school district with E-Rate funding",
         body: "The E-Rate program provides American schools and libraries opportunities to address networking and telecommunications challenges by offsetting total acquisition costs. ALE has served as an E-Rate provider since 1998, offering deep expertise in planning, product eligibility determination, and status management to help districts maximize their funding.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-education-topic2-image.jpg",
+        imageAlt: "School district Wi-Fi infrastructure transformation with E-Rate",
         bullets: [
           "Deploy high-performance, controller-less Wi-Fi making any space a learning space",
           "Benefit from low-latency Ethernet switches with carrier-grade technology",
@@ -1434,6 +1480,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Customer benefits that extend beyond E-Rate season",
         body: "ALE's 20+ years of E-Rate experience helps districts extend their budgets and receive full program benefits. A healthy vendor relationship during and after the E-Rate process gets the most out of your budget. ALE is in the business of making education personal — with cooperative partnerships that support districts year-round.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/omniaccess-wireless-ap1232-front-480x480.png",
+        imageAlt: "OmniAccess Stellar wireless access point for E-Rate eligible schools",
         bullets: [
           "Knowledge sharing from 20+ years of E-Rate expertise and eligibility planning",
           "Partnership development extending support well beyond E-Rate season",
