@@ -92,7 +92,7 @@ export const industrySubPageVideos: Record<string, string> = {
   "government/connected-cities": v(23312),
   "government/smart-buildings": v(49845),
   // Hospitality
-  "hospitality/guest-experience": v(34613),
+  "hospitality/guest-experience": v(36736),
   // Transportation
   "transportation/air": v(36351),
   "transportation/rail": v(40663),
