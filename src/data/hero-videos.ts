@@ -65,7 +65,7 @@ export const solutionVideos: Record<string, string> = {
 
 // ── Industries ───────────────────────────────────────────────
 export const industryVideos: Record<string, string> = {
-  healthcare: v(4779),
+  healthcare: v(5491),
   education: v(4519),
   hospitality: v(34613),
   government: v(40677),
