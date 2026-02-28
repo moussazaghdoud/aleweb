@@ -85,7 +85,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
       <AdminEditButton collection="platforms" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={platformVideos[slug] || "https://assets.mixkit.co/videos/7887/7887-720.mp4"} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover"><source src={platformVideos[slug] || "https://assets.mixkit.co/videos/7887/7887-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <div className="flex items-center gap-1.5 text-xs font-semibold text-white/60 mb-5">

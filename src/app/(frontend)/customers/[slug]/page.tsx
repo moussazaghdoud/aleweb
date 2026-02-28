@@ -38,7 +38,7 @@ export default async function CaseStudyDetailPage({ params }: { params: Promise<
     <>
       {/* Hero */}
       <section className="relative min-h-[440px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover">
           <source src={landingVideos.caseStudies} type="video/mp4" />
         </video>
         <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/40 to-black/20" />

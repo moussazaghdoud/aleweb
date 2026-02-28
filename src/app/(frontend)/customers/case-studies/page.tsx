@@ -38,6 +38,13 @@ const industryColors: Record<string, { bg: string; border: string; icon: string 
 export const metadata = {
   title: "Customer Stories",
   description: "See how organizations worldwide use ALE enterprise technology to transform their operations.",
+  alternates: { canonical: "/customers/case-studies" },
+  openGraph: {
+    title: "Customer Stories | Alcatel-Lucent Enterprise",
+    description: "See how organizations worldwide use ALE enterprise technology to transform their operations.",
+    type: "website" as const,
+    url: "/customers/case-studies",
+  },
 };
 
 export default function CaseStudiesPage() {
@@ -58,7 +65,7 @@ export default function CaseStudiesPage() {
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.caseStudies} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.caseStudies} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-ale-300 mb-3 block">

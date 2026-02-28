@@ -177,7 +177,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       <AdminEditButton collection="solutions" documentSlug={slug} />
       {/* Hero */}
       <section className="relative min-h-[480px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={solutionVideos[slug] || "https://assets.mixkit.co/videos/914/914-720.mp4"} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover"><source src={solutionVideos[slug] || "https://assets.mixkit.co/videos/914/914-720.mp4"} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/75 via-gray-900/25 to-transparent" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <Link

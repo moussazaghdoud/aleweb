@@ -13,12 +13,12 @@ export function TrustStrip() {
           ))}
         </div>
         <div className="pt-10 border-t border-white/10">
-          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/30 mb-8">
+          <p className="text-center text-[10px] uppercase tracking-[0.2em] text-white/50 mb-8">
             Trusted by leading organizations worldwide
           </p>
           <div className="flex flex-wrap justify-center items-center gap-x-14 gap-y-4">
             {["SNCF", "Accor", "CHU Lyon", "Airbus", "RATP", "Hilton", "Paris La Défense", "Thales"].map((n) => (
-              <span key={n} className="text-white/30 text-sm font-semibold tracking-wide hover:text-white/60 transition-opacity">{n}</span>
+              <span key={n} className="text-white/50 text-sm font-semibold tracking-wide hover:text-white/70 transition-opacity">{n}</span>
             ))}
           </div>
         </div>

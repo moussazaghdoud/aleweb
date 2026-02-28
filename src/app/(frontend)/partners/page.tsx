@@ -33,6 +33,13 @@ const stats = [
 export const metadata = {
   title: "Partners",
   description: "Join the ALE partner ecosystem — 3,400+ partners across 50+ countries delivering enterprise networking and communications.",
+  alternates: { canonical: "/partners" },
+  openGraph: {
+    title: "Partners | Alcatel-Lucent Enterprise",
+    description: "Join the ALE partner ecosystem — 3,400+ partners across 50+ countries delivering enterprise networking and communications.",
+    type: "website" as const,
+    url: "/partners",
+  },
 };
 
 export default function PartnersPage() {
@@ -40,7 +47,7 @@ export default function PartnersPage() {
     <>
       {/* Hero */}
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.partners} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.partners} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-ale-300 mb-3 block">

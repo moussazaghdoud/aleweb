@@ -26,7 +26,7 @@ export function PartnerGrowth() {
               <Link href="/partners/become-a-partner" className="inline-flex items-center h-11 px-6 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-colors">
                 Become a Partner
               </Link>
-              <Link href="/partners/find-a-partner" className="inline-flex items-center h-11 px-6 border border-light-300 text-text text-sm font-semibold rounded-full hover:border-ale hover:text-ale transition-colors">
+              <Link href="/partners/business-partners" className="inline-flex items-center h-11 px-6 border border-light-300 text-text text-sm font-semibold rounded-full hover:border-ale hover:text-ale transition-colors">
                 Find a Partner
               </Link>
             </div>

@@ -5,6 +5,13 @@ import { landingVideos } from "@/data/hero-videos";
 export const metadata = {
   title: "Services",
   description: "ALE provides industry-tailored services to maximize technology adoption, productivity, and security.",
+  alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Services | Alcatel-Lucent Enterprise",
+    description: "ALE provides industry-tailored services to maximize technology adoption, productivity, and security.",
+    type: "website" as const,
+    url: "/services",
+  },
 };
 
 const serviceIcons = [
@@ -25,7 +32,7 @@ export default async function ServicesPage() {
   return (
     <>
       <section className="relative min-h-[420px] flex items-end overflow-hidden">
-        <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.services} type="video/mp4" /></video>
+        <video autoPlay muted loop playsInline aria-hidden="true" className="absolute inset-0 w-full h-full object-cover"><source src={landingVideos.services} type="video/mp4" /></video>
         <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 via-gray-900/40 to-gray-900/20" />
         <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full pb-14 pt-40">
           <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
@@ -66,17 +73,19 @@ export default async function ServicesPage() {
       </section>
 
       {/* CTA */}
-      <section className="py-16 bg-ale">
-        <div className="mx-auto max-w-[1320px] px-6 text-center">
+      <section className="relative py-20 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 overflow-hidden">
+        <div className="absolute top-0 left-1/3 w-72 h-72 bg-ale/20 rounded-full blur-[100px]" />
+        <div className="absolute bottom-0 right-1/4 w-56 h-56 bg-purple-500/15 rounded-full blur-[80px]" />
+        <div className="relative mx-auto max-w-[1320px] px-6 text-center">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight mb-4">
             Need help with your technology deployment?
           </h2>
-          <p className="text-white/60 max-w-lg mx-auto mb-8">
+          <p className="text-white/50 max-w-lg mx-auto mb-8">
             Our service experts are ready to help you plan, deploy, and manage your ALE solutions.
           </p>
           <Link
             href="/company/contact"
-            className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all"
+            className="inline-flex items-center h-12 px-7 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all shadow-lg shadow-ale/25"
           >
             Contact Us
           </Link>

@@ -329,7 +329,7 @@ export const industriesData: IndustryData[] = [
       },
     ],
     customers: [
-      { name: "Asmodee GmbH", detail: "100% cloud-based communications with Rainbow Hub", slug: "asmodee" },
+      { name: "Asmodee GmbH", detail: "100% cloud-based communications with Rainbow Hub", slug: "asmodee-gmbh" },
       { name: "PT Cendikia Global Solusi", detail: "Near-zero downtime with SPB networking", slug: "pt-cendikia-global-solusi" },
       { name: "Fertilys Clinic", detail: "Reliable telephony for patient experience", slug: "fertilys-clinic" },
     ],

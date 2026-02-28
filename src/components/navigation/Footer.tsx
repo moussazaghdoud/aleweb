@@ -121,14 +121,14 @@ export function Footer() {
                 <div className="w-6 h-6 rounded bg-ale flex items-center justify-center">
                   <span className="text-white font-extrabold text-[8px]">ALE</span>
                 </div>
-                <span className="text-xs text-white/30">&copy; {new Date().getFullYear()} Alcatel-Lucent Enterprise</span>
+                <span className="text-xs text-white/50">&copy; {new Date().getFullYear()} Alcatel-Lucent Enterprise</span>
               </div>
               <div className="flex items-center gap-5">
-                <Link href="/legal/privacy" className="text-xs text-white/30 hover:text-white/60 transition-colors">Privacy</Link>
-                <Link href="/legal/terms" className="text-xs text-white/30 hover:text-white/60 transition-colors">Terms</Link>
-                <Link href="/legal/cookies" className="text-xs text-white/30 hover:text-white/60 transition-colors">Cookies</Link>
-                <Link href="/legal/trademarks" className="text-xs text-white/30 hover:text-white/60 transition-colors">Trademarks</Link>
-                <Link href="/legal" className="text-xs text-white/30 hover:text-white/60 transition-colors">Legal</Link>
+                <Link href="/legal/privacy" className="text-xs text-white/50 hover:text-white/70 transition-colors">Privacy</Link>
+                <Link href="/legal/terms" className="text-xs text-white/50 hover:text-white/70 transition-colors">Terms</Link>
+                <Link href="/legal/cookies" className="text-xs text-white/50 hover:text-white/70 transition-colors">Cookies</Link>
+                <Link href="/legal/trademarks" className="text-xs text-white/50 hover:text-white/70 transition-colors">Trademarks</Link>
+                <Link href="/legal" className="text-xs text-white/50 hover:text-white/70 transition-colors">Legal</Link>
               </div>
             </div>
           </div>
