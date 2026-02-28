@@ -4,6 +4,8 @@ import Link from "next/link";
 import { getIndustriesData } from "@/lib/cms";
 import { industrySubPagesData } from "@/data/industry-subpages";
 import { industryVideos, industrySubPageVideos } from "@/data/hero-videos";
+import { DownloadCenter, type DownloadItem } from "@/components/shared/DownloadCenter";
+import downloadsIndex from "@/data/downloads-index.json";
 
 export function generateStaticParams() {
   return industrySubPagesData.map((sp) => ({
@@ -50,6 +52,27 @@ export default async function IndustrySubPage({
   const currentIdx = siblings.findIndex((sp) => sp.slug === subslug);
   const prev = currentIdx > 0 ? siblings[currentIdx - 1] : null;
   const next = currentIdx < siblings.length - 1 ? siblings[currentIdx + 1] : null;
+
+  // Downloads for this sub-page
+  const subPageSlugAliases: Record<string, string[]> = {
+    defense: ["defense-solutions"],
+  };
+  const subSlugs = [subslug, ...(subPageSlugAliases[subslug] || [])];
+  const downloads: DownloadItem[] = (downloadsIndex as any[])
+    .filter((d: any) =>
+      subSlugs.some(
+        (s) =>
+          d.pageUrl.endsWith(`/en/industries/${slug}/${s}`) ||
+          // Also match sub-sub-pages (e.g., intelligent-campus/safe-and-secure-campus)
+          d.pageUrl.includes(`/en/industries/${slug}/${s}/`)
+      )
+    )
+    .map((d: any) => ({
+      fileUrl: d.fileUrl,
+      fileName: d.fileName,
+      anchorText: d.anchorText,
+      documentType: d.documentType,
+    }));
 
   return (
     <>
@@ -174,6 +197,9 @@ export default async function IndustrySubPage({
           </div>
         </section>
       )}
+
+      {/* Downloads */}
+      <DownloadCenter downloads={downloads} />
 
       {/* CTA */}
       <section className="py-16 bg-ale">

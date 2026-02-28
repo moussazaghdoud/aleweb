@@ -93,9 +93,18 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
   });
 
   // Downloads for this industry
-  const pageUrlSuffix = `/en/industries/${slug}`;
+  const industrySlugAliases: Record<string, string[]> = {
+    energy: ["energy-and-utilities"],
+  };
+  const slugsToSearch = [slug, ...(industrySlugAliases[slug] || [])];
   const downloads: DownloadItem[] = (downloadsIndex as any[])
-    .filter((d: any) => d.pageUrl === pageUrlSuffix || d.pageUrl.endsWith(`/${slug}`))
+    .filter((d: any) =>
+      slugsToSearch.some(
+        (s) =>
+          d.pageUrl === `/en/industries/${s}` ||
+          d.pageUrl.endsWith(`/en/industries/${s}`)
+      )
+    )
     .map((d: any) => ({
       fileUrl: d.fileUrl,
       fileName: d.fileName,

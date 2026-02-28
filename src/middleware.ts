@@ -91,7 +91,15 @@ const legacyRedirects: Record<string, string> = {
   // ── Product categories ──
   '/en/products/communications-management-security': '/products/management',
   '/en/products/network-management-security': '/products/management',
-  '/en/products/location-services': '/products/management',
+  '/en/products/location-services': '/products/wlan',
+  '/en/products/asset-tracking': '/products/wlan',
+  '/en/products/user-manuals': '/support',
+  '/en/products/platforms/omnipcx-open-gateway': '/products/integration/omnipcx-open-gateway',
+  '/en/products/switches/omniswitch-comparison-tool': '/products/switches',
+  '/en/products/switches/switch-comparison-tool': '/products/switches',
+  '/en/products/wlan/omniaccess-stellar-web-comparison-tool': '/products/wlan',
+  '/en/products/wlan/access-point-comparison-tool': '/products/wlan',
+  '/en/products/wlan/omniaccess-stellar-access-point-1230': '/products/wlan',
 
   // ── Rainbow ──
   '/en/rainbow': '/platform/rainbow',
@@ -105,6 +113,38 @@ const legacyRedirects: Record<string, string> = {
   '/en/legal/cookie-policy': '/legal/cookies',
   '/en/legal/terms-of-use': '/legal/terms',
   '/en/legal/trademarks-copyright': '/legal/trademarks',
+
+  // ── Missing solution redirects ──
+  '/en/solutions/e-services': '/solutions/modernize-communications',
+  '/en/solutions/omnifabric': '/solutions/secure-your-network',
+  '/en/solutions/mission-critical-networks': '/solutions/secure-your-network',
+  '/en/solutions/wifi-solutions': '/products/wlan',
+  '/en/solutions/shortest-path-bridging': '/solutions/autonomous-network',
+  '/en/solutions/hybrid-pol': '/solutions/digital-age-networking',
+  '/en/solutions/optical-solutions': '/solutions/digital-age-networking',
+  '/en/solutions/digital-dividends': '/solutions',
+  '/en/solutions/business-innovation': '/solutions/connect-everything',
+  '/en/solutions/distributed-wi-fi-control-architecture': '/products/wlan',
+  '/en/solutions/business-continuity/continuity-of-learning': '/solutions/business-continuity',
+  '/en/solutions/business-continuity/return-to-business': '/solutions/business-continuity',
+  '/en/solutions/unified-access': '/solutions/secure-your-network',
+  '/en/solutions/smb': '/industries/smb',
+
+  // ── Missing company redirects ──
+  '/en/company/about-us/awards': '/company/about',
+  '/en/company/about-us/ebc': '/company/about',
+  '/en/company/about-us/history': '/company/about',
+  '/en/company/ale-worldwide-presence': '/company/contact',
+  '/en/company/customers': '/customers/case-studies',
+
+  // ── Missing partner redirects ──
+  '/en/partners/about-our-partners': '/partners',
+  '/en/partners/business-partners/become-a-partner': '/partners/business-partners',
+  '/en/partners/business-partners/partner-resources': '/partners/business-partners',
+  '/en/partners/dspp': '/partners/technology-partners',
+  '/en/partners/dspp/become-a-partner': '/partners/technology-partners',
+  '/en/partners/dspp/resources': '/partners/technology-partners',
+  '/en/partners/dspp/iwr': '/partners/technology-partners',
 
   // ── Standalone pages ──
   '/en/contact-us': '/company/contact',

@@ -70,10 +70,54 @@ export default async function ProductDetailPage({
   // Pillar badge
   const pillar = categoryToPillar(category);
 
-  // Downloads for this product
-  const pageUrlSuffix = `/en/products/${category}/${slug}`;
+  // Downloads for this product — alias map for renamed slugs and moved categories
+  const productSlugAliases: Record<string, string[]> = {
+    // WLAN: stellar-apXXXX → omniaccess-stellar-access-point-XXXX
+    "stellar-ap1501": ["omniaccess-stellar-access-point-1501"],
+    "stellar-ap1511": ["omniaccess-stellar-access-point-1511"],
+    "stellar-ap1521": ["omniaccess-stellar-access-point-1521"],
+    "stellar-ap1411": ["omniaccess-stellar-access-point-1411"],
+    "stellar-ap1431": ["omniaccess-stellar-access-point-1431"],
+    "stellar-ap1451": ["omniaccess-stellar-access-point-1451"],
+    "stellar-ap1301": ["omniaccess-stellar-access-point-1301"],
+    "stellar-ap1301h": ["omniaccess-stellar-access-point-1301h"],
+    "stellar-ap1311": ["omniaccess-stellar-access-point-1311"],
+    "stellar-ap1320": ["omniaccess-stellar-access-point-1320"],
+    "stellar-ap1331": ["omniaccess-stellar-access-point-1331"],
+    "stellar-ap1351": ["omniaccess-stellar-access-point-1351"],
+    "stellar-ap1561": ["omniaccess-stellar-access-point-1561"],
+    "stellar-ap1570": ["omniaccess-stellar-access-point-1570"],
+    "stellar-ap1360": ["omniaccess-stellar-access-point-1360"],
+    "stellar-ap1261": ["omniaccess-stellar-access-point-1261"],
+    // Devices
+    "sip-softphone": ["ip-desktop-softphone"],
+    "aries-headsets": ["ale-aries-headsets"],
+    // Applications
+    "voip-softphone": ["ale-softphone"],
+    "omnipcx-record": ["omnipcx-record-suite"],
+    // Integration
+    "rainbow-app-connector": ["app-connector"],
+    // Management (merged categories)
+    "omnivista-8770": ["omnivista-8770-network-management-system"],
+    "opentouch-sbc": ["opentouch-session-border-controller"],
+    "omniswitch-milestone": ["omniswitch-milestone-plugin"],
+    "omnivista-network-management": ["omnivista-network-management-platform"],
+    // Platforms
+    "sip-dect-base-stations": ["sip-dect-infrastructure"],
+    "dect-base-stations": ["dect-infrastructure"],
+    "omnipcx-enterprise": ["omnipcx-enterprise-communication-server"],
+    // Asset tracking (moved from standalone to WLAN)
+    "omniaccess-stellar-asset-tracking": ["asset-tracking"],
+  };
+  const slugsToSearch = [slug, ...(productSlugAliases[slug] || [])];
   const downloads: DownloadItem[] = (downloadsIndex as any[])
-    .filter((d: any) => d.pageUrl === pageUrlSuffix || d.pageUrl.endsWith(`/${slug}`))
+    .filter((d: any) => {
+      const url = d.pageUrl as string;
+      return slugsToSearch.some(s =>
+        url === `/en/products/${category}/${s}` ||
+        url.endsWith(`/${s}`)
+      );
+    })
     .map((d: any) => ({
       fileUrl: d.fileUrl,
       fileName: d.fileName,

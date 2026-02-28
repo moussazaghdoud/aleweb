@@ -124,10 +124,30 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
     return { name: productName, match };
   });
 
-  // Downloads for this solution
-  const pageUrlSuffix = `/en/solutions/${slug}`;
+  // Downloads for this solution — alias map for renamed slugs
+  const solutionSlugAliases: Record<string, string[]> = {
+    "sd-wan-sase": ["sd-wan"],
+    "data-center-networking": ["data-center"],
+    "video-surveillance-networking": ["video-surveillance"],
+    "iot-networks": ["iot"],
+    "cpaas": ["communications-platform-as-a-service-cpaas"],
+    "network-security": ["security"],
+    "enable-hybrid-work": ["hybrid-workplace"],
+    "move-to-cloud": ["everything-as-a-service-xaas"],
+    "connect-everything": ["connected-solutions-and-devices"],
+    "private-5g-solution": ["private-5g-network"],
+    "modernize-communications": ["unified-communications", "collaboration-solutions", "cloud-communications"],
+    "secure-your-network": ["omnifabric", "mission-critical-networks"],
+    "optimize-with-ai": ["autonomous-network"],
+    "communications-security": ["security"],
+  };
+  const slugsToSearch = [slug, ...(solutionSlugAliases[slug] || [])];
   const downloads: DownloadItem[] = (downloadsIndex as any[])
-    .filter((d: any) => d.pageUrl === pageUrlSuffix || d.pageUrl.endsWith(`/${slug}`))
+    .filter((d: any) => slugsToSearch.some(s =>
+      d.pageUrl === `/en/solutions/${s}` ||
+      d.pageUrl.endsWith(`/en/solutions/${s}`) ||
+      d.pageUrl.endsWith(`/${s}`)
+    ))
     .map((d: any) => ({
       fileUrl: d.fileUrl,
       fileName: d.fileName,
