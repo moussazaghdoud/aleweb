@@ -12,6 +12,8 @@ import {
 } from "@/components/primitives/Icons";
 import { industryVideos } from "@/data/hero-videos";
 import { AdminEditButton } from "@/components/admin/AdminEditButton";
+import { blogData } from "@/data/blog";
+import { industryBlogCategories } from "@/data/blog-mappings";
 
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
@@ -111,6 +113,12 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       anchorText: d.anchorText,
       documentType: d.documentType,
     }));
+
+  // Related blog posts for this industry
+  const blogCategories = industryBlogCategories[slug] || [];
+  const relatedPosts = blogData
+    .filter((post) => blogCategories.includes(post.category))
+    .slice(0, 3);
 
   return (
     <>
@@ -325,6 +333,56 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
 
       {/* Download Center */}
       <DownloadCenter downloads={downloads} />
+
+      {/* Related Blog Posts */}
+      {relatedPosts.length > 0 && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <div className="flex items-center justify-between mb-10">
+              <h2 className="text-2xl font-extrabold text-text tracking-tight">
+                Related articles
+              </h2>
+              <Link
+                href="/blog"
+                className="text-sm font-semibold text-ale hover:text-ale-dark transition-colors"
+              >
+                View all articles
+              </Link>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {relatedPosts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group bg-white rounded-2xl border border-light-200 overflow-hidden hover:border-ale-200 hover:shadow-md transition-all"
+                >
+                  <div className="aspect-[16/9] relative overflow-hidden">
+                    <img
+                      src={post.heroImage}
+                      alt={post.title}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[11px] font-semibold text-ale bg-ale-50 rounded-full px-2.5 py-0.5">
+                        {post.category}
+                      </span>
+                      <span className="text-[11px] text-text-muted">
+                        {new Date(post.date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}
+                      </span>
+                    </div>
+                    <h3 className="text-sm font-bold text-text group-hover:text-ale transition-colors line-clamp-2">
+                      {post.title}
+                    </h3>
+                    <p className="text-xs text-text-muted mt-2 line-clamp-2">{post.excerpt}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-16 bg-ale">

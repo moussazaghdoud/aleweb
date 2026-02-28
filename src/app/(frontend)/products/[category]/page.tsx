@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProductCategories, getCatalogProducts } from "@/lib/cms";
 import { productCategoryVideos } from "@/data/hero-videos";
+import { switchComparison, wlanComparison, type ComparisonData } from "@/data/product-comparisons";
 
 export async function generateStaticParams() {
   const productCategories = await getProductCategories();
@@ -40,6 +41,13 @@ export default async function CategoryPage({
   if (!cat) notFound();
 
   const products = catalogProducts.filter((p) => p.category === category);
+
+  // Comparison data for switches and WLAN
+  const comparisonMap: Record<string, ComparisonData> = {
+    switches: switchComparison,
+    wlan: wlanComparison,
+  };
+  const comparison = comparisonMap[category];
 
   // Group by subcategory
   const subcategories = Array.from(
@@ -157,6 +165,65 @@ export default async function CategoryPage({
           })}
         </div>
       </section>
+
+      {/* Comparison Table */}
+      {comparison && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <h2 className="text-2xl font-extrabold text-text tracking-tight mb-2">
+              {comparison.heading}
+            </h2>
+            <p className="text-sm text-text-muted mb-8">
+              Compare key specifications across the {cat.name.toLowerCase()} portfolio
+            </p>
+            <div className="overflow-x-auto rounded-2xl border border-light-200 bg-white">
+              <table className="w-full border-collapse text-sm min-w-[800px]">
+                <thead>
+                  <tr className="border-b-2 border-light-200 bg-light-50">
+                    <th className="text-left py-4 px-5 font-semibold text-text sticky left-0 bg-light-50 z-10 min-w-[160px]">
+                      Feature
+                    </th>
+                    {comparison.products.map((name, i) => (
+                      <th key={name} className="text-center py-4 px-3 font-semibold text-text min-w-[100px]">
+                        <Link
+                          href={`/products/${category}/${comparison.productSlugs[i]}`}
+                          className="text-ale hover:text-ale-dark transition-colors"
+                        >
+                          {name}
+                        </Link>
+                      </th>
+                    ))}
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparison.specs.map((spec) => (
+                    <tr key={spec.feature} className="border-b border-light-100 hover:bg-light-50/50">
+                      <td className="py-3 px-5 font-medium text-text sticky left-0 bg-white z-10">
+                        {spec.feature}
+                      </td>
+                      {spec.values.map((val, i) => (
+                        <td key={i} className="py-3 px-3 text-center text-text-secondary">
+                          {val === "true" ? (
+                            <span className="inline-flex items-center justify-center w-6 h-6 rounded-full bg-green-50">
+                              <svg className="w-4 h-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                              </svg>
+                            </span>
+                          ) : val === "false" ? (
+                            <span className="text-light-300">&mdash;</span>
+                          ) : (
+                            <span className="text-xs font-medium">{val}</span>
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* CTA */}
       <section className="py-16 bg-ale">
