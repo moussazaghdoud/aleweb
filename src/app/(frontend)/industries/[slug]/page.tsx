@@ -156,48 +156,68 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
       ]} />
 
       {/* Description + Illustration + Sub-pages */}
-      <section className="py-16 bg-white">
+      <section className="py-20 bg-white relative overflow-hidden">
+        {/* Decorative dot grid */}
+        <div className="absolute top-0 right-0 w-72 h-72 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
         <div className="mx-auto max-w-[1320px] px-6">
-          {/* Illustration + Description */}
-          {industryImages[slug] && (
-            <FadeIn className="mb-10">
-              <div className="relative aspect-[21/9] rounded-2xl overflow-hidden shadow-lg">
-                <Image
-                  src={industryImages[slug]}
-                  alt={industry.name}
-                  fill
-                  className="object-cover"
-                  sizes="(max-width: 1320px) 100vw, 1320px"
-                />
-              </div>
-            </FadeIn>
-          )}
-          <div className="grid lg:grid-cols-3 gap-12">
-            <FadeIn className="lg:col-span-2">
-              <p className="text-lg text-text-secondary leading-relaxed">{industry.description}</p>
-            </FadeIn>
-            {industry.subPages && industry.subPages.length > 0 && (
-              <div>
-                <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-4">
-                  Explore
-                </h3>
-                <div className="space-y-2">
-                  {industry.subPages.map((sp) => (
-                    <Link
-                      key={sp.slug}
-                      href={`/industries/${industry.slug}/${sp.slug}`}
-                      className="flex items-center justify-between p-3 rounded-lg border border-light-200 hover:border-ale-200 hover:bg-ale-50 transition-all group"
-                    >
-                      <span className="text-sm font-semibold text-text group-hover:text-ale transition-colors">
-                        {sp.label}
-                      </span>
-                      <svg className="w-4 h-4 text-text-muted group-hover:text-ale transition-all group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  ))}
+          <div className="flex flex-col lg:flex-row gap-14 items-start">
+            {/* Left: description + sub-pages */}
+            <div className="lg:w-1/2 flex flex-col gap-10">
+              <FadeIn>
+                <div className="inline-flex items-center h-7 px-3 rounded-full bg-ale-50 text-ale text-[11px] font-semibold uppercase tracking-wider mb-5">
+                  {industry.name} Solutions
                 </div>
-              </div>
+                <p className="text-xl text-text leading-relaxed font-light">{industry.description}</p>
+              </FadeIn>
+
+              {industry.subPages && industry.subPages.length > 0 && (
+                <FadeIn delay={100}>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-4">
+                    Explore
+                  </h3>
+                  <div className="space-y-2">
+                    {industry.subPages.map((sp) => (
+                      <Link
+                        key={sp.slug}
+                        href={`/industries/${industry.slug}/${sp.slug}`}
+                        className="flex items-center justify-between p-3.5 rounded-xl border border-light-200 hover:border-ale-200 hover:bg-ale-50/50 transition-all group"
+                      >
+                        <span className="text-sm font-semibold text-text group-hover:text-ale transition-colors">
+                          {sp.label}
+                        </span>
+                        <svg className="w-4 h-4 text-text-muted group-hover:text-ale transition-all group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    ))}
+                  </div>
+                </FadeIn>
+              )}
+            </div>
+
+            {/* Right: illustration image */}
+            {industryImages[slug] && (
+              <FadeIn variant="scale-in" delay={150} className="lg:w-1/2 lg:sticky lg:top-24">
+                <div className="relative">
+                  {/* Decorative frame */}
+                  <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-ale/10 via-transparent to-ale/5 -z-10" />
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+                    <div className="aspect-[4/3] relative">
+                      <Image
+                        src={industryImages[slug]}
+                        alt={industry.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 660px"
+                      />
+                      {/* Subtle gradient overlay at bottom */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
+                    </div>
+                  </div>
+                  {/* Floating accent dot */}
+                  <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full bg-ale/10 blur-xl -z-10" />
+                </div>
+              </FadeIn>
             )}
           </div>
         </div>
