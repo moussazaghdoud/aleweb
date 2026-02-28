@@ -61,25 +61,25 @@ export type IndustryIconName = (typeof industries)[number]["icon"];
 
 export const outcomeStories = [
   {
-    metric: "40%",
-    label: "faster response times",
-    customer: "CHU Lyon",
+    metric: "50%",
+    label: "faster data transmission",
+    customer: "Korea University Medicine",
     industry: "Healthcare",
-    href: "/customers/case-studies/chu-lyon",
+    href: "/customers/korea-university-medicine",
   },
   {
-    metric: "€2.3M",
-    label: "saved in network costs",
-    customer: "AccorHotels",
+    metric: "20K",
+    label: "guest devices connected",
+    customer: "Okada Manila Resort",
     industry: "Hospitality",
-    href: "/customers/case-studies/accor",
+    href: "/customers/okada-manila-resort",
   },
   {
-    metric: "99.99%",
-    label: "uptime achieved",
-    customer: "SNCF",
+    metric: "330K+",
+    label: "daily Wi-Fi users",
+    customer: "Transit Wireless",
     industry: "Transportation",
-    href: "/customers/case-studies/sncf",
+    href: "/customers/transit-wireless",
   },
 ];
 
