@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { NewsletterSignup } from "../shared/NewsletterSignup";
 
 const footerLinks = [
   {
@@ -93,6 +94,11 @@ export function Footer() {
             </Link>
           </div>
         </div>
+      </div>
+
+      {/* Newsletter */}
+      <div className="bg-gray-900 text-white border-b border-white/5">
+        <NewsletterSignup />
       </div>
 
       {/* Links */}

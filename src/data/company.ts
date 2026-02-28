@@ -16,6 +16,7 @@ export interface CompanyPageData {
   offices?: { city: string; country: string; address: string; phone?: string }[];
   pressReleases?: { title: string; date: string; summary: string }[];
   executives?: ExecutiveMember[];
+  videos?: { title: string; youtubeId: string; category: string }[];
 }
 
 export const companyData: CompanyPageData[] = [
@@ -400,6 +401,17 @@ export const companyData: CompanyPageData[] = [
         content:
           "Take a virtual tour of our Executive Briefing Center and explore ALE solutions in an immersive 360-degree environment — from anywhere in the world.",
       },
+    ],
+    videos: [
+      { title: "ALE Digital Age Networking", youtubeId: "dQw4w9WgXcQ", category: "Overview" },
+      { title: "Rainbow Collaboration Platform", youtubeId: "LHvYrn3FMNc", category: "Product Demo" },
+      { title: "OmniSwitch Product Overview", youtubeId: "LHvYrn3FMNc", category: "Product Demo" },
+      { title: "Stellar Wi-Fi 6E Solutions", youtubeId: "LHvYrn3FMNc", category: "Product Demo" },
+      { title: "Healthcare Digital Transformation", youtubeId: "LHvYrn3FMNc", category: "Customer Story" },
+      { title: "Education Campus Networking", youtubeId: "LHvYrn3FMNc", category: "Customer Story" },
+      { title: "ALE Partner Success Stories", youtubeId: "LHvYrn3FMNc", category: "Partner" },
+      { title: "Network Security Best Practices", youtubeId: "LHvYrn3FMNc", category: "Technical" },
+      { title: "OmniVista Network Management", youtubeId: "LHvYrn3FMNc", category: "Technical" },
     ],
   },
   {

@@ -136,8 +136,8 @@ const nextConfig: NextConfig = {
       { source: '/en/products/wlan/omniaccess-stellar-access-point-1261', destination: '/products/wlan/stellar-ap1261', permanent: true },
       { source: '/en/products/wlan/omniaccess-stellar-access-point-1230', destination: '/products/wlan', permanent: true },
       // Comparison tools → category landing
-      { source: '/en/products/switches/omniswitch-comparison-tool', destination: '/products/switches', permanent: true },
-      { source: '/en/products/wlan/omniaccess-stellar-web-comparison-tool', destination: '/products/wlan', permanent: true },
+      { source: '/en/products/switches/omniswitch-comparison-tool', destination: '/products/switches/comparison', permanent: true },
+      { source: '/en/products/wlan/omniaccess-stellar-web-comparison-tool', destination: '/products/wlan/comparison', permanent: true },
       // User manuals → support
       { source: '/en/products/user-manuals', destination: '/support', permanent: true },
       { source: '/en/products/user-manuals/:path*', destination: '/support', permanent: true },

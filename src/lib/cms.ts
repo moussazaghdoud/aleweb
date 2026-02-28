@@ -348,6 +348,7 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
           summary: pr.summary || '',
         })) : undefined,
         executives: staticPage?.executives,
+        videos: staticPage?.videos,
       }
     })
     // Merge static pages not yet in CMS
@@ -365,6 +366,7 @@ export async function getCompanyData(options?: { draft?: boolean }): Promise<Com
         offices: p.offices,
         pressReleases: p.pressReleases,
         executives: p.executives,
+        videos: p.videos,
       }))
     return [...cmsPages, ...missingPages]
   }, staticCompanyData as any)

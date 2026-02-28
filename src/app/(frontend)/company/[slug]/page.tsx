@@ -134,6 +134,48 @@ export default async function CompanyPage({ params }: { params: Promise<{ slug: 
         </div>
       </section>
 
+      {/* Video Gallery */}
+      {page.videos && page.videos.length > 0 && (
+        <section className="py-16 bg-light-50">
+          <div className="mx-auto max-w-[1320px] px-6">
+            <div className="flex items-center gap-3 mb-10">
+              <span className="inline-flex items-center h-6 px-3 rounded-full bg-ale-50 text-ale text-[10px] font-semibold tracking-wide uppercase">
+                Video Library
+              </span>
+              <h2 className="text-2xl font-extrabold text-text tracking-tight">
+                Watch &amp; Learn
+              </h2>
+            </div>
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              {page.videos.map((video) => (
+                <div
+                  key={video.title}
+                  className="bg-white rounded-2xl border border-light-200 overflow-hidden hover:shadow-md hover:border-ale-200 transition-all"
+                >
+                  <div className="relative w-full" style={{ paddingBottom: "56.25%" }}>
+                    <iframe
+                      className="absolute inset-0 w-full h-full"
+                      src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                    />
+                  </div>
+                  <div className="p-4">
+                    <span className="inline-flex items-center h-5 px-2 rounded-full bg-purple-50 text-purple-600 text-[10px] font-semibold mb-2">
+                      {video.category}
+                    </span>
+                    <h3 className="text-sm font-bold text-text leading-snug">
+                      {video.title}
+                    </h3>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Press releases (Newsroom only) */}
       {page.pressReleases && (
         <section className="py-16 bg-light-50">

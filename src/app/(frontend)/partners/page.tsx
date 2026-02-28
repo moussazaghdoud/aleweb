@@ -1,6 +1,24 @@
 import Link from "next/link";
-import { IconHandshake, IconGlobe, IconClipboard, IconCode } from "@/components/primitives/Icons";
+import { IconHandshake, IconGlobe, IconClipboard, IconCode, IconSearch } from "@/components/primitives/Icons";
 import { landingVideos } from "@/data/hero-videos";
+
+const regions = [
+  {
+    name: "EMEA",
+    subtitle: "Europe, Middle East & Africa",
+    countries: ["France (HQ)", "Germany", "UK", "Spain", "Italy", "Netherlands", "Belgium", "UAE", "South Africa", "Saudi Arabia", "Turkey", "Egypt"],
+  },
+  {
+    name: "Americas",
+    subtitle: "North & South America",
+    countries: ["United States", "Canada", "Mexico", "Brazil", "Colombia", "Argentina"],
+  },
+  {
+    name: "Asia Pacific",
+    subtitle: "APAC & Oceania",
+    countries: ["China", "India", "Singapore", "Australia", "Japan", "South Korea", "Indonesia", "Malaysia"],
+  },
+];
 
 const partnerPages = [
   {
@@ -97,8 +115,8 @@ export default function PartnersPage() {
             ))}
           </div>
 
-          {/* Developer + Portal links */}
-          <div className="mt-10 grid sm:grid-cols-2 gap-5">
+          {/* Developer + Portal + Find a Partner links */}
+          <div className="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
             <Link
               href="/developers"
               className="group flex items-start gap-4 p-6 rounded-xl border border-light-200 hover:border-ale-200 hover:shadow-md transition-all"
@@ -128,6 +146,72 @@ export default function PartnersPage() {
                 </span>
               </div>
             </div>
+            <Link
+              href="#find-a-partner"
+              className="group flex items-start gap-4 p-6 rounded-xl border border-ale-200 bg-ale-50/40 hover:border-ale hover:shadow-md transition-all"
+            >
+              <div className="w-11 h-11 rounded-lg bg-ale flex items-center justify-center shrink-0 group-hover:bg-ale-dark transition-colors">
+                <IconSearch className="w-5 h-5 text-white transition-colors" />
+              </div>
+              <div>
+                <h2 className="text-base font-bold text-ale group-hover:text-ale-dark transition-colors">Find a Partner</h2>
+                <p className="text-sm text-text-muted mt-1">Locate ALE partners and offices by region across 50+ countries worldwide.</p>
+              </div>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Find a Partner */}
+      <section id="find-a-partner" className="py-20 bg-gray-50 scroll-mt-20">
+        <div className="mx-auto max-w-[1320px] px-6">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-ale/10 flex items-center justify-center">
+              <IconGlobe className="w-5 h-5 text-ale" />
+            </div>
+            <span className="text-[11px] font-semibold uppercase tracking-widest text-ale">Partner Locator</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-text tracking-tight mb-3">
+            Find a Partner Near You
+          </h2>
+          <p className="text-text-secondary max-w-xl mb-10">
+            ALE partners operate in 50+ countries. Select your region to connect with a certified business partner or local ALE office.
+          </p>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {regions.map((region) => (
+              <div
+                key={region.name}
+                className="group rounded-2xl border border-light-200 bg-white p-6 hover:border-ale-200 hover:shadow-lg transition-all"
+              >
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-bold text-text">{region.name}</h3>
+                  <span className="text-[11px] font-semibold text-ale bg-ale-50 px-2.5 py-1 rounded-full">
+                    {region.countries.length} countries
+                  </span>
+                </div>
+                <p className="text-xs text-text-muted mb-4">{region.subtitle}</p>
+                <div className="flex flex-wrap gap-1.5 mb-6">
+                  {region.countries.map((country) => (
+                    <span
+                      key={country}
+                      className="text-[11px] font-medium text-text-secondary bg-gray-100 px-2.5 py-1 rounded-full"
+                    >
+                      {country}
+                    </span>
+                  ))}
+                </div>
+                <Link
+                  href="/company/contact"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-ale hover:text-ale-dark transition-colors"
+                >
+                  Contact regional team
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+                  </svg>
+                </Link>
+              </div>
+            ))}
           </div>
         </div>
       </section>
