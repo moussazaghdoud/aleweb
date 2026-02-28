@@ -1,3 +1,32 @@
+/** Rich content block for marketing-driven sections */
+export interface ContentBlock {
+  heading: string;
+  body: string;
+  image?: string;
+  imageAlt?: string;
+  bullets?: string[];
+}
+
+/** Benefit card shown in two-column grid */
+export interface BenefitCard {
+  audience: string;
+  benefits: string[];
+}
+
+/** Stat for social-proof band */
+export interface StatItem {
+  value: string;
+  label: string;
+}
+
+/** Testimonial quote */
+export interface TestimonialQuote {
+  text: string;
+  author: string;
+  role: string;
+  company: string;
+}
+
 export interface IndustrySubPageData {
   parentSlug: string;
   slug: string;
@@ -8,6 +37,16 @@ export interface IndustrySubPageData {
   capabilities: { title: string; description: string }[];
   products: string[];
   customers?: { name: string; detail: string; slug?: string }[];
+  /** Rich content sections rendered between description and capabilities */
+  contentBlocks?: ContentBlock[];
+  /** Benefit cards grouped by audience (e.g. "For Guests", "For Managers") */
+  benefitCards?: BenefitCard[];
+  /** Stats band for social proof */
+  stats?: StatItem[];
+  /** Customer testimonial quote */
+  testimonial?: TestimonialQuote;
+  /** Blog slugs to cross-link */
+  relatedBlogSlugs?: string[];
 }
 
 export const industrySubPagesData: IndustrySubPageData[] = [
@@ -725,6 +764,75 @@ export const industrySubPagesData: IndustrySubPageData[] = [
     description:
       "ALE hospitality solutions create frictionless guest experiences by delivering personalized digital services on guest devices anywhere, anytime. From Rainbow Guest Connect and smart in-room applications to contactless check-in and location-based services, ALE helps hotels, resorts, and cruise ships create memorable experiences that drive guest satisfaction and new revenue streams.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-l2-topic1-body-copy-image-810x540.jpg?h=600&w=1440",
+    contentBlocks: [
+      {
+        heading: "Grow your business with smart hotel solutions",
+        body: "Today's guests expect a seamless digital experience from booking to checkout. ALE smart hotel solutions connect every touchpoint — lobby, room, restaurant, spa, pool, and conference center — into a unified digital journey that reinforces your brand, drives service consumption, and unlocks new revenue streams through digital amenities.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-l2-topic1-body-copy-image-810x540.jpg?h=540&w=810",
+        imageAlt: "Hotel guest using digital concierge on tablet",
+        bullets: [
+          "Consistent digital branding across all guest devices and spaces",
+          "Virtual concierge available 24/7 in multiple languages and locations",
+          "Enhanced service consumption via high-speed hotel Wi-Fi",
+          "New revenue streams from premium digital amenities and tiered connectivity",
+          "Guest analytics that inform loyalty programs and business strategy",
+        ],
+      },
+      {
+        heading: "Make your guest the centre of your operations",
+        body: "A unified digital interface across hotel environments reinforces brand identity while enabling safe, contactless service delivery. Rainbow Guest Connect enables staff-guest interaction through multiple touchpoints — smart devices, in-room entertainment systems, hotel phones, and guest mobile apps — creating a virtual concierge experience that goes far beyond traditional front desk service.",
+        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/hospitality-l2-topic1-body-copy-image-2-810x540.jpg?h=540&w=810",
+        imageAlt: "Hotel staff interacting with guests via digital platform",
+        bullets: [
+          "Direct guest connections through personal and room devices",
+          "Powerful Wi-Fi enabling concierge app access and content streaming",
+          "Monitored network access ensuring guest data security and privacy",
+          "Location-based services delivering contextual offers and wayfinding",
+        ],
+      },
+      {
+        heading: "Create a digital guest experience to increase business opportunities",
+        body: "Digital amenities expand service delivery beyond traditional channels. Rainbow Guest Connect personalizes offerings based on guest preferences, location, and language — transforming loyalty programs from simple points systems into deeply personalized relationships. Guest data analytics reveal service consumption patterns, facility usage trends, and room preference data, informing investment decisions and resource forecasting.",
+        bullets: [
+          "Personalized offers based on guest profile, preferences, and stay history",
+          "Real-time analytics on facility usage, service demand, and guest flow",
+          "Data-driven loyalty programs that increase repeat bookings",
+          "Digital upselling opportunities for spa, dining, and premium experiences",
+        ],
+      },
+    ],
+    stats: [
+      { value: "40%", label: "increase in guest satisfaction scores" },
+      { value: "24/7", label: "digital concierge availability" },
+      { value: "3x", label: "more service interactions per stay" },
+      { value: "25%", label: "growth in ancillary revenue" },
+    ],
+    testimonial: {
+      text: "Jeju Shinhwa World Resort plans to continue to improve its system to become a world-class smart hotel that provides the best customized service. In order to improve the guest service, we plan to upgrade the system to maximize digital interaction and to support custom services.",
+      author: "Lee Jongrae",
+      role: "Vice President IT",
+      company: "Landing Jeju Development Co. Ltd",
+    },
+    benefitCards: [
+      {
+        audience: "For Guests",
+        benefits: [
+          "24/7 digital service access from personal or hotel-provided devices",
+          "Powerful connectivity enabling content streaming and smart room control",
+          "Contactless check-in, mobile keys, and digital concierge at their fingertips",
+          "Personalized offers and recommendations based on preferences and location",
+        ],
+      },
+      {
+        audience: "For Hotel Managers",
+        benefits: [
+          "Enhanced safety standards that attract repeat visits and positive reviews",
+          "Strengthened brand loyalty through continuous digital guest connection",
+          "New revenue generated via premium digital amenities and tiered Wi-Fi",
+          "Data-driven business decisions supporting loyalty programs and investment planning",
+        ],
+      },
+    ],
     capabilities: [
       { title: "Rainbow Guest Connect", description: "Personalized guest engagement via mobile devices — including digital concierge, in-room service ordering, and real-time chat with hotel staff through Rainbow cloud platform." },
       { title: "Smart Guest Applications", description: "Contactless digital services for check-in/checkout, mobile room keys, spa bookings, restaurant reservations, and property wayfinding — all on the guest's own device." },
