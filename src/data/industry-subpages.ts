@@ -7,7 +7,7 @@ export interface IndustrySubPageData {
   heroImage: string;
   capabilities: { title: string; description: string }[];
   products: string[];
-  customers?: { name: string; detail: string }[];
+  customers?: { name: string; detail: string; slug?: string }[];
 }
 
 export const industrySubPagesData: IndustrySubPageData[] = [
@@ -55,10 +55,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "John Flynn Private Hospital",
         detail: "Digital workplace for clinical staff",
+        slug: "john-flynn-private-hospital",
       },
       {
         name: "Fertilys Clinic",
         detail: "Unified patient communications",
+        slug: "fertilys-clinic",
       },
       {
         name: "Kingsway Hospitals",
@@ -112,10 +114,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Kaiserswerther Diakonie",
         detail: "Senior living connectivity and collaboration",
+        slug: "kaiserswerther-diakonie",
       },
       {
         name: "Groupe EDENIS",
         detail: "Resident autonomy through digital services",
+        slug: "groupe-edenis",
       },
       {
         name: "ACT Health",
@@ -168,10 +172,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Javeriana University",
         detail: "Campus-wide digital transformation",
+        slug: "javeriana-university",
       },
       {
         name: "Alamo Colleges",
         detail: "Multi-campus networking and collaboration",
+        slug: "alamo-colleges",
       },
       {
         name: "Morgan State University",
@@ -221,10 +227,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Kennewick School District",
         detail: "Emergency response time reduced by 7 minutes",
+        slug: "kennewick-school-district",
       },
       {
         name: "Colegio Felix Jesus Rougier",
         detail: "Connected learning environment",
+        slug: "colegio-felix-jesus-rougier",
       },
     ],
   },
@@ -274,6 +282,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Gemeinde Pratteln",
         detail: "Flexible communication and real-time crisis management",
+        slug: "gemeinde-pratteln",
       },
       {
         name: "Seine-Saint-Denis Council",
@@ -324,10 +333,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Gemeinde Pratteln",
         detail: "Flexible communication and crisis management",
+        slug: "gemeinde-pratteln",
       },
       {
         name: "Strasbourg Eurometropolis",
         detail: "Digital efficiency for emergency services",
+        slug: "strasbourg-eurometropolis",
       },
       {
         name: "Hidalgo State Government",
@@ -378,6 +389,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "Strasbourg Eurometropolis",
         detail: "Communications system upgrade for digital efficiency",
+        slug: "strasbourg-eurometropolis",
       },
       {
         name: "Bangkok Metropolitan Administration",
@@ -436,10 +448,12 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         name: "China Eastern Airlines",
         detail: "Cost savings with new telephony solutions",
+        slug: "china-eastern-airlines",
       },
       {
         name: "Aeroports de Lyon",
         detail: "Maintained quality with uninterrupted service",
+        slug: "aeroports-de-lyon",
       },
       {
         name: "Civil Aviation Authority Uganda",
@@ -492,11 +506,13 @@ export const industrySubPagesData: IndustrySubPageData[] = [
         name: "New York Subway",
         detail:
           "330,000+ daily free Wi-Fi users with Transit Wireless partnership",
+        slug: "transit-wireless",
       },
       {
         name: "Saint Gotthard Tunnel",
         detail:
           "World's longest tunnel with hardened switches for autonomous network",
+        slug: "saint-gotthard-tunnel",
       },
     ],
   },
@@ -597,6 +613,7 @@ export const industrySubPagesData: IndustrySubPageData[] = [
         name: "Nevada Department of Transportation",
         detail:
           "Autonomous network infrastructure supporting IoT deployment and highway safety",
+        slug: "nevada-department-of-transportation",
       },
     ],
   },

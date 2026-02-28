@@ -5,7 +5,7 @@ export interface IndustryData {
   description: string;
   heroImage: string;
   solutions: { title: string; description: string }[];
-  customers: { name: string; detail: string }[];
+  customers: { name: string; detail: string; slug?: string }[];
   products: string[];
   subPages?: { label: string; slug: string }[];
 }
