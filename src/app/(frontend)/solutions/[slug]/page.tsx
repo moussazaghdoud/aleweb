@@ -39,14 +39,14 @@ const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
     { label: "OmniFabric", slug: "omnifabric" },
     { label: "Optical Networking", slug: "optical-solutions" },
     { label: "Industrial Networks", slug: "industrial-networks" },
-    { label: "Video Surveillance", slug: "video-surveillance-networking" },
+    { label: "IoT Networks", slug: "iot-networks" },
+    { label: "Private 5G", slug: "private-5g-solution" },
+    { label: "AI Operations", slug: "optimize-with-ai" },
   ],
   "business-innovation": [
-    { label: "AI Operations", slug: "optimize-with-ai" },
-    { label: "IoT Networks", slug: "iot-networks" },
     { label: "Asset Tracking", slug: "connect-everything" },
     { label: "Network as a Service", slug: "network-as-a-service" },
-    { label: "Private 5G", slug: "private-5g-solution" },
+    { label: "Video Surveillance", slug: "video-surveillance-networking" },
   ],
 };
 

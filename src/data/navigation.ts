@@ -177,18 +177,18 @@ export const primaryNav: MegaNavItem[] = [
           { label: "OmniFabric", href: "/solutions/omnifabric" },
           { label: "Optical Networking", href: "/solutions/optical-solutions" },
           { label: "Industrial Networks", href: "/solutions/industrial-networks" },
-          { label: "Video Surveillance", href: "/solutions/video-surveillance-networking" },
+          { label: "IoT Networks", href: "/solutions/iot-networks" },
+          { label: "Private 5G", href: "/solutions/private-5g-solution" },
+          { label: "AI Operations", href: "/solutions/optimize-with-ai" },
         ],
       },
       {
         heading: "Business Innovation",
         href: "/solutions/business-innovation",
         links: [
-          { label: "AI Operations", href: "/solutions/optimize-with-ai" },
-          { label: "IoT Networks", href: "/solutions/iot-networks" },
           { label: "Asset Tracking", href: "/solutions/connect-everything" },
           { label: "Network as a Service", href: "/solutions/network-as-a-service" },
-          { label: "Private 5G", href: "/solutions/private-5g-solution" },
+          { label: "Video Surveillance", href: "/solutions/video-surveillance-networking" },
         ],
       },
       {
