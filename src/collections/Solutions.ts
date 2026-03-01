@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
 import { protectDeletion } from '@/hooks/protectDeletion'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptSolution } from '@/lib/search/hook-adapters'
 
 export const Solutions: CollectionConfig = {
   slug: 'solutions',
@@ -15,6 +17,8 @@ export const Solutions: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   hooks: {
     beforeDelete: [protectDeletion('solutions', ['unified-communications', 'network-management', 'digital-workplace'])],
+    afterChange: [afterChangeSyncHook('Solution', adaptSolution)],
+    afterDelete: [afterDeleteSyncHook('Solution')],
   },
   access: {
     ...editorAccess,

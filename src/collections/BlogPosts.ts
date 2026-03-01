@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { regionalMarketerAccess, publishedOnly } from '@/access/roles'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptBlog } from '@/lib/search/hook-adapters'
 
 export const BlogPosts: CollectionConfig = {
   slug: 'blog-posts',
@@ -12,6 +14,10 @@ export const BlogPosts: CollectionConfig = {
     },
   },
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    afterChange: [afterChangeSyncHook('Blog', adaptBlog)],
+    afterDelete: [afterDeleteSyncHook('Blog')],
+  },
   access: {
     ...regionalMarketerAccess,
     read: publishedOnly,

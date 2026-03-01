@@ -1,0 +1,39 @@
+{
+  "synonyms": {
+    "UC": ["unified communications", "collaboration"],
+    "UCaaS": ["cloud communications", "unified communications as a service"],
+    "WLAN": ["wireless", "wifi", "wi-fi", "access point"],
+    "IoT": ["internet of things", "connected devices", "sensor"],
+    "SD-WAN": ["software defined wan", "wide area network"],
+    "SASE": ["secure access service edge", "security"],
+    "VoIP": ["voice over ip", "ip telephony", "phone"],
+    "CCaaS": ["contact center", "cloud contact center"],
+    "NaaS": ["network as a service"],
+    "CPaaS": ["communications platform as a service", "rainbow"],
+    "OmniSwitch": ["switch", "network switch", "lan switch"],
+    "Stellar": ["omniaccess", "access point", "AP", "wifi"],
+    "OmniPCX": ["pbx", "enterprise communication server", "telephony"],
+    "Rainbow": ["cpaas", "cloud communications", "ucaas", "collaboration"],
+    "DECT": ["cordless", "dect phone", "wireless phone"],
+    "PoE": ["power over ethernet"],
+    "ALE": ["alcatel lucent enterprise"],
+    "PBX": ["private branch exchange", "phone system", "telephony"]
+  },
+  "boosts": {
+    "Platform:rainbow": 5,
+    "Platform:stellar-wifi": 4,
+    "Platform:private-5g": 3,
+    "Product:omniswitch-6860": 3,
+    "Product:omniswitch-9900": 2,
+    "Solution:modernize-communications": 2,
+    "Solution:secure-your-network": 2
+  },
+  "stopwords": ["the", "and", "of", "for", "in", "to", "a", "an", "is", "on", "are", "with", "that", "this"],
+  "pinnedResults": [
+    { "query": "contact", "ids": ["Company:contact"] },
+    { "query": "support", "ids": ["Service:support"] },
+    { "query": "careers", "ids": ["Company:careers"] },
+    { "query": "partner", "ids": ["Partner:business-partners"] },
+    { "query": "privacy", "ids": ["Legal:privacy"] }
+  ]
+}

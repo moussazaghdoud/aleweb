@@ -1,6 +1,8 @@
 import type { CollectionConfig, CollectionBeforeChangeHook } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
 import { allBlocks } from '@/blocks'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptCompany } from '@/lib/search/hook-adapters'
 
 const enforceApproval: CollectionBeforeChangeHook = ({ data, req, operation }) => {
   if (operation === 'update' && data?._status === 'published') {
@@ -24,6 +26,8 @@ export const CompanyPages: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   hooks: {
     beforeChange: [enforceApproval],
+    afterChange: [afterChangeSyncHook('Company', adaptCompany)],
+    afterDelete: [afterDeleteSyncHook('Company')],
   },
   access: {
     ...editorAccess,

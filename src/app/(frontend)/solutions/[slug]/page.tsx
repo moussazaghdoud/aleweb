@@ -269,7 +269,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
       {/* Benefits strip */}
       <section className="py-10 bg-ale">
         <div className="mx-auto max-w-[1320px] px-6">
-          <div className="grid grid-cols-3 gap-6">
+          <div className={`grid ${solution.benefits.length === 4 ? "grid-cols-2 sm:grid-cols-4" : "grid-cols-3"} gap-6`}>
             {solution.benefits.map((b, i) => (
               <div key={i} className="text-center">
                 <div className="text-2xl font-extrabold text-white">{b.stat}</div>

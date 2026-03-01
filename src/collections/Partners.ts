@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptPartner } from '@/lib/search/hook-adapters'
 
 export const Partners: CollectionConfig = {
   slug: 'partners',
@@ -12,6 +14,10 @@ export const Partners: CollectionConfig = {
     },
   },
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    afterChange: [afterChangeSyncHook('Partner', adaptPartner)],
+    afterDelete: [afterDeleteSyncHook('Partner')],
+  },
   access: {
     ...editorAccess,
     read: publishedOnly,

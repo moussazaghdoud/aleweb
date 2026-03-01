@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptResource } from '@/lib/search/hook-adapters'
 
 export const Resources: CollectionConfig = {
   slug: 'resources',
@@ -8,6 +10,10 @@ export const Resources: CollectionConfig = {
     defaultColumns: ['title', 'type', '_status', 'updatedAt'],
   },
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    afterChange: [afterChangeSyncHook('Resource', adaptResource)],
+    afterDelete: [afterDeleteSyncHook('Resource')],
+  },
   access: {
     ...editorAccess,
     read: publishedOnly,

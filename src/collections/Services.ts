@@ -1,5 +1,7 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptService } from '@/lib/search/hook-adapters'
 
 export const Services: CollectionConfig = {
   slug: 'services',
@@ -12,6 +14,10 @@ export const Services: CollectionConfig = {
     },
   },
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
+  hooks: {
+    afterChange: [afterChangeSyncHook('Service', adaptService)],
+    afterDelete: [afterDeleteSyncHook('Service')],
+  },
   access: {
     ...editorAccess,
     read: publishedOnly,

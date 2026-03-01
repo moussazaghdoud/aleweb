@@ -7,7 +7,6 @@ export async function GET() {
 
   let dbStatus: 'ok' | 'error' = 'ok'
   try {
-    // Attempt a lightweight CMS query to verify database connectivity
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/globals/site-config`, {
       cache: 'no-store',
       signal: AbortSignal.timeout(5000),
@@ -17,17 +16,29 @@ export async function GET() {
     dbStatus = 'error'
   }
 
+  let searchStatus: 'ok' | 'error' = 'ok'
+  try {
+    const { getSearchProvider } = await import('@/lib/search/index')
+    const provider = await getSearchProvider()
+    const ok = await provider.ping()
+    if (!ok) searchStatus = 'error'
+  } catch {
+    searchStatus = 'error'
+  }
+
   const latency = Date.now() - start
+  const allOk = dbStatus === 'ok' && searchStatus === 'ok'
 
   return NextResponse.json({
-    status: dbStatus === 'ok' ? 'healthy' : 'degraded',
+    status: allOk ? 'healthy' : 'degraded',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     latency: `${latency}ms`,
     checks: {
       database: dbStatus,
+      search: searchStatus,
     },
   }, {
-    status: dbStatus === 'ok' ? 200 : 503,
+    status: allOk ? 200 : 503,
   })
 }

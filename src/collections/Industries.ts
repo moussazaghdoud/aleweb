@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { editorAccess, publishedOnly } from '@/access/roles'
 import { protectDeletion } from '@/hooks/protectDeletion'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptIndustry } from '@/lib/search/hook-adapters'
 
 export const Industries: CollectionConfig = {
   slug: 'industries',
@@ -15,6 +17,8 @@ export const Industries: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   hooks: {
     beforeDelete: [protectDeletion('industries', ['healthcare', 'education', 'hospitality', 'government', 'transportation', 'energy', 'manufacturing', 'retail'])],
+    afterChange: [afterChangeSyncHook('Industry', adaptIndustry)],
+    afterDelete: [afterDeleteSyncHook('Industry')],
   },
   access: {
     ...editorAccess,

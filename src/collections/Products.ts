@@ -1,6 +1,8 @@
 import type { CollectionConfig } from 'payload'
 import { productManagerAccess, publishedOnly } from '@/access/roles'
 import { protectDeletion } from '@/hooks/protectDeletion'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptProduct } from '@/lib/search/hook-adapters'
 
 export const Products: CollectionConfig = {
   slug: 'products',
@@ -15,6 +17,8 @@ export const Products: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   hooks: {
     beforeDelete: [protectDeletion('products', ['omniswitch', 'omniaccess-stellar', 'omnipcx-enterprise', 'rainbow'])],
+    afterChange: [afterChangeSyncHook('Product', adaptProduct)],
+    afterDelete: [afterDeleteSyncHook('Product')],
   },
   access: {
     ...productManagerAccess,

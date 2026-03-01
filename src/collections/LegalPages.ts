@@ -1,5 +1,7 @@
 import type { CollectionConfig, CollectionBeforeChangeHook } from 'payload'
 import { legalApproverAccess, publishedOnly } from '@/access/roles'
+import { afterChangeSyncHook, afterDeleteSyncHook } from '@/lib/search/hooks'
+import { adaptLegal } from '@/lib/search/hook-adapters'
 
 const enforceApproval: CollectionBeforeChangeHook = ({ data, req, operation }) => {
   if (operation === 'update' && data?._status === 'published') {
@@ -23,6 +25,8 @@ export const LegalPages: CollectionConfig = {
   versions: { drafts: { autosave: { interval: 30000 } }, maxPerDoc: 25 },
   hooks: {
     beforeChange: [enforceApproval],
+    afterChange: [afterChangeSyncHook('Legal', adaptLegal)],
+    afterDelete: [afterDeleteSyncHook('Legal')],
   },
   access: {
     ...legalApproverAccess,
