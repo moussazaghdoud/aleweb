@@ -14,9 +14,11 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No pool' })
     }
 
-    if (action === 'fix') {
-      // Add missing columns to site_config
-      const alterStatements = [
+    if (action === 'fix-all') {
+      const results: string[] = []
+
+      // Fix site_config missing columns
+      const siteConfigCols = [
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_site_id varchar`,
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_form_action_url varchar`,
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_tracking_enabled boolean DEFAULT false`,
@@ -30,50 +32,92 @@ export async function GET(request: NextRequest) {
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_provider varchar DEFAULT 'none'`,
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_api_key varchar`,
         `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_organization_id varchar`,
-        // Locales table
         `ALTER TABLE site_config_locales ADD COLUMN IF NOT EXISTS chat_greeting varchar`,
       ]
-
-      const results: string[] = []
-      for (const sql of alterStatements) {
-        try {
-          await pool.query(sql)
-          results.push(`OK: ${sql.slice(0, 80)}`)
-        } catch (err: any) {
-          results.push(`ERR: ${sql.slice(0, 60)} — ${err.message}`)
-        }
+      for (const sql of siteConfigCols) {
+        try { await pool.query(sql); results.push(`OK`) } catch (e: any) { results.push(`ERR: ${e.message.slice(0,80)}`) }
       }
 
-      // Verify fix
-      let payloadOk = false
-      try {
-        await payload.findGlobal({ slug: 'site-config' })
-        payloadOk = true
-      } catch (err: any) {
-        results.push(`Payload still fails: ${err.message.slice(0, 200)}`)
+      // Fix other globals that might have missing columns
+      // Check navigation
+      const navFixes = [
+        `ALTER TABLE navigation ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
+        `ALTER TABLE navigation ADD COLUMN IF NOT EXISTS created_at timestamptz`,
+      ]
+      for (const sql of navFixes) {
+        try { await pool.query(sql) } catch { /* already exists */ }
       }
 
-      return NextResponse.json({ action: 'fix', results, payloadOk })
+      // Fix footer
+      const footerFixes = [
+        `ALTER TABLE footer ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
+        `ALTER TABLE footer ADD COLUMN IF NOT EXISTS created_at timestamptz`,
+      ]
+      for (const sql of footerFixes) {
+        try { await pool.query(sql) } catch { /* already exists */ }
+      }
+
+      // Fix redirects
+      const redirectsFixes = [
+        `ALTER TABLE redirects ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
+        `ALTER TABLE redirects ADD COLUMN IF NOT EXISTS created_at timestamptz`,
+      ]
+      for (const sql of redirectsFixes) {
+        try { await pool.query(sql) } catch { /* already exists */ }
+      }
+
+      // Fix homepage
+      const homepageFixes = [
+        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
+        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS created_at timestamptz`,
+      ]
+      for (const sql of homepageFixes) {
+        try { await pool.query(sql) } catch { /* already exists */ }
+      }
+
+      return NextResponse.json({ action: 'fix-all', siteConfigResults: results })
     }
 
-    // Default: diagnose
-    const cols = await pool.query(`
-      SELECT column_name FROM information_schema.columns
-      WHERE table_name = 'site_config' ORDER BY ordinal_position
+    // Diagnose: test every global and collection
+    const globalSlugs = ['site-config', 'navigation', 'footer', 'redirects', 'homepage']
+    const globalResults: Record<string, string> = {}
+    for (const slug of globalSlugs) {
+      try {
+        await payload.findGlobal({ slug })
+        globalResults[slug] = 'OK'
+      } catch (err: any) {
+        globalResults[slug] = `ERROR: ${err.message?.slice(0, 200)}`
+      }
+    }
+
+    const collectionSlugs = [
+      'users', 'media', 'pages', 'products', 'blog-posts', 'solutions',
+      'industries', 'platforms', 'services', 'partners', 'company-pages',
+      'legal-pages', 'resources', 'contact-submissions',
+    ]
+    const collectionResults: Record<string, string> = {}
+    for (const slug of collectionSlugs) {
+      try {
+        await payload.find({ collection: slug as any, limit: 1 })
+        collectionResults[slug] = 'OK'
+      } catch (err: any) {
+        collectionResults[slug] = `ERROR: ${err.message?.slice(0, 200)}`
+      }
+    }
+
+    // Check all tables exist
+    const tables = await pool.query(`
+      SELECT table_name FROM information_schema.tables
+      WHERE table_schema = 'public' ORDER BY table_name
     `)
 
-    let payloadError = null
-    try {
-      await payload.findGlobal({ slug: 'site-config' })
-    } catch (err: any) {
-      payloadError = err.message?.slice(0, 300)
-    }
-
     return NextResponse.json({
-      columns: cols.rows.map((r: any) => r.column_name),
-      payloadError,
+      globals: globalResults,
+      collections: collectionResults,
+      tableCount: tables.rows.length,
+      tables: tables.rows.map((r: any) => r.table_name),
     })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message })
+    return NextResponse.json({ error: err.message, stack: err.stack?.slice(0, 500) })
   }
 }
