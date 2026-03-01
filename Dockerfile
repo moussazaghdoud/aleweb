@@ -32,9 +32,6 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # Ensure sharp native binaries are available (standalone trace may miss them)
 COPY --from=deps /app/node_modules/sharp ./node_modules/sharp
 COPY --from=deps /app/node_modules/@img ./node_modules/@img
-# Copy ALL node_modules so Payload's pushDevSchema can find drizzle-kit at runtime
-# (Turbopack hashes module names, breaking standalone resolution)
-COPY --from=deps /app/node_modules ./node_modules
 # Payload media uploads directory
 RUN mkdir -p /app/public/media && chown -R nextjs:nodejs /app/public/media
 USER nextjs
