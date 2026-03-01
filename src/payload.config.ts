@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url'
 // Collections
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
-// import { Pages } from './collections/Pages'  // Temporarily disabled — DB schema out of sync
+import { Pages } from './collections/Pages'
 import { Products } from './collections/Products'
 import { BlogPosts } from './collections/BlogPosts'
 import { Solutions } from './collections/Solutions'
@@ -18,7 +18,7 @@ import { Industries } from './collections/Industries'
 import { Platforms } from './collections/Platforms'
 import { Services } from './collections/Services'
 import { Partners } from './collections/Partners'
-// import { CompanyPages } from './collections/CompanyPages'  // Temporarily disabled — DB schema out of sync
+import { CompanyPages } from './collections/CompanyPages'
 import { LegalPages } from './collections/LegalPages'
 import { Resources } from './collections/Resources'
 import { ContactSubmissions } from './collections/ContactSubmissions'
@@ -31,7 +31,7 @@ import { Navigation } from './globals/Navigation'
 import { Footer } from './globals/Footer'
 import { SiteConfig } from './globals/SiteConfig'
 import { Redirects } from './globals/Redirects'
-// import { Homepage } from './globals/Homepage'  // Temporarily disabled — DB schema out of sync
+import { Homepage } from './globals/Homepage'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -87,7 +87,7 @@ export default buildConfig({
         const pagePath = urlMap[collection] || `/${slug}`
         return `${base}/api/preview?slug=${encodeURIComponent(pagePath)}&secret=${process.env.PAYLOAD_SECRET}`
       },
-      collections: ['products', 'solutions', 'industries', 'platforms', 'services', 'partners', 'legal-pages', 'blog-posts'],
+      collections: ['products', 'solutions', 'industries', 'platforms', 'services', 'partners', 'company-pages', 'legal-pages', 'blog-posts', 'pages'],
     },
   },
 
@@ -95,7 +95,7 @@ export default buildConfig({
   collections: [
     Users,
     Media,
-    // Pages,
+    Pages,
     Products,
     BlogPosts,
     Solutions,
@@ -103,7 +103,7 @@ export default buildConfig({
     Platforms,
     Services,
     Partners,
-    // CompanyPages,
+    CompanyPages,
     LegalPages,
     Resources,
     ContactSubmissions,
@@ -117,7 +117,7 @@ export default buildConfig({
     Footer,
     SiteConfig,
     Redirects,
-    // Homepage,
+    Homepage,
   ],
 
   // ── Editor ───────────────────────────────────────────────────
