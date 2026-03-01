@@ -49,10 +49,8 @@ export default async function CategoryPage({
   };
   const comparison = comparisonMap[category];
 
-  // Group by subcategory
-  const subcategories = Array.from(
-    new Set(products.map((p) => p.subcategory || "General"))
-  );
+  // Featured positions in the grid (0-indexed) — these get large 2-col cards
+  const featuredPositions = new Set([0, 5]);
 
   return (
     <>
@@ -92,77 +90,124 @@ export default async function CategoryPage({
         </div>
       </section>
 
-      {/* Products by subcategory */}
-      <section className="py-16 bg-white">
+      {/* Products — masonry grid */}
+      <section className="py-16 bg-light-50/50">
         <div className="mx-auto max-w-[1320px] px-6">
-          {subcategories.map((sub) => {
-            const subProducts = products.filter(
-              (p) => (p.subcategory || "General") === sub
-            );
-            return (
-              <div key={sub} className="mb-14 last:mb-0">
-                <h2 className="text-xl font-extrabold text-text tracking-tight mb-6 flex items-center gap-3">
-                  <span className="w-1.5 h-6 bg-ale rounded-full" />
-                  {sub}
-                </h2>
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-                  {subProducts.map((product) => (
-                    <Link
-                      key={product.slug}
-                      href={`/products/${category}/${product.slug}`}
-                      className="group rounded-xl border border-light-200 overflow-hidden hover:border-ale-200 hover:shadow-md transition-all"
-                    >
-                      {product.image && (
-                        <div className="aspect-[4/3] bg-light-50 flex items-center justify-center p-4 border-b border-light-100">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            width={320}
-                            height={240}
-                            className="object-contain max-h-[180px] w-auto group-hover:scale-105 transition-transform duration-300"
-                          />
-                        </div>
-                      )}
-                      <div className="p-6">
-                      <h3 className="text-base font-bold text-text group-hover:text-ale transition-colors mb-1.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 auto-rows-auto">
+            {products.map((product, idx) => {
+              const isFeatured = featuredPositions.has(idx);
+
+              if (isFeatured) {
+                /* ── Featured card: spans 2 columns, horizontal layout ── */
+                return (
+                  <Link
+                    key={product.slug}
+                    href={`/products/${category}/${product.slug}`}
+                    className="group sm:col-span-2 rounded-2xl border border-light-200 bg-white overflow-hidden hover:border-ale-200 hover:shadow-lg transition-all flex flex-col sm:flex-row"
+                  >
+                    {product.image && (
+                      <div className="sm:w-[45%] shrink-0 bg-light-50 flex items-center justify-center p-8 border-b sm:border-b-0 sm:border-r border-light-100">
+                        <Image
+                          src={product.image}
+                          alt={product.name}
+                          width={400}
+                          height={300}
+                          className="object-contain max-h-[220px] w-auto group-hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    )}
+                    <div className="flex-1 p-7 flex flex-col justify-center">
+                      <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-ale/70 bg-ale-50 rounded-full px-2.5 py-0.5 mb-3 w-fit">
+                        {product.subcategory || "General"}
+                      </span>
+                      <h3 className="text-lg font-bold text-text group-hover:text-ale transition-colors mb-2">
                         {product.name}
                       </h3>
-                      <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed mb-4">
+                      <p className="text-sm text-text-secondary leading-relaxed mb-4">
                         {product.tagline}
                       </p>
-                      <div className="flex flex-wrap gap-1.5 mb-4">
-                        {product.highlights.slice(0, 3).map((h) => (
+                      <div className="flex flex-wrap gap-1.5 mb-5">
+                        {product.highlights.slice(0, 4).map((h) => (
                           <span
                             key={h.label}
-                            className="text-[11px] font-medium text-ale bg-ale-50 rounded-full px-2.5 py-0.5"
+                            className="text-[11px] font-medium text-text-secondary bg-light-100 rounded-full px-2.5 py-0.5"
                           >
                             {h.stat} {h.label}
                           </span>
                         ))}
                       </div>
-                      <span className="inline-flex items-center gap-1 text-xs font-semibold text-ale">
+                      <span className="inline-flex items-center gap-1.5 text-sm font-semibold text-ale">
                         View details
                         <svg
-                          className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
+                          className="w-4 h-4 transition-transform group-hover:translate-x-1"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"
                           strokeWidth={2}
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
                       </span>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
+                    </div>
+                  </Link>
+                );
+              }
+
+              /* ── Standard card: single column ── */
+              return (
+                <Link
+                  key={product.slug}
+                  href={`/products/${category}/${product.slug}`}
+                  className="group rounded-2xl border border-light-200 bg-white overflow-hidden hover:border-ale-200 hover:shadow-lg transition-all flex flex-col"
+                >
+                  {product.image && (
+                    <div className="aspect-[4/3] bg-light-50 flex items-center justify-center p-5 border-b border-light-100">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        width={320}
+                        height={240}
+                        className="object-contain max-h-[160px] w-auto group-hover:scale-105 transition-transform duration-300"
+                      />
+                    </div>
+                  )}
+                  <div className="p-5 flex-1 flex flex-col">
+                    <span className="inline-block text-[10px] font-bold uppercase tracking-wider text-ale/70 bg-ale-50 rounded-full px-2.5 py-0.5 mb-2.5 w-fit">
+                      {product.subcategory || "General"}
+                    </span>
+                    <h3 className="text-[15px] font-bold text-text group-hover:text-ale transition-colors mb-1">
+                      {product.name}
+                    </h3>
+                    <p className="text-sm text-text-secondary line-clamp-2 leading-relaxed mb-3 flex-1">
+                      {product.tagline}
+                    </p>
+                    <div className="flex flex-wrap gap-1.5 mb-3">
+                      {product.highlights.slice(0, 3).map((h) => (
+                        <span
+                          key={h.label}
+                          className="text-[11px] font-medium text-text-secondary bg-light-100 rounded-full px-2.5 py-0.5"
+                        >
+                          {h.stat} {h.label}
+                        </span>
+                      ))}
+                    </div>
+                    <span className="inline-flex items-center gap-1 text-xs font-semibold text-ale mt-auto">
+                      View details
+                      <svg
+                        className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        strokeWidth={2}
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                      </svg>
+                    </span>
+                  </div>
+                </Link>
+              );
+            })}
+          </div>
         </div>
       </section>
 
