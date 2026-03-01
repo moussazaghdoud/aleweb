@@ -5,8 +5,8 @@ export const ChatKnowledgeFiles: CollectionConfig = {
   slug: 'chat-knowledge-files',
   admin: {
     useAsTitle: 'filename',
-    defaultColumns: ['filename', 'mimeType', 'status', 'createdAt'],
-    description: 'Documents indexed in the AI chatbot knowledge base (OpenAI vector store).',
+    defaultColumns: ['filename', 'status', 'createdAt'],
+    description: 'Documents indexed in the AI chatbot knowledge base (OpenAI vector store). Upload files via the /api/chat/knowledge endpoint.',
     group: 'Chat',
   },
   access: {
@@ -15,21 +15,12 @@ export const ChatKnowledgeFiles: CollectionConfig = {
     update: isAdmin,
     delete: isAdmin,
   },
-  upload: {
-    mimeTypes: [
-      'application/pdf',
-      'text/plain',
-      'text/markdown',
-      'application/msword',
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
-    ],
-    staticDir: 'uploads/knowledge',
-  },
   fields: [
     {
       name: 'filename',
       type: 'text',
-      admin: { readOnly: true, description: 'Original filename (auto-populated from upload)' },
+      required: true,
+      admin: { description: 'Original filename' },
     },
     {
       name: 'openaiFileId',
@@ -40,6 +31,16 @@ export const ChatKnowledgeFiles: CollectionConfig = {
       name: 'vectorStoreId',
       type: 'text',
       admin: { readOnly: true, description: 'OpenAI Vector Store ID' },
+    },
+    {
+      name: 'fileSize',
+      type: 'number',
+      admin: { readOnly: true, description: 'File size in bytes' },
+    },
+    {
+      name: 'mimeType',
+      type: 'text',
+      admin: { readOnly: true },
     },
     {
       name: 'status',
@@ -62,56 +63,6 @@ export const ChatKnowledgeFiles: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [
-      async ({ doc, operation, req }) => {
-        // Only process on create (new upload)
-        if (operation !== 'create') return doc
-
-        try {
-          const { uploadFileToVectorStore } = await import('@/lib/chat/openai')
-          const fs = await import('fs')
-          const path = await import('path')
-
-          // Read the uploaded file
-          const filePath = path.join(process.cwd(), 'uploads/knowledge', doc.filename)
-          if (!fs.existsSync(filePath)) {
-            console.warn('[Chat] Upload file not found at', filePath)
-            return doc
-          }
-
-          const buffer = fs.readFileSync(filePath)
-          const { fileId, vectorStoreId } = await uploadFileToVectorStore(
-            buffer,
-            doc.filename,
-          )
-
-          // Update the document with OpenAI IDs
-          await req.payload.update({
-            collection: 'chat-knowledge-files',
-            id: doc.id,
-            data: {
-              openaiFileId: fileId,
-              vectorStoreId,
-              status: 'indexed',
-            },
-          })
-
-          console.log('[Chat] File indexed:', doc.filename, '→', fileId)
-        } catch (err: any) {
-          console.error('[Chat] File indexing failed:', err.message)
-          await req.payload.update({
-            collection: 'chat-knowledge-files',
-            id: doc.id,
-            data: {
-              status: 'error',
-              errorMessage: err.message?.slice(0, 200),
-            },
-          })
-        }
-
-        return doc
-      },
-    ],
     afterDelete: [
       async ({ doc }) => {
         if (!doc?.openaiFileId) return
