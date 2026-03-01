@@ -32,21 +32,19 @@ const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
     { label: "SD-WAN & SASE", slug: "sd-wan-sase" },
     { label: "Network Security", slug: "network-security" },
     { label: "Data Center Networking", slug: "data-center-networking" },
-    { label: "Mission Critical Networks", slug: "mission-critical-networks" },
     { label: "Shortest Path Bridging", slug: "shortest-path-bridging" },
     { label: "Enterprise Wi-Fi", slug: "wifi-solutions" },
     { label: "Hybrid POL", slug: "hybrid-pol" },
     { label: "OmniFabric", slug: "omnifabric" },
     { label: "Optical Networking", slug: "optical-solutions" },
-    { label: "Industrial Networks", slug: "industrial-networks" },
-    { label: "IoT Networks", slug: "iot-networks" },
-    { label: "Private 5G", slug: "private-5g-solution" },
     { label: "AI Operations", slug: "optimize-with-ai" },
   ],
-  "business-innovation": [
-    { label: "Asset Tracking", slug: "connect-everything" },
-    { label: "Network as a Service", slug: "network-as-a-service" },
+  "mission-critical-networks": [
+    { label: "Industrial Networks", slug: "industrial-networks" },
+    { label: "Private 5G", slug: "private-5g-solution" },
     { label: "Video Surveillance", slug: "video-surveillance-networking" },
+    { label: "IoT Networks", slug: "iot-networks" },
+    { label: "Asset Tracking", slug: "connect-everything" },
   ],
 };
 

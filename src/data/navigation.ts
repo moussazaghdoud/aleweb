@@ -152,7 +152,7 @@ export const primaryNav: MegaNavItem[] = [
     variant: "standard",
     groups: [
       {
-        heading: "Digital Age Communications",
+        heading: "Communications & Collaboration",
         href: "/solutions/digital-age-communications",
         links: [
           { label: "Unified Communications", href: "/solutions/unified-communications" },
@@ -164,40 +164,40 @@ export const primaryNav: MegaNavItem[] = [
         ],
       },
       {
-        heading: "Digital Age Networking",
+        heading: "Network Infrastructure",
         href: "/solutions/digital-age-networking",
         links: [
           { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase" },
           { label: "Network Security", href: "/solutions/network-security" },
           { label: "Data Center", href: "/solutions/data-center-networking" },
-          { label: "Mission Critical Networks", href: "/solutions/mission-critical-networks" },
           { label: "Shortest Path Bridging", href: "/solutions/shortest-path-bridging" },
           { label: "Enterprise Wi-Fi", href: "/solutions/wifi-solutions" },
           { label: "Hybrid POL", href: "/solutions/hybrid-pol" },
           { label: "OmniFabric", href: "/solutions/omnifabric" },
           { label: "Optical Networking", href: "/solutions/optical-solutions" },
-          { label: "Industrial Networks", href: "/solutions/industrial-networks" },
-          { label: "IoT Networks", href: "/solutions/iot-networks" },
-          { label: "Private 5G", href: "/solutions/private-5g-solution" },
           { label: "AI Operations", href: "/solutions/optimize-with-ai" },
         ],
       },
       {
-        heading: "Business Innovation",
-        href: "/solutions/business-innovation",
+        heading: "Mission Critical Solutions",
+        href: "/solutions/mission-critical-networks",
         links: [
-          { label: "Asset Tracking", href: "/solutions/connect-everything" },
-          { label: "Network as a Service", href: "/solutions/network-as-a-service" },
+          { label: "Industrial Networks", href: "/solutions/industrial-networks" },
+          { label: "Private 5G", href: "/solutions/private-5g-solution" },
           { label: "Video Surveillance", href: "/solutions/video-surveillance-networking" },
+          { label: "IoT Networks", href: "/solutions/iot-networks" },
+          { label: "Asset Tracking", href: "/solutions/connect-everything" },
         ],
       },
       {
         heading: "Business Continuity",
         href: "/solutions/business-continuity",
-        links: [],
+        links: [
+          { label: "Network as a Service", href: "/solutions/network-as-a-service" },
+        ],
       },
       {
-        heading: "Services",
+        heading: "Services & Support",
         href: "/services",
         links: [
           { label: "Support Services", href: "/services/support-services" },
