@@ -101,18 +101,32 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === 'push-schema') {
-      // Nuclear option: let Payload re-push entire schema
+      // Inspect all methods on the db adapter to find push/migrate
       try {
         const db = payload.db as any
-        if (typeof db.push === 'function') {
-          await db.push()
-          return NextResponse.json({ action: 'push-schema', result: 'Schema pushed successfully' })
+        const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(db))
+          .filter(m => typeof db[m] === 'function')
+        const props = Object.keys(db).filter(k => k !== 'pool')
+
+        // Try various known method names
+        const tried: Record<string, string> = {}
+        for (const method of ['push', 'migrate', 'migrateRefresh', 'createMigration', 'migrateFresh']) {
+          if (typeof db[method] === 'function') {
+            try {
+              await db[method]()
+              tried[method] = 'OK'
+            } catch (e: any) {
+              tried[method] = `ERR: ${e.message?.slice(0, 100)}`
+            }
+          }
         }
-        // Alternative: call drizzle push
-        if (db.drizzle && typeof db.schemaName === 'string') {
-          return NextResponse.json({ action: 'push-schema', result: 'Drizzle available but push not exposed' })
-        }
-        return NextResponse.json({ action: 'push-schema', result: 'push() not available on db adapter' })
+
+        return NextResponse.json({
+          action: 'push-schema',
+          methods,
+          props: props.slice(0, 30),
+          tried,
+        })
       } catch (err: any) {
         return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 300) })
       }
