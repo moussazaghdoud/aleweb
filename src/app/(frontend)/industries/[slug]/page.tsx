@@ -16,18 +16,17 @@ import { AdminEditButton } from "@/components/admin/AdminEditButton";
 import { blogData } from "@/data/blog";
 import { industryBlogCategories } from "@/data/blog-mappings";
 
-/* ── Illustration images from ALE CDN ── */
-const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
+/* ── Illustration images — high-quality Unsplash (free license) ── */
 const industryImages: Record<string, string> = {
-  healthcare: `${cdn}/healthcare-focus-topic-v2-web.jpg`,
-  education: `${cdn}/ale-web-refresh-education-topic1-image.jpg`,
-  hospitality: `${cdn}/hospitality-l2-topic1-body-copy-image-810x540.jpg`,
-  government: `${cdn}/digital-government-810x340-banner.jpg`,
-  transportation: `${cdn}/ale-web-transportation-focus-topic-1-transp-ops.jpg`,
-  energy: `${cdn}/focus-topic-energy-and-utilities-image-810x340.jpg`,
-  manufacturing: `${cdn}/focus-topic-image-801x340.jpg`,
-  "smart-buildings": `${cdn}/iot-focus-topic-v2.jpg`,
-  smb: `${cdn}/smb-image-headerbanner-1200x299.jpg`,
+  healthcare: "https://images.unsplash.com/photo-1584451049700-ec9b394f3805?w=1200&q=80&fit=crop",
+  education: "https://plus.unsplash.com/premium_photo-1764691435961-ecb3a0a5d311?w=1200&q=80&fit=crop",
+  hospitality: "https://images.unsplash.com/photo-1758193783649-13371d7fb8dd?w=1200&q=80&fit=crop",
+  government: "https://images.unsplash.com/photo-1761002066333-1cc80a4471c3?w=1200&q=80&fit=crop",
+  transportation: "https://images.unsplash.com/photo-1769662457308-12b10fec55af?w=1200&q=80&fit=crop",
+  energy: "https://images.unsplash.com/photo-1762381157076-4872b31961e0?w=1200&q=80&fit=crop",
+  manufacturing: "https://plus.unsplash.com/premium_photo-1681822941472-1e4c1a310046?w=1200&q=80&fit=crop",
+  "smart-buildings": "https://images.unsplash.com/photo-1760246964044-1384f71665b9?w=1200&q=80&fit=crop",
+  smb: "https://plus.unsplash.com/premium_photo-1661301063537-a5170c871aec?w=1200&q=80&fit=crop",
 };
 
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
