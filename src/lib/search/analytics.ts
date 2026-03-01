@@ -17,6 +17,9 @@ export async function logSearchQuery(entry: LogEntry): Promise<void> {
   if (!isPostgres) return
 
   try {
+    const { getSearchProvider } = await import('@/lib/search/index')
+    const provider = await getSearchProvider()
+    // Only log if provider is postgres (has internal pool access)
     const { getPayload } = await import('@/lib/payload')
     const payload = await getPayload()
     const pool = (payload.db as any).pool
@@ -25,7 +28,8 @@ export async function logSearchQuery(entry: LogEntry): Promise<void> {
 
     await pool.query(
       `INSERT INTO search_analytics (query, result_count, latency_ms, filters)
-       VALUES ($1, $2, $3, $4)`,
+       VALUES ($1, $2, $3, $4)
+       ON CONFLICT DO NOTHING`,
       [entry.query, entry.resultCount, entry.latencyMs, JSON.stringify(entry.filters || {})],
     )
   } catch {
@@ -57,7 +61,7 @@ export async function getSearchAnalytics(days = 7) {
       pool.query(
         `SELECT query, count(*) AS count
          FROM search_analytics
-         WHERE created_at > now() - $1::interval AND zero_results = true
+         WHERE created_at > now() - $1::interval AND result_count = 0
          GROUP BY query ORDER BY count DESC LIMIT 20`,
         [interval],
       ),

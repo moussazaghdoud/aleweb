@@ -3,6 +3,11 @@
  *
  * Production search engine using tsvector (weighted full-text) + pg_trgm (typo tolerance).
  * Accesses the existing PG pool from Payload's postgres adapter — no extra connections.
+ *
+ * Resilient design:
+ * - pg_trgm is optional (graceful degradation if extension can't be created)
+ * - ensureTable() errors are caught and logged, never crash the process
+ * - All queries handle missing trgm gracefully
  */
 
 import type {
@@ -18,16 +23,19 @@ type Pool = {
 export class PostgresSearchProvider implements SearchProvider {
   private pool: Pool | null = null
   private initialized = false
+  private hasTrgm = false // Track whether pg_trgm is available
 
   private async getPool(): Promise<Pool> {
     if (this.pool) return this.pool
 
     const { getPayload } = await import('@/lib/payload')
     const payload = await getPayload()
+
+    // Payload CMS v3.77 @payloadcms/db-postgres exposes pool directly on payload.db
     const pool = (payload.db as any).pool
 
     if (!pool || typeof pool.query !== 'function') {
-      throw new Error('[Search] Could not access PostgreSQL pool from Payload adapter')
+      throw new Error('[Search] Could not access PostgreSQL pool from Payload adapter. payload.db.pool is ' + typeof pool)
     }
 
     this.pool = pool as Pool
@@ -38,8 +46,17 @@ export class PostgresSearchProvider implements SearchProvider {
     if (this.initialized) return
     const pool = await this.getPool()
 
-    await pool.query(`CREATE EXTENSION IF NOT EXISTS pg_trgm`)
+    // Try to enable pg_trgm — may fail on managed Postgres without superuser
+    try {
+      await pool.query(`CREATE EXTENSION IF NOT EXISTS pg_trgm`)
+      this.hasTrgm = true
+    } catch (err: any) {
+      console.warn('[Search] pg_trgm extension not available (typo tolerance disabled):', err.message)
+      this.hasTrgm = false
+    }
 
+    // Create the main search_documents table
+    // Use a simpler schema without GENERATED ALWAYS for compatibility
     await pool.query(`
       CREATE TABLE IF NOT EXISTS search_documents (
         id TEXT PRIMARY KEY,
@@ -57,23 +74,15 @@ export class PostgresSearchProvider implements SearchProvider {
         published_at TIMESTAMPTZ,
         boost SMALLINT NOT NULL DEFAULT 0,
         meta JSONB,
-        search_vector TSVECTOR GENERATED ALWAYS AS (
-          setweight(to_tsvector('english', coalesce(title, '')), 'A') ||
-          setweight(to_tsvector('english', coalesce(tagline, '')), 'B') ||
-          setweight(to_tsvector('english', coalesce(description, '')), 'C') ||
-          setweight(to_tsvector('english', coalesce(body, '') || ' ' || coalesce(keywords, '')), 'D')
-        ) STORED,
+        search_vector TSVECTOR,
         created_at TIMESTAMPTZ DEFAULT now(),
         updated_at TIMESTAMPTZ DEFAULT now()
       )
     `)
 
-    // Indexes (IF NOT EXISTS prevents errors on re-init)
+    // Indexes
     await pool.query(`
       CREATE INDEX IF NOT EXISTS idx_search_vector ON search_documents USING GIN (search_vector)
-    `)
-    await pool.query(`
-      CREATE INDEX IF NOT EXISTS idx_search_title_trgm ON search_documents USING GIN (title gin_trgm_ops)
     `)
     await pool.query(`
       CREATE INDEX IF NOT EXISTS idx_search_type_locale ON search_documents (type, locale)
@@ -82,7 +91,19 @@ export class PostgresSearchProvider implements SearchProvider {
       CREATE INDEX IF NOT EXISTS idx_search_category ON search_documents (category) WHERE category IS NOT NULL
     `)
 
-    // Analytics table
+    // Trigram indexes only if extension is available
+    if (this.hasTrgm) {
+      try {
+        await pool.query(`
+          CREATE INDEX IF NOT EXISTS idx_search_title_trgm ON search_documents USING GIN (title gin_trgm_ops)
+        `)
+      } catch (err: any) {
+        console.warn('[Search] Could not create trigram index:', err.message)
+        this.hasTrgm = false
+      }
+    }
+
+    // Analytics table — simpler schema without GENERATED column
     await pool.query(`
       CREATE TABLE IF NOT EXISTS search_analytics (
         id SERIAL PRIMARY KEY,
@@ -90,7 +111,6 @@ export class PostgresSearchProvider implements SearchProvider {
         result_count INT NOT NULL,
         latency_ms INT NOT NULL,
         filters JSONB,
-        zero_results BOOLEAN GENERATED ALWAYS AS (result_count = 0) STORED,
         created_at TIMESTAMPTZ DEFAULT now()
       )
     `)
@@ -99,6 +119,17 @@ export class PostgresSearchProvider implements SearchProvider {
     `)
 
     this.initialized = true
+    console.log(`[Search] PostgreSQL provider initialized (pg_trgm: ${this.hasTrgm ? 'enabled' : 'disabled'})`)
+  }
+
+  // ── Helper: compute tsvector for a document ────────────────
+  private buildTsVector(doc: SearchDocument): string {
+    return `
+      setweight(to_tsvector('english', coalesce($5, '')), 'A') ||
+      setweight(to_tsvector('english', coalesce($6, '')), 'B') ||
+      setweight(to_tsvector('english', coalesce($7, '')), 'C') ||
+      setweight(to_tsvector('english', coalesce($8, '') || ' ' || coalesce($9, '')), 'D')
+    `
   }
 
   // ── SearchProvider Interface ─────────────────────────────
@@ -128,15 +159,26 @@ export class PostgresSearchProvider implements SearchProvider {
   }
 
   private async upsertInternal(pool: Pool, doc: SearchDocument): Promise<void> {
+    // Compute tsvector on insert/update instead of GENERATED ALWAYS
     await pool.query(
       `INSERT INTO search_documents
         (id, type, slug, href, title, tagline, description, body, keywords,
-         category, industry, locale, published_at, boost, meta, updated_at)
-       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,now())
+         category, industry, locale, published_at, boost, meta, search_vector, updated_at)
+       VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,
+         setweight(to_tsvector('english', coalesce($5, '')), 'A') ||
+         setweight(to_tsvector('english', coalesce($6, '')), 'B') ||
+         setweight(to_tsvector('english', coalesce($7, '')), 'C') ||
+         setweight(to_tsvector('english', coalesce($8, '') || ' ' || coalesce($9, '')), 'D'),
+         now())
        ON CONFLICT (id) DO UPDATE SET
         type=$2, slug=$3, href=$4, title=$5, tagline=$6, description=$7,
         body=$8, keywords=$9, category=$10, industry=$11, locale=$12,
-        published_at=$13, boost=$14, meta=$15, updated_at=now()`,
+        published_at=$13, boost=$14, meta=$15,
+        search_vector = setweight(to_tsvector('english', coalesce($5, '')), 'A') ||
+                        setweight(to_tsvector('english', coalesce($6, '')), 'B') ||
+                        setweight(to_tsvector('english', coalesce($7, '')), 'C') ||
+                        setweight(to_tsvector('english', coalesce($8, '') || ' ' || coalesce($9, '')), 'D'),
+        updated_at=now()`,
       [
         doc.id, doc.type, doc.slug, doc.href, doc.title, doc.tagline,
         doc.description, doc.body, doc.keywords, doc.category || null,
@@ -208,8 +250,24 @@ export class PostgresSearchProvider implements SearchProvider {
     }
 
     const whereClause = conditions.join(' AND ')
+    const qParamIdx = paramIdx // for the raw query string
+    params.push(q) // $qParamIdx = raw query string
+    paramIdx++
 
-    // Main search query with hybrid ranking (tsvector + trigram fallback)
+    // Build trigram parts conditionally
+    const trgmSelect = this.hasTrgm
+      ? `GREATEST(similarity(d.title, $${qParamIdx}), similarity(d.tagline, $${qParamIdx})) AS trgm_sim,`
+      : `0::float AS trgm_sim,`
+
+    const trgmWhere = this.hasTrgm
+      ? `OR (length($${qParamIdx}) >= 3 AND similarity(d.title, $${qParamIdx}) > 0.25)`
+      : `OR (d.title ILIKE '%' || $${qParamIdx} || '%')`
+
+    const trgmOrder = this.hasTrgm
+      ? `+ GREATEST(similarity(d.title, $${qParamIdx}), 0) * 0.3`
+      : ''
+
+    // Main search query
     const searchSql = `
       WITH query AS (
         SELECT to_tsquery('english', $1) AS tsq
@@ -217,7 +275,7 @@ export class PostgresSearchProvider implements SearchProvider {
       SELECT
         d.*,
         ts_rank_cd(d.search_vector, q.tsq, 4) AS text_rank,
-        GREATEST(similarity(d.title, $${paramIdx}), similarity(d.tagline, $${paramIdx})) AS trgm_sim,
+        ${trgmSelect}
         ts_headline('english', d.description, q.tsq,
           'StartSel=<mark>, StopSel=</mark>, MaxWords=30, MinWords=10') AS hl_desc,
         ts_headline('english', d.title, q.tsq,
@@ -226,17 +284,17 @@ export class PostgresSearchProvider implements SearchProvider {
       WHERE ${whereClause}
         AND (
           d.search_vector @@ q.tsq
-          OR (length($${paramIdx}) >= 3 AND similarity(d.title, $${paramIdx}) > 0.25)
+          ${trgmWhere}
         )
       ORDER BY
         (ts_rank_cd(d.search_vector, q.tsq, 4)
-         + GREATEST(similarity(d.title, $${paramIdx}), 0) * 0.3
+         ${trgmOrder}
          + d.boost::float / 10.0) DESC
-      LIMIT $${paramIdx + 1} OFFSET $${paramIdx + 2}
+      LIMIT $${paramIdx} OFFSET $${paramIdx + 1}
     `
-    params.push(q, limit, offset)
+    params.push(limit, offset)
 
-    // Count query
+    // Count query (same conditions, no trgm select/limit)
     const countSql = `
       WITH query AS (
         SELECT to_tsquery('english', $1) AS tsq
@@ -246,9 +304,10 @@ export class PostgresSearchProvider implements SearchProvider {
       WHERE ${whereClause}
         AND (
           d.search_vector @@ q.tsq
-          OR (length($${paramIdx - 2}) >= 3 AND similarity(d.title, $${paramIdx - 2}) > 0.25)
+          ${trgmWhere}
         )
     `
+    const countParams = params.slice(0, paramIdx) // exclude limit/offset
 
     // Facet query
     const facetSql = `
@@ -260,7 +319,7 @@ export class PostgresSearchProvider implements SearchProvider {
       WHERE ${whereClause}
         AND (
           d.search_vector @@ q.tsq
-          OR (length($${paramIdx - 2}) >= 3 AND similarity(d.title, $${paramIdx - 2}) > 0.25)
+          ${trgmWhere}
         )
       GROUP BY d.type, d.category, d.industry
     `
@@ -268,8 +327,8 @@ export class PostgresSearchProvider implements SearchProvider {
     try {
       const [searchRes, countRes, facetRes] = await Promise.all([
         pool.query(searchSql, params),
-        pool.query(countSql, params.slice(0, -2)),
-        pool.query(facetSql, params.slice(0, -2)),
+        pool.query(countSql, countParams),
+        pool.query(facetSql, countParams),
       ])
 
       const total = parseInt(countRes.rows[0]?.total || '0')
@@ -399,13 +458,26 @@ export class PostgresSearchProvider implements SearchProvider {
   }
 
   private async didYouMean(pool: Pool, q: string): Promise<string[]> {
+    if (this.hasTrgm) {
+      const result = await pool.query(
+        `SELECT DISTINCT title
+         FROM search_documents
+         WHERE similarity(title, $1) > 0.2
+         ORDER BY similarity(title, $1) DESC
+         LIMIT 3`,
+        [q],
+      )
+      return result.rows.map((r: any) => r.title)
+    }
+
+    // Fallback without pg_trgm: ILIKE partial match
     const result = await pool.query(
       `SELECT DISTINCT title
        FROM search_documents
-       WHERE similarity(title, $1) > 0.2
-       ORDER BY similarity(title, $1) DESC
+       WHERE title ILIKE $1
+       ORDER BY title
        LIMIT 3`,
-      [q],
+      [`%${q}%`],
     )
     return result.rows.map((r: any) => r.title)
   }
@@ -416,12 +488,17 @@ export class PostgresSearchProvider implements SearchProvider {
   ): Promise<SearchResponse> {
     const start = performance.now()
     const offset = (page - 1) * limit
+
+    const simSelect = this.hasTrgm
+      ? `similarity(title, $1) AS sim`
+      : `0::float AS sim`
+
     const result = await pool.query(
-      `SELECT *, similarity(title, $1) AS sim
+      `SELECT *, ${simSelect}
        FROM search_documents
        WHERE locale = $2
          AND (title ILIKE $3 OR description ILIKE $3 OR keywords ILIKE $3)
-       ORDER BY sim DESC
+       ORDER BY boost DESC, title
        LIMIT $4 OFFSET $5`,
       [q, locale, `%${q}%`, limit, offset],
     )

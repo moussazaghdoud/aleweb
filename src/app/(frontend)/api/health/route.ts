@@ -7,11 +7,21 @@ export async function GET() {
 
   let dbStatus: 'ok' | 'error' = 'ok'
   try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/globals/site-config`, {
-      cache: 'no-store',
-      signal: AbortSignal.timeout(5000),
-    })
-    if (!res.ok) dbStatus = 'error'
+    // Use Payload directly instead of fetching our own API (avoids circular/network issues)
+    const { getPayload } = await import('@/lib/payload')
+    const payload = await getPayload()
+    // Simple query to verify DB connection
+    const pool = (payload.db as any).pool
+    if (pool?.query) {
+      await pool.query('SELECT 1')
+    } else {
+      // Fallback: try via Payload API
+      const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/globals/site-config`, {
+        cache: 'no-store',
+        signal: AbortSignal.timeout(5000),
+      })
+      if (!res.ok) dbStatus = 'error'
+    }
   } catch {
     dbStatus = 'error'
   }

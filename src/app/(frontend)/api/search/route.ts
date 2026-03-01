@@ -148,8 +148,12 @@ export async function GET(request: NextRequest) {
       suggestions: response.suggestions,
       queryTime: elapsed,
     })
-  } catch (err) {
-    console.error('[Search API] Error:', err)
-    return NextResponse.json({ error: 'Search unavailable' }, { status: 503 })
+  } catch (err: any) {
+    console.error('[Search API] Error:', err?.message || err)
+    console.error('[Search API] Stack:', err?.stack)
+    return NextResponse.json(
+      { error: 'Search unavailable', detail: process.env.NODE_ENV === 'development' ? err?.message : undefined },
+      { status: 503 },
+    )
   }
 }

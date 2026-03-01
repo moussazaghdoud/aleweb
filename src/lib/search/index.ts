@@ -15,14 +15,23 @@ let _provider: SearchProvider | null = null
 export async function getSearchProvider(): Promise<SearchProvider> {
   if (_provider) return _provider
 
-  const isPostgres = process.env.DATABASE_URI?.startsWith('postgresql')
+  const dbUri = process.env.DATABASE_URI || ''
+  const isPostgres = dbUri.startsWith('postgresql') || dbUri.startsWith('postgres://')
 
   if (isPostgres) {
-    const { PostgresSearchProvider } = await import('./providers/postgres')
-    _provider = new PostgresSearchProvider()
+    try {
+      const { PostgresSearchProvider } = await import('./providers/postgres')
+      _provider = new PostgresSearchProvider()
+      console.log('[Search] Using PostgreSQL search provider')
+    } catch (err: any) {
+      console.error('[Search] Failed to load PostgreSQL provider, falling back to in-memory:', err.message)
+      const { InMemorySearchProvider } = await import('./providers/in-memory')
+      _provider = new InMemorySearchProvider()
+    }
   } else {
     const { InMemorySearchProvider } = await import('./providers/in-memory')
     _provider = new InMemorySearchProvider()
+    console.log('[Search] Using in-memory search provider (SQLite/dev)')
   }
 
   return _provider
