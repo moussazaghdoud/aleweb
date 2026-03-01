@@ -241,23 +241,16 @@ export const primaryNav: MegaNavItem[] = [
         href: "/partners/business-partners",
         links: [
           { label: "Become a Partner", href: "/partners/business-partners" },
-          { label: "Find a Partner", href: "/partners/business-partners" },
-          {
-            label: "MyPortal Login",
-            href: "https://myportal.al-enterprise.com/s/",
-            external: true,
-          },
+          { label: "Find a Partner", href: "/partners#find-a-partner" },
+          { label: "Partner Resources", href: "https://myportal.al-enterprise.com/s/", external: true },
+          { label: "MyPortal Login", href: "https://myportal.al-enterprise.com/s/", external: true },
         ],
       },
       {
         heading: "Consultants",
         href: "/partners/consultants",
         links: [
-          {
-            label: "MyPortal Login",
-            href: "https://myportal.al-enterprise.com/a6f5I0000008TJ8QAM",
-            external: true,
-          },
+          { label: "MyPortal Login", href: "https://myportal.al-enterprise.com/a6f5I0000008TJ8QAM", external: true },
         ],
       },
       {
@@ -286,6 +279,7 @@ export const primaryNav: MegaNavItem[] = [
           { label: "ESG", href: "/company/esg" },
           { label: "History", href: "/company/history" },
           { label: "Awards", href: "/company/awards" },
+          { label: "Office Locations", href: "/company/worldwide-presence" },
         ],
       },
       {
@@ -296,6 +290,8 @@ export const primaryNav: MegaNavItem[] = [
           { label: "Newsroom", href: "/company/newsroom" },
           { label: "Events", href: "/company/events" },
           { label: "Video Library", href: "/company/video-library" },
+          { label: "Analyst Reports", href: "/company/analyst-reports" },
+          { label: "Customer References", href: "/customers/case-studies" },
           { label: "Contact", href: "/company/contact" },
         ],
       },
