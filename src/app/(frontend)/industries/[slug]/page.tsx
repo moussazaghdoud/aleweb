@@ -197,24 +197,16 @@ export default async function IndustryPage({ params }: { params: Promise<{ slug:
             {/* Right: illustration image */}
             {industryImages[slug] && (
               <FadeIn variant="scale-in" delay={150} className="lg:w-1/2 lg:sticky lg:top-24">
-                <div className="relative">
-                  {/* Decorative frame */}
-                  <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-ale/10 via-transparent to-ale/5 -z-10" />
-                  <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
-                    <div className="aspect-[4/3] relative">
-                      <Image
-                        src={industryImages[slug]}
-                        alt={industry.name}
-                        fill
-                        className="object-cover"
-                        sizes="(max-width: 1024px) 100vw, 660px"
-                      />
-                      {/* Subtle gradient overlay at bottom */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
-                    </div>
+                <div className="rounded-2xl overflow-hidden shadow-lg">
+                  <div className="aspect-[4/3] relative">
+                    <Image
+                      src={industryImages[slug]}
+                      alt={industry.name}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width: 1024px) 100vw, 660px"
+                    />
                   </div>
-                  {/* Floating accent dot */}
-                  <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full bg-ale/10 blur-xl -z-10" />
                 </div>
               </FadeIn>
             )}
