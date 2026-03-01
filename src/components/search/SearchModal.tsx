@@ -276,7 +276,7 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
             value={query}
             onChange={(e) => handleInput(e.target.value)}
             placeholder="Search products, solutions, industries..."
-            className="flex-1 h-14 text-base text-text outline-none placeholder:text-text-muted bg-transparent"
+            className="flex-1 h-14 text-base text-text outline-none focus:outline-none focus-visible:outline-none placeholder:text-text-muted bg-transparent"
             autoComplete="off"
             spellCheck={false}
           />
