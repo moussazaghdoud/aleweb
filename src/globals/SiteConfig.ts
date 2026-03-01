@@ -106,12 +106,6 @@ export const SiteConfig: GlobalConfig = {
           ],
         },
         { name: 'greeting', type: 'text', localized: true, defaultValue: 'How can we help you?' },
-        { name: 'openaiModel', type: 'text', defaultValue: 'gpt-4o',
-          admin: { description: 'OpenAI model ID (e.g. gpt-4o, gpt-4o-mini)' } },
-        { name: 'systemPrompt', type: 'text',
-          admin: { description: 'Custom system prompt for the AI assistant. Leave blank for default.' } },
-        { name: 'escalationEnabled', type: 'checkbox', defaultValue: false,
-          admin: { description: 'Allow users to escalate to a human agent via Rainbow' } },
       ],
     },
     {
