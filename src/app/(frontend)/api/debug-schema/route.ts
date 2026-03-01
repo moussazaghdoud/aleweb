@@ -101,34 +101,39 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === 'push-schema') {
-      // Inspect all methods on the db adapter to find push/migrate
+      // Use Payload's drizzle pushDevSchema — the same function that runs on dev startup
+      // This is skipped in production (NODE_ENV=production), so we call it manually
       try {
         const db = payload.db as any
-        const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(db))
-          .filter(m => typeof db[m] === 'function')
-        const props = Object.keys(db).filter(k => k !== 'pool')
 
-        // Try various known method names
-        const tried: Record<string, string> = {}
-        for (const method of ['push', 'migrate', 'migrateRefresh', 'createMigration', 'migrateFresh']) {
-          if (typeof db[method] === 'function') {
-            try {
-              await db[method]()
-              tried[method] = 'OK'
-            } catch (e: any) {
-              tried[method] = `ERR: ${e.message?.slice(0, 100)}`
-            }
-          }
+        // Import pushDevSchema from @payloadcms/drizzle
+        const { pushDevSchema } = await import('@payloadcms/drizzle/utilities/pushDevSchema')
+
+        // Force the push by temporarily setting the env var
+        const origForce = process.env.PAYLOAD_FORCE_DRIZZLE_PUSH
+        process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
+
+        await pushDevSchema(db)
+
+        // Restore env var
+        if (origForce !== undefined) {
+          process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = origForce
+        } else {
+          delete process.env.PAYLOAD_FORCE_DRIZZLE_PUSH
         }
 
-        return NextResponse.json({
-          action: 'push-schema',
-          methods,
-          props: props.slice(0, 30),
-          tried,
-        })
+        // Verify all globals and collections after push
+        const verify: Record<string, string> = {}
+        for (const slug of ['site-config', 'navigation', 'footer', 'redirects', 'homepage'] as const) {
+          try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
+        }
+        for (const slug of ['users', 'media', 'pages', 'products', 'blog-posts', 'solutions', 'industries', 'platforms', 'services', 'partners', 'company-pages', 'legal-pages', 'resources', 'contact-submissions'] as const) {
+          try { await payload.find({ collection: slug as any, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
+        }
+
+        return NextResponse.json({ action: 'push-schema', status: 'pushDevSchema completed', verify })
       } catch (err: any) {
-        return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 300) })
+        return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 500), stack: err.stack?.slice(0, 500) })
       }
     }
 
