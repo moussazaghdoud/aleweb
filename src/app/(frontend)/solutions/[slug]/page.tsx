@@ -18,6 +18,34 @@ import { solutionCustomers } from "@/data/solution-customers";
 import { blogData } from "@/data/blog";
 import { solutionBlogCategories } from "@/data/blog-mappings";
 
+/* ── Umbrella solutions → child sub-solutions mapping ── */
+const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
+  "digital-age-communications": [
+    { label: "Unified Communications", slug: "unified-communications" },
+    { label: "Cloud Communications", slug: "move-to-cloud" },
+    { label: "CPaaS", slug: "cpaas" },
+    { label: "Hybrid Workplace", slug: "enable-hybrid-work" },
+    { label: "Customer Service Apps", slug: "e-services" },
+  ],
+  "digital-age-networking": [
+    { label: "SD-WAN & SASE", slug: "sd-wan-sase" },
+    { label: "Network Security", slug: "network-security" },
+    { label: "Data Center Networking", slug: "data-center-networking" },
+    { label: "Mission Critical Networks", slug: "mission-critical-networks" },
+    { label: "Shortest Path Bridging", slug: "shortest-path-bridging" },
+    { label: "Enterprise Wi-Fi", slug: "wifi-solutions" },
+    { label: "Hybrid POL", slug: "hybrid-pol" },
+  ],
+  "business-innovation": [
+    { label: "AI Operations", slug: "optimize-with-ai" },
+    { label: "IoT Networks", slug: "iot-networks" },
+    { label: "Connect Everything", slug: "connect-everything" },
+    { label: "Network as a Service", slug: "network-as-a-service" },
+    { label: "Industrial Networks", slug: "industrial-networks" },
+    { label: "Private 5G", slug: "private-5g-solution" },
+  ],
+};
+
 /* ── Illustration images from ALE CDN ── */
 const cdn = "https://web-assets.al-enterprise.com/-/media/assets/internet/images";
 const solutionImages: Record<string, string> = {
@@ -138,6 +166,7 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
   if (!solution) notFound();
 
   const Icon = solutionIconMap[solution.slug] || IconChat;
+  const subSolutions = umbrellaSolutions[slug] || [];
   const relevantIndustries = industriesData.filter((ind) =>
     solution.industries.includes(ind.slug)
   );
@@ -249,27 +278,67 @@ export default async function SolutionPage({ params }: { params: Promise<{ slug:
         </div>
       </section>
 
-      {/* Description + Illustration */}
-      <section className="py-16 bg-white">
+      {/* Description + Illustration + Sub-solutions */}
+      <section className="py-20 bg-white relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-72 h-72 opacity-[0.03]" style={{ backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)", backgroundSize: "20px 20px" }} />
         <div className="mx-auto max-w-[1320px] px-6">
-          <FadeIn>
-            <div className="grid lg:grid-cols-2 gap-10 items-center">
-              <div className="max-w-xl">
-                <p className="text-lg text-text-secondary leading-relaxed">{solution.description}</p>
-              </div>
-              {solutionImages[slug] && (
-                <div className="relative aspect-[16/10] rounded-2xl overflow-hidden shadow-lg">
-                  <Image
-                    src={solutionImages[slug]}
-                    alt={solution.name}
-                    fill
-                    className="object-cover"
-                    sizes="(max-width: 1024px) 100vw, 50vw"
-                  />
+          <div className="flex flex-col lg:flex-row gap-14 items-start">
+            {/* Left: description + sub-solution links */}
+            <div className="lg:w-1/2 flex flex-col gap-10">
+              <FadeIn>
+                <div className="inline-flex items-center h-7 px-3 rounded-full bg-ale-50 text-ale text-[11px] font-semibold uppercase tracking-wider mb-5">
+                  {solution.name}
                 </div>
+                <p className="text-xl text-text leading-relaxed font-light">{solution.description}</p>
+              </FadeIn>
+
+              {subSolutions.length > 0 && (
+                <FadeIn delay={100}>
+                  <h3 className="text-xs font-semibold uppercase tracking-widest text-text-muted mb-4">
+                    Explore
+                  </h3>
+                  <div className="space-y-2">
+                    {subSolutions.map((sp) => (
+                      <Link
+                        key={sp.slug}
+                        href={`/solutions/${sp.slug}`}
+                        className="flex items-center justify-between p-3.5 rounded-xl border border-light-200 hover:border-ale-200 hover:bg-ale-50/50 transition-all group"
+                      >
+                        <span className="text-sm font-semibold text-text group-hover:text-ale transition-colors">
+                          {sp.label}
+                        </span>
+                        <svg className="w-4 h-4 text-text-muted group-hover:text-ale transition-all group-hover:translate-x-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                      </Link>
+                    ))}
+                  </div>
+                </FadeIn>
               )}
             </div>
-          </FadeIn>
+
+            {/* Right: illustration image */}
+            {solutionImages[slug] && (
+              <FadeIn variant="scale-in" delay={150} className="lg:w-1/2 lg:sticky lg:top-24">
+                <div className="relative">
+                  <div className="absolute -inset-3 rounded-3xl bg-gradient-to-br from-ale/10 via-transparent to-ale/5 -z-10" />
+                  <div className="relative rounded-2xl overflow-hidden shadow-2xl ring-1 ring-black/5">
+                    <div className="aspect-[4/3] relative">
+                      <Image
+                        src={solutionImages[slug]}
+                        alt={solution.name}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 660px"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-transparent" />
+                    </div>
+                  </div>
+                  <div className="absolute -bottom-4 -right-4 w-20 h-20 rounded-full bg-ale/10 blur-xl -z-10" />
+                </div>
+              </FadeIn>
+            )}
+          </div>
         </div>
       </section>
 
