@@ -7,6 +7,7 @@ import { PreviewBanner } from "@/components/PreviewBanner";
 import { GoogleAnalytics } from "@/components/analytics/GoogleAnalytics";
 import { GoogleTagManager, GoogleTagManagerNoScript } from "@/components/analytics/GoogleTagManager";
 import { CookieConsent } from "@/components/shared/CookieConsent";
+import { ChatWidget } from "@/components/chat/ChatWidget";
 import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { getSiteConfig } from "@/lib/payload";
 import "./globals.css";
@@ -101,6 +102,7 @@ export default async function FrontendLayout({
         <main id="main-content">{children}</main>
         <Footer />
         <CookieConsent config={consentConfig} />
+        <ChatWidget config={siteConfig?.chat as any} />
       </body>
     </html>
   );

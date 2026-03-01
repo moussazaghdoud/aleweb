@@ -168,6 +168,12 @@ html.dark .bg-white\/95 { background-color: rgba(23, 23, 23, 0.95); }
 .border-l-cloud { border-left: 3px solid var(--color-cloud); }
 .border-l-ai { border-left: 3px solid var(--color-ai); }
 
+/* ── Chat widget entrance ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -26,6 +26,17 @@ export async function GET() {
     dbStatus = 'error'
   }
 
+  let chatStatus: 'ok' | 'unavailable' = 'unavailable'
+  try {
+    if (process.env.OPENAI_API_KEY) {
+      const { getOpenAIClient } = await import('@/lib/chat/openai')
+      getOpenAIClient() // Verify API key is set
+      chatStatus = 'ok'
+    }
+  } catch {
+    chatStatus = 'unavailable'
+  }
+
   let searchStatus: 'ok' | 'error' = 'ok'
   try {
     const { getSearchProvider } = await import('@/lib/search/index')
@@ -47,6 +58,7 @@ export async function GET() {
     checks: {
       database: dbStatus,
       search: searchStatus,
+      chat: chatStatus,
     },
   }, {
     status: allOk ? 200 : 503,
