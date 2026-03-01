@@ -67,7 +67,7 @@ export function Navbar() {
               alt="Alcatel-Lucent"
               width={160}
               height={40}
-              className="h-[36px] w-auto"
+              className="h-[29px] w-auto"
               priority
             />
           </Link>
