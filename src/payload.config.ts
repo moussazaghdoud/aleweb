@@ -22,8 +22,9 @@ import { CompanyPages } from './collections/CompanyPages'
 import { LegalPages } from './collections/LegalPages'
 import { Resources } from './collections/Resources'
 import { ContactSubmissions } from './collections/ContactSubmissions'
-import { ChatKnowledgeFiles } from './collections/ChatKnowledgeFiles'
-import { ChatSessions } from './collections/ChatSessions'
+// Chat collections — uncomment when admin issue is resolved
+// import { ChatKnowledgeFiles } from './collections/ChatKnowledgeFiles'
+// import { ChatSessions } from './collections/ChatSessions'
 
 // Globals
 import { Navigation } from './globals/Navigation'
@@ -106,8 +107,8 @@ export default buildConfig({
     LegalPages,
     Resources,
     ContactSubmissions,
-    ChatKnowledgeFiles,
-    ChatSessions,
+    // ChatKnowledgeFiles,
+    // ChatSessions,
   ],
 
   // ── Globals ──────────────────────────────────────────────────
