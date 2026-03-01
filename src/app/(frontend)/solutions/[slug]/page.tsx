@@ -72,7 +72,7 @@ const solutionImages: Record<string, string> = {
   "purple-on-demand": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
   "network-as-a-service": `${cdn}/solutions-naas-focus-topic-1-810x380.jpg`,
   "cloud-communications": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
-  "collaboration-solutions": `${cdn}/multidevicerainbow.jpg`,
+  "collaboration-solutions": `${cdn}/digital-collaboration-callout-1324x662-web.jpg`,
   "communications-security": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
   "private-5g-solution": `${cdn}/industrial-networks-header-image-v1.jpg`,
   "e-services": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
