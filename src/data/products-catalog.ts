@@ -1132,7 +1132,7 @@ export const catalogProducts: CatalogProduct[] = [
   },
   {
     slug: "rainbow-platform",
-    name: "Rainbow by ALE",
+    name: "Rainbow mission critical collaboration",
     tagline: "Cloud communication platform connecting people, machines, and processes",
     image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/rainbow-about-rainbow-ui-image-480x480.jpg",
     description: "Rainbow is ALE's cloud communication and collaboration platform. It connects people through messaging, voice, and video while also linking business processes and IoT devices through open APIs. Rainbow works as a standalone platform or as a cloud overlay enhancing existing ALE on-premises systems.",

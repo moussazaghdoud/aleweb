@@ -181,6 +181,11 @@ export const productDetailVideos: Record<string, string> = {
   platforms: v(23010),
 };
 
+// ── Per-product video overrides (slug → video) ──────────────
+export const productSlugVideos: Record<string, string> = {
+  "rainbow-platform": v(48724),
+};
+
 // ── Legal ────────────────────────────────────────────────────
 export const legalVideos: Record<string, string> = {
   privacy: v(47323),
