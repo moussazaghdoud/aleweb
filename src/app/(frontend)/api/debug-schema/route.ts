@@ -101,28 +101,55 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === 'push-schema') {
-      // Use Payload's drizzle pushDevSchema — the same function that runs on dev startup
-      // This is skipped in production (NODE_ENV=production), so we call it manually
+      // Inline the pushDevSchema logic from @payloadcms/drizzle
+      // We can't import it in production due to Turbopack bundling restrictions,
+      // so we call the underlying drizzle-kit pushSchema directly via the adapter.
       try {
         const db = payload.db as any
 
-        // Import pushDevSchema from @payloadcms/drizzle
-        const { pushDevSchema } = await import('@payloadcms/drizzle')
+        // 1. Get drizzle-kit's pushSchema via the adapter's requireDrizzleKit()
+        const { pushSchema } = db.requireDrizzleKit()
 
-        // Force the push by temporarily setting the env var
-        const origForce = process.env.PAYLOAD_FORCE_DRIZZLE_PUSH
-        process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
+        // 2. Call pushSchema with the adapter's schema
+        const { apply, hasDataLoss, warnings } = await pushSchema(
+          db.schema,
+          db.drizzle,
+          db.schemaName ? [db.schemaName] : undefined,
+          db.tablesFilter,
+          undefined, // extensionsFilter
+        )
 
-        await pushDevSchema(db)
-
-        // Restore env var
-        if (origForce !== undefined) {
-          process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = origForce
-        } else {
-          delete process.env.PAYLOAD_FORCE_DRIZZLE_PUSH
+        const pushInfo = {
+          warnings: warnings || [],
+          hasDataLoss: !!hasDataLoss,
         }
 
-        // Verify all globals and collections after push
+        // 3. Apply the schema changes (auto-accept warnings in production)
+        await apply()
+
+        // 4. Update the migration record
+        const migrationsTable = db.schemaName
+          ? `"${db.schemaName}"."payload_migrations"`
+          : '"payload_migrations"'
+
+        const devPush = await db.execute({
+          drizzle: db.drizzle,
+          raw: `SELECT * FROM ${migrationsTable} WHERE batch = '-1'`,
+        })
+
+        if (!devPush.rows?.length) {
+          await db.drizzle.insert(db.tables.payload_migrations).values({
+            name: 'dev',
+            batch: -1,
+          })
+        } else {
+          await db.execute({
+            drizzle: db.drizzle,
+            raw: `UPDATE ${migrationsTable} SET updated_at = CURRENT_TIMESTAMP WHERE batch = '-1'`,
+          })
+        }
+
+        // 5. Verify all globals and collections after push
         const verify: Record<string, string> = {}
         for (const slug of ['site-config', 'navigation', 'footer', 'redirects', 'homepage'] as const) {
           try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
@@ -131,7 +158,7 @@ export async function GET(request: NextRequest) {
           try { await payload.find({ collection: slug as any, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
         }
 
-        return NextResponse.json({ action: 'push-schema', status: 'pushDevSchema completed', verify })
+        return NextResponse.json({ action: 'push-schema', status: 'schema pushed successfully', pushInfo, verify })
       } catch (err: any) {
         return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 500), stack: err.stack?.slice(0, 500) })
       }
