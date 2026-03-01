@@ -66,7 +66,7 @@ export function MegaPanelTabbed({ item, onClose }: MegaPanelTabbedProps) {
               className={`block text-[13px] px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${
                 idx === activeTab
                   ? "bg-ale-50 text-ale font-semibold border-l-2 border-ale"
-                  : "text-text-secondary hover:text-text hover:bg-light-50 border-l-2 border-transparent"
+                  : "text-text-secondary hover:text-ale hover:bg-ale-50 border-l-2 border-transparent"
               }`}
             >
               {tab.label}

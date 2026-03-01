@@ -21,7 +21,7 @@ export function MegaGroup({ group, onClose, compact }: MegaGroupProps) {
         <Link
           href={group.href}
           onClick={onClose}
-          className="text-[11px] font-bold uppercase tracking-wider text-ale hover:underline mb-2 block"
+          className="text-[11px] font-bold uppercase tracking-wider text-ale hover:text-ale-dark hover:underline mb-2 block transition-colors"
         >
           {group.heading}
         </Link>
