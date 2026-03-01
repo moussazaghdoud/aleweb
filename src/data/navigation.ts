@@ -156,6 +156,7 @@ export const primaryNav: MegaNavItem[] = [
         href: "/solutions/digital-age-communications",
         links: [
           { label: "Unified Communications", href: "/solutions/unified-communications" },
+          { label: "Collaboration Solutions", href: "/solutions/collaboration-solutions" },
           { label: "Cloud Communications", href: "/solutions/move-to-cloud" },
           { label: "CPaaS", href: "/solutions/cpaas" },
           { label: "Hybrid Workplace", href: "/solutions/enable-hybrid-work" },
@@ -173,6 +174,10 @@ export const primaryNav: MegaNavItem[] = [
           { label: "Shortest Path Bridging", href: "/solutions/shortest-path-bridging" },
           { label: "Enterprise Wi-Fi", href: "/solutions/wifi-solutions" },
           { label: "Hybrid POL", href: "/solutions/hybrid-pol" },
+          { label: "OmniFabric", href: "/solutions/omnifabric" },
+          { label: "Optical Networking", href: "/solutions/optical-solutions" },
+          { label: "Industrial Networks", href: "/solutions/industrial-networks" },
+          { label: "Video Surveillance", href: "/solutions/video-surveillance-networking" },
         ],
       },
       {
@@ -183,7 +188,6 @@ export const primaryNav: MegaNavItem[] = [
           { label: "IoT Networks", href: "/solutions/iot-networks" },
           { label: "Asset Tracking", href: "/solutions/connect-everything" },
           { label: "Network as a Service", href: "/solutions/network-as-a-service" },
-          { label: "Industrial Networks", href: "/solutions/industrial-networks" },
           { label: "Private 5G", href: "/solutions/private-5g-solution" },
         ],
       },

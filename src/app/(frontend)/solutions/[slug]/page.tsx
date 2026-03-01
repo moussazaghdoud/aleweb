@@ -22,6 +22,7 @@ import { solutionBlogCategories } from "@/data/blog-mappings";
 const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
   "digital-age-communications": [
     { label: "Unified Communications", slug: "unified-communications" },
+    { label: "Collaboration Solutions", slug: "collaboration-solutions" },
     { label: "Cloud Communications", slug: "move-to-cloud" },
     { label: "CPaaS", slug: "cpaas" },
     { label: "Hybrid Workplace", slug: "enable-hybrid-work" },
@@ -35,13 +36,16 @@ const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
     { label: "Shortest Path Bridging", slug: "shortest-path-bridging" },
     { label: "Enterprise Wi-Fi", slug: "wifi-solutions" },
     { label: "Hybrid POL", slug: "hybrid-pol" },
+    { label: "OmniFabric", slug: "omnifabric" },
+    { label: "Optical Networking", slug: "optical-solutions" },
+    { label: "Industrial Networks", slug: "industrial-networks" },
+    { label: "Video Surveillance", slug: "video-surveillance-networking" },
   ],
   "business-innovation": [
     { label: "AI Operations", slug: "optimize-with-ai" },
     { label: "IoT Networks", slug: "iot-networks" },
-    { label: "Connect Everything", slug: "connect-everything" },
+    { label: "Asset Tracking", slug: "connect-everything" },
     { label: "Network as a Service", slug: "network-as-a-service" },
-    { label: "Industrial Networks", slug: "industrial-networks" },
     { label: "Private 5G", slug: "private-5g-solution" },
   ],
 };
