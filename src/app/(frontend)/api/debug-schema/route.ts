@@ -14,268 +14,172 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ error: 'No pool' })
     }
 
-    if (action === 'dashboard-fix') {
-      // Add missing column to payload_locked_documents_rels
-      const results: Record<string, string> = {}
-      for (const sql of [
-        `ALTER TABLE payload_locked_documents_rels ADD COLUMN IF NOT EXISTS contact_submissions_id integer`,
-      ]) {
-        try {
-          const r = await pool.query(sql)
-          results[sql.slice(0, 80)] = 'OK'
-        } catch (e: any) {
-          results[sql.slice(0, 80)] = `ERR: ${e.message?.slice(0, 100)}`
+    // ── schema-diff: compare Payload's expected tables vs actual DB tables ──
+    if (action === 'schema-diff') {
+      const db = payload.db as any
+
+      // Get all table names Payload expects from its Drizzle schema
+      const expectedTables = Object.keys(db.tables || {}).sort()
+
+      // Get all actual tables in the database
+      const result = await pool.query(`
+        SELECT table_name FROM information_schema.tables
+        WHERE table_schema = 'public' ORDER BY table_name
+      `)
+      const actualTables = result.rows.map((r: any) => r.table_name).sort()
+
+      // Find missing tables
+      const actualSet = new Set(actualTables)
+      const missingTables = expectedTables.filter((t: string) => !actualSet.has(t))
+
+      // For each missing table, get column info from Drizzle schema
+      const missingDetails: Record<string, string[]> = {}
+      for (const tableName of missingTables) {
+        const table = db.tables[tableName]
+        if (table) {
+          const cols = Object.keys(table).filter(
+            (k: string) => k !== Symbol.for('drizzle:Name') && !k.startsWith('_')
+          )
+          missingDetails[tableName] = cols
         }
       }
 
-      return NextResponse.json({ action: 'dashboard-fix', results })
-    }
+      // Also check for missing columns in existing tables
+      const missingColumns: Record<string, string[]> = {}
+      for (const tableName of expectedTables) {
+        if (actualSet.has(tableName) && db.tables[tableName]) {
+          const expectedCols = Object.keys(db.tables[tableName]).filter(
+            (k: string) => typeof db.tables[tableName][k] === 'object' && db.tables[tableName][k]?.name
+          )
 
-    if (action === 'fix-all') {
-      const results: Record<string, string[]> = {}
+          const actualCols = await pool.query(`
+            SELECT column_name FROM information_schema.columns
+            WHERE table_schema = 'public' AND table_name = $1
+          `, [tableName])
+          const actualColSet = new Set(actualCols.rows.map((r: any) => r.column_name))
 
-      // Helper to run ALTER statements
-      async function runAlters(label: string, statements: string[]) {
-        results[label] = []
-        for (const sql of statements) {
-          try {
-            await pool.query(sql)
-            results[label].push('OK')
-          } catch (e: any) {
-            results[label].push(`ERR: ${e.message.slice(0, 100)}`)
+          const missing = expectedCols.filter((c: string) => {
+            const colName = db.tables[tableName][c]?.name
+            return colName && !actualColSet.has(colName)
+          })
+
+          if (missing.length > 0) {
+            missingColumns[tableName] = missing.map((c: string) => db.tables[tableName][c]?.name)
           }
         }
       }
 
-      // 1. Fix contact_submissions — table missing entirely
-      await runAlters('contact_submissions', [
-        `CREATE TABLE IF NOT EXISTS contact_submissions (
-          id serial PRIMARY KEY,
-          first_name varchar NOT NULL,
-          last_name varchar NOT NULL,
-          email varchar NOT NULL,
-          company varchar,
-          message text NOT NULL,
-          consent_given boolean DEFAULT false,
-          consent_timestamp timestamptz,
-          status varchar DEFAULT 'new',
-          updated_at timestamptz DEFAULT NOW(),
-          created_at timestamptz DEFAULT NOW()
-        )`,
-      ])
-
-      // 2. Fix homepage — missing columns for hero CTA buttons and locales
-      await runAlters('homepage', [
-        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS hero_video_url varchar`,
-        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
-        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS created_at timestamptz`,
-        `CREATE TABLE IF NOT EXISTS homepage_hero_cta_buttons (
-          _order integer NOT NULL, _parent_id integer NOT NULL,
-          id serial PRIMARY KEY, label varchar, href varchar, variant varchar
-        )`,
-        `CREATE TABLE IF NOT EXISTS homepage_stats (
-          _order integer NOT NULL, _parent_id integer NOT NULL,
-          id serial PRIMARY KEY, value varchar, label varchar
-        )`,
-        `CREATE TABLE IF NOT EXISTS homepage_locales (
-          id serial PRIMARY KEY, _locale varchar NOT NULL, _parent_id integer NOT NULL,
-          hero_heading varchar, hero_sub_heading varchar
-        )`,
-      ])
-
-      // 3. Fix pages — missing block tables
-      await runAlters('pages', [
-        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS parent_id integer`,
-        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`,
-        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`,
-      ])
-
-      // 4. Fix company_pages — missing columns
-      await runAlters('company_pages', [
-        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'draft'`,
-        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`,
-        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`,
-      ])
-
-      // 5. Fix legal_pages — missing columns
-      await runAlters('legal_pages', [
-        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'draft'`,
-        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`,
-        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS last_updated timestamptz`,
-        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`,
-      ])
-
-      // Verify all globals and failing collections
-      const verify: Record<string, string> = {}
-      for (const slug of ['site-config', 'homepage'] as const) {
-        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
-      }
-      for (const slug of ['pages', 'company-pages', 'legal-pages', 'contact-submissions'] as const) {
-        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
-      }
-
-      return NextResponse.json({ action: 'fix-all', results, verify })
+      return NextResponse.json({
+        action: 'schema-diff',
+        expectedTableCount: expectedTables.length,
+        actualTableCount: actualTables.length,
+        missingTableCount: missingTables.length,
+        missingTables,
+        missingColumns,
+      })
     }
 
-    if (action === 'inspect') {
-      // Inspect specific tables to understand what's missing
-      const inspectTables = ['homepage', 'pages', 'company_pages']
-      const inspection: Record<string, any> = {}
-
-      for (const table of inspectTables) {
-        try {
-          // Check if table exists and get columns
-          const cols = await pool.query(`
-            SELECT column_name, data_type, is_nullable
-            FROM information_schema.columns
-            WHERE table_schema = 'public' AND table_name = $1
-            ORDER BY ordinal_position
-          `, [table])
-          inspection[table] = { exists: cols.rows.length > 0, columns: cols.rows }
-        } catch (e: any) {
-          inspection[table] = { exists: false, error: e.message?.slice(0, 100) }
-        }
-      }
-
-      // Also check for homepage-related tables
-      const homepageTables = await pool.query(`
-        SELECT table_name FROM information_schema.tables
-        WHERE table_schema = 'public' AND table_name LIKE 'homepage%'
-        ORDER BY table_name
-      `)
-      inspection['homepage_related_tables'] = homepageTables.rows.map((r: any) => r.table_name)
-
-      return NextResponse.json({ action: 'inspect', inspection })
-    }
-
-    if (action === 'fix-tables') {
+    // ── sync-schema: create all missing tables using Drizzle schema info ──
+    if (action === 'sync-schema') {
+      const db = payload.db as any
       const results: Record<string, string> = {}
 
-      async function runSQL(label: string, sql: string) {
+      // Get actual tables
+      const result = await pool.query(`
+        SELECT table_name FROM information_schema.tables
+        WHERE table_schema = 'public' ORDER BY table_name
+      `)
+      const actualSet = new Set(result.rows.map((r: any) => r.table_name))
+
+      // Get all expected tables from Drizzle schema
+      const expectedTables = Object.keys(db.tables || {})
+
+      for (const tableName of expectedTables) {
+        if (actualSet.has(tableName)) continue // Table exists
+
+        const table = db.tables[tableName]
+        if (!table) continue
+
+        // Build CREATE TABLE from Drizzle column definitions
+        const columns: string[] = []
+        for (const key of Object.keys(table)) {
+          const col = table[key]
+          if (!col || typeof col !== 'object' || !col.name) continue
+          // Skip if it's not a column (could be a relation or index)
+          if (!col.dataType && !col.columnType) continue
+
+          let colDef = `"${col.name}"`
+
+          // Map Drizzle types to PostgreSQL types
+          const sqlType = col.getSQLType?.() || col.sqlName || 'varchar'
+          if (col.primary && sqlType === 'serial') {
+            colDef += ' serial PRIMARY KEY'
+          } else {
+            colDef += ` ${sqlType}`
+            if (col.notNull) colDef += ' NOT NULL'
+            if (col.hasDefault && col.default !== undefined) {
+              const def = typeof col.default === 'function' ? null : col.default
+              if (def !== null && def !== undefined) {
+                colDef += ` DEFAULT ${typeof def === 'string' ? `'${def}'` : def}`
+              }
+            }
+          }
+          columns.push(colDef)
+        }
+
+        if (columns.length === 0) continue
+
+        const sql = `CREATE TABLE IF NOT EXISTS "${tableName}" (${columns.join(', ')})`
         try {
           await pool.query(sql)
-          results[label] = 'OK'
+          results[tableName] = 'CREATED'
         } catch (e: any) {
-          results[label] = `ERR: ${e.message?.slice(0, 150)}`
+          results[tableName] = `ERR: ${e.message?.slice(0, 120)}`
         }
       }
 
-      // 1. Create homepage main table (sub-tables already exist)
-      await runSQL('homepage_table', `
-        CREATE TABLE IF NOT EXISTS homepage (
-          id serial PRIMARY KEY,
-          hero_video_url varchar,
-          updated_at timestamptz DEFAULT NOW(),
-          created_at timestamptz DEFAULT NOW()
-        )
-      `)
+      // Also add missing columns to existing tables
+      for (const tableName of expectedTables) {
+        if (!actualSet.has(tableName)) continue // Already handled above
+        const table = db.tables[tableName]
+        if (!table) continue
 
-      // Insert a default row if empty (globals need exactly 1 row)
-      await runSQL('homepage_default_row', `
-        INSERT INTO homepage (id) VALUES (1) ON CONFLICT (id) DO NOTHING
-      `)
+        const actualCols = await pool.query(`
+          SELECT column_name FROM information_schema.columns
+          WHERE table_schema = 'public' AND table_name = $1
+        `, [tableName])
+        const actualColSet = new Set(actualCols.rows.map((r: any) => r.column_name))
 
-      // 2. Fix pages — check what columns/sub-tables are missing
-      // The query references pages__blocks — let me check what Payload expects
-      // For versioned collections with blocks, Payload creates _blocks_ tables
-      // Check if pages_blocks_* tables have the right _parent_id references
-      await runSQL('pages_add_parent_id', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS parent_id integer`)
-      await runSQL('pages_add_seo_og_image_id', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`)
-      await runSQL('pages_add_seo_no_index', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`)
+        for (const key of Object.keys(table)) {
+          const col = table[key]
+          if (!col || typeof col !== 'object' || !col.name) continue
+          if (!col.dataType && !col.columnType) continue
+          if (actualColSet.has(col.name)) continue // Column exists
 
-      // 3. Fix company_pages
-      await runSQL('company_pages_add_approval_status', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'pending'`)
-      await runSQL('company_pages_add_approval_notes', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`)
-      await runSQL('company_pages_add_hero_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS hero_image_id integer`)
-      await runSQL('company_pages_add_seo_og_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`)
+          const sqlType = col.getSQLType?.() || col.sqlName || 'varchar'
+          const sql = `ALTER TABLE "${tableName}" ADD COLUMN IF NOT EXISTS "${col.name}" ${sqlType}`
+          try {
+            await pool.query(sql)
+            results[`${tableName}.${col.name}`] = 'ADDED'
+          } catch (e: any) {
+            results[`${tableName}.${col.name}`] = `ERR: ${e.message?.slice(0, 100)}`
+          }
+        }
+      }
 
-      // Verify after fix — get FULL error messages
+      // Verify the 3 broken items
       const verify: Record<string, string> = {}
       for (const slug of ['homepage'] as const) {
-        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 600) }
+        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
       }
       for (const slug of ['pages', 'company-pages'] as const) {
-        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 600) }
+        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
       }
 
-      return NextResponse.json({ action: 'fix-tables', results, verify })
+      return NextResponse.json({ action: 'sync-schema', results, verify })
     }
 
-    if (action === 'push-schema') {
-      // Inline the pushDevSchema logic from @payloadcms/drizzle
-      // We bypass Turbopack bundling by using createRequire to load drizzle-kit at runtime.
-      try {
-        const db = payload.db as any
-
-        // Use the adapter's own requireDrizzleKit which uses createRequire internally
-        // If that fails (Turbopack hashing), fall back to process.cwd()-based require
-        let pushSchema: any
-        try {
-          const kit = db.requireDrizzleKit()
-          pushSchema = kit.pushSchema
-        } catch {
-          // Turbopack may hash the module name — try loading from node_modules directly
-          const { createRequire } = await import('module')
-          const nodeRequire = createRequire(process.cwd() + '/package.json')
-          const kit = nodeRequire('drizzle-kit/api')
-          pushSchema = kit.pushSchema
-        }
-
-        // 2. Call pushSchema with the adapter's schema
-        const { apply, hasDataLoss, warnings } = await pushSchema(
-          db.schema,
-          db.drizzle,
-          db.schemaName ? [db.schemaName] : undefined,
-          db.tablesFilter,
-          undefined, // extensionsFilter
-        )
-
-        const pushInfo = {
-          warnings: warnings || [],
-          hasDataLoss: !!hasDataLoss,
-        }
-
-        // 3. Apply the schema changes (auto-accept warnings in production)
-        await apply()
-
-        // 4. Update the migration record
-        const migrationsTable = db.schemaName
-          ? `"${db.schemaName}"."payload_migrations"`
-          : '"payload_migrations"'
-
-        const devPush = await db.execute({
-          drizzle: db.drizzle,
-          raw: `SELECT * FROM ${migrationsTable} WHERE batch = '-1'`,
-        })
-
-        if (!devPush.rows?.length) {
-          await db.drizzle.insert(db.tables.payload_migrations).values({
-            name: 'dev',
-            batch: -1,
-          })
-        } else {
-          await db.execute({
-            drizzle: db.drizzle,
-            raw: `UPDATE ${migrationsTable} SET updated_at = CURRENT_TIMESTAMP WHERE batch = '-1'`,
-          })
-        }
-
-        // 5. Verify all globals and collections after push
-        const verify: Record<string, string> = {}
-        for (const slug of ['site-config', 'navigation', 'footer', 'redirects', 'homepage'] as const) {
-          try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
-        }
-        for (const slug of ['users', 'media', 'pages', 'products', 'blog-posts', 'solutions', 'industries', 'platforms', 'services', 'partners', 'company-pages', 'legal-pages', 'resources', 'contact-submissions'] as const) {
-          try { await payload.find({ collection: slug as any, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
-        }
-
-        return NextResponse.json({ action: 'push-schema', status: 'schema pushed successfully', pushInfo, verify })
-      } catch (err: any) {
-        return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 500), stack: err.stack?.slice(0, 500) })
-      }
-    }
-
-    // Diagnose: test every global and collection
+    // ── Default: diagnose all globals and collections ──
     const globalSlugs = ['site-config', 'navigation', 'footer', 'redirects', 'homepage']
     const globalResults: Record<string, string> = {}
     for (const slug of globalSlugs) {
@@ -302,18 +206,7 @@ export async function GET(request: NextRequest) {
       }
     }
 
-    // Check all tables exist
-    const tables = await pool.query(`
-      SELECT table_name FROM information_schema.tables
-      WHERE table_schema = 'public' ORDER BY table_name
-    `)
-
-    return NextResponse.json({
-      globals: globalResults,
-      collections: collectionResults,
-      tableCount: tables.rows.length,
-      tables: tables.rows.map((r: any) => r.table_name),
-    })
+    return NextResponse.json({ globals: globalResults, collections: collectionResults })
   } catch (err: any) {
     return NextResponse.json({ error: err.message, stack: err.stack?.slice(0, 500) })
   }
