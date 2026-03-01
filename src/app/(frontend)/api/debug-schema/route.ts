@@ -84,6 +84,35 @@ export async function GET(request: NextRequest) {
       const db = payload.db as any
       const results: Record<string, string> = {}
 
+      // Get existing enum types in the database
+      const existingEnums = await pool.query(`
+        SELECT typname FROM pg_type WHERE typtype = 'e'
+      `)
+      const existingEnumSet = new Set(existingEnums.rows.map((r: any) => r.typname))
+
+      // First pass: discover and create all missing enum types from Drizzle enums
+      const drizzleEnums = db.enums || {}
+      for (const enumName of Object.keys(drizzleEnums)) {
+        if (existingEnumSet.has(enumName)) continue
+        const enumObj = drizzleEnums[enumName]
+        // Drizzle enum has .enumValues array
+        const values = enumObj?.enumValues
+        if (values && Array.isArray(values) && values.length > 0) {
+          const valList = values.map((v: string) => `'${v}'`).join(', ')
+          try {
+            await pool.query(`CREATE TYPE "${enumName}" AS ENUM (${valList})`)
+            results[`enum:${enumName}`] = 'CREATED'
+            existingEnumSet.add(enumName)
+          } catch (e: any) {
+            if (e.message?.includes('already exists')) {
+              existingEnumSet.add(enumName)
+            } else {
+              results[`enum:${enumName}`] = `ERR: ${e.message?.slice(0, 100)}`
+            }
+          }
+        }
+      }
+
       // Get actual tables
       const result = await pool.query(`
         SELECT table_name FROM information_schema.tables
