@@ -20,6 +20,7 @@ export function ContactForm() {
       email: fd.get("email") as string,
       company: fd.get("company") as string,
       message: fd.get("message") as string,
+      consentGiven: fd.get("consent") === "on",
     };
 
     try {
@@ -102,6 +103,24 @@ export function ContactForm() {
           required
           className="w-full px-3 py-2 border border-light-200 rounded-lg text-sm focus:outline-none focus:border-ale focus:ring-1 focus:ring-ale resize-none"
         />
+      </div>
+
+      {/* GDPR Consent */}
+      <div className="flex items-start gap-3">
+        <input
+          id="cf-consent"
+          name="consent"
+          type="checkbox"
+          required
+          className="mt-0.5 h-4 w-4 rounded border-light-300 text-ale focus:ring-ale accent-ale cursor-pointer"
+        />
+        <label htmlFor="cf-consent" className="text-xs text-text-secondary leading-relaxed">
+          I agree to the processing of my personal data in accordance with the{" "}
+          <a href="/legal/privacy" target="_blank" rel="noopener noreferrer" className="text-ale hover:underline font-medium">
+            Privacy Policy
+          </a>
+          . ALE will use this information to respond to my inquiry. <span className="text-red-500">*</span>
+        </label>
       </div>
 
       {state === "error" && (

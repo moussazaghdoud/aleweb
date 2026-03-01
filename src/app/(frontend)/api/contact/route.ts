@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { firstName, lastName, email, company, message } = body
+  const { firstName, lastName, email, company, message, consentGiven } = body
 
   // Validation
   const errors: string[] = []
@@ -17,6 +17,7 @@ export async function POST(request: NextRequest) {
   if (!lastName?.trim()) errors.push('Last name is required')
   if (!email?.trim() || !EMAIL_RE.test(email)) errors.push('A valid email is required')
   if (!message?.trim()) errors.push('Message is required')
+  if (!consentGiven) errors.push('Privacy policy consent is required')
 
   if (errors.length > 0) {
     return NextResponse.json({ error: errors.join(', ') }, { status: 400 })
@@ -34,6 +35,8 @@ export async function POST(request: NextRequest) {
         email: email.trim(),
         company: company?.trim() || '',
         message: message.trim(),
+        consentGiven: true,
+        consentTimestamp: new Date().toISOString(),
       }),
     })
 

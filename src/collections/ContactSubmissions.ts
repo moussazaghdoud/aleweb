@@ -40,6 +40,21 @@ export const ContactSubmissions: CollectionConfig = {
       required: true,
     },
     {
+      name: 'consentGiven',
+      type: 'checkbox',
+      defaultValue: false,
+      admin: {
+        description: 'Whether the user consented to the privacy policy.',
+      },
+    },
+    {
+      name: 'consentTimestamp',
+      type: 'date',
+      admin: {
+        description: 'Timestamp when privacy consent was given.',
+      },
+    },
+    {
       name: 'status',
       type: 'select',
       defaultValue: 'new',
