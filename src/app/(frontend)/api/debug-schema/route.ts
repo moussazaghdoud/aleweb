@@ -172,13 +172,13 @@ export async function GET(request: NextRequest) {
       await runSQL('company_pages_add_hero_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS hero_image_id integer`)
       await runSQL('company_pages_add_seo_og_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`)
 
-      // Verify after fix
+      // Verify after fix — get FULL error messages
       const verify: Record<string, string> = {}
       for (const slug of ['homepage'] as const) {
-        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
+        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 600) }
       }
       for (const slug of ['pages', 'company-pages'] as const) {
-        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
+        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 600) }
       }
 
       return NextResponse.json({ action: 'fix-tables', results, verify })
