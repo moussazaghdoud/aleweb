@@ -15,67 +15,107 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === 'fix-all') {
-      const results: string[] = []
+      const results: Record<string, string[]> = {}
 
-      // Fix site_config missing columns
-      const siteConfigCols = [
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_site_id varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_form_action_url varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_tracking_enabled boolean DEFAULT false`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_platform varchar DEFAULT 'custom'`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_script_url varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_domain_script varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_enabled boolean DEFAULT false`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_provider varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_script_url varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_position varchar DEFAULT 'bottom-right'`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_provider varchar DEFAULT 'none'`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_api_key varchar`,
-        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_organization_id varchar`,
-        `ALTER TABLE site_config_locales ADD COLUMN IF NOT EXISTS chat_greeting varchar`,
-      ]
-      for (const sql of siteConfigCols) {
-        try { await pool.query(sql); results.push(`OK`) } catch (e: any) { results.push(`ERR: ${e.message.slice(0,80)}`) }
+      // Helper to run ALTER statements
+      async function runAlters(label: string, statements: string[]) {
+        results[label] = []
+        for (const sql of statements) {
+          try {
+            await pool.query(sql)
+            results[label].push('OK')
+          } catch (e: any) {
+            results[label].push(`ERR: ${e.message.slice(0, 100)}`)
+          }
+        }
       }
 
-      // Fix other globals that might have missing columns
-      // Check navigation
-      const navFixes = [
-        `ALTER TABLE navigation ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
-        `ALTER TABLE navigation ADD COLUMN IF NOT EXISTS created_at timestamptz`,
-      ]
-      for (const sql of navFixes) {
-        try { await pool.query(sql) } catch { /* already exists */ }
-      }
+      // 1. Fix contact_submissions — table missing entirely
+      await runAlters('contact_submissions', [
+        `CREATE TABLE IF NOT EXISTS contact_submissions (
+          id serial PRIMARY KEY,
+          first_name varchar NOT NULL,
+          last_name varchar NOT NULL,
+          email varchar NOT NULL,
+          company varchar,
+          message text NOT NULL,
+          consent_given boolean DEFAULT false,
+          consent_timestamp timestamptz,
+          status varchar DEFAULT 'new',
+          updated_at timestamptz DEFAULT NOW(),
+          created_at timestamptz DEFAULT NOW()
+        )`,
+      ])
 
-      // Fix footer
-      const footerFixes = [
-        `ALTER TABLE footer ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
-        `ALTER TABLE footer ADD COLUMN IF NOT EXISTS created_at timestamptz`,
-      ]
-      for (const sql of footerFixes) {
-        try { await pool.query(sql) } catch { /* already exists */ }
-      }
-
-      // Fix redirects
-      const redirectsFixes = [
-        `ALTER TABLE redirects ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
-        `ALTER TABLE redirects ADD COLUMN IF NOT EXISTS created_at timestamptz`,
-      ]
-      for (const sql of redirectsFixes) {
-        try { await pool.query(sql) } catch { /* already exists */ }
-      }
-
-      // Fix homepage
-      const homepageFixes = [
+      // 2. Fix homepage — missing columns for hero CTA buttons and locales
+      await runAlters('homepage', [
+        `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS hero_video_url varchar`,
         `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS updated_at timestamptz`,
         `ALTER TABLE homepage ADD COLUMN IF NOT EXISTS created_at timestamptz`,
-      ]
-      for (const sql of homepageFixes) {
-        try { await pool.query(sql) } catch { /* already exists */ }
+        `CREATE TABLE IF NOT EXISTS homepage_hero_cta_buttons (
+          _order integer NOT NULL, _parent_id integer NOT NULL,
+          id serial PRIMARY KEY, label varchar, href varchar, variant varchar
+        )`,
+        `CREATE TABLE IF NOT EXISTS homepage_stats (
+          _order integer NOT NULL, _parent_id integer NOT NULL,
+          id serial PRIMARY KEY, value varchar, label varchar
+        )`,
+        `CREATE TABLE IF NOT EXISTS homepage_locales (
+          id serial PRIMARY KEY, _locale varchar NOT NULL, _parent_id integer NOT NULL,
+          hero_heading varchar, hero_sub_heading varchar
+        )`,
+      ])
+
+      // 3. Fix pages — missing block tables
+      await runAlters('pages', [
+        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS parent_id integer`,
+        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`,
+        `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`,
+      ])
+
+      // 4. Fix company_pages — missing columns
+      await runAlters('company_pages', [
+        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'draft'`,
+        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`,
+        `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`,
+      ])
+
+      // 5. Fix legal_pages — missing columns
+      await runAlters('legal_pages', [
+        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'draft'`,
+        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`,
+        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS last_updated timestamptz`,
+        `ALTER TABLE legal_pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`,
+      ])
+
+      // Verify all globals and failing collections
+      const verify: Record<string, string> = {}
+      for (const slug of ['site-config', 'homepage'] as const) {
+        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
+      }
+      for (const slug of ['pages', 'company-pages', 'legal-pages', 'contact-submissions'] as const) {
+        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 150) }
       }
 
-      return NextResponse.json({ action: 'fix-all', siteConfigResults: results })
+      return NextResponse.json({ action: 'fix-all', results, verify })
+    }
+
+    if (action === 'push-schema') {
+      // Nuclear option: let Payload re-push entire schema
+      try {
+        const db = payload.db as any
+        if (typeof db.push === 'function') {
+          await db.push()
+          return NextResponse.json({ action: 'push-schema', result: 'Schema pushed successfully' })
+        }
+        // Alternative: call drizzle push
+        if (db.drizzle && typeof db.schemaName === 'string') {
+          return NextResponse.json({ action: 'push-schema', result: 'Drizzle available but push not exposed' })
+        }
+        return NextResponse.json({ action: 'push-schema', result: 'push() not available on db adapter' })
+      } catch (err: any) {
+        return NextResponse.json({ action: 'push-schema', error: err.message?.slice(0, 300) })
+      }
     }
 
     // Diagnose: test every global and collection
