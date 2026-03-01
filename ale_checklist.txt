@@ -1,0 +1,156 @@
+ALE official website upgrade project requirements confirmation checklist
+Core upgrade principle: Focusing on the three core objectives of brand presentation, business transformation, and compliance and security for toB enterprise-level services.
+Current website: https://www.al-enterprise.com/
+
+1. Strategic positioning and target audience confirmation
+
+II. Brand Visual Identity and Multi-Language Adaptation Confirmation
+
+III. Confirmation of core content planning
+
+IV. Confirmation of functional requirements
+
+V. Confirmation of Technical and Compliance Requirements
+
+VI. Confirmation of localization and globalization compatibility
+
+VII. Implementation details to be confirmed:
+
+
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Core value proposition | 1. ALE core brand positioning communicated by the official website:
+□ Global leader in communication technology □ Localized innovation service provider driven by the China headquarters □ Other - Please specify | TBC | Please sort them according to their importance. If they are not within the scope or there are new ones, you can directly add them to the sorting
+ | 2. Prominent direction of core business:
+□ Enterprise network solutions □ Communication infrastructure □ Digital transformation services □ Other - Please specify | Enterprise network solutions
+Solution provider for AI DC
+Need to be confirmed with HQ | Please sort them according to their importance. Items that are not within the scope or have new additions can be directly included in the sorting
+Target audience priority | 1. Ranking of core audiences:
+□ Government and corporate/industry customers □ Small and medium-sized customers □ Channel partners □ Investors □ Technical talents □ Media | Government and enterprise/industry customers □ Small and medium-sized customers □ Channel partners □ Media | Please sort them according to their importance. If they are not within the scope or there are new ones, you can directly add them to the sorting
+ | 2. Core needs of various audiences: For example, customers focus on solution cases, partners focus on cooperation policies, and talents focus on technology research and development environment
+Government and enterprises:
+Industry:
+Small and medium-sized:
+Channel:
+Investor:
+Technical talent:
+Media: | Industry solutions, cases
+Solutions and products | 
+Core objectives of official website upgrade | 1. Core objectives:
+□ Brand image upgrade □ Lead acquisition (solution consultation/trial application) □ Partner recruitment □ Investor relations maintenance □ Talent attraction | □ Brand image upgrade □ Lead acquisition (product consultation/trial application) | Please sort them according to their importance. If they are not within the scope or if there are new ones, you can directly add them to the sorting
+ | 2. Multi-language: Is it based on a global version of the website for multi-language adaptation? Is there a need for regionalized content differences?
+Main areas of difference in the first edition: China (focusing on government and enterprises) | "Multilingual support is needed, but translation varies from place to place." | 
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Brand visual identity | 1. Should we continue to use the existing ALE global VI system?
+□ Yes □ No (A new version of VI is required) | TBC | The usage specifications for LOGO, colors, fonts, and visual elements need to be confirmed
+ | 2. Visual style preference: □ Continue the minimalist and technological feel of French brands □ Incorporate local Chinese aesthetic elements □ Other | Continuing the minimalist and technological feel of the French brand | 
+ | 3. Are there any sub-brands under ALE that need to be displayed on the official website? | TBC | 
+Multi-language version requirements | 1. Is the required language version consistent with the current official website
+□ English (Global Version) □ French □ German □ Spanish □ Chinese (Simplified) □ Korean □ Portuguese □ Italian | TBC | 
+ | 2. Is there a need for new language versions (based on future market changes and the company's business strategy)
+□ Yes □ No | TBC | 
+ | 3. Multi-language management permission requirements:
+□ Unified publishing from the same backend (a super administrator is recommended for this solution when there are no other differences in content across multiple country websites except for language)
+□ Independent editing permissions for each region (one super administrator, multiple countries each assigned sub-administrators, which may lead to situations where content is not updated synchronously)
+□ Content translation responsible party (client/our side) | TBC | The content synchronization mechanism for each language version needs to be clarified
+Brand content presentation | 1. Key points of corporate story:
+□ Centuries-old technological heritage □ Strategic upgrade □ R&D achievements □ Global service network | TBC | Please sort them according to their importance. If they are not within the scope or there are new ones, you can directly add them to the sorting
+ | 2. Is it necessary to showcase the linkage information between global branches and the Chinese headquarters, such as business collaboration, service network integration, and resource allocation coordination? |  | 
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Essential content section (recommended) | 1. Core sections of the homepage:
+□ Corporate brand awareness - About ALE
+□ Solutions (classified by industry/scenario) □ Product Center □ Customer Cases
+□ News Resources □ Careers □ Partners |  | The core modules can be confirmed one by one in the future
+Solution section | 1. Industry classification: □ Government and enterprises □ Finance □ Transportation □ Energy □ Education □ Healthcare □ Other (please specify) |  | It is necessary to provide core solutions and value proposition copywriting, images, videos, and other materials for various industries
+ | 2. Content presentation requirements for various industries: □ Scheme details page □ Application scenario video □ Technical white paper download □ Online consultation entry |  | Are there any other suggestions or requirements?
+Customer case section | 1. It is suggested to categorize the case sections by country:
+□ Global Classic Cases (multi-language versions required) □ Local Benchmarking Cases in Various Countries |  | Case studies, images, videos, and other materials from various industries are required
+ | 2. Case presentation dimensions: □ Customer pain points □ Solutions □ Implementation effects □ Customer testimonials |  | Need to confirm whether the case can be made public (including customer authorization)
+Product Center Section | 1. Product classification:
+□ Hardware products (such as switches, routers) □ Software systems □ Network services □ Value-added services |  | This module can be listed according to the global product and service list (ALE should have a standard description?), or the specific classification method can be confirmed later
+ | 2. Is a product comparison tool or online selection assistant required
+- Whether a product comparison tool is needed: depends on whether there are multiple parameter versions of the same product that can be compared;
+- Whether an online selection assistant is needed: It depends on the product or solution. If there are predefined basic information entries, a one-click display of suggested solutions can be achieved |  | Both can serve as a consultation entry point
+ | 3. Product details page |  | A standardized product proposal including product description, product value, product highlights, specifications, and download resources is required
+ | 4. Are there any historical products that need to be phased out, or new products that need to be listed? |  | 
+Resources and News Section | 1. Resource type:
+□ White Paper □ Industry Report □ Technical Blog □ Event Invitation □ Live Broadcast Replay |  | 
+ | 2. News type:
+□ Corporate News □ Technological Breakthroughs □ Cooperation Signings □ Exhibition Information □ Investor Announcements |  | 
+Recruitment section | 1. Global recruitment page structure:
+□ Global recruitment, screening candidates from different countries (recommended) □ Create different pages for each region |  | 
+ | 2. Is the ATS recruitment system integrated? Currently, is it integrated with SuccessFactors in the global system? It is recommended to integrate different recruitment systems for different countries |  | 
+Partner section | 1. Partner type:
+□ Channel agent □ Technology alliance □ Ecological cooperation □ Supplier |  | It is necessary to provide cooperation policy documents, images, videos, and other materials for different types of partners
+Reserve an application portal and integrate with CRM
+Help and Support | 1. Prepare the help manuals by product line
+□ Is there any video assistance material |  | 
+ | 2. AI service robot:
+□ Do you wish to launch an AI service robot
+The distribution of computing power services should be consistent with the distribution of server sites
+The content of AI-based Q&A needs to be evaluated in advance, with content classification and knowledge base vectorization performed beforehand. Common consultation content includes product inquiries, price inquiries, and product problem solutions (AI-based Q&A generally does not require preparation of content in multiple languages, as large models can analyze it on their own)
+AI service robot leads collection, problem feedback, and transfer to human for closed-loop service |  | 
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Basic functions | 1. Responsive design:
+□ Supports full terminal adaptation for computers/tablets/mobile phones |  | We need to determine whether to prioritize the mobile or PC version, as it involves the main structure of the page
+ | 2. Site search:
+□ Support product/solution/case/news search □ Multi-language search □ Advanced filtering (such as industry, region) |  | 
+ | 3. Content Management System (CMS):
+□ Multi-language support □ Customizable columns □ Hierarchical permission management □ Content publishing and review process □ Data backup and recovery |  | 
+Lead conversion function | 1. Design of the consultation entry form:
+□ Solution consultation □ Product trial □ Quotation request □ Partner onboarding □ Resume submission |  | Need to confirm each consultation entry, form fields, and required fields
+ | 2. Lead management:
+□ Integration with CRM system: Global standardization/country-specific independence?
+□ Automatic clue allocation □ Follow-up reminders □ Conversion data statistics |  | The CRM integration interface documentation is required
+ | 3. Interactive function:
+□ Online customer service (whether it supports multiple languages - there may be time zone differences) □ Schedule a demo □ Register for online and offline events □ Intelligent service robot □ Technical support ticket (consistent with the internal product entry) |  | 
+Data statistics function | 1. Analysis tool: □ Baidu Statistics (China) □ Google Analytics (Global) □ Customer's own analysis platform |  | 
+ | 2. Statistical dimensions: □ Page views □ Lead conversion funnel □ Scheme/report downloads □ Geographical distribution of visitors |  | 
+User center function | 1. Account type:
+□ Super Administrator □ Content Maintenance Specialist: Solutions/Products/News/Events/Industry Reports □ Data Analysis Specialist □ Regular User (No Access Required) |  | The permissions and exclusive content of each account need to be confirmed
+Third-party integration requirements | 1. Tools to be integrated:
+□ CRM system (customer leads, partner leads, event registration) □ Recruitment system □ Payment system (whether small and medium-sized customers can place orders online) □ Other (please specify) |  | We need to consider whether to connect by country
+The responsible party for interface docking and the development cost of the other party need to be confirmed
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Technical architecture requirements | 1. Deployment method:
+Global multi-node deployment:
+□ Private deployment of multiple national nodes (estimated to require at least three nodes: China, France, Singapore/United States)
+□ Hybrid cloud deployment |  | It is necessary to consider global data security requirements + access speed and stability
+ | 2. Global acceleration
+□ Global CDN acceleration |  | 
+ | 3. Localization adaptation on the user side:
+□ Compatibility with domestic browsers required □ No requirements for information technology innovation |  | Targeting the potential needs of Chinese government and enterprise customers
+ | 4. Safety requirements:
+□ Website registration (ICP registration) □ SSL certificate □ Anti-DDoS attack protection □ Data encryption □ Compliance with classified protection (if required) |  | The website in China must complete ICP filing
+Data compliance requirements | 1. Prepare data compliance-related content for different country versions as required:
+□ Privacy Policy □ Cross-border Data Transfer Agreement □ Compliance with Cookie Policy
+□ Cross-border Data Transmission Agreement □ Legal Notice |  | The boundaries for the collection, storage, and use of user data need to be clearly defined
+ | 2. Content compliance:
+□ Content review mechanism in China □ Compliance review process for global content publishing |  | Additional review is required for those involving sensitive industries (such as government and enterprises)
+Intellectual property confirmation | 1. Material copyright:
+□ Copyright ownership of images/videos/copywriting □ Whether commercial materials need to be purchased □ Third-party content authorization documents |  | 
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+Regional adaptation | 1. Content customization:
+□ Display exclusive cases/activities in different regions □ Release unified content globally |  | 
+ | 2. Contact information:
+□ Display the addresses, phone numbers, and email addresses of local offices by region |  | 
+ | 3. Time zone and currency:
+□ The event time automatically adjusts to the local time zone □ The currency unit for quotation needs to be distinguished (such as RMB/USD/EUR) |  | 
+Domain name and access | 1. Domain name planning: Keep it consistent with the current one
+Main website: https://www.al-enterprise.com/
+Other countries: Consistent with the current scheme, simply add a suffix:
+For example, in China: https://www.al-enterprise.com/zh-cn |  | 
+ | 2. Access strategy: □ Domestic users automatically redirect to the China region site □ Support for manual language switching |  | 
+--- TABLE ---
+Pending confirmation items | Specific confirmation content | confirmation reply | Additional notes
+data migration | 1. Is there a migration module for the existing official website data
+□ Historical articles/news □ Product/solution information □ Customer cases □ Historical user data (Should it be saved in CRM?) □ No need for migration |  | The scope and format of data migration need to be confirmed
+Official website SEO | 1. After the official website is launched, is marketing and promotion support from our side required?
+□ Self-promotion / □ Our assistance in promotion |  | 
+material | 1. Are there complete sets of graphic and video materials available for the materials?
+□ Materials are complete □ Text/images/videos need to be redesigned □ Some text/images/videos need to be redesigned |  | 
