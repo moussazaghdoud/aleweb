@@ -107,7 +107,7 @@ export async function GET(request: NextRequest) {
         const db = payload.db as any
 
         // Import pushDevSchema from @payloadcms/drizzle
-        const { pushDevSchema } = await import('@payloadcms/drizzle/utilities/pushDevSchema')
+        const { pushDevSchema } = await import('@payloadcms/drizzle')
 
         // Force the push by temporarily setting the env var
         const origForce = process.env.PAYLOAD_FORCE_DRIZZLE_PUSH
