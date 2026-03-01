@@ -32,6 +32,8 @@ COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 # Ensure sharp native binaries are available (standalone trace may miss them)
 COPY --from=deps /app/node_modules/sharp ./node_modules/sharp
 COPY --from=deps /app/node_modules/@img ./node_modules/@img
+# drizzle-kit is needed for runtime schema push (loaded via createRequire by Payload)
+COPY --from=deps /app/node_modules/drizzle-kit ./node_modules/drizzle-kit
 # Payload media uploads directory
 RUN mkdir -p /app/public/media && chown -R nextjs:nodejs /app/public/media
 USER nextjs
