@@ -103,6 +103,13 @@ html.dark .bg-white\/95 { background-color: rgba(23, 23, 23, 0.95); }
   outline-offset: 2px;
 }
 
+/* Remove focus outline from search modal input */
+[data-search-input]:focus,
+[data-search-input]:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 /* ── Ken Burns hero animation (slow zoom + pan = "moving picture") ── */
 @keyframes ken-burns {
   0% { transform: scale(1) translate(0, 0); }

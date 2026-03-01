@@ -266,34 +266,37 @@ export function SearchModal({ isOpen, onClose }: { isOpen: boolean; onClose: () 
         onKeyDown={handleKeyDown}
       >
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-light-200 px-5">
-          <svg className="w-5 h-5 text-ale shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input
-            ref={inputRef}
-            type="text"
-            value={query}
-            onChange={(e) => handleInput(e.target.value)}
-            placeholder="Search products, solutions, industries..."
-            className="flex-1 h-14 text-base text-text outline-none focus:outline-none focus-visible:outline-none placeholder:text-text-muted bg-transparent"
-            autoComplete="off"
-            spellCheck={false}
-          />
-          {query && (
-            <button
-              onClick={() => { setQuery(""); setGrouped({}); setSuggestions([]); setDidYouMean([]); setActiveIdx(-1); setMode("idle"); inputRef.current?.focus(); }}
-              className="text-text-muted hover:text-text transition-colors p-1"
-              aria-label="Clear search"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          )}
-          <kbd className="hidden sm:inline-flex items-center text-[11px] font-medium text-text-muted border border-light-200 rounded px-1.5 py-0.5">
-            ESC
-          </kbd>
+        <div className="px-4 pt-4 pb-3 border-b border-light-200">
+          <div className="flex items-center gap-3 bg-light-50 rounded-xl px-4 border border-light-200/80">
+            <svg className="w-5 h-5 text-text-muted shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input
+              ref={inputRef}
+              type="text"
+              data-search-input
+              value={query}
+              onChange={(e) => handleInput(e.target.value)}
+              placeholder="Search products, solutions, industries..."
+              className="flex-1 h-12 text-base text-text outline-none placeholder:text-text-muted bg-transparent"
+              autoComplete="off"
+              spellCheck={false}
+            />
+            {query && (
+              <button
+                onClick={() => { setQuery(""); setGrouped({}); setSuggestions([]); setDidYouMean([]); setActiveIdx(-1); setMode("idle"); inputRef.current?.focus(); }}
+                className="text-text-muted hover:text-text transition-colors p-1 rounded-md hover:bg-light-200/50"
+                aria-label="Clear search"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
+            <kbd className="hidden sm:inline-flex items-center text-[11px] font-medium text-text-muted border border-light-200 rounded px-1.5 py-0.5 bg-white">
+              ESC
+            </kbd>
+          </div>
         </div>
 
         {/* Results area */}
