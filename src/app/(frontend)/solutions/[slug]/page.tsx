@@ -22,7 +22,7 @@ import { solutionBlogCategories } from "@/data/blog-mappings";
 const umbrellaSolutions: Record<string, { label: string; slug: string }[]> = {
   "digital-age-communications": [
     { label: "Unified Communications", slug: "unified-communications" },
-    { label: "Collaboration Solutions", slug: "collaboration-solutions" },
+    { label: "Rainbow Collaboration Solutions", slug: "collaboration-solutions" },
     { label: "Cloud Communications", slug: "move-to-cloud" },
     { label: "CPaaS", slug: "cpaas" },
     { label: "Hybrid Workplace", slug: "enable-hybrid-work" },
@@ -72,7 +72,7 @@ const solutionImages: Record<string, string> = {
   "purple-on-demand": `${cdn}/converged-everthing-aas-solution-810x340-banner.jpg`,
   "network-as-a-service": `${cdn}/solutions-naas-focus-topic-1-810x380.jpg`,
   "cloud-communications": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,
-  "collaboration-solutions": `${cdn}/solutions-unified-communications-focus-topic-1-810x380.jpg`,
+  "collaboration-solutions": `${cdn}/multidevicerainbow.jpg`,
   "communications-security": `${cdn}/solutions-security-focus-topic-1-810x340.jpeg`,
   "private-5g-solution": `${cdn}/industrial-networks-header-image-v1.jpg`,
   "e-services": `${cdn}/solutions-dac-focus-topic-810x380.jpg`,

@@ -156,7 +156,7 @@ export const primaryNav: MegaNavItem[] = [
         href: "/solutions/digital-age-communications",
         links: [
           { label: "Unified Communications", href: "/solutions/unified-communications" },
-          { label: "Collaboration Solutions", href: "/solutions/collaboration-solutions" },
+          { label: "Rainbow Collaboration Solutions", href: "/solutions/collaboration-solutions" },
           { label: "Cloud Communications", href: "/solutions/move-to-cloud" },
           { label: "CPaaS", href: "/solutions/cpaas" },
           { label: "Hybrid Workplace", href: "/solutions/enable-hybrid-work" },

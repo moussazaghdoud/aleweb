@@ -730,7 +730,7 @@ export const solutionsData: SolutionData[] = [
   },
   {
     slug: "collaboration-solutions",
-    name: "Collaboration Solutions",
+    name: "Rainbow Collaboration Solutions",
     tagline: "The right borderless collaboration solutions help companies unfold their teams' full potential anytime, anywhere",
     description:
       "Borderless collaboration solutions enable companies to leverage communications from network to cloud. When systems communicate clearly, users do too. ALE offers end-to-end collaboration solutions with flexibility in deployment models — on-premises, hybrid, or cloud — bringing together voice, video, messaging, file sharing, and conferencing into a seamless experience. Rainbow delivers enterprise-grade collaboration with integrations into Microsoft Teams, Salesforce, and hundreds of business applications, while maintaining European data sovereignty and GDPR compliance.",
