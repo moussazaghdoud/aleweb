@@ -530,21 +530,21 @@ export const solutionsData: SolutionData[] = [
   {
     slug: "digital-age-networking",
     name: "Digital Age Networking",
-    tagline: "Build an autonomous, self-healing network that adapts to your business needs",
+    tagline: "Elevate your organization with a network foundation that delivers the services needed to grow your business",
     description:
-      "Digital age networking delivers an intelligent, automated network infrastructure that reduces complexity, enhances security, and adapts to evolving business requirements. With a unified operating system across the entire switching portfolio, AI-driven analytics, and automated IoT onboarding, ALE networks are designed for the demands of modern enterprise environments.",
+      "Digital age technologies take organizations into the new digital era with a network foundation built on three pillars: an autonomous network that automatically and securely connects people, processes, applications, and objects; IoT integration with secure onboarding using segmentation to minimize compromise risk; and business innovation through workflow automation enabling new digital business processes and revenue streams. With a single hardened OS from edge to core, AI-driven analytics, and a streamlined portfolio deployable across office, outdoor, and industrial environments, ALE networks are designed for the demands of modern enterprise environments.",
     heroImage: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/solutions-digital-age-networking-homepage-header-l2-l3-1440x600.jpg?h=600&w=1440",
     capabilities: [
-      { title: "Unified Network Fabric", description: "A single hardened operating system from edge to core with Shortest Path Bridging creates an automated, self-forming network fabric." },
+      { title: "Autonomous Network", description: "Automatically and securely connects people, processes, applications, and objects with a self-forming SPB fabric and zero-touch provisioning." },
+      { title: "Secure IoT Integration", description: "Automatic device discovery from a 29M+ device database with virtual segmentation, continuous behavior monitoring, and automated containment." },
       { title: "AI-Driven Operations", description: "OmniVista Network Advisor uses AI/ML to anticipate issues, automate remediation, and optimize network performance proactively." },
-      { title: "IoT-Ready Infrastructure", description: "Automatic device discovery from a 29M+ device database with virtual segmentation and continuous behavior monitoring." },
-      { title: "Cloud Management", description: "OmniVista Cirrus provides centralized cloud-based management across all network infrastructure with real-time analytics." },
+      { title: "Cloud Management", description: "OmniVista Cirrus provides centralized cloud-based management across all network infrastructure with real-time analytics and deployment flexibility." },
     ],
-    products: ["OmniSwitch", "OmniAccess Stellar", "OmniVista Cirrus", "OmniVista Network Advisor"],
+    products: ["OmniSwitch", "OmniAccess Stellar", "OmniVista Cirrus", "OmniVista Network Advisor", "OmniAccess Stellar Asset Tracking"],
     benefits: [
-      { stat: "1 OS", label: "unified across all switches" },
-      { stat: "AI/ML", label: "proactive network operations" },
+      { stat: "1 OS", label: "edge to core" },
       { stat: "29M+", label: "IoT device fingerprints" },
+      { stat: "3 Pillars", label: "autonomous, IoT, innovation" },
     ],
     industries: ["healthcare", "education", "hospitality", "government", "transportation", "energy", "manufacturing", "smart-buildings"],
   },
@@ -1158,42 +1158,42 @@ export const solutionsData: SolutionData[] = [
     tagline:
       "Increase productivity and revenues by leveraging new technologies to automate business processes",
     description:
-      "New business processes are optimized when they integrate user, application, and IoT metrics in real-time. Digital Age Networking helps businesses optimize processes and services to drive innovation, enhance productivity, and create new revenue-generating opportunities through location services, workflow automation, and cloud-based solutions.",
+      "Technology innovations including IoT, location services, and collaboration platforms are at the forefront of business process automation. OmniAccess Stellar Location Services generates revenues, increases safety, and reduces operational and asset-related costs with real-time and historical location data in indoor facilities — enabling workflow optimization, reduced search time, asset loss prevention, and contact tracing. Integration with Rainbow enables automation of repetitive tasks through triggers, rules, and actions, while cloud-based management-as-a-service reduces IT burden and provides a financial alternative to traditional CAPEX models.",
     heroImage:
       "https://web-assets.al-enterprise.com/-/media/assets/internet/images/ale-web-refresh-trends-iot-topic1-image.jpg?h=600&w=1440",
     capabilities: [
       {
-        title: "Location Services",
+        title: "Location Services & Asset Tracking",
         description:
-          "OmniAccess Stellar Location Services generates revenues, increases safety, and reduces operational costs with real-time and historical location data of users or objects in indoor facilities.",
+          "OmniAccess Stellar Asset Tracking provides real-time and historical location data of users or objects in indoor facilities — enabling hotspot identification, contact tracing, and reduced equipment search time.",
       },
       {
         title: "Workflow Automation",
         description:
-          "Integrate geolocation data with collaboration tools to automate simple or repetitive tasks — developing digital business processes triggered by rules and actions.",
+          "Integrate geolocation data with Rainbow collaboration tools to automate simple or repetitive tasks — developing digital business processes triggered by rules and actions.",
       },
       {
-        title: "Cloud-Based Solutions",
+        title: "Cloud-Based Management",
         description:
-          "Financial alternative to traditional CAPEX models with operational cost savings and new revenue stream creation through subscription-based services.",
+          "Management-as-a-service reduces IT burden with operational cost savings. Cloud-based digital strategy allows operators to be more agile, bring new services online quickly, and create new revenue streams.",
       },
       {
-        title: "Portfolio Streamlining",
+        title: "Streamlined Portfolio",
         description:
-          "Single OS across edge-to-core infrastructure with unified LAN, WLAN, and branch security management — flexible deployment across office, outdoor, and industrial environments.",
+          "Single OS across edge-to-core infrastructure with unified LAN, WLAN, and branch security management — flexible deployment across office, outdoor, and industrial environments with on-premises or cloud management.",
       },
     ],
     products: [
       "Rainbow",
-      "OmniVista Network Management",
+      "OmniVista 2500",
       "OmniAccess Stellar Asset Tracking",
       "OmniSwitch",
       "OmniAccess Stellar",
     ],
     benefits: [
-      { stat: "Real-time", label: "IoT metrics integration" },
-      { stat: "Location", label: "services and asset tracking" },
-      { stat: "Lower", label: "CAPEX with cloud models" },
+      { stat: "Real-time", label: "location & asset tracking" },
+      { stat: "Automated", label: "workflow triggers & actions" },
+      { stat: "Cloud", label: "management-as-a-service" },
     ],
     industries: ["healthcare", "hospitality", "education", "manufacturing", "transportation"],
   },
