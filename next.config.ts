@@ -5,7 +5,6 @@ import { withPayload } from "@payloadcms/next/withPayload";
 const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
-  serverExternalPackages: ["drizzle-kit"],
   typescript: {
     // Next.js 16.2-canary auto-generated route validator references missing routes.js
     ignoreBuildErrors: true,
