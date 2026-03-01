@@ -15,34 +15,17 @@ export async function GET(request: NextRequest) {
     }
 
     if (action === 'dashboard-fix') {
-      // Clean up locked_documents and preferences that reference removed collections
+      // Add missing column to payload_locked_documents_rels
       const results: Record<string, string> = {}
       for (const sql of [
-        `DELETE FROM payload_locked_documents_rels WHERE pages_id IS NOT NULL OR company_pages_id IS NOT NULL`,
-        `DELETE FROM payload_locked_documents WHERE id IN (
-          SELECT ld.id FROM payload_locked_documents ld
-          LEFT JOIN payload_locked_documents_rels r ON r."parent_id" = ld.id
-          WHERE r.id IS NULL
-        )`,
+        `ALTER TABLE payload_locked_documents_rels ADD COLUMN IF NOT EXISTS contact_submissions_id integer`,
       ]) {
         try {
           const r = await pool.query(sql)
-          results[sql.slice(0, 60)] = `OK (${r.rowCount} rows)`
+          results[sql.slice(0, 80)] = 'OK'
         } catch (e: any) {
-          results[sql.slice(0, 60)] = `ERR: ${e.message?.slice(0, 100)}`
+          results[sql.slice(0, 80)] = `ERR: ${e.message?.slice(0, 100)}`
         }
-      }
-
-      // Also check if there are columns referencing removed collections
-      try {
-        const cols = await pool.query(`
-          SELECT column_name FROM information_schema.columns
-          WHERE table_name = 'payload_locked_documents_rels'
-          ORDER BY ordinal_position
-        `)
-        results['locked_docs_rels_columns'] = cols.rows.map((r: any) => r.column_name).join(', ')
-      } catch (e: any) {
-        results['locked_docs_rels_columns'] = `ERR: ${e.message?.slice(0, 100)}`
       }
 
       return NextResponse.json({ action: 'dashboard-fix', results })
