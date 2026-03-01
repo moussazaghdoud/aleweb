@@ -55,8 +55,24 @@ export class PostgresSearchProvider implements SearchProvider {
       this.hasTrgm = false
     }
 
-    // Create the main search_documents table
-    // Use a simpler schema without GENERATED ALWAYS for compatibility
+    // Drop old table if it has GENERATED columns (migration from previous schema)
+    // Check if search_vector is a generated column — if so, drop and recreate
+    try {
+      const genCheck = await pool.query(`
+        SELECT attgenerated FROM pg_attribute
+        WHERE attrelid = 'search_documents'::regclass
+          AND attname = 'search_vector'
+      `)
+      if (genCheck.rows.length > 0 && genCheck.rows[0].attgenerated !== '') {
+        console.log('[Search] Migrating: dropping old table with GENERATED columns...')
+        await pool.query('DROP TABLE IF EXISTS search_documents CASCADE')
+        await pool.query('DROP TABLE IF EXISTS search_analytics CASCADE')
+      }
+    } catch {
+      // Table doesn't exist yet — that's fine
+    }
+
+    // Create the main search_documents table (no GENERATED columns)
     await pool.query(`
       CREATE TABLE IF NOT EXISTS search_documents (
         id TEXT PRIMARY KEY,
@@ -212,15 +228,12 @@ export class PostgresSearchProvider implements SearchProvider {
     const limit = query.limit || 20
     const offset = (page - 1) * limit
 
-    // Expand synonyms into the query
-    const expandedTerms = this.expandSynonyms(q, config.synonyms)
-    const tsQuery = expandedTerms
-      .map(t => t.split(/\s+/).filter(Boolean).map(w => `${w}:*`).join(' & '))
-      .join(' | ')
+    // Expand synonyms
+    const synonymTerms = this.getSynonymTerms(q, config.synonyms)
 
-    // Build filter clauses
+    // Build filter clauses — $1 = raw query, $2 = locale
     const conditions: string[] = ['d.locale = $2']
-    const params: any[] = [tsQuery, locale]
+    const params: any[] = [q, locale]
     let paramIdx = 3
 
     if (query.type?.length) {
@@ -250,27 +263,39 @@ export class PostgresSearchProvider implements SearchProvider {
     }
 
     const whereClause = conditions.join(' AND ')
-    const qParamIdx = paramIdx // for the raw query string
-    params.push(q) // $qParamIdx = raw query string
-    paramIdx++
 
-    // Build trigram parts conditionally
+    // Build synonym join for tsquery: use plainto_tsquery for each synonym term
+    // This is safe — plainto_tsquery handles any user input without syntax errors
+    const synonymTsqParts: string[] = ['plainto_tsquery(\'english\', $1)']
+    for (const synTerm of synonymTerms) {
+      const idx = paramIdx
+      synonymTsqParts.push(`plainto_tsquery('english', $${idx})`)
+      params.push(synTerm)
+      paramIdx++
+    }
+    const combinedTsq = synonymTsqParts.join(' || ')
+
+    // Trigram parts (conditional on pg_trgm availability)
     const trgmSelect = this.hasTrgm
-      ? `GREATEST(similarity(d.title, $${qParamIdx}), similarity(d.tagline, $${qParamIdx})) AS trgm_sim,`
+      ? `GREATEST(similarity(d.title, $1), similarity(d.tagline, $1)) AS trgm_sim,`
       : `0::float AS trgm_sim,`
 
     const trgmWhere = this.hasTrgm
-      ? `OR (length($${qParamIdx}) >= 3 AND similarity(d.title, $${qParamIdx}) > 0.25)`
-      : `OR (d.title ILIKE '%' || $${qParamIdx} || '%')`
+      ? `OR (length($1) >= 3 AND similarity(d.title, $1) > 0.25)`
+      : `OR (d.title ILIKE '%' || $1 || '%')`
 
     const trgmOrder = this.hasTrgm
-      ? `+ GREATEST(similarity(d.title, $${qParamIdx}), 0) * 0.3`
+      ? `+ GREATEST(similarity(d.title, $1), 0) * 0.3`
       : ''
 
-    // Main search query
+    const limitIdx = paramIdx
+    const offsetIdx = paramIdx + 1
+    params.push(limit, offset)
+
+    // Main search query — uses plainto_tsquery (safe, no syntax errors possible)
     const searchSql = `
       WITH query AS (
-        SELECT to_tsquery('english', $1) AS tsq
+        SELECT (${combinedTsq}) AS tsq
       )
       SELECT
         d.*,
@@ -290,14 +315,16 @@ export class PostgresSearchProvider implements SearchProvider {
         (ts_rank_cd(d.search_vector, q.tsq, 4)
          ${trgmOrder}
          + d.boost::float / 10.0) DESC
-      LIMIT $${paramIdx} OFFSET $${paramIdx + 1}
+      LIMIT $${limitIdx} OFFSET $${offsetIdx}
     `
-    params.push(limit, offset)
 
-    // Count query (same conditions, no trgm select/limit)
+    // Params for count/facet (exclude limit/offset)
+    const countParams = params.slice(0, -2)
+
+    // Count query
     const countSql = `
       WITH query AS (
-        SELECT to_tsquery('english', $1) AS tsq
+        SELECT (${combinedTsq}) AS tsq
       )
       SELECT count(*) AS total
       FROM search_documents d, query q
@@ -307,12 +334,11 @@ export class PostgresSearchProvider implements SearchProvider {
           ${trgmWhere}
         )
     `
-    const countParams = params.slice(0, paramIdx) // exclude limit/offset
 
     // Facet query
     const facetSql = `
       WITH query AS (
-        SELECT to_tsquery('english', $1) AS tsq
+        SELECT (${combinedTsq}) AS tsq
       )
       SELECT d.type, d.category, d.industry, count(*) AS n
       FROM search_documents d, query q
@@ -386,11 +412,9 @@ export class PostgresSearchProvider implements SearchProvider {
         suggestions,
       }
     } catch (err: any) {
-      // If tsquery parsing fails (bad syntax), fall back to simpler search
-      if (err.message?.includes('syntax error in tsquery')) {
-        return this.fallbackSearch(pool, q, locale, page, limit)
-      }
-      throw err
+      // Fall back to simple ILIKE search if anything goes wrong with tsquery
+      console.error('[Search] tsquery search failed, using fallback:', err.message)
+      return this.fallbackSearch(pool, q, locale, page, limit)
     }
   }
 
@@ -432,18 +456,19 @@ export class PostgresSearchProvider implements SearchProvider {
 
   // ── Private Helpers ──────────────────────────────────────
 
-  private expandSynonyms(q: string, synonyms: Record<string, string[]>): string[] {
-    const expanded = [q]
+  /** Returns additional synonym terms (not including the original query) */
+  private getSynonymTerms(q: string, synonyms: Record<string, string[]>): string[] {
+    const extra: string[] = []
     const words = q.split(/\s+/)
     for (const word of words) {
       const syns = synonyms[word.toUpperCase()] || synonyms[word]
       if (syns) {
         for (const syn of syns) {
-          expanded.push(syn)
+          extra.push(syn)
         }
       }
     }
-    return expanded
+    return extra
   }
 
   private buildFacets(rows: any[]): FacetCounts {
