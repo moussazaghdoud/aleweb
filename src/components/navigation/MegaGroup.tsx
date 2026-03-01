@@ -39,7 +39,7 @@ export function MegaGroup({ group, onClose, compact }: MegaGroupProps) {
               onClick={onClose}
               target={link.external ? "_blank" : undefined}
               rel={link.external ? "noopener noreferrer" : undefined}
-              className="group/link flex items-center gap-2 px-3 py-2 -mx-2 rounded-lg text-[13px] text-text-secondary hover:text-ale hover:font-semibold hover:bg-ale-50/80 transition-all duration-150 min-w-0"
+              className="mega-link group/link flex items-center gap-2 px-3 py-2 -mx-2 rounded-lg text-[13px] text-text-secondary transition-all duration-150 min-w-0"
             >
               <span className="font-medium truncate">{link.label}</span>
 
