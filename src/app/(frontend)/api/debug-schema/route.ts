@@ -100,15 +100,109 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ action: 'fix-all', results, verify })
     }
 
+    if (action === 'inspect') {
+      // Inspect specific tables to understand what's missing
+      const inspectTables = ['homepage', 'pages', 'company_pages']
+      const inspection: Record<string, any> = {}
+
+      for (const table of inspectTables) {
+        try {
+          // Check if table exists and get columns
+          const cols = await pool.query(`
+            SELECT column_name, data_type, is_nullable
+            FROM information_schema.columns
+            WHERE table_schema = 'public' AND table_name = $1
+            ORDER BY ordinal_position
+          `, [table])
+          inspection[table] = { exists: cols.rows.length > 0, columns: cols.rows }
+        } catch (e: any) {
+          inspection[table] = { exists: false, error: e.message?.slice(0, 100) }
+        }
+      }
+
+      // Also check for homepage-related tables
+      const homepageTables = await pool.query(`
+        SELECT table_name FROM information_schema.tables
+        WHERE table_schema = 'public' AND table_name LIKE 'homepage%'
+        ORDER BY table_name
+      `)
+      inspection['homepage_related_tables'] = homepageTables.rows.map((r: any) => r.table_name)
+
+      return NextResponse.json({ action: 'inspect', inspection })
+    }
+
+    if (action === 'fix-tables') {
+      const results: Record<string, string> = {}
+
+      async function runSQL(label: string, sql: string) {
+        try {
+          await pool.query(sql)
+          results[label] = 'OK'
+        } catch (e: any) {
+          results[label] = `ERR: ${e.message?.slice(0, 150)}`
+        }
+      }
+
+      // 1. Create homepage main table (sub-tables already exist)
+      await runSQL('homepage_table', `
+        CREATE TABLE IF NOT EXISTS homepage (
+          id serial PRIMARY KEY,
+          hero_video_url varchar,
+          updated_at timestamptz DEFAULT NOW(),
+          created_at timestamptz DEFAULT NOW()
+        )
+      `)
+
+      // Insert a default row if empty (globals need exactly 1 row)
+      await runSQL('homepage_default_row', `
+        INSERT INTO homepage (id) VALUES (1) ON CONFLICT (id) DO NOTHING
+      `)
+
+      // 2. Fix pages — check what columns/sub-tables are missing
+      // The query references pages__blocks — let me check what Payload expects
+      // For versioned collections with blocks, Payload creates _blocks_ tables
+      // Check if pages_blocks_* tables have the right _parent_id references
+      await runSQL('pages_add_parent_id', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS parent_id integer`)
+      await runSQL('pages_add_seo_og_image_id', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`)
+      await runSQL('pages_add_seo_no_index', `ALTER TABLE pages ADD COLUMN IF NOT EXISTS seo_no_index boolean DEFAULT false`)
+
+      // 3. Fix company_pages
+      await runSQL('company_pages_add_approval_status', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_status varchar DEFAULT 'pending'`)
+      await runSQL('company_pages_add_approval_notes', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS approval_notes varchar`)
+      await runSQL('company_pages_add_hero_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS hero_image_id integer`)
+      await runSQL('company_pages_add_seo_og_image_id', `ALTER TABLE company_pages ADD COLUMN IF NOT EXISTS seo_og_image_id integer`)
+
+      // Verify after fix
+      const verify: Record<string, string> = {}
+      for (const slug of ['homepage'] as const) {
+        try { await payload.findGlobal({ slug }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
+      }
+      for (const slug of ['pages', 'company-pages'] as const) {
+        try { await payload.find({ collection: slug, limit: 1 }); verify[slug] = 'OK' } catch (e: any) { verify[slug] = e.message?.slice(0, 200) }
+      }
+
+      return NextResponse.json({ action: 'fix-tables', results, verify })
+    }
+
     if (action === 'push-schema') {
       // Inline the pushDevSchema logic from @payloadcms/drizzle
-      // We can't import it in production due to Turbopack bundling restrictions,
-      // so we call the underlying drizzle-kit pushSchema directly via the adapter.
+      // We bypass Turbopack bundling by using createRequire to load drizzle-kit at runtime.
       try {
         const db = payload.db as any
 
-        // 1. Get drizzle-kit's pushSchema via the adapter's requireDrizzleKit()
-        const { pushSchema } = db.requireDrizzleKit()
+        // Use the adapter's own requireDrizzleKit which uses createRequire internally
+        // If that fails (Turbopack hashing), fall back to process.cwd()-based require
+        let pushSchema: any
+        try {
+          const kit = db.requireDrizzleKit()
+          pushSchema = kit.pushSchema
+        } catch {
+          // Turbopack may hash the module name — try loading from node_modules directly
+          const { createRequire } = await import('module')
+          const nodeRequire = createRequire(process.cwd() + '/package.json')
+          const kit = nodeRequire('drizzle-kit/api')
+          pushSchema = kit.pushSchema
+        }
 
         // 2. Call pushSchema with the adapter's schema
         const { apply, hasDataLoss, warnings } = await pushSchema(
