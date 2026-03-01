@@ -153,6 +153,7 @@ export const primaryNav: MegaNavItem[] = [
     groups: [
       {
         heading: "Digital Age Communications",
+        href: "/solutions/digital-age-communications",
         links: [
           { label: "Unified Communications", href: "/solutions/unified-communications" },
           { label: "Cloud Communications", href: "/solutions/move-to-cloud" },
@@ -163,6 +164,7 @@ export const primaryNav: MegaNavItem[] = [
       },
       {
         heading: "Digital Age Networking",
+        href: "/solutions/digital-age-networking",
         links: [
           { label: "SD-WAN & SASE", href: "/solutions/sd-wan-sase" },
           { label: "Network Security", href: "/solutions/network-security" },
@@ -175,6 +177,7 @@ export const primaryNav: MegaNavItem[] = [
       },
       {
         heading: "Business Innovation",
+        href: "/solutions/business-innovation",
         links: [
           { label: "AI Operations", href: "/solutions/optimize-with-ai" },
           { label: "IoT Networks", href: "/solutions/iot-networks" },
@@ -191,6 +194,7 @@ export const primaryNav: MegaNavItem[] = [
       },
       {
         heading: "Services",
+        href: "/services",
         links: [
           { label: "Support Services", href: "/services/support-services" },
           { label: "Training", href: "/services/training-services" },
@@ -282,6 +286,7 @@ export const primaryNav: MegaNavItem[] = [
       },
       {
         heading: "Resources",
+        href: "/resources",
         links: [
           { label: "Blog", href: "/blog" },
           { label: "Newsroom", href: "/company/newsroom" },

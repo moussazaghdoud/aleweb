@@ -64,7 +64,7 @@ export function Navbar() {
           <Link href="/" className="shrink-0" onClick={() => { setOpenDropdown(null); setMobileOpen(false); }}>
             <Image
               src="/ale-logo.png"
-              alt="Alcatel-Lucent Enterprise"
+              alt="Alcatel-Lucent"
               width={160}
               height={40}
               className="h-[36px] w-auto"
