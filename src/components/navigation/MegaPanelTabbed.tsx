@@ -58,19 +58,19 @@ export function MegaPanelTabbed({ item, onClose }: MegaPanelTabbedProps) {
         {/* ── Tab sidebar (left) ── */}
         <div className="w-[180px] shrink-0 border-r border-light-100 py-2">
           {tabs.map((tab, idx) => (
-            <button
+            <Link
               key={tab.slug}
-              type="button"
+              href={tab.href}
               onMouseEnter={() => setActiveTab(idx)}
-              onClick={() => setActiveTab(idx)}
-              className={`text-[13px] px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${
+              onClick={onClose}
+              className={`block text-[13px] px-4 py-2.5 w-full text-left transition-colors cursor-pointer ${
                 idx === activeTab
                   ? "bg-ale-50 text-ale font-semibold border-l-2 border-ale"
                   : "text-text-secondary hover:text-text hover:bg-light-50 border-l-2 border-transparent"
               }`}
             >
               {tab.label}
-            </button>
+            </Link>
           ))}
         </div>
 
