@@ -1,8 +1,10 @@
-import { NextResponse } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 
 export const dynamic = 'force-dynamic'
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const action = request.nextUrl.searchParams.get('action')
+
   try {
     const { getPayload } = await import('@/lib/payload')
     const payload = await getPayload()
@@ -12,52 +14,66 @@ export async function GET() {
       return NextResponse.json({ error: 'No pool' })
     }
 
-    // Check what tables exist related to site-config
-    const tables = await pool.query(`
-      SELECT table_name FROM information_schema.tables
-      WHERE table_schema = 'public'
-      AND table_name LIKE '%site%'
-      ORDER BY table_name
+    if (action === 'fix') {
+      // Add missing columns to site_config
+      const alterStatements = [
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_site_id varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_form_action_url varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS marketing_eloqua_tracking_enabled boolean DEFAULT false`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_platform varchar DEFAULT 'custom'`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_script_url varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS consent_domain_script varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_enabled boolean DEFAULT false`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_provider varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_script_url varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS chat_position varchar DEFAULT 'bottom-right'`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_provider varchar DEFAULT 'none'`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_api_key varchar`,
+        `ALTER TABLE site_config ADD COLUMN IF NOT EXISTS search_organization_id varchar`,
+        // Locales table
+        `ALTER TABLE site_config_locales ADD COLUMN IF NOT EXISTS chat_greeting varchar`,
+      ]
+
+      const results: string[] = []
+      for (const sql of alterStatements) {
+        try {
+          await pool.query(sql)
+          results.push(`OK: ${sql.slice(0, 80)}`)
+        } catch (err: any) {
+          results.push(`ERR: ${sql.slice(0, 60)} — ${err.message}`)
+        }
+      }
+
+      // Verify fix
+      let payloadOk = false
+      try {
+        await payload.findGlobal({ slug: 'site-config' })
+        payloadOk = true
+      } catch (err: any) {
+        results.push(`Payload still fails: ${err.message.slice(0, 200)}`)
+      }
+
+      return NextResponse.json({ action: 'fix', results, payloadOk })
+    }
+
+    // Default: diagnose
+    const cols = await pool.query(`
+      SELECT column_name FROM information_schema.columns
+      WHERE table_name = 'site_config' ORDER BY ordinal_position
     `)
 
-    // Check columns in the site-config related tables
-    const columns: Record<string, any[]> = {}
-    for (const row of tables.rows) {
-      const cols = await pool.query(`
-        SELECT column_name, data_type, is_nullable
-        FROM information_schema.columns
-        WHERE table_name = $1
-        ORDER BY ordinal_position
-      `, [row.table_name])
-      columns[row.table_name] = cols.rows
-    }
-
-    // Try to read site-config directly
-    let siteConfigData = null
-    let siteConfigError = null
-    try {
-      const result = await pool.query(`SELECT * FROM site_config LIMIT 1`)
-      siteConfigData = result.rows[0] ? Object.keys(result.rows[0]) : 'empty'
-    } catch (err: any) {
-      siteConfigError = err.message
-    }
-
-    // Try via Payload
     let payloadError = null
     try {
       await payload.findGlobal({ slug: 'site-config' })
     } catch (err: any) {
-      payloadError = err.message
+      payloadError = err.message?.slice(0, 300)
     }
 
     return NextResponse.json({
-      tables: tables.rows.map((r: any) => r.table_name),
-      columns,
-      siteConfigData,
-      siteConfigError,
+      columns: cols.rows.map((r: any) => r.column_name),
       payloadError,
     })
   } catch (err: any) {
-    return NextResponse.json({ error: err.message, stack: err.stack?.slice(0, 500) })
+    return NextResponse.json({ error: err.message })
   }
 }
