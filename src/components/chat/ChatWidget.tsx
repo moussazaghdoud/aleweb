@@ -23,8 +23,8 @@ export function ChatWidget({ config }: Props) {
         style={{
           position: "fixed",
           bottom: 20,
-          right: config.position === "bottom-left" ? undefined : 20,
-          left: config.position === "bottom-left" ? 20 : undefined,
+          right: config?.position === "bottom-left" ? undefined : 20,
+          left: config?.position === "bottom-left" ? 20 : undefined,
           zIndex: 9999,
           width: 56,
           height: 56,
