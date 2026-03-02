@@ -139,6 +139,12 @@ html.dark .bg-white\/95 { background-color: rgba(23, 23, 23, 0.95); }
   padding-left: 16px;
 }
 
+/* ── Chat widget slide-up entrance ── */
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ── Scroll-triggered animation variants ── */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(30px); }
