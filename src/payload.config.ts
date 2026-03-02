@@ -65,9 +65,11 @@ export default buildConfig({
     importMap: {
       baseDir: path.resolve(dirname),
     },
-    components: {
-      beforeDashboard: '@/components/admin/KnowledgeDashboard#default',
-    },
+    // KnowledgeDashboard disabled — causes build failure when DB is unavailable
+    // during static page generation. Access knowledge stats via /api/chat/knowledge/health
+    // components: {
+    //   beforeDashboard: '@/components/admin/KnowledgeDashboard#default',
+    // },
     livePreview: {
       url: ({ data, collectionConfig }) => {
         const base = process.env.NEXT_PUBLIC_URL ?? 'http://localhost:3000'
