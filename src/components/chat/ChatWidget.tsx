@@ -49,9 +49,7 @@ export function ChatWidget({ config }: Props) {
 
   const position = config?.position || "bottom-right";
   const greeting = config?.greeting || "Hi! How can I help you today?";
-
-  // Don't render if not enabled
-  if (!config?.enabled) return null;
+  const enabled = config?.enabled ?? false;
 
   // Scroll to bottom on new messages
   useEffect(() => {
@@ -60,16 +58,17 @@ export function ChatWidget({ config }: Props) {
 
   // Load session from localStorage on mount
   useEffect(() => {
+    if (!enabled) return;
     const savedSessionId = localStorage.getItem(SESSION_ID_KEY);
     if (savedSessionId) {
       setSessionId(savedSessionId);
-      // Load existing messages
       loadSessionMessages(savedSessionId);
     }
-  }, []);
+  }, [enabled]);
 
   // Poll for new messages when escalated
   useEffect(() => {
+    if (!enabled) return;
     if (sessionStatus === "escalated" && sessionId && isOpen) {
       pollRef.current = setInterval(() => {
         loadSessionMessages(sessionId);
@@ -78,7 +77,10 @@ export function ChatWidget({ config }: Props) {
     return () => {
       if (pollRef.current) clearInterval(pollRef.current);
     };
-  }, [sessionStatus, sessionId, isOpen]);
+  }, [enabled, sessionStatus, sessionId, isOpen]);
+
+  // Don't render if not enabled (after all hooks)
+  if (!enabled) return null;
 
   async function loadSessionMessages(sid: string) {
     const visitorId = getOrCreateVisitorId();
