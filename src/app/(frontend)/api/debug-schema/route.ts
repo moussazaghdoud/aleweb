@@ -208,6 +208,38 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ action: 'sync-schema', results, verify })
     }
 
+    // ── homepage-debug: inspect homepage tables and columns ──
+    if (action === 'homepage-debug') {
+      const homepageTables = await pool.query(`
+        SELECT table_name FROM information_schema.tables
+        WHERE table_schema = 'public' AND table_name LIKE 'homepage%'
+        ORDER BY table_name
+      `)
+      const tables: Record<string, string[]> = {}
+      for (const row of homepageTables.rows) {
+        const cols = await pool.query(`
+          SELECT column_name, data_type FROM information_schema.columns
+          WHERE table_schema = 'public' AND table_name = $1
+          ORDER BY ordinal_position
+        `, [row.table_name])
+        tables[row.table_name] = cols.rows.map((c: any) => `${c.column_name} (${c.data_type})`)
+      }
+      // Also show Drizzle expected tables for homepage
+      const db = payload.db as any
+      const drizzleHomepage: Record<string, string[]> = {}
+      for (const tName of Object.keys(db.tables || {})) {
+        if (tName.startsWith('homepage')) {
+          const t = db.tables[tName]
+          const cols = Object.keys(t).filter((k: string) => {
+            const c = t[k]
+            return c && typeof c === 'object' && c.name && (c.dataType || c.columnType)
+          }).map((k: string) => `${t[k].name} (${t[k].getSQLType?.() || t[k].columnType || '?'})`)
+          drizzleHomepage[tName] = cols
+        }
+      }
+      return NextResponse.json({ actual: tables, expected: drizzleHomepage })
+    }
+
     // ── Default: diagnose all globals and collections ──
     const globalSlugs = ['site-config', 'navigation', 'footer', 'redirects', 'homepage']
     const globalResults: Record<string, string> = {}
