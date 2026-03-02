@@ -1,44 +1,230 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
+import { ChatBubble } from "./ChatBubble";
+import { ChatMessageBubble } from "./ChatMessage";
+import { ChatInput } from "./ChatInput";
+import type { ChatMessage, MessageRole } from "@/lib/chat/types";
 
-interface Props {
-  config?: { enabled?: boolean; position?: string; greeting?: string } | null;
+interface ChatConfig {
+  enabled?: boolean;
+  position?: "bottom-right" | "bottom-left";
+  greeting?: string;
+  escalationEnabled?: boolean;
 }
 
-export function ChatWidget({ config }: Props) {
-  const [isOpen, setIsOpen] = useState(false);
+interface Props {
+  config?: ChatConfig | null;
+}
 
-  // DEBUG: always show, ignore config
-  // if (!config?.enabled) return null;
+type UIMessage = {
+  id: string;
+  role: MessageRole;
+  content: string;
+  createdAt: string;
+};
+
+const VISITOR_ID_KEY = "ale-chat-visitor-id";
+const SESSION_ID_KEY = "ale-chat-session-id";
+
+function getOrCreateVisitorId(): string {
+  if (typeof window === "undefined") return "";
+  let id = localStorage.getItem(VISITOR_ID_KEY);
+  if (!id) {
+    id = "v_" + Math.random().toString(36).slice(2, 14);
+    localStorage.setItem(VISITOR_ID_KEY, id);
+  }
+  return id;
+}
+
+function ChatWidgetInner({ config }: { config: ChatConfig }) {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<UIMessage[]>([]);
+  const [isStreaming, setIsStreaming] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [sessionStatus, setSessionStatus] = useState<string>("active");
+  const [showEscalationBanner, setShowEscalationBanner] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  const position = config.position || "bottom-right";
+  const greeting = config.greeting || "Hi! How can I help you today?";
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    const saved = localStorage.getItem(SESSION_ID_KEY);
+    if (saved) {
+      setSessionId(saved);
+      fetchMessages(saved);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (sessionStatus === "escalated" && sessionId && isOpen) {
+      pollRef.current = setInterval(() => fetchMessages(sessionId), 3000);
+    }
+    return () => {
+      if (pollRef.current) clearInterval(pollRef.current);
+    };
+  }, [sessionStatus, sessionId, isOpen]);
+
+  const handleSend = useCallback(
+    async (text: string) => {
+      const visitorId = getOrCreateVisitorId();
+
+      setMessages((prev) => [
+        ...prev,
+        { id: "tmp_" + Date.now(), role: "user", content: text, createdAt: new Date().toISOString() },
+      ]);
+      setIsStreaming(true);
+      setShowEscalationBanner(false);
+
+      try {
+        const res = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ sessionId, message: text, visitorId }),
+        });
+
+        const contentType = res.headers.get("content-type") || "";
+
+        if (contentType.includes("application/json")) {
+          const data = await res.json();
+
+          if (data.sessionId && !sessionId) {
+            setSessionId(data.sessionId);
+            localStorage.setItem(SESSION_ID_KEY, data.sessionId);
+          }
+
+          if (data.type === "escalation_needed") {
+            setShowEscalationBanner(true);
+            setIsStreaming(false);
+            return;
+          }
+
+          if (data.error) {
+            setMessages((prev) => [
+              ...prev,
+              { id: "err_" + Date.now(), role: "system" as MessageRole, content: data.error, createdAt: new Date().toISOString() },
+            ]);
+            setIsStreaming(false);
+            return;
+          }
+        }
+
+        if (contentType.includes("text/event-stream")) {
+          const reader = res.body?.getReader();
+          if (!reader) throw new Error("No response body");
+
+          const decoder = new TextDecoder();
+          let assistantContent = "";
+          const assistantMsgId = "ai_" + Date.now();
+
+          setMessages((prev) => [
+            ...prev,
+            { id: assistantMsgId, role: "assistant", content: "", createdAt: new Date().toISOString() },
+          ]);
+
+          let buffer = "";
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+
+            buffer += decoder.decode(value, { stream: true });
+            const lines = buffer.split("\n");
+            buffer = lines.pop() || "";
+
+            for (const line of lines) {
+              if (!line.startsWith("data: ")) continue;
+              const jsonStr = line.slice(6).trim();
+              if (!jsonStr) continue;
+
+              try {
+                const event = JSON.parse(jsonStr);
+                if (event.type === "session" && event.sessionId) {
+                  setSessionId(event.sessionId);
+                  localStorage.setItem(SESSION_ID_KEY, event.sessionId);
+                }
+                if (event.type === "delta" && event.content) {
+                  assistantContent += event.content;
+                  setMessages((prev) =>
+                    prev.map((m) => (m.id === assistantMsgId ? { ...m, content: assistantContent } : m)),
+                  );
+                }
+                if (event.type === "error") {
+                  setMessages((prev) =>
+                    prev.map((m) =>
+                      m.id === assistantMsgId
+                        ? { ...m, content: event.message || "An error occurred", role: "system" as MessageRole }
+                        : m,
+                    ),
+                  );
+                }
+              } catch {
+                // skip malformed SSE
+              }
+            }
+          }
+        }
+      } catch {
+        setMessages((prev) => [
+          ...prev,
+          { id: "err_" + Date.now(), role: "system" as MessageRole, content: "Connection error. Please try again.", createdAt: new Date().toISOString() },
+        ]);
+      } finally {
+        setIsStreaming(false);
+      }
+    },
+    [sessionId],
+  );
+
+  const handleEscalate = useCallback(async () => {
+    if (!sessionId) return;
+    const visitorId = getOrCreateVisitorId();
+    try {
+      const res = await fetch("/api/chat/escalate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, visitorId, reason: "User requested agent" }),
+      });
+      const data = await res.json();
+      if (data.escalated) {
+        setSessionStatus("escalated");
+        setShowEscalationBanner(false);
+        setMessages((prev) => [
+          ...prev,
+          { id: "sys_" + Date.now(), role: "system", content: data.message || "Connecting you with an agent...", createdAt: new Date().toISOString() },
+        ]);
+      }
+    } catch {
+      // ignore
+    }
+  }, [sessionId]);
+
+  function fetchMessages(sid: string) {
+    const visitorId = getOrCreateVisitorId();
+    fetch(`/api/chat/sessions/${sid}?visitorId=${visitorId}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data) return;
+        setMessages(
+          data.messages.map((m: ChatMessage) => ({
+            id: m.id,
+            role: m.role,
+            content: m.content,
+            createdAt: m.createdAt,
+          })),
+        );
+        if (data.session?.status) setSessionStatus(data.session.status);
+      })
+      .catch(() => {});
+  }
 
   if (!isOpen) {
-    return (
-      <button
-        onClick={() => setIsOpen(true)}
-        style={{
-          position: "fixed",
-          bottom: 20,
-          right: 20,
-          zIndex: 99999,
-          width: 56,
-          height: 56,
-          borderRadius: "50%",
-          backgroundColor: "#7C3AED",
-          color: "white",
-          border: "none",
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: "0 4px 14px rgba(124, 58, 237, 0.4)",
-          fontSize: 24,
-        }}
-        aria-label="Open chat"
-      >
-        💬
-      </button>
-    );
+    return <ChatBubble onClick={() => setIsOpen(true)} position={position} />;
   }
 
   return (
@@ -46,26 +232,97 @@ export function ChatWidget({ config }: Props) {
       style={{
         position: "fixed",
         bottom: 20,
-        right: 20,
-        zIndex: 99999,
+        right: position === "bottom-left" ? undefined : 20,
+        left: position === "bottom-left" ? 20 : undefined,
+        zIndex: 9999,
         width: 380,
-        height: 500,
+        maxWidth: "calc(100vw - 2.5rem)",
+        height: 560,
+        maxHeight: "calc(100vh - 6rem)",
         backgroundColor: "white",
         borderRadius: 16,
-        boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)",
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
         border: "1px solid #e5e7eb",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "column" as const,
         overflow: "hidden",
       }}
     >
-      <div style={{ padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <strong>ALE Assistant</strong>
-        <button onClick={() => setIsOpen(false)} style={{ background: "none", border: "none", color: "white", cursor: "pointer", fontSize: 18 }}>✕</button>
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", flexShrink: 0 }}>
+        <div style={{ width: 32, height: 32, borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+          </svg>
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div style={{ fontSize: 14, fontWeight: 700 }}>ALE Assistant</div>
+          <div style={{ fontSize: 10, opacity: 0.7 }}>
+            {sessionStatus === "escalated" ? "Connected to agent" : "AI-powered support"}
+          </div>
+        </div>
+        <button
+          onClick={() => setIsOpen(false)}
+          style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
+          aria-label="Close chat"
+        >
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
       </div>
-      <div style={{ flex: 1, padding: 16, display: "flex", alignItems: "center", justifyContent: "center", color: "#666" }}>
-        Chat widget loaded! OpenAI integration coming soon.
+
+      {/* Messages */}
+      <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
+        {messages.length === 0 && (
+          <div style={{ textAlign: "center", paddingTop: 32 }}>
+            <div style={{ width: 48, height: 48, borderRadius: "50%", backgroundColor: "rgba(124,58,237,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+              <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#7C3AED" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
+              </svg>
+            </div>
+            <p style={{ fontSize: 14, color: "#4b5563", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
+            <p style={{ fontSize: 12, color: "#9ca3af" }}>Ask about our products, solutions, or services</p>
+          </div>
+        )}
+
+        {messages.map((msg) => (
+          <ChatMessageBubble key={msg.id} role={msg.role} content={msg.content} createdAt={msg.createdAt} />
+        ))}
+
+        {isStreaming && (
+          <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 12 }}>
+            <div style={{ backgroundColor: "#f3f4f6", borderRadius: 16, padding: "12px 16px", display: "flex", gap: 4 }}>
+              <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", display: "inline-block" }}>·</span>
+              <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", display: "inline-block" }}>·</span>
+              <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", display: "inline-block" }}>·</span>
+            </div>
+          </div>
+        )}
+
+        <div ref={messagesEndRef} />
       </div>
+
+      {/* Escalation banner */}
+      {showEscalationBanner && config.escalationEnabled && (
+        <div style={{ padding: "12px 16px", backgroundColor: "#fffbeb", borderTop: "1px solid #fde68a", display: "flex", alignItems: "center", gap: 12 }}>
+          <p style={{ fontSize: 12, color: "#92400e", flex: 1, margin: 0 }}>Would you like to talk to a human agent?</p>
+          <button onClick={handleEscalate} style={{ fontSize: 12, fontWeight: 600, color: "white", backgroundColor: "#7C3AED", padding: "6px 12px", borderRadius: 999, border: "none", cursor: "pointer" }}>Yes</button>
+          <button onClick={() => setShowEscalationBanner(false)} style={{ fontSize: 12, color: "#6b7280", background: "none", border: "none", cursor: "pointer" }}>No thanks</button>
+        </div>
+      )}
+
+      {/* Input */}
+      <ChatInput
+        onSend={handleSend}
+        disabled={isStreaming}
+        placeholder={sessionStatus === "escalated" ? "Message agent..." : "Ask about ALE products..."}
+      />
     </div>
   );
+}
+
+export function ChatWidget({ config }: Props) {
+  if (!config?.enabled) return null;
+  return <ChatWidgetInner config={config} />;
 }
