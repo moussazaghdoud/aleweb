@@ -142,6 +142,11 @@ export function GoalCaptureGlassPanel() {
     [state, handleSubmit, handleReset],
   );
 
+  // Pause hero video on first keystroke
+  const pauseVideo = useCallback(() => {
+    window.dispatchEvent(new CustomEvent("hero-video-pause"));
+  }, []);
+
   // Auto-resize textarea
   useEffect(() => {
     const el = textareaRef.current;
@@ -175,6 +180,7 @@ export function GoalCaptureGlassPanel() {
             ref={textareaRef}
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
+            onFocus={pauseVideo}
             placeholder="Write here what you want to do, What are you looking to solve in your organization"
             rows={3}
             maxLength={1000}
@@ -269,6 +275,7 @@ export function GoalCaptureGlassPanel() {
             ref={textareaRef}
             value={goal}
             onChange={(e) => setGoal(e.target.value)}
+            onFocus={pauseVideo}
             placeholder="Add more details..."
             rows={2}
             className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:outline-none focus:ring-2 focus:ring-purple-400/50 focus:border-purple-400/40 transition-all"

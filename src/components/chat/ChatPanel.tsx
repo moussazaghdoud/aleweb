@@ -265,6 +265,7 @@ export default function ChatPanel({ config, onClose }: Props) {
           ref={textareaRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
+          onFocus={() => window.dispatchEvent(new CustomEvent("hero-video-pause"))}
           onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
           onInput={() => { const el = textareaRef.current; if (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 120) + "px"; } }}
           disabled={isStreaming}

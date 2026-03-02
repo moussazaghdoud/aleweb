@@ -47,6 +47,17 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
     if (videoRef.current) videoRef.current.playbackRate = 0.5;
   }, []);
 
+  // Pause video when user starts typing in GoalCapture or ChatPanel
+  useEffect(() => {
+    const pause = () => {
+      if (videoRef.current && !videoRef.current.paused) {
+        videoRef.current.pause();
+      }
+    };
+    window.addEventListener("hero-video-pause", pause);
+    return () => window.removeEventListener("hero-video-pause", pause);
+  }, []);
+
   const resolvedVideoUrl = videoUrl || landingVideos.home;
   const resolvedCtas = ctaButtons?.length ? ctaButtons : defaultCtas;
 
@@ -60,6 +71,7 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
       <video
         ref={videoRef}
         autoPlay
+        loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
