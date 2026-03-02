@@ -12,7 +12,9 @@ interface Props {
 export function ChatWidget({ config }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!config?.enabled) return null;
+  // If config is explicitly set to disabled, hide. If config is null/undefined
+  // (DB cold start), show the bubble with defaults so it appears on first load.
+  if (config?.enabled === false) return null;
 
   if (!isOpen) {
     return (
