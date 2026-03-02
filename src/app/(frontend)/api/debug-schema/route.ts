@@ -208,6 +208,30 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ action: 'sync-schema', results, verify })
     }
 
+    // ── fix-chat-tables: drop Payload's chat_sessions (serial id) so store can create its own (text id) ──
+    if (action === 'fix-chat-tables') {
+      const fixes: Record<string, string> = {}
+      // Drop the Payload-created tables (they have serial id, but store needs text id)
+      for (const t of ['chat_messages', 'chat_sessions']) {
+        try {
+          await pool.query(`DROP TABLE IF EXISTS "${t}" CASCADE`)
+          fixes[`drop:${t}`] = 'OK'
+        } catch (e: any) {
+          fixes[`drop:${t}`] = `ERR: ${e.message?.slice(0, 100)}`
+        }
+      }
+      // Now let the store recreate them with correct schema
+      try {
+        const { getChatStore } = await import('@/lib/chat/store')
+        const store = getChatStore()
+        await store.getRecentSessions(undefined, 1) // triggers ensureTables
+        fixes['recreate'] = 'OK'
+      } catch (e: any) {
+        fixes['recreate'] = `ERR: ${e.message?.slice(0, 150)}`
+      }
+      return NextResponse.json({ action: 'fix-chat-tables', fixes })
+    }
+
     // ── create-chat-tables: manually create chat tables ──
     if (action === 'create-chat-tables') {
       const results: Record<string, string> = {}
