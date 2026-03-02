@@ -37,7 +37,7 @@ function getOrCreateVisitorId(): string {
   return id;
 }
 
-export function ChatWidget({ config }: Props) {
+function ChatWidgetInner({ config }: Props) {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<UIMessage[]>([]);
   const [isStreaming, setIsStreaming] = useState(false);
@@ -45,39 +45,20 @@ export function ChatWidget({ config }: Props) {
   const [sessionStatus, setSessionStatus] = useState<string>("active");
   const [showEscalationBanner, setShowEscalationBanner] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
-  const pollRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   const position = config?.position || "bottom-right";
   const greeting = config?.greeting || "Hi! How can I help you today?";
-  const enabled = config?.enabled ?? false;
 
-  // Scroll to bottom on new messages
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // Load session from localStorage on mount
   useEffect(() => {
-    if (!enabled) return;
     const savedSessionId = localStorage.getItem(SESSION_ID_KEY);
     if (savedSessionId) {
       setSessionId(savedSessionId);
-      fetchMessages(savedSessionId);
     }
-  }, [enabled]);
-
-  // Poll for new messages when escalated
-  useEffect(() => {
-    if (!enabled) return;
-    if (sessionStatus === "escalated" && sessionId && isOpen) {
-      pollRef.current = setInterval(() => {
-        fetchMessages(sessionId);
-      }, 3000);
-    }
-    return () => {
-      if (pollRef.current) clearInterval(pollRef.current);
-    };
-  }, [enabled, sessionStatus, sessionId, isOpen]);
+  }, []);
 
   const handleSend = useCallback(
     async (text: string) => {
@@ -112,12 +93,6 @@ export function ChatWidget({ config }: Props) {
 
           if (data.type === "escalation_needed") {
             setShowEscalationBanner(true);
-            setIsStreaming(false);
-            return;
-          }
-
-          if (data.status === "escalated") {
-            setSessionStatus("escalated");
             setIsStreaming(false);
             return;
           }
@@ -166,12 +141,10 @@ export function ChatWidget({ config }: Props) {
 
               try {
                 const event = JSON.parse(jsonStr);
-
                 if (event.type === "session" && event.sessionId) {
                   setSessionId(event.sessionId);
                   localStorage.setItem(SESSION_ID_KEY, event.sessionId);
                 }
-
                 if (event.type === "delta" && event.content) {
                   assistantContent += event.content;
                   setMessages((prev) =>
@@ -180,7 +153,6 @@ export function ChatWidget({ config }: Props) {
                     ),
                   );
                 }
-
                 if (event.type === "error") {
                   setMessages((prev) =>
                     prev.map((m) =>
@@ -191,7 +163,7 @@ export function ChatWidget({ config }: Props) {
                   );
                 }
               } catch {
-                // Skip malformed SSE data
+                // skip
               }
             }
           }
@@ -213,162 +185,91 @@ export function ChatWidget({ config }: Props) {
     [sessionId],
   );
 
-  const handleEscalate = useCallback(async () => {
-    if (!sessionId) return;
-    const visitorId = getOrCreateVisitorId();
-
-    try {
-      const res = await fetch("/api/chat/escalate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ sessionId, visitorId, reason: "User requested agent" }),
-      });
-
-      const data = await res.json();
-      if (data.escalated) {
-        setSessionStatus("escalated");
-        setShowEscalationBanner(false);
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: "sys_" + Date.now(),
-            role: "system",
-            content: data.message || "Connecting you with an agent...",
-            createdAt: new Date().toISOString(),
-          },
-        ]);
-      }
-    } catch {
-      // Ignore
-    }
-  }, [sessionId]);
-
-  // ── All hooks above this line ──
-
-  if (!enabled) return null;
-
-  function fetchMessages(sid: string) {
-    const visitorId = getOrCreateVisitorId();
-    fetch(`/api/chat/sessions/${sid}?visitorId=${visitorId}`)
-      .then((res) => (res.ok ? res.json() : null))
-      .then((data) => {
-        if (!data) return;
-        setMessages(
-          data.messages.map((m: ChatMessage) => ({
-            id: m.id,
-            role: m.role,
-            content: m.content,
-            createdAt: m.createdAt,
-          })),
-        );
-        if (data.session?.status) {
-          setSessionStatus(data.session.status);
-        }
-      })
-      .catch(() => {});
+  if (!isOpen) {
+    return <ChatBubble onClick={() => setIsOpen(true)} position={position} />;
   }
 
-  const posClass = position === "bottom-left" ? "left-5" : "right-5";
-
   return (
-    <>
-      {!isOpen && (
-        <ChatBubble onClick={() => setIsOpen(true)} position={position} />
-      )}
-
-      {isOpen && (
-        <div
-          style={{
-            position: "fixed",
-            bottom: 20,
-            right: position === "bottom-left" ? undefined : 20,
-            left: position === "bottom-left" ? 20 : undefined,
-            zIndex: 9999,
-            width: 380,
-            maxWidth: "calc(100vw - 2.5rem)",
-            height: 560,
-            maxHeight: "calc(100vh - 6rem)",
-            backgroundColor: "white",
-            borderRadius: 16,
-            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
-            border: "1px solid #e5e7eb",
-            display: "flex",
-            flexDirection: "column" as const,
-            overflow: "hidden",
-          }}
-        >
-          {/* Header */}
-          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", flexShrink: 0 }}>
-            <div style={{ width: 32, height: 32, borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-              </svg>
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <h3 style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.2, margin: 0 }}>ALE Assistant</h3>
-              <p style={{ fontSize: 10, opacity: 0.7, margin: 0 }}>
-                {sessionStatus === "escalated" ? "Connected to agent" : "AI-powered support"}
-              </p>
-            </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
-              aria-label="Close chat"
-            >
-              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
-              </svg>
-            </button>
+    <div
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: position === "bottom-left" ? undefined : 20,
+        left: position === "bottom-left" ? 20 : undefined,
+        zIndex: 9999,
+        width: 380,
+        maxWidth: "calc(100vw - 2.5rem)",
+        height: 560,
+        maxHeight: "calc(100vh - 6rem)",
+        backgroundColor: "white",
+        borderRadius: 16,
+        boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+        border: "1px solid #e5e7eb",
+        display: "flex",
+        flexDirection: "column" as const,
+        overflow: "hidden",
+      }}
+    >
+      {/* Header */}
+      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", flexShrink: 0 }}>
+        <div style={{ flex: 1 }}>
+          <div style={{ fontSize: 14, fontWeight: 700 }}>ALE Assistant</div>
+          <div style={{ fontSize: 10, opacity: 0.7 }}>
+            {sessionStatus === "escalated" ? "Connected to agent" : "AI-powered support"}
           </div>
-
-          {/* Messages */}
-          <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
-            {messages.length === 0 && (
-              <div style={{ textAlign: "center", paddingTop: 32 }}>
-                <div style={{ width: 48, height: 48, borderRadius: "50%", backgroundColor: "rgba(124,58,237,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
-                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#7C3AED" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-                  </svg>
-                </div>
-                <p style={{ fontSize: 14, color: "#4b5563", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
-                <p style={{ fontSize: 12, color: "#9ca3af" }}>Ask about our products, solutions, or services</p>
-              </div>
-            )}
-
-            {messages.map((msg) => (
-              <ChatMessageBubble key={msg.id} role={msg.role} content={msg.content} createdAt={msg.createdAt} />
-            ))}
-
-            {isStreaming && (
-              <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 12 }}>
-                <div style={{ backgroundColor: "#f3f4f6", borderRadius: 16, padding: "12px 16px", display: "flex", gap: 4 }}>
-                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite" }} />
-                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite 0.15s" }} />
-                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite 0.3s" }} />
-                </div>
-              </div>
-            )}
-
-            <div ref={messagesEndRef} />
-          </div>
-
-          {/* Escalation banner */}
-          {showEscalationBanner && config?.escalationEnabled && (
-            <div style={{ padding: "12px 16px", backgroundColor: "#fffbeb", borderTop: "1px solid #fde68a", display: "flex", alignItems: "center", gap: 12 }}>
-              <p style={{ fontSize: 12, color: "#92400e", flex: 1, margin: 0 }}>Would you like to talk to a human agent?</p>
-              <button onClick={handleEscalate} style={{ fontSize: 12, fontWeight: 600, color: "white", backgroundColor: "#7C3AED", padding: "6px 12px", borderRadius: 999, border: "none", cursor: "pointer" }}>Yes</button>
-              <button onClick={() => setShowEscalationBanner(false)} style={{ fontSize: 12, color: "#6b7280", background: "none", border: "none", cursor: "pointer" }}>No thanks</button>
-            </div>
-          )}
-
-          {/* Input */}
-          <ChatInput
-            onSend={handleSend}
-            disabled={isStreaming}
-            placeholder={sessionStatus === "escalated" ? "Message agent..." : "Ask about ALE products..."}
-          />
         </div>
-      )}
-    </>
+        <button
+          onClick={() => setIsOpen(false)}
+          style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer" }}
+          aria-label="Close chat"
+        >
+          ✕
+        </button>
+      </div>
+
+      {/* Messages */}
+      <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
+        {messages.length === 0 && (
+          <div style={{ textAlign: "center", paddingTop: 32 }}>
+            <p style={{ fontSize: 14, color: "#4b5563", fontWeight: 500 }}>{greeting}</p>
+            <p style={{ fontSize: 12, color: "#9ca3af", marginTop: 4 }}>Ask about our products, solutions, or services</p>
+          </div>
+        )}
+        {messages.map((msg) => (
+          <ChatMessageBubble key={msg.id} role={msg.role} content={msg.content} createdAt={msg.createdAt} />
+        ))}
+        {isStreaming && (
+          <div style={{ color: "#9ca3af", fontSize: 12, padding: 8 }}>Typing...</div>
+        )}
+        <div ref={messagesEndRef} />
+      </div>
+
+      {/* Input */}
+      <ChatInput
+        onSend={handleSend}
+        disabled={isStreaming}
+        placeholder={sessionStatus === "escalated" ? "Message agent..." : "Ask about ALE products..."}
+      />
+    </div>
   );
+}
+
+// Wrapper with error boundary behavior
+export function ChatWidget({ config }: Props) {
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    // Catch any unhandled errors from the inner component
+    const handler = (e: ErrorEvent) => {
+      if (e.message?.includes("chat") || e.message?.includes("Chat")) {
+        setError(true);
+      }
+    };
+    window.addEventListener("error", handler);
+    return () => window.removeEventListener("error", handler);
+  }, []);
+
+  if (!config?.enabled || error) return null;
+
+  return <ChatWidgetInner config={config} />;
 }
