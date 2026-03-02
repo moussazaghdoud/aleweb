@@ -106,6 +106,8 @@ export default async function FrontendLayout({
         <Footer />
         <CookieConsent config={consentConfig} />
         <ChatWidget config={siteConfig?.chat as any} />
+        {/* DEBUG: simple test to see if fixed elements render */}
+        <div style={{position:'fixed',bottom:20,right:20,zIndex:99999,width:60,height:60,borderRadius:'50%',backgroundColor:'red',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',color:'white',fontSize:24,fontWeight:'bold',boxShadow:'0 4px 12px rgba(0,0,0,0.3)'}}>?</div>
       </body>
     </html>
   );
