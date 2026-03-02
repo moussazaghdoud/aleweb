@@ -9,7 +9,8 @@ interface Props {
 export function ChatWidget({ config }: Props) {
   const [isOpen, setIsOpen] = useState(false);
 
-  if (!config?.enabled) return null;
+  // DEBUG: always show, ignore config
+  // if (!config?.enabled) return null;
 
   if (!isOpen) {
     return (
