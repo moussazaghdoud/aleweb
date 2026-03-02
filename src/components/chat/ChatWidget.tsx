@@ -50,5 +50,5 @@ export function ChatWidget({ config }: Props) {
     );
   }
 
-  return <ChatPanel config={config} onClose={() => setIsOpen(false)} />;
+  return <ChatPanel config={config || {}} onClose={() => setIsOpen(false)} />;
 }
