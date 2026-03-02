@@ -62,7 +62,7 @@ export function ChatWidget({ config }: Props) {
     const savedSessionId = localStorage.getItem(SESSION_ID_KEY);
     if (savedSessionId) {
       setSessionId(savedSessionId);
-      loadSessionMessages(savedSessionId);
+      fetchMessages(savedSessionId);
     }
   }, [enabled]);
 
@@ -71,7 +71,7 @@ export function ChatWidget({ config }: Props) {
     if (!enabled) return;
     if (sessionStatus === "escalated" && sessionId && isOpen) {
       pollRef.current = setInterval(() => {
-        loadSessionMessages(sessionId);
+        fetchMessages(sessionId);
       }, 3000);
     }
     return () => {
@@ -79,36 +79,10 @@ export function ChatWidget({ config }: Props) {
     };
   }, [enabled, sessionStatus, sessionId, isOpen]);
 
-  // Don't render if not enabled (after all hooks)
-  if (!enabled) return null;
-
-  async function loadSessionMessages(sid: string) {
-    const visitorId = getOrCreateVisitorId();
-    try {
-      const res = await fetch(`/api/chat/sessions/${sid}?visitorId=${visitorId}`);
-      if (!res.ok) return;
-      const data = await res.json();
-      setMessages(
-        data.messages.map((m: ChatMessage) => ({
-          id: m.id,
-          role: m.role,
-          content: m.content,
-          createdAt: m.createdAt,
-        })),
-      );
-      if (data.session?.status) {
-        setSessionStatus(data.session.status);
-      }
-    } catch {
-      // Ignore — session may not exist yet
-    }
-  }
-
   const handleSend = useCallback(
     async (text: string) => {
       const visitorId = getOrCreateVisitorId();
 
-      // Add user message to UI immediately
       const userMsg: UIMessage = {
         id: "tmp_" + Date.now(),
         role: "user",
@@ -126,7 +100,6 @@ export function ChatWidget({ config }: Props) {
           body: JSON.stringify({ sessionId, message: text, visitorId }),
         });
 
-        // Check if response is JSON (escalation or error) vs SSE stream
         const contentType = res.headers.get("content-type") || "";
 
         if (contentType.includes("application/json")) {
@@ -165,7 +138,6 @@ export function ChatWidget({ config }: Props) {
         }
 
         if (contentType.includes("text/event-stream")) {
-          // Read SSE stream
           const reader = res.body?.getReader();
           if (!reader) throw new Error("No response body");
 
@@ -173,7 +145,6 @@ export function ChatWidget({ config }: Props) {
           let assistantContent = "";
           const assistantMsgId = "ai_" + Date.now();
 
-          // Add empty assistant message
           setMessages((prev) => [
             ...prev,
             { id: assistantMsgId, role: "assistant", content: "", createdAt: new Date().toISOString() },
@@ -210,10 +181,6 @@ export function ChatWidget({ config }: Props) {
                   );
                 }
 
-                if (event.type === "done") {
-                  // Streaming complete
-                }
-
                 if (event.type === "error") {
                   setMessages((prev) =>
                     prev.map((m) =>
@@ -229,7 +196,7 @@ export function ChatWidget({ config }: Props) {
             }
           }
         }
-      } catch (err) {
+      } catch {
         setMessages((prev) => [
           ...prev,
           {
@@ -246,7 +213,7 @@ export function ChatWidget({ config }: Props) {
     [sessionId],
   );
 
-  async function handleEscalate() {
+  const handleEscalate = useCallback(async () => {
     if (!sessionId) return;
     const visitorId = getOrCreateVisitorId();
 
@@ -274,65 +241,97 @@ export function ChatWidget({ config }: Props) {
     } catch {
       // Ignore
     }
+  }, [sessionId]);
+
+  // ── All hooks above this line ──
+
+  if (!enabled) return null;
+
+  function fetchMessages(sid: string) {
+    const visitorId = getOrCreateVisitorId();
+    fetch(`/api/chat/sessions/${sid}?visitorId=${visitorId}`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data) => {
+        if (!data) return;
+        setMessages(
+          data.messages.map((m: ChatMessage) => ({
+            id: m.id,
+            role: m.role,
+            content: m.content,
+            createdAt: m.createdAt,
+          })),
+        );
+        if (data.session?.status) {
+          setSessionStatus(data.session.status);
+        }
+      })
+      .catch(() => {});
   }
 
   const posClass = position === "bottom-left" ? "left-5" : "right-5";
 
   return (
     <>
-      {/* Floating bubble — hidden when drawer is open */}
       {!isOpen && (
         <ChatBubble onClick={() => setIsOpen(true)} position={position} />
       )}
 
-      {/* Chat drawer */}
       {isOpen && (
         <div
-          className={`fixed bottom-5 ${posClass} z-[60] w-[380px] max-w-[calc(100vw-2.5rem)] h-[560px] max-h-[calc(100vh-6rem)] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden animate-[slideUp_0.25s_ease-out]`}
+          style={{
+            position: "fixed",
+            bottom: 20,
+            right: position === "bottom-left" ? undefined : 20,
+            left: position === "bottom-left" ? 20 : undefined,
+            zIndex: 9999,
+            width: 380,
+            maxWidth: "calc(100vw - 2.5rem)",
+            height: 560,
+            maxHeight: "calc(100vh - 6rem)",
+            backgroundColor: "white",
+            borderRadius: 16,
+            boxShadow: "0 25px 50px -12px rgba(0, 0, 0, 0.25)",
+            border: "1px solid #e5e7eb",
+            display: "flex",
+            flexDirection: "column" as const,
+            overflow: "hidden",
+          }}
         >
           {/* Header */}
-          <div className="flex items-center gap-3 px-4 py-3 bg-gradient-to-r from-ale to-ale-dark text-white shrink-0">
-            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
-                />
+          <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", flexShrink: 0 }}>
+            <div style={{ width: 32, height: 32, borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
               </svg>
             </div>
-            <div className="flex-1 min-w-0">
-              <h3 className="text-sm font-bold leading-tight">ALE Assistant</h3>
-              <p className="text-[10px] text-white/70">
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h3 style={{ fontSize: 14, fontWeight: 700, lineHeight: 1.2, margin: 0 }}>ALE Assistant</h3>
+              <p style={{ fontSize: 10, opacity: 0.7, margin: 0 }}>
                 {sessionStatus === "escalated" ? "Connected to agent" : "AI-powered support"}
               </p>
             </div>
             <button
               onClick={() => setIsOpen(false)}
-              className="w-7 h-7 rounded-full hover:bg-white/20 flex items-center justify-center transition-colors"
+              style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }}
               aria-label="Close chat"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
               </svg>
             </button>
           </div>
 
           {/* Messages */}
-          <div className="flex-1 overflow-y-auto px-4 py-4 space-y-1">
+          <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
             {messages.length === 0 && (
-              <div className="text-center py-8">
-                <div className="w-12 h-12 rounded-full bg-ale/10 flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-6 h-6 text-ale" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
-                    />
+              <div style={{ textAlign: "center", paddingTop: 32 }}>
+                <div style={{ width: 48, height: 48, borderRadius: "50%", backgroundColor: "rgba(124,58,237,0.1)", display: "flex", alignItems: "center", justifyContent: "center", margin: "0 auto 12px" }}>
+                  <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#7C3AED" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                   </svg>
                 </div>
-                <p className="text-sm text-gray-600 font-medium mb-1">{greeting}</p>
-                <p className="text-xs text-gray-400">Ask about our products, solutions, or services</p>
+                <p style={{ fontSize: 14, color: "#4b5563", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
+                <p style={{ fontSize: 12, color: "#9ca3af" }}>Ask about our products, solutions, or services</p>
               </div>
             )}
 
@@ -340,13 +339,12 @@ export function ChatWidget({ config }: Props) {
               <ChatMessageBubble key={msg.id} role={msg.role} content={msg.content} createdAt={msg.createdAt} />
             ))}
 
-            {/* Typing indicator */}
             {isStreaming && (
-              <div className="flex justify-start mb-3">
-                <div className="bg-gray-100 rounded-2xl rounded-bl-md px-4 py-3 flex gap-1">
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:0ms]" />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:150ms]" />
-                  <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce [animation-delay:300ms]" />
+              <div style={{ display: "flex", justifyContent: "flex-start", marginBottom: 12 }}>
+                <div style={{ backgroundColor: "#f3f4f6", borderRadius: 16, padding: "12px 16px", display: "flex", gap: 4 }}>
+                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite" }} />
+                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite 0.15s" }} />
+                  <span style={{ width: 8, height: 8, backgroundColor: "#9ca3af", borderRadius: "50%", animation: "bounce 1s infinite 0.3s" }} />
                 </div>
               </div>
             )}
@@ -356,20 +354,10 @@ export function ChatWidget({ config }: Props) {
 
           {/* Escalation banner */}
           {showEscalationBanner && config?.escalationEnabled && (
-            <div className="px-4 py-3 bg-amber-50 border-t border-amber-200 flex items-center gap-3">
-              <p className="text-xs text-amber-800 flex-1">Would you like to talk to a human agent?</p>
-              <button
-                onClick={handleEscalate}
-                className="text-xs font-semibold text-white bg-ale px-3 py-1.5 rounded-full hover:bg-ale-dark transition-colors"
-              >
-                Yes
-              </button>
-              <button
-                onClick={() => setShowEscalationBanner(false)}
-                className="text-xs text-gray-500 hover:text-gray-700"
-              >
-                No thanks
-              </button>
+            <div style={{ padding: "12px 16px", backgroundColor: "#fffbeb", borderTop: "1px solid #fde68a", display: "flex", alignItems: "center", gap: 12 }}>
+              <p style={{ fontSize: 12, color: "#92400e", flex: 1, margin: 0 }}>Would you like to talk to a human agent?</p>
+              <button onClick={handleEscalate} style={{ fontSize: 12, fontWeight: 600, color: "white", backgroundColor: "#7C3AED", padding: "6px 12px", borderRadius: 999, border: "none", cursor: "pointer" }}>Yes</button>
+              <button onClick={() => setShowEscalationBanner(false)} style={{ fontSize: 12, color: "#6b7280", background: "none", border: "none", cursor: "pointer" }}>No thanks</button>
             </div>
           )}
 
