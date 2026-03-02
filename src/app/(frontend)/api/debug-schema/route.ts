@@ -208,6 +208,41 @@ export async function GET(request: NextRequest) {
       return NextResponse.json({ action: 'sync-schema', results, verify })
     }
 
+    // ── fix-homepage: fix column type mismatches in homepage tables ──
+    if (action === 'fix-homepage') {
+      const fixes: Record<string, string> = {}
+      const statements = [
+        // Fix id columns: integer → varchar (text)
+        `ALTER TABLE "homepage_hero_cta_buttons" ALTER COLUMN "id" TYPE varchar USING id::varchar`,
+        `ALTER TABLE "homepage_stats" ALTER COLUMN "id" TYPE varchar USING id::varchar`,
+        // Fix _locale columns to use the enum type
+        `ALTER TABLE "homepage_hero_cta_buttons_locales" ALTER COLUMN "_locale" TYPE enum__locales USING _locale::text::enum__locales`,
+        `ALTER TABLE "homepage_stats_locales" ALTER COLUMN "_locale" TYPE enum__locales USING _locale::text::enum__locales`,
+        `ALTER TABLE "homepage_locales" ALTER COLUMN "_locale" TYPE enum__locales USING _locale::text::enum__locales`,
+        // Fix _parent_id in locales tables: ensure varchar type
+        `ALTER TABLE "homepage_hero_cta_buttons_locales" ALTER COLUMN "_parent_id" TYPE varchar USING _parent_id::varchar`,
+        `ALTER TABLE "homepage_stats_locales" ALTER COLUMN "_parent_id" TYPE varchar USING _parent_id::varchar`,
+        // Drop old column name if exists
+        `ALTER TABLE "homepage_locales" DROP COLUMN IF EXISTS "hero_sub_heading"`,
+      ]
+      for (const sql of statements) {
+        try {
+          await pool.query(sql)
+          fixes[sql.slice(0, 80)] = 'OK'
+        } catch (e: any) {
+          fixes[sql.slice(0, 80)] = `ERR: ${e.message?.slice(0, 150)}`
+        }
+      }
+      // Verify
+      try {
+        const data = await payload.findGlobal({ slug: 'homepage' })
+        fixes['VERIFY'] = 'OK'
+      } catch (e: any) {
+        fixes['VERIFY'] = `ERR: ${e.message?.slice(0, 300)}`
+      }
+      return NextResponse.json({ action: 'fix-homepage', fixes })
+    }
+
     // ── homepage-debug: inspect homepage tables and columns ──
     if (action === 'homepage-debug') {
       const homepageTables = await pool.query(`
