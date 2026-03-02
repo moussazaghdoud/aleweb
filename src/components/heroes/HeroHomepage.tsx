@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { landingVideos } from "@/data/hero-videos";
+import { GoalCaptureGlassPanel } from "./GoalCaptureGlassPanel";
 
 /* ── Pillar indicator badges ── */
 const pillars = [
@@ -60,112 +61,123 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
         ref={videoRef}
         autoPlay
         muted
-        loop
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
       >
         <source src={resolvedVideoUrl} type="video/mp4" />
       </video>
 
-      {/* ── Dark overlay for contrast — left-to-right gradient ── */}
-      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+      {/* ── Dark overlay for contrast ── */}
+      <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
 
-      {/* ── Content ── */}
+      {/* ── Content — two-column on desktop ── */}
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full">
-        <div className="max-w-3xl">
-          {/* Pillar badges */}
-          <div
-            className={`flex flex-wrap gap-2 mb-6 transition-all duration-700 delay-300 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            {pillars.map((p) => (
-              <span
-                key={p.label}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium tracking-wide uppercase border rounded-full ${p.color}`}
-              >
-                <span className="w-1.5 h-1.5 rounded-full bg-current opacity-80" />
-                {p.label}
-              </span>
-            ))}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+          {/* ── Left column: headline + CTAs ── */}
+          <div className="max-w-2xl">
+            {/* Pillar badges */}
+            <div
+              className={`flex flex-wrap gap-2 mb-6 transition-all duration-700 delay-300 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              {pillars.map((p) => (
+                <span
+                  key={p.label}
+                  className={`inline-flex items-center gap-1.5 px-3 py-1 text-xs font-medium tracking-wide uppercase border rounded-full ${p.color}`}
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-current opacity-80" />
+                  {p.label}
+                </span>
+              ))}
+            </div>
+
+            {/* Headline */}
+            <h1
+              className={`text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.08] tracking-tight transition-all duration-700 delay-500 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              }`}
+            >
+              {headingText.includes('\n') ? (
+                headingText.split('\n').map((line, i, arr) => (
+                  <span key={i}>
+                    {i === arr.length - 1 ? (
+                      <span className="text-white/90">{line}</span>
+                    ) : i === 1 ? (
+                      <>
+                        {line.replace(/AI\s*Operations\.?/, '')}{' '}
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+                          AI&nbsp;Operations.
+                        </span>
+                      </>
+                    ) : (
+                      line
+                    )}
+                    {i < arr.length - 1 && <br />}
+                  </span>
+                ))
+              ) : (
+                headingText
+              )}
+            </h1>
+
+            {/* Subheading */}
+            <p
+              className={`mt-6 text-lg sm:text-xl text-white/75 max-w-xl leading-relaxed font-light transition-all duration-700 delay-700 ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              {subheadingText}
+            </p>
+
+            {/* CTAs */}
+            <div
+              className={`mt-10 flex flex-wrap gap-4 transition-all duration-700 delay-[900ms] ${
+                visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              }`}
+            >
+              {resolvedCtas.map((cta, i) =>
+                cta.variant === 'secondary' ? (
+                  <Link
+                    key={cta.id ?? i}
+                    href={cta.href}
+                    className="inline-flex items-center gap-2 h-13 px-8 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
+                  >
+                    {cta.label}
+                  </Link>
+                ) : (
+                  <Link
+                    key={cta.id ?? i}
+                    href={cta.href}
+                    className="group inline-flex items-center gap-2 h-13 px-8 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all duration-300 hover:shadow-lg hover:shadow-ale/30"
+                  >
+                    {cta.label}
+                    <svg
+                      className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
+                ),
+              )}
+            </div>
           </div>
 
-          {/* Headline */}
-          <h1
-            className={`text-4xl sm:text-5xl lg:text-6xl xl:text-[4.25rem] font-bold text-white leading-[1.08] tracking-tight transition-all duration-700 delay-500 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
-            }`}
-          >
-            {headingText.includes('\n') ? (
-              headingText.split('\n').map((line, i, arr) => (
-                <span key={i}>
-                  {i === arr.length - 1 ? (
-                    <span className="text-white/90">{line}</span>
-                  ) : i === 1 ? (
-                    <>
-                      {line.replace(/AI\s*Operations\.?/, '')}{' '}
-                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
-                        AI&nbsp;Operations.
-                      </span>
-                    </>
-                  ) : (
-                    line
-                  )}
-                  {i < arr.length - 1 && <br />}
-                </span>
-              ))
-            ) : (
-              headingText
-            )}
-          </h1>
-
-          {/* Subheading */}
-          <p
-            className={`mt-6 text-lg sm:text-xl text-white/75 max-w-2xl leading-relaxed font-light transition-all duration-700 delay-700 ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
-            {subheadingText}
-          </p>
-
-          {/* CTAs */}
+          {/* ── Right column: Goal Capture Glass Panel ── */}
           <div
-            className={`mt-10 flex flex-wrap gap-4 transition-all duration-700 delay-[900ms] ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            className={`flex justify-center lg:justify-end transition-all duration-700 delay-[1100ms] ${
+              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             }`}
           >
-            {resolvedCtas.map((cta, i) =>
-              cta.variant === 'secondary' ? (
-                <Link
-                  key={cta.id ?? i}
-                  href={cta.href}
-                  className="inline-flex items-center gap-2 h-13 px-8 bg-white/10 backdrop-blur-sm border border-white/20 text-white text-sm font-semibold rounded-full hover:bg-white/20 transition-all duration-300"
-                >
-                  {cta.label}
-                </Link>
-              ) : (
-                <Link
-                  key={cta.id ?? i}
-                  href={cta.href}
-                  className="group inline-flex items-center gap-2 h-13 px-8 bg-ale text-white text-sm font-semibold rounded-full hover:bg-ale-dark transition-all duration-300 hover:shadow-lg hover:shadow-ale/30"
-                >
-                  {cta.label}
-                  <svg
-                    className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </Link>
-              ),
-            )}
+            <GoalCaptureGlassPanel />
           </div>
         </div>
       </div>
