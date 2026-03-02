@@ -173,6 +173,11 @@ export async function chatWithRAG(
 
   try {
     vectorStoreId = await ensureVectorStore()
+    // Check if vector store has files — skip file_search if empty
+    const files = await client.vectorStores.files.list(vectorStoreId, { limit: 1 })
+    if (files.data.length === 0) {
+      vectorStoreId = undefined // No files, skip file_search
+    }
   } catch (err) {
     console.warn('[Chat] Vector store unavailable, proceeding without RAG:', err)
   }
@@ -189,13 +194,9 @@ export async function chatWithRAG(
   // Add current message
   input.push({ role: 'user', content: message })
 
-  // Build tools array
+  // Build tools array — web search first, then file search
   const tools: any[] = [
-    {
-      type: 'web_search_preview',
-      search_context_size: 'medium',
-      user_location: { type: 'approximate', country: 'FR' },
-    },
+    { type: 'web_search_preview' },
   ]
   if (vectorStoreId) {
     tools.push({
