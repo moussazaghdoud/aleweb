@@ -33,6 +33,8 @@ export default function ChatPanel({ config, onClose }: Props) {
   const [isStreaming, setIsStreaming] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(() => localStorage.getItem(SESSION_ID_KEY));
   const [input, setInput] = useState("");
+  const [escalated, setEscalated] = useState(false);
+  const [feedbackGiven, setFeedbackGiven] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -50,6 +52,7 @@ export default function ChatPanel({ config, onClose }: Props) {
     setInput("");
     if (textareaRef.current) textareaRef.current.style.height = "auto";
 
+    setFeedbackGiven(false);
     setMessages((prev) => [
       ...prev,
       { id: "u_" + Date.now(), role: "user", content: text, createdAt: new Date().toISOString() },
@@ -130,6 +133,40 @@ export default function ChatPanel({ config, onClose }: Props) {
     }
   }, [input, sessionId, isStreaming]);
 
+  const handleHappy = useCallback(() => {
+    setFeedbackGiven(true);
+    setMessages((prev) => [
+      ...prev,
+      { id: "s_" + Date.now(), role: "system", content: "Thanks for chatting! Glad I could help.", createdAt: new Date().toISOString() },
+    ]);
+    setTimeout(() => onClose(), 1500);
+  }, [onClose]);
+
+  const handleEscalate = useCallback(async () => {
+    setFeedbackGiven(true);
+    setEscalated(true);
+    setMessages((prev) => [
+      ...prev,
+      { id: "s_" + Date.now(), role: "system", content: "Connecting you with an agent...", createdAt: new Date().toISOString() },
+    ]);
+    try {
+      await fetch("/api/chat/escalate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, visitorId: getVisitorId(), reason: "User requested human agent" }),
+      });
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        { id: "e_" + Date.now(), role: "system", content: "Could not connect to an agent. Please try again later.", createdAt: new Date().toISOString() },
+      ]);
+    }
+  }, [sessionId]);
+
+  // Show feedback buttons after the last assistant message, only when not streaming and no feedback yet
+  const lastAssistantIdx = messages.reduce((acc, msg, i) => (msg.role === "assistant" ? i : acc), -1);
+  const showFeedbackButtons = lastAssistantIdx >= 0 && !isStreaming && !feedbackGiven;
+
   return (
     <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999, width: 380, maxWidth: "calc(100vw - 2.5rem)", height: 560, maxHeight: "calc(100vh - 6rem)", backgroundColor: "white", borderRadius: 16, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)", border: "1px solid #e5e7eb", display: "flex", flexDirection: "column", overflow: "hidden" }}>
 
@@ -142,7 +179,7 @@ export default function ChatPanel({ config, onClose }: Props) {
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700 }}>ALE Assistant</div>
-          <div style={{ fontSize: 10, opacity: 0.7 }}>AI-powered support</div>
+          <div style={{ fontSize: 10, opacity: 0.7 }}>{escalated ? "Connecting to agent..." : "AI-powered support"}</div>
         </div>
         <button onClick={onClose} style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} aria-label="Close chat">
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -159,22 +196,34 @@ export default function ChatPanel({ config, onClose }: Props) {
             <p style={{ fontSize: 12, color: "#9ca3af" }}>Ask about our products, solutions, or services</p>
           </div>
         )}
-        {messages.map((msg) => (
-          <div key={msg.id} style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: 12 }}>
-            <div style={{
-              maxWidth: "85%",
-              padding: "10px 14px",
-              borderRadius: 16,
-              fontSize: 14,
-              lineHeight: 1.5,
-              ...(msg.role === "user"
-                ? { backgroundColor: "#7C3AED", color: "white", borderBottomRightRadius: 4 }
-                : msg.role === "system"
-                ? { backgroundColor: "#fffbeb", color: "#92400e", border: "1px solid #fde68a", borderRadius: 999, fontSize: 12 }
-                : { backgroundColor: "#f3f4f6", color: "#111827", borderBottomLeftRadius: 4 }),
-            }}>
-              {msg.content || "..."}
+        {messages.map((msg, idx) => (
+          <div key={msg.id}>
+            <div style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: 12 }}>
+              <div style={{
+                maxWidth: "85%",
+                padding: "10px 14px",
+                borderRadius: 16,
+                fontSize: 14,
+                lineHeight: 1.5,
+                ...(msg.role === "user"
+                  ? { backgroundColor: "#7C3AED", color: "white", borderBottomRightRadius: 4 }
+                  : msg.role === "system"
+                  ? { backgroundColor: "#fffbeb", color: "#92400e", border: "1px solid #fde68a", borderRadius: 999, fontSize: 12 }
+                  : { backgroundColor: "#f3f4f6", color: "#111827", borderBottomLeftRadius: 4 }),
+              }}>
+                {msg.content || "..."}
+              </div>
             </div>
+            {showFeedbackButtons && idx === lastAssistantIdx && (
+              <div style={{ display: "flex", gap: 8, marginBottom: 12, paddingLeft: 4 }}>
+                <button onClick={handleHappy} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "none", backgroundColor: "#10b981", color: "white", cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
+                  &#10003; I&apos;m happy
+                </button>
+                <button onClick={handleEscalate} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "none", backgroundColor: "#3b82f6", color: "white", cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
+                  &#128100; Talk to a human
+                </button>
+              </div>
+            )}
           </div>
         ))}
         {isStreaming && messages[messages.length - 1]?.role !== "assistant" && (
