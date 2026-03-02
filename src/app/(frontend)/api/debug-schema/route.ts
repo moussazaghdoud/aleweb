@@ -216,7 +216,7 @@ export async function GET(request: NextRequest) {
         await payload.findGlobal({ slug })
         globalResults[slug] = 'OK'
       } catch (err: any) {
-        globalResults[slug] = `ERROR: ${err.message?.slice(0, 200)}`
+        globalResults[slug] = `ERROR: ${err.message?.slice(0, 500)}`
       }
     }
 
