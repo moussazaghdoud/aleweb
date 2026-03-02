@@ -7,16 +7,30 @@ interface Props {
 }
 
 export function ChatBubble({ onClick, position, hasUnread }: Props) {
-  const posClass = position === "bottom-left" ? "left-5" : "right-5";
-
   return (
     <button
       onClick={onClick}
-      className={`fixed bottom-5 ${posClass} z-[60] w-14 h-14 rounded-full bg-ale text-white shadow-lg shadow-ale/30 hover:bg-ale-dark hover:scale-105 transition-all flex items-center justify-center animate-[slideUp_0.3s_ease-out]`}
+      style={{
+        position: "fixed",
+        bottom: 20,
+        right: position === "bottom-left" ? undefined : 20,
+        left: position === "bottom-left" ? 20 : undefined,
+        zIndex: 9999,
+        width: 56,
+        height: 56,
+        borderRadius: "50%",
+        backgroundColor: "#7C3AED",
+        color: "white",
+        border: "none",
+        cursor: "pointer",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        boxShadow: "0 4px 14px rgba(124, 58, 237, 0.4)",
+      }}
       aria-label="Open chat"
     >
-      {/* Chat icon */}
-      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+      <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
         <path
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -24,9 +38,19 @@ export function ChatBubble({ onClick, position, hasUnread }: Props) {
         />
       </svg>
 
-      {/* Unread indicator */}
       {hasUnread && (
-        <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 bg-green-500 rounded-full border-2 border-white animate-pulse" />
+        <span
+          style={{
+            position: "absolute",
+            top: -2,
+            right: -2,
+            width: 14,
+            height: 14,
+            backgroundColor: "#22c55e",
+            borderRadius: "50%",
+            border: "2px solid white",
+          }}
+        />
       )}
     </button>
   );
