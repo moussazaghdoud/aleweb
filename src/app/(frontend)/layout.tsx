@@ -12,6 +12,9 @@ import { OrganizationJsonLd } from "@/components/seo/OrganizationJsonLd";
 import { getSiteConfig } from "@/lib/payload";
 import "./globals.css";
 
+// Revalidate layout every 60s so SiteConfig changes (chat toggle, analytics, etc.) take effect
+export const revalidate = 60;
+
 const inter = Inter({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800"],
