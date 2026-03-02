@@ -195,11 +195,11 @@ export default function ChatPanel({ config, onClose }: Props) {
         alignItems: "center",
         gap: 12,
         padding: "14px 16px",
-        background: "linear-gradient(135deg, rgba(124,58,237,0.35), rgba(109,40,217,0.25))",
-        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        background: "linear-gradient(135deg, rgba(59,130,246,0.32), rgba(124,58,237,0.30), rgba(6,182,212,0.28))",
+        borderBottom: "1px solid rgba(255,255,255,0.12)",
         flexShrink: 0,
       }}>
-        <div style={{ width: 34, height: 34, borderRadius: "50%", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{ width: 34, height: 34, borderRadius: "50%", background: "rgba(255,255,255,0.10)", border: "1px solid rgba(255,255,255,0.20)", display: "flex", alignItems: "center", justifyContent: "center" }}>
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
           </svg>
@@ -233,7 +233,7 @@ export default function ChatPanel({ config, onClose }: Props) {
                 fontSize: 14,
                 lineHeight: 1.5,
                 ...(msg.role === "user"
-                  ? { background: "linear-gradient(135deg, #7C3AED, #6D28D9)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
+                  ? { background: "linear-gradient(135deg, #3b82f6, #7c3aed)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
                   : msg.role === "system"
                   ? { background: "rgba(251,191,36,0.12)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.2)", borderRadius: 999, fontSize: 12 }
                   : { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(255,255,255,0.06)" }),
@@ -279,7 +279,7 @@ export default function ChatPanel({ config, onClose }: Props) {
             width: 36,
             height: 36,
             borderRadius: "50%",
-            background: isStreaming || !input.trim() ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg, #7C3AED, #6D28D9)",
+            background: isStreaming || !input.trim() ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg, #3b82f6, #7c3aed, #06b6d4)",
             color: "white",
             border: isStreaming || !input.trim() ? "1px solid rgba(255,255,255,0.1)" : "none",
             cursor: isStreaming || !input.trim() ? "not-allowed" : "pointer",
