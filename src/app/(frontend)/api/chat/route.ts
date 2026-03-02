@@ -2,8 +2,43 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getChatStore } from '@/lib/chat/store'
 import { chatWithRAG } from '@/lib/chat/openai'
 import type { ChatMessage } from '@/lib/chat/types'
+import { logChatEvent } from '@/lib/chat/analytics'
 
 export const dynamic = 'force-dynamic'
+
+const MAX_MESSAGE_LENGTH = 2000
+
+/** Strip HTML tags and control characters from user input. */
+function sanitizeMessage(raw: string): string {
+  return raw
+    .replace(/<[^>]*>/g, '') // Strip HTML tags
+    .replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '') // Strip control chars (keep \n, \r, \t)
+    .slice(0, MAX_MESSAGE_LENGTH)
+    .trim()
+}
+
+const INJECTION_PATTERNS = [
+  /ignore\s+(all\s+)?previous\s+instructions/i,
+  /ignore\s+(all\s+)?above\s+instructions/i,
+  /disregard\s+(all\s+)?previous/i,
+  /you\s+are\s+now\s+(?:a|an)\s+/i,
+  /new\s+instructions?:/i,
+  /system\s*:\s*/i,
+  /\[INST\]/i,
+  /<<SYS>>/i,
+  /\bDAN\b.*\bjailbreak/i,
+  /pretend\s+(?:you\s+are|to\s+be)\s+/i,
+  /act\s+as\s+(?:if|a)\s+/i,
+  /forget\s+(?:all\s+)?(?:your|the)\s+(?:rules|instructions)/i,
+]
+
+/** Detect common prompt injection attempts. Returns the matched pattern or null. */
+function detectInjection(msg: string): string | null {
+  for (const pattern of INJECTION_PATTERNS) {
+    if (pattern.test(msg)) return pattern.source
+  }
+  return null
+}
 
 /* Rate limiter: 10 messages / 60s per IP */
 const rateMap = new Map<string, { count: number; reset: number }>()
@@ -42,13 +77,27 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
   }
 
-  const { sessionId, message, visitorId } = body
+  const { sessionId, message: rawMessage, visitorId } = body
 
-  if (!message?.trim()) {
+  if (!rawMessage?.trim()) {
     return NextResponse.json({ error: 'Message is required' }, { status: 400 })
   }
   if (!visitorId?.trim()) {
     return NextResponse.json({ error: 'Visitor ID is required' }, { status: 400 })
+  }
+
+  // Sanitize user input
+  const message = sanitizeMessage(rawMessage)
+  if (!message) {
+    return NextResponse.json({ error: 'Message is required' }, { status: 400 })
+  }
+
+  // Detect prompt injection attempts
+  const injectionMatch = detectInjection(message)
+  if (injectionMatch) {
+    console.warn(`[Chat] Prompt injection detected from ${ip}: pattern="${injectionMatch}"`)
+    logChatEvent('injection_blocked', undefined, { ip, pattern: injectionMatch })
+    return NextResponse.json({ error: 'Message contains disallowed content' }, { status: 400 })
   }
 
   const store = getChatStore()

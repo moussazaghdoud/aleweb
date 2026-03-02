@@ -24,6 +24,8 @@ import { Resources } from './collections/Resources'
 import { ContactSubmissions } from './collections/ContactSubmissions'
 import { ChatKnowledgeFiles } from './collections/ChatKnowledgeFiles'
 import { ChatSessions } from './collections/ChatSessions'
+import { KnowledgeSources } from './collections/KnowledgeSources'
+import { KnowledgeUploads } from './collections/KnowledgeUploads'
 
 // Globals
 import { Navigation } from './globals/Navigation'
@@ -62,6 +64,9 @@ export default buildConfig({
     },
     importMap: {
       baseDir: path.resolve(dirname),
+    },
+    components: {
+      beforeDashboard: ['@/components/admin/KnowledgeDashboard'],
     },
     livePreview: {
       url: ({ data, collectionConfig }) => {
@@ -108,6 +113,8 @@ export default buildConfig({
     ContactSubmissions,
     ChatKnowledgeFiles,
     ChatSessions,
+    KnowledgeSources,
+    KnowledgeUploads,
   ],
 
   // ── Globals ──────────────────────────────────────────────────

@@ -27,14 +27,17 @@ export function ChatWidget({ config }: Props) {
           width: 56,
           height: 56,
           borderRadius: "50%",
-          backgroundColor: "#7C3AED",
+          background: "linear-gradient(135deg, #7C3AED, #6D28D9)",
           color: "white",
-          border: "none",
+          border: "1px solid rgba(255,255,255,0.2)",
           cursor: "pointer",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          boxShadow: "0 4px 14px rgba(124, 58, 237, 0.4)",
+          boxShadow: "0 4px 20px rgba(124, 58, 237, 0.45), 0 0 0 1px rgba(255,255,255,0.08) inset",
+          backdropFilter: "blur(12px)",
+          WebkitBackdropFilter: "blur(12px)",
+          transition: "transform 0.2s, box-shadow 0.2s",
         }}
         aria-label="Open chat"
       >

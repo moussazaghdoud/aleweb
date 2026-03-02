@@ -2,6 +2,17 @@
 /*  Chat Analytics — Fire-and-forget event logging                    */
 /* ------------------------------------------------------------------ */
 
+/** Knowledge base event type constants */
+export const KnowledgeEvents = {
+  FILE_INDEXED: 'file_indexed',
+  FILE_DELETED: 'file_deleted',
+  URL_CRAWLED: 'url_crawled',
+  URL_CRAWL_FAILED: 'url_crawl_failed',
+  REINDEX_STARTED: 'reindex_started',
+  REINDEX_COMPLETED: 'reindex_completed',
+  REINDEX_FAILED: 'reindex_failed',
+} as const
+
 type Pool = {
   query: (text: string, values?: any[]) => Promise<{ rows: any[]; rowCount: number }>
 }

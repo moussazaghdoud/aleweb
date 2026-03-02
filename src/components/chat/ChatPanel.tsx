@@ -168,21 +168,48 @@ export default function ChatPanel({ config, onClose }: Props) {
   const showFeedbackButtons = lastAssistantIdx >= 0 && !isStreaming && !feedbackGiven;
 
   return (
-    <div style={{ position: "fixed", bottom: 20, right: 20, zIndex: 9999, width: 380, maxWidth: "calc(100vw - 2.5rem)", height: 560, maxHeight: "calc(100vh - 6rem)", backgroundColor: "white", borderRadius: 16, boxShadow: "0 25px 50px -12px rgba(0,0,0,0.25)", border: "1px solid #e5e7eb", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+    <div style={{
+      position: "fixed",
+      bottom: 20,
+      right: 20,
+      zIndex: 9999,
+      width: 380,
+      maxWidth: "calc(100vw - 2.5rem)",
+      height: 560,
+      maxHeight: "calc(100vh - 6rem)",
+      /* Glassmorphism */
+      background: "rgba(15, 10, 30, 0.50)",
+      WebkitBackdropFilter: "blur(24px)",
+      backdropFilter: "blur(24px)",
+      border: "1px solid rgba(255, 255, 255, 0.15)",
+      borderRadius: 20,
+      boxShadow: "0 25px 60px -12px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255,255,255,0.05) inset",
+      display: "flex",
+      flexDirection: "column",
+      overflow: "hidden",
+    }}>
 
       {/* Header */}
-      <div style={{ display: "flex", alignItems: "center", gap: 12, padding: "12px 16px", background: "linear-gradient(to right, #7C3AED, #6D28D9)", color: "white", flexShrink: 0 }}>
-        <div style={{ width: 32, height: 32, borderRadius: "50%", backgroundColor: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center" }}>
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <div style={{
+        display: "flex",
+        alignItems: "center",
+        gap: 12,
+        padding: "14px 16px",
+        background: "linear-gradient(135deg, rgba(124,58,237,0.35), rgba(109,40,217,0.25))",
+        borderBottom: "1px solid rgba(255,255,255,0.08)",
+        flexShrink: 0,
+      }}>
+        <div style={{ width: 34, height: 34, borderRadius: "50%", background: "rgba(255,255,255,0.12)", border: "1px solid rgba(255,255,255,0.15)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="white" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
           </svg>
         </div>
         <div style={{ flex: 1 }}>
-          <div style={{ fontSize: 14, fontWeight: 700 }}>ALE Assistant</div>
-          <div style={{ fontSize: 10, opacity: 0.7 }}>{escalated ? "Connecting to agent..." : "AI-powered support"}</div>
+          <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>ALE Assistant</div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)" }}>{escalated ? "Connecting to agent..." : "AI-powered support"}</div>
         </div>
-        <button onClick={onClose} style={{ width: 28, height: 28, borderRadius: "50%", border: "none", background: "transparent", color: "white", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center" }} aria-label="Close chat">
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+        <button onClick={onClose} style={{ width: 28, height: 28, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }} aria-label="Close chat">
+          <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
@@ -192,8 +219,8 @@ export default function ChatPanel({ config, onClose }: Props) {
       <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
         {messages.length === 0 && (
           <div style={{ textAlign: "center", paddingTop: 32 }}>
-            <p style={{ fontSize: 14, color: "#4b5563", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
-            <p style={{ fontSize: 12, color: "#9ca3af" }}>Ask about our products, solutions, or services</p>
+            <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
+            <p style={{ fontSize: 12, color: "rgba(255,255,255,0.35)" }}>Ask about our products, solutions, or services</p>
           </div>
         )}
         {messages.map((msg, idx) => (
@@ -206,20 +233,20 @@ export default function ChatPanel({ config, onClose }: Props) {
                 fontSize: 14,
                 lineHeight: 1.5,
                 ...(msg.role === "user"
-                  ? { backgroundColor: "#7C3AED", color: "white", borderBottomRightRadius: 4 }
+                  ? { background: "linear-gradient(135deg, #7C3AED, #6D28D9)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
                   : msg.role === "system"
-                  ? { backgroundColor: "#fffbeb", color: "#92400e", border: "1px solid #fde68a", borderRadius: 999, fontSize: 12 }
-                  : { backgroundColor: "#f3f4f6", color: "#111827", borderBottomLeftRadius: 4 }),
+                  ? { background: "rgba(251,191,36,0.12)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.2)", borderRadius: 999, fontSize: 12 }
+                  : { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(255,255,255,0.06)" }),
               }}>
                 {msg.content || "..."}
               </div>
             </div>
             {showFeedbackButtons && idx === lastAssistantIdx && (
               <div style={{ display: "flex", gap: 8, marginBottom: 12, paddingLeft: 4 }}>
-                <button onClick={handleHappy} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "none", backgroundColor: "#10b981", color: "white", cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
+                <button onClick={handleHappy} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(16,185,129,0.3)", background: "rgba(16,185,129,0.15)", color: "#34d399", cursor: "pointer", fontFamily: "inherit", fontWeight: 500, transition: "background 0.2s" }}>
                   &#10003; I&apos;m happy
                 </button>
-                <button onClick={handleEscalate} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "none", backgroundColor: "#3b82f6", color: "white", cursor: "pointer", fontFamily: "inherit", fontWeight: 500 }}>
+                <button onClick={handleEscalate} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(59,130,246,0.3)", background: "rgba(59,130,246,0.15)", color: "#60a5fa", cursor: "pointer", fontFamily: "inherit", fontWeight: 500, transition: "background 0.2s" }}>
                   &#128100; Talk to a human
                 </button>
               </div>
@@ -227,13 +254,13 @@ export default function ChatPanel({ config, onClose }: Props) {
           </div>
         ))}
         {isStreaming && messages[messages.length - 1]?.role !== "assistant" && (
-          <div style={{ color: "#9ca3af", fontSize: 13, padding: "8px 0" }}>Typing...</div>
+          <div style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, padding: "8px 0" }}>Typing...</div>
         )}
         <div ref={messagesEndRef} />
       </div>
 
       {/* Input */}
-      <div style={{ display: "flex", alignItems: "flex-end", gap: 8, padding: 12, borderTop: "1px solid #f3f4f6", backgroundColor: "white" }}>
+      <div style={{ display: "flex", alignItems: "flex-end", gap: 8, padding: 12, borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.15)" }}>
         <textarea
           ref={textareaRef}
           value={input}
@@ -243,12 +270,26 @@ export default function ChatPanel({ config, onClose }: Props) {
           disabled={isStreaming}
           placeholder="Ask about ALE products..."
           rows={1}
-          style={{ flex: 1, resize: "none", fontSize: 14, padding: "8px 12px", borderRadius: 12, border: "1px solid #e5e7eb", backgroundColor: "#f9fafb", outline: "none", fontFamily: "inherit" }}
+          style={{ flex: 1, resize: "none", fontSize: 14, padding: "8px 12px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "white", outline: "none", fontFamily: "inherit" }}
         />
         <button
           onClick={handleSend}
           disabled={isStreaming || !input.trim()}
-          style={{ width: 36, height: 36, borderRadius: "50%", backgroundColor: isStreaming || !input.trim() ? "#d1d5db" : "#7C3AED", color: "white", border: "none", cursor: isStreaming || !input.trim() ? "not-allowed" : "pointer", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}
+          style={{
+            width: 36,
+            height: 36,
+            borderRadius: "50%",
+            background: isStreaming || !input.trim() ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg, #7C3AED, #6D28D9)",
+            color: "white",
+            border: isStreaming || !input.trim() ? "1px solid rgba(255,255,255,0.1)" : "none",
+            cursor: isStreaming || !input.trim() ? "not-allowed" : "pointer",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+            boxShadow: isStreaming || !input.trim() ? "none" : "0 2px 8px rgba(124,58,237,0.4)",
+            transition: "all 0.2s",
+          }}
           aria-label="Send message"
         >
           <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
