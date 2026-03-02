@@ -137,6 +137,6 @@ export async function POST(request: NextRequest) {
     })
   } catch (err: any) {
     console.error('[Chat] Error:', err.message, err.stack)
-    return NextResponse.json({ error: 'Chat service unavailable' }, { status: 503 })
+    return NextResponse.json({ error: err.message || 'Chat service unavailable' }, { status: 503 })
   }
 }
