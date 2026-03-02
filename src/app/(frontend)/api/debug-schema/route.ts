@@ -148,7 +148,7 @@ export async function GET(request: NextRequest) {
             if (col.notNull) colDef += ' NOT NULL'
             if (col.hasDefault && col.default !== undefined) {
               const def = typeof col.default === 'function' ? null : col.default
-              if (def !== null && def !== undefined) {
+              if (def !== null && def !== undefined && typeof def !== 'object') {
                 colDef += ` DEFAULT ${typeof def === 'string' ? `'${def}'` : def}`
               }
             }
@@ -206,6 +206,48 @@ export async function GET(request: NextRequest) {
       }
 
       return NextResponse.json({ action: 'sync-schema', results, verify })
+    }
+
+    // ── create-chat-tables: manually create chat tables ──
+    if (action === 'create-chat-tables') {
+      const results: Record<string, string> = {}
+      const statements = [
+        `CREATE TABLE IF NOT EXISTS "chat_knowledge_files" (
+          "id" serial PRIMARY KEY,
+          "filename" varchar NOT NULL,
+          "openai_file_id" varchar,
+          "vector_store_id" varchar,
+          "file_size" numeric,
+          "mime_type" varchar,
+          "status" enum_chat_knowledge_files_status DEFAULT 'processing',
+          "error_message" varchar,
+          "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+          "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+        )`,
+        `CREATE TABLE IF NOT EXISTS "chat_sessions" (
+          "id" serial PRIMARY KEY,
+          "session_id" varchar NOT NULL UNIQUE,
+          "visitor_id" varchar,
+          "status" enum_chat_sessions_status,
+          "agent_id" varchar,
+          "message_count" numeric,
+          "updated_at" timestamp(3) with time zone DEFAULT now() NOT NULL,
+          "created_at" timestamp(3) with time zone DEFAULT now() NOT NULL
+        )`,
+      ]
+      for (const sql of statements) {
+        try {
+          await pool.query(sql)
+          results[sql.match(/\"(\w+)\"/)?.[1] || 'unknown'] = 'CREATED'
+        } catch (e: any) {
+          results[sql.match(/\"(\w+)\"/)?.[1] || 'unknown'] = `ERR: ${e.message?.slice(0, 150)}`
+        }
+      }
+      // Verify
+      for (const slug of ['chat-knowledge-files', 'chat-sessions'] as const) {
+        try { await payload.find({ collection: slug, limit: 1 }); results[`verify:${slug}`] = 'OK' } catch (e: any) { results[`verify:${slug}`] = `ERR: ${e.message?.slice(0, 150)}` }
+      }
+      return NextResponse.json({ action: 'create-chat-tables', results })
     }
 
     // ── fix-homepage: fix column type mismatches in homepage tables ──
