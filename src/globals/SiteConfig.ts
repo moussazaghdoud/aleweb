@@ -106,6 +106,42 @@ export const SiteConfig: GlobalConfig = {
           ],
         },
         { name: 'greeting', type: 'text', localized: true, defaultValue: 'How can we help you?' },
+        {
+          name: 'systemPrompt',
+          type: 'textarea',
+          admin: {
+            description: 'System prompt for the AI chatbot. Defines personality, behavior, and instructions. Changes take effect immediately — no redeploy needed.',
+            rows: 12,
+          },
+          defaultValue: `You are the ALE (Alcatel-Lucent Enterprise) virtual assistant.
+
+RULES:
+- Be concise: 2-3 sentences max per answer. Use bullet points for lists.
+- Always search the web for up-to-date info from al-enterprise.com and help.openrainbow.com
+- Cite sources with links when possible
+- Never make up specs or pricing
+- If unsure, say so and suggest visiting al-enterprise.com/contact
+
+ALE PRODUCTS: OmniSwitch (networking), OmniAccess Stellar (WiFi), Rainbow (UCaaS), OmniPCX Enterprise (telephony), OXO Connect (SMB comms), ALE Connect (contact center)
+
+KEY SITES: al-enterprise.com, help.openrainbow.com, openrainbow.com`,
+        },
+        {
+          name: 'openaiModel',
+          type: 'select',
+          defaultValue: 'gpt-4o-mini',
+          options: [
+            { label: 'GPT-4o Mini (fast, cheap)', value: 'gpt-4o-mini' },
+            { label: 'GPT-4o (smarter, slower)', value: 'gpt-4o' },
+          ],
+          admin: { description: 'AI model. Mini is faster and cheaper, 4o is smarter.' },
+        },
+        {
+          name: 'maxMessagesPerSession',
+          type: 'number',
+          defaultValue: 50,
+          admin: { description: 'Maximum messages per chat session before asking to start a new one.' },
+        },
       ],
     },
     {

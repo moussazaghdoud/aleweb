@@ -15,35 +15,40 @@ const ESCALATION_PATTERNS = [
   /\bneed\s+help\s+from\s+(a\s+)?person\b/i,
 ]
 
-const DEFAULT_SYSTEM_PROMPT = `You are the ALE (Alcatel-Lucent Enterprise) virtual assistant on the official ALE website.
+const FALLBACK_SYSTEM_PROMPT = `You are the ALE (Alcatel-Lucent Enterprise) virtual assistant.
 
-Your role:
-- Answer questions about ALE products, solutions, platforms, and services
-- Help visitors find the right networking, communications, and cloud solutions
-- Search the web for accurate, up-to-date information from ALE's official sources
-- Be professional, helpful, and concise
+RULES:
+- Be concise: 2-3 sentences max per answer. Use bullet points for lists.
+- Always search the web for up-to-date info from al-enterprise.com and help.openrainbow.com
+- Cite sources with links when possible
+- Never make up specs or pricing
+- If unsure, say so and suggest visiting al-enterprise.com/contact
 
-Key product families:
-- OmniSwitch (enterprise networking switches)
-- OmniAccess Stellar (WiFi/WLAN access points)
-- Rainbow (cloud communications/UCaaS platform)
-- OmniPCX Enterprise (enterprise telephony)
-- OXO Connect (SMB communications)
-- ALE Connect (contact center)
+ALE PRODUCTS: OmniSwitch (networking), OmniAccess Stellar (WiFi), Rainbow (UCaaS), OmniPCX Enterprise (telephony), OXO Connect (SMB comms), ALE Connect (contact center)
 
-Key websites to search for information:
-- al-enterprise.com — Main ALE website (products, solutions, industries, company)
-- help.openrainbow.com — Rainbow help center and documentation
-- openrainbow.com — Rainbow platform
+KEY SITES: al-enterprise.com, help.openrainbow.com, openrainbow.com`
 
-Guidelines:
-- Use web search to find accurate information from ALE's official websites
-- Also use knowledge base documents when available
-- Keep responses concise (2-4 paragraphs max)
-- Use markdown formatting for clarity (**bold**, lists)
-- Never make up product specifications or pricing
-- If you don't have specific information, say so and suggest contacting ALE at al-enterprise.com/contact
-- If the user wants to speak with a human agent, acknowledge their request clearly`
+/** Load system prompt and model from SiteConfig (database). Cached for 60s. */
+let cachedConfig: { prompt: string; model: string; ts: number } | null = null
+
+async function getChatConfig(): Promise<{ prompt: string; model: string }> {
+  const now = Date.now()
+  if (cachedConfig && now - cachedConfig.ts < 60_000) {
+    return { prompt: cachedConfig.prompt, model: cachedConfig.model }
+  }
+
+  try {
+    const { getPayload } = await import('@/lib/payload')
+    const payload = await getPayload()
+    const config = await payload.findGlobal({ slug: 'site-config' }) as any
+    const prompt = config?.chat?.systemPrompt || FALLBACK_SYSTEM_PROMPT
+    const model = config?.chat?.openaiModel || 'gpt-4o-mini'
+    cachedConfig = { prompt, model, ts: now }
+    return { prompt, model }
+  } catch {
+    return { prompt: FALLBACK_SYSTEM_PROMPT, model: 'gpt-4o-mini' }
+  }
+}
 
 let openaiClient: OpenAI | null = null
 
@@ -169,48 +174,40 @@ export async function chatWithRAG(
   }
 
   const client = getOpenAIClient()
-  let vectorStoreId: string | undefined
 
+  // Load prompt & model from SiteConfig (DB), with fallback
+  const chatConfig = await getChatConfig()
+  const activePrompt = systemPrompt || chatConfig.prompt
+  const activeModel = model || chatConfig.model
+
+  let vectorStoreId: string | undefined
   try {
     vectorStoreId = await ensureVectorStore()
-    // Check if vector store has files — skip file_search if empty
     const files = await client.vectorStores.files.list(vectorStoreId, { limit: 1 })
-    if (files.data.length === 0) {
-      vectorStoreId = undefined // No files, skip file_search
-    }
+    if (files.data.length === 0) vectorStoreId = undefined
   } catch (err) {
     console.warn('[Chat] Vector store unavailable, proceeding without RAG:', err)
   }
 
-  // Build conversation input for Responses API
+  // Build conversation input
   const input: Array<{ role: 'user' | 'assistant' | 'system'; content: string }> = []
-
-  // Add conversation history (last 10 exchanges for context window management)
-  const recentHistory = history.slice(-20) // 10 pairs
+  const recentHistory = history.slice(-20)
   for (const msg of recentHistory) {
     input.push({ role: msg.role, content: msg.content })
   }
-
-  // Add current message
   input.push({ role: 'user', content: message })
 
-  // Build tools array — web search first, then file search
-  const tools: any[] = [
-    { type: 'web_search_preview' },
-  ]
+  // Tools: web search + optional file search
+  const tools: any[] = [{ type: 'web_search_preview' }]
   if (vectorStoreId) {
-    tools.push({
-      type: 'file_search',
-      vector_store_ids: [vectorStoreId],
-    })
+    tools.push({ type: 'file_search', vector_store_ids: [vectorStoreId] })
   }
 
   let fullResponse = ''
 
-  // Use Responses API with streaming
   const stream = await client.responses.create({
-    model: model || 'gpt-4o',
-    instructions: systemPrompt || DEFAULT_SYSTEM_PROMPT,
+    model: activeModel,
+    instructions: activePrompt,
     input,
     tools: tools.length > 0 ? tools : undefined,
     stream: true,
