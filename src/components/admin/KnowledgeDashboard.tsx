@@ -1,5 +1,4 @@
 import React from 'react'
-import { getPayload } from '@/lib/payload'
 
 const styles = {
   container: {
@@ -38,7 +37,7 @@ const styles = {
     flex: '1 1 120px',
     padding: '16px',
     borderRadius: '8px',
-    border: `1px solid #e2e8f0`,
+    border: '1px solid #e2e8f0',
     borderLeft: `4px solid ${borderColor}`,
     background: '#fafafa',
   } as React.CSSProperties),
@@ -93,6 +92,12 @@ const styles = {
     color: '#a0aec0',
     fontSize: '14px',
   } as React.CSSProperties,
+  error: {
+    textAlign: 'center' as const,
+    padding: '16px',
+    color: '#e53e3e',
+    fontSize: '13px',
+  } as React.CSSProperties,
 }
 
 const statusBadge = (status: string) => {
@@ -113,14 +118,14 @@ const typeBadge = (type: string) => {
 }
 
 function formatBytes(bytes: number | null | undefined): string {
-  if (!bytes) return '—'
+  if (!bytes) return '\u2014'
   if (bytes < 1024) return `${bytes} B`
   if (bytes < 1048576) return `${(bytes / 1024).toFixed(1)} KB`
   return `${(bytes / 1048576).toFixed(1)} MB`
 }
 
 function formatDate(date: string | null | undefined): string {
-  if (!date) return '—'
+  if (!date) return '\u2014'
   return new Date(date).toLocaleDateString('en-US', {
     month: 'short',
     day: 'numeric',
@@ -133,8 +138,11 @@ export default async function KnowledgeDashboard() {
   let sources: any[] = []
   let vectorStoreOk = false
   let vectorStoreFileCount = 0
+  let loadError = ''
 
   try {
+    // Dynamic import to avoid top-level module errors crashing admin
+    const { getPayload } = await import('@/lib/payload')
     const payload = await getPayload()
     const { docs } = await payload.find({
       collection: 'knowledge-sources',
@@ -142,18 +150,18 @@ export default async function KnowledgeDashboard() {
       sort: '-updatedAt',
     })
     sources = docs as any[]
-  } catch {
-    // Payload not ready yet — show empty state
+  } catch (err: any) {
+    loadError = err?.message || 'Failed to load knowledge sources'
   }
 
-  // Check vector store health
+  // Check vector store health (completely optional — never crash on this)
   try {
     const { getOpenAIClient, ensureVectorStore } = await import('@/lib/chat/openai')
     const vsId = await ensureVectorStore()
     const client = getOpenAIClient()
     const store = await client.vectorStores.retrieve(vsId)
     vectorStoreOk = true
-    vectorStoreFileCount = store.file_counts?.completed ?? 0
+    vectorStoreFileCount = (store as any).file_counts?.completed ?? 0
   } catch {
     vectorStoreOk = false
   }
@@ -178,61 +186,67 @@ export default async function KnowledgeDashboard() {
         )}
       </div>
 
-      <div style={styles.statsRow}>
-        <div style={styles.statCard('#4299e1')}>
-          <div style={styles.statLabel}>Total Sources</div>
-          <div style={styles.statValue}>{totalSources}</div>
-        </div>
-        <div style={styles.statCard('#48bb78')}>
-          <div style={styles.statLabel}>Indexed</div>
-          <div style={styles.statValue}>{indexed}</div>
-        </div>
-        <div style={styles.statCard('#f56565')}>
-          <div style={styles.statLabel}>Failed</div>
-          <div style={styles.statValue}>{failed}</div>
-        </div>
-        <div style={styles.statCard('#ed8936')}>
-          <div style={styles.statLabel}>Pending / Active</div>
-          <div style={styles.statValue}>{active}</div>
-        </div>
-      </div>
-
-      {sources.length === 0 ? (
-        <div style={styles.empty}>
-          No knowledge sources yet. Add files or URLs from the Knowledge Sources collection.
-        </div>
+      {loadError ? (
+        <div style={styles.error}>Could not load knowledge sources: {loadError}</div>
       ) : (
-        <table style={styles.table}>
-          <thead>
-            <tr>
-              <th style={styles.th}>Name</th>
-              <th style={styles.th}>Type</th>
-              <th style={styles.th}>Status</th>
-              <th style={styles.th}>Size</th>
-              <th style={styles.th}>Last Indexed</th>
-              <th style={styles.th}></th>
-            </tr>
-          </thead>
-          <tbody>
-            {sources.map((source: any) => (
-              <tr key={source.id}>
-                <td style={styles.td}>{source.name}</td>
-                <td style={styles.td}>{typeBadge(source.type)}</td>
-                <td style={styles.td}>{statusBadge(source.status)}</td>
-                <td style={styles.td}>{formatBytes(source.fileSize)}</td>
-                <td style={styles.td}>{formatDate(source.lastIndexedAt)}</td>
-                <td style={styles.td}>
-                  <a
-                    href={`/admin/collections/knowledge-sources/${source.id}`}
-                    style={styles.link}
-                  >
-                    Edit
-                  </a>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <>
+          <div style={styles.statsRow}>
+            <div style={styles.statCard('#4299e1')}>
+              <div style={styles.statLabel}>Total Sources</div>
+              <div style={styles.statValue}>{totalSources}</div>
+            </div>
+            <div style={styles.statCard('#48bb78')}>
+              <div style={styles.statLabel}>Indexed</div>
+              <div style={styles.statValue}>{indexed}</div>
+            </div>
+            <div style={styles.statCard('#f56565')}>
+              <div style={styles.statLabel}>Failed</div>
+              <div style={styles.statValue}>{failed}</div>
+            </div>
+            <div style={styles.statCard('#ed8936')}>
+              <div style={styles.statLabel}>Pending / Active</div>
+              <div style={styles.statValue}>{active}</div>
+            </div>
+          </div>
+
+          {sources.length === 0 ? (
+            <div style={styles.empty}>
+              No knowledge sources yet. Add files or URLs from the Knowledge Sources collection.
+            </div>
+          ) : (
+            <table style={styles.table}>
+              <thead>
+                <tr>
+                  <th style={styles.th}>Name</th>
+                  <th style={styles.th}>Type</th>
+                  <th style={styles.th}>Status</th>
+                  <th style={styles.th}>Size</th>
+                  <th style={styles.th}>Last Indexed</th>
+                  <th style={styles.th}></th>
+                </tr>
+              </thead>
+              <tbody>
+                {sources.map((source: any) => (
+                  <tr key={source.id}>
+                    <td style={styles.td}>{source.name}</td>
+                    <td style={styles.td}>{typeBadge(source.type)}</td>
+                    <td style={styles.td}>{statusBadge(source.status)}</td>
+                    <td style={styles.td}>{formatBytes(source.fileSize)}</td>
+                    <td style={styles.td}>{formatDate(source.lastIndexedAt)}</td>
+                    <td style={styles.td}>
+                      <a
+                        href={`/admin/collections/knowledge-sources/${source.id}`}
+                        style={styles.link}
+                      >
+                        Edit
+                      </a>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </>
       )}
     </div>
   )
