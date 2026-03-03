@@ -26,7 +26,7 @@ type Props = {
   ctaButtons?: CtaButton[] | null;
 };
 
-const defaultHeading = "Intelligent Networks.\nCloud Services. AI\u00a0Operations.\nOne Platform.";
+const defaultHeading = "Intelligent Networks.\nSecure Cloud Communications.\nAI\u2011Driven Solutions for Every Industry.";
 const defaultSubheading =
   "From OmniSwitch infrastructure and Stellar\u00a0Wi-Fi to Rainbow cloud\u00a0communications and AI\u2011driven operations\u00a0— ALE\u00a0connects, secures, and automates the enterprises that power the\u00a0world.";
 const defaultCtas: CtaButton[] = [
@@ -43,16 +43,43 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
     return () => clearTimeout(timer);
   }, []);
 
+  const speed = 0.5;
+  const directionRef = useRef(1); // 1 = forward, -1 = backward
+
   useEffect(() => {
-    if (videoRef.current) videoRef.current.playbackRate = 0.5;
+    const v = videoRef.current;
+    if (!v) return;
+    v.playbackRate = speed;
+
+    // Ping-pong: reverse direction at each end
+    const onEnded = () => {
+      directionRef.current = -1;
+      // Play backward by stepping with requestAnimationFrame
+      const stepBack = () => {
+        if (!v || v.paused || directionRef.current !== -1) return;
+        v.currentTime = Math.max(0, v.currentTime - (speed / 60));
+        if (v.currentTime <= 0.05) {
+          directionRef.current = 1;
+          v.currentTime = 0;
+          v.play();
+          return;
+        }
+        requestAnimationFrame(stepBack);
+      };
+      v.pause();
+      requestAnimationFrame(stepBack);
+    };
+    v.addEventListener("ended", onEnded);
+    return () => v.removeEventListener("ended", onEnded);
   }, []);
 
   // Pause video when user starts typing in GoalCapture or ChatPanel
   useEffect(() => {
     const pause = () => {
-      if (videoRef.current && !videoRef.current.paused) {
-        videoRef.current.pause();
-      }
+      const v = videoRef.current;
+      if (!v) return;
+      directionRef.current = 0; // stop ping-pong too
+      if (!v.paused) v.pause();
     };
     window.addEventListener("hero-video-pause", pause);
     return () => window.removeEventListener("hero-video-pause", pause);
@@ -71,7 +98,6 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
       <video
         ref={videoRef}
         autoPlay
-        loop
         muted
         playsInline
         className="absolute inset-0 w-full h-full object-cover"
@@ -106,28 +132,29 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
             {/* Headline */}
             <h1
-              className={`text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.08] tracking-tight transition-all duration-700 delay-500 ${
+              className={`text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-5xl font-bold text-white leading-[1.1] tracking-tight transition-all duration-700 delay-500 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
               {headingText.includes('\n') ? (
-                headingText.split('\n').map((line, i, arr) => (
-                  <span key={i}>
-                    {i === arr.length - 1 ? (
-                      <span className="text-white/90">{line}</span>
-                    ) : i === 1 ? (
-                      <>
-                        {line.replace(/AI\s*Operations\.?/, '')}{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
-                          AI&nbsp;Operations.
-                        </span>
-                      </>
-                    ) : (
-                      line
-                    )}
-                    {i < arr.length - 1 && <br />}
-                  </span>
-                ))
+                headingText.split('\n').map((line, i, arr) => {
+                  const aiMatch = line.match(/^(AI[\u2011\u2010-]Driven)\s*(.*)$/);
+                  return (
+                    <span key={i}>
+                      {aiMatch ? (
+                        <>
+                          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+                            {aiMatch[1]}
+                          </span>
+                          {aiMatch[2] && <span className="text-white/90">{' '}{aiMatch[2]}</span>}
+                        </>
+                      ) : (
+                        line
+                      )}
+                      {i < arr.length - 1 && <br />}
+                    </span>
+                  );
+                })
               ) : (
                 headingText
               )}
