@@ -1,165 +1,231 @@
 /* ------------------------------------------------------------------ */
-/*  Rainbow Bridge — Backend relay via rainbow-node-sdk               */
-/*  Bot account maintains a persistent Rainbow connection. On         */
-/*  escalation it creates a bubble, invites agents, and relays        */
-/*  messages bidirectionally.                                         */
+/*  Rainbow Bridge — REST API + S2S webhooks (no XMPP SDK needed)     */
+/*  Bot account authenticates via REST, creates bubbles, sends        */
+/*  messages via S2S, and receives agent replies via webhook callback. */
 /* ------------------------------------------------------------------ */
 
+import { createHash } from 'crypto'
 import { getChatStore } from './store'
-import type { EscalationRequest } from './types'
 
 /* ---------- Types ---------- */
 
 interface BridgeMapping {
   sessionId: string
-  bubbleJid: string
-  bubbleId: string
+  roomId: string
+  roomJid: string
+  conversationId: string
   agentJoined: boolean
-}
-
-interface RainbowSDK {
-  start: () => Promise<unknown>
-  stop: () => Promise<unknown>
-  events: { on: (event: string, cb: (...args: any[]) => void) => void }
-  bubbles: {
-    createBubble: (name: string, description: string, history?: string) => Promise<any>
-    inviteContactsByEmailsToBubble: (emails: string[], bubble: any) => Promise<any>
-    inviteContactToBubble: (contact: any, bubble: any, isModerator: boolean, withInvitation: boolean, reason?: string) => Promise<any>
-    closeAndDeleteBubble: (bubble: any) => Promise<any>
-    getBubbleByJid: (jid: string) => any
-    getBubbleById: (id: string) => any
-  }
-  im: {
-    sendMessageToBubbleJid: (message: string, jid: string, lang: string, content?: any, subject?: string) => Promise<any>
-  }
-  contacts: {
-    getContactByJid: (jid: string, forceServer?: boolean) => Promise<any>
-    getContactByLoginEmail: (email: string, forceServer?: boolean) => Promise<any>
-  }
 }
 
 /* ---------- Service ---------- */
 
 class RainbowBridgeService {
-  private sdk: RainbowSDK | null = null
+  private baseUrl = 'https://openrainbow.com'
+  private token: string | null = null
+  private tokenExpiry = 0
+  private botUserId: string | null = null
+  private cnxId: string | null = null
   private connecting: Promise<void> | null = null
-  private connected = false
 
   /** sessionId → BridgeMapping */
   private bySession = new Map<string, BridgeMapping>()
-  /** bubbleJid → sessionId */
-  private byBubble = new Map<string, string>()
+  /** roomJid → sessionId */
+  private byRoom = new Map<string, string>()
 
-  private agentJids: string[]
+  private agentEmails: string[]
 
   constructor() {
-    this.agentJids = (process.env.RAINBOW_SUPPORT_AGENTS || '')
+    this.agentEmails = (process.env.RAINBOW_SUPPORT_AGENTS || '')
       .split(',')
-      .map((j) => j.trim())
+      .map((e) => e.trim())
       .filter(Boolean)
   }
 
-  /** Test connection — used by health endpoint */
-  async testConnection(): Promise<void> {
-    await this.ensureConnected()
+  /* ---- Auth ---- */
+
+  private getAppAuthHeader(): string {
+    const appId = process.env.RAINBOW_APP_ID || ''
+    const appSecret = process.env.RAINBOW_APP_SECRET || ''
+    const password = process.env.RAINBOW_BOT_PASSWORD || ''
+    const hash = createHash('sha256').update(appSecret + password).digest('hex')
+    return 'Basic ' + Buffer.from(`${appId}:${hash}`).toString('base64')
   }
 
-  /* ---- Lazy connection ---- */
+  private getBasicAuthHeader(): string {
+    const login = process.env.RAINBOW_BOT_LOGIN || ''
+    const password = process.env.RAINBOW_BOT_PASSWORD || ''
+    return 'Basic ' + Buffer.from(`${login}:${password}`).toString('base64')
+  }
 
-  private async ensureConnected(): Promise<RainbowSDK> {
-    if (this.sdk && this.connected) return this.sdk
+  private async ensureAuth(): Promise<string> {
+    if (this.token && Date.now() < this.tokenExpiry) return this.token
+
+    const res = await fetch(`${this.baseUrl}/api/rainbow/authentication/v1.0/login`, {
+      method: 'GET',
+      headers: {
+        Accept: 'application/json',
+        Authorization: this.getBasicAuthHeader(),
+        'x-rainbow-app-auth': this.getAppAuthHeader(),
+      },
+    })
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(`Rainbow auth failed (${res.status}): ${body.errorDetails || body.errorMsg || JSON.stringify(body)}`)
+    }
+
+    const data = await res.json()
+    this.token = data.token
+    this.botUserId = data.loggedInUser?.id || null
+    // Token valid ~24h, refresh at 23h
+    this.tokenExpiry = Date.now() + 23 * 60 * 60 * 1000
+
+    console.log(`[Rainbow Bridge] Authenticated as ${data.loggedInUser?.loginEmail}`)
+    return this.token!
+  }
+
+  private async authHeaders(): Promise<Record<string, string>> {
+    const token = await this.ensureAuth()
+    return {
+      Authorization: `Bearer ${token}`,
+      'x-rainbow-app-auth': this.getAppAuthHeader(),
+      'Content-Type': 'application/json',
+      Accept: 'application/json',
+    }
+  }
+
+  /* ---- S2S Connection ---- */
+
+  private async ensureS2SConnection(): Promise<string> {
+    if (this.cnxId) return this.cnxId
 
     if (this.connecting) {
       await this.connecting
-      return this.sdk!
+      return this.cnxId!
     }
 
-    this.connecting = this._connect()
+    this.connecting = this._createS2SConnection()
     await this.connecting
     this.connecting = null
-    return this.sdk!
+    return this.cnxId!
   }
 
-  private async _connect(): Promise<void> {
-    // Dynamic import — rainbow-node-sdk is CommonJS
-    const { NodeSDK } = await import('rainbow-node-sdk')
+  private async _createS2SConnection(): Promise<void> {
+    const headers = await this.authHeaders()
+    const callbackUrl = `${process.env.NEXT_PUBLIC_SERVER_URL || 'https://aleweb-production-b8f6.up.railway.app'}/api/chat/rainbow-webhook`
 
-    const host = process.env.RAINBOW_HOST || 'official'
-
-    this.sdk = new NodeSDK({
-      rainbow: { host },
-      credentials: {
-        login: process.env.RAINBOW_BOT_LOGIN,
-        password: process.env.RAINBOW_BOT_PASSWORD,
-      },
-      application: {
-        appID: process.env.RAINBOW_APP_ID,
-        appSecret: process.env.RAINBOW_APP_SECRET,
-      },
-      logs: {
-        enableConsoleLogs: false,
-        enableFileLogs: false,
-        level: 'error',
-      },
-      im: {
-        sendReadReceipt: true,
-        sendMessageToConnectedUser: false,
-        storeMessages: false,
-      },
-    }) as unknown as RainbowSDK
-
-    // Listen for incoming messages before starting
-    this.sdk.events.on('rainbow_onmessagereceived', (msg: any) => {
-      this._handleIncomingMessage(msg).catch((err) =>
-        console.error('[Rainbow Bridge] Error handling incoming message:', err.message),
-      )
+    const res = await fetch(`${this.baseUrl}/api/rainbow/ucs/v1.0/connections`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        connection: {
+          resource: 's2s_ale_chatbot',
+          callback_url: callbackUrl,
+        },
+      }),
     })
 
-    // Listen for bubble invitation acceptance (agent joined)
-    this.sdk.events.on('rainbow_onbubbleaffiliationchanged', (data: any) => {
-      this._handleAffiliationChange(data).catch((err) =>
-        console.error('[Rainbow Bridge] Error handling affiliation change:', err.message),
-      )
-    })
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}))
+      throw new Error(`S2S connection failed (${res.status}): ${JSON.stringify(body)}`)
+    }
 
-    await this.sdk.start()
-    this.connected = true
-    console.log('[Rainbow Bridge] Connected to Rainbow')
+    const data = await res.json()
+    this.cnxId = data.data?.id || data.id
+    console.log(`[Rainbow Bridge] S2S connection created: ${this.cnxId}, callback: ${callbackUrl}`)
+  }
 
-    // Restore any existing escalated sessions
-    await this.restoreMappings()
+  /* ---- Public: test connection ---- */
+
+  async testConnection(): Promise<void> {
+    await this.ensureAuth()
+    await this.ensureS2SConnection()
   }
 
   /* ---- Escalation ---- */
 
   async escalateSession(sessionId: string, reason?: string): Promise<void> {
-    const sdk = await this.ensureConnected()
-    const store = getChatStore()
-
-    // Don't re-escalate
     if (this.bySession.has(sessionId)) return
 
-    // Create bubble for this conversation
-    const bubbleName = `ALE Support — ${sessionId.slice(0, 8)}`
-    const description = reason || 'Visitor requested human agent'
-    const bubble = await sdk.bubbles.createBubble(bubbleName, description, 'all')
+    const headers = await this.authHeaders()
+    const cnxId = await this.ensureS2SConnection()
+    const store = getChatStore()
 
-    const mapping: BridgeMapping = {
-      sessionId,
-      bubbleJid: bubble.jid,
-      bubbleId: bubble.id,
-      agentJoined: false,
+    // 1. Create room (bubble)
+    const roomName = `ALE Support — ${sessionId.slice(0, 8)}`
+    const roomRes = await fetch(`${this.baseUrl}/api/rainbow/enduser/v1.0/rooms`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        name: roomName,
+        topic: reason || 'Visitor requested human agent',
+        history: 'all',
+        visibility: 'private',
+      }),
+    })
+
+    if (!roomRes.ok) {
+      const body = await roomRes.json().catch(() => ({}))
+      throw new Error(`Room creation failed (${roomRes.status}): ${JSON.stringify(body)}`)
     }
 
-    this.bySession.set(sessionId, mapping)
-    this.byBubble.set(bubble.jid, sessionId)
+    const room = (await roomRes.json()).data
+    const roomId = room.id
+    const roomJid = room.jid || ''
 
-    // Store bubble info in session metadata
+    // 2. Invite agents by email
+    if (this.agentEmails.length > 0) {
+      try {
+        await fetch(`${this.baseUrl}/api/rainbow/enduser/v1.0/rooms/${roomId}/invitations`, {
+          method: 'POST',
+          headers,
+          body: JSON.stringify({ scenario: 'chat', emails: this.agentEmails }),
+        })
+      } catch (err: any) {
+        console.warn('[Rainbow Bridge] Agent invitation failed:', err.message)
+      }
+    }
+
+    // 3. Join room via S2S
+    await fetch(`${this.baseUrl}/api/rainbow/ucs/v1.0/connections/${cnxId}/rooms/${roomId}/join`, {
+      method: 'POST',
+      headers,
+    })
+
+    // 4. Create/get conversation for this room
+    const convRes = await fetch(`${this.baseUrl}/api/rainbow/ucs/v1.0/connections/${cnxId}/conversations`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ peer: roomId, type: 'room' }),
+    })
+
+    let conversationId = ''
+    if (convRes.ok) {
+      const convData = await convRes.json()
+      conversationId = convData.data?.id || convData.id || ''
+    }
+
+    // If conversation creation didn't return an ID, use roomId as fallback
+    if (!conversationId) conversationId = roomId
+
+    // 5. Store mapping
+    const mapping: BridgeMapping = {
+      sessionId,
+      roomId,
+      roomJid,
+      conversationId,
+      agentJoined: false,
+    }
+    this.bySession.set(sessionId, mapping)
+    this.byRoom.set(roomJid, sessionId)
+    this.byRoom.set(roomId, sessionId) // Also map by ID for webhook matching
+
+    // 6. Persist in session metadata
     const session = await store.getSession(sessionId)
     if (session) {
       const pool = await this._getPool()
       if (pool) {
-        const metadata = { ...session.metadata, bubbleJid: bubble.jid, bubbleId: bubble.id }
+        const metadata = { ...session.metadata, roomId, roomJid, conversationId }
         await pool.query(
           `UPDATE chat_sessions SET metadata = $1, updated_at = NOW() WHERE id = $2`,
           [JSON.stringify(metadata), sessionId],
@@ -167,10 +233,7 @@ class RainbowBridgeService {
       }
     }
 
-    // Invite support agents
-    await this._inviteAgents(bubble)
-
-    // Send conversation history to the bubble
+    // 7. Send conversation history to the room
     const messages = await store.getMessages(sessionId)
     if (messages.length > 0) {
       const historyLines = messages.map((m) => {
@@ -178,29 +241,10 @@ class RainbowBridgeService {
         return `[${label}]: ${m.content}`
       })
       const historyText = `--- Conversation history ---\n${historyLines.join('\n')}\n--- End history ---`
-      await sdk.im.sendMessageToBubbleJid(historyText, bubble.jid, 'en')
+      await this._sendToRoom(conversationId, historyText)
     }
 
-    console.log(`[Rainbow Bridge] Session ${sessionId} escalated → bubble ${bubble.jid}`)
-  }
-
-  private async _inviteAgents(bubble: any): Promise<void> {
-    const sdk = this.sdk!
-
-    for (const jid of this.agentJids) {
-      try {
-        // Try as JID first, fall back to email
-        if (jid.includes('/') || jid.includes('@') && !jid.includes('.')) {
-          const contact = await sdk.contacts.getContactByJid(jid, true)
-          await sdk.bubbles.inviteContactToBubble(contact, bubble, false, false, 'Support escalation')
-        } else {
-          // Looks like an email
-          await sdk.bubbles.inviteContactsByEmailsToBubble([jid], bubble)
-        }
-      } catch (err: any) {
-        console.warn(`[Rainbow Bridge] Could not invite agent ${jid}:`, err.message)
-      }
-    }
+    console.log(`[Rainbow Bridge] Session ${sessionId} escalated → room ${roomId}`)
   }
 
   /* ---- Visitor → Rainbow ---- */
@@ -208,34 +252,59 @@ class RainbowBridgeService {
   async relayVisitorMessage(sessionId: string, content: string): Promise<void> {
     const mapping = this.bySession.get(sessionId)
     if (!mapping) return
-
-    const sdk = await this.ensureConnected()
-    await sdk.im.sendMessageToBubbleJid(`[Visitor]: ${content}`, mapping.bubbleJid, 'en')
+    await this._sendToRoom(mapping.conversationId, `[Visitor]: ${content}`)
   }
 
-  /* ---- Rainbow → Visitor ---- */
+  private async _sendToRoom(conversationId: string, body: string): Promise<void> {
+    const headers = await this.authHeaders()
+    const cnxId = await this.ensureS2SConnection()
 
-  private async _handleIncomingMessage(msg: any): Promise<void> {
-    // msg.fromBubbleJid identifies messages from a bubble
-    const bubbleJid = msg.fromBubbleJid
-    if (!bubbleJid) return // Not a bubble message
+    const res = await fetch(
+      `${this.baseUrl}/api/rainbow/ucs/v1.0/connections/${cnxId}/conversations/${conversationId}/messages`,
+      {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({ body, lang: 'en' }),
+      },
+    )
 
-    const sessionId = this.byBubble.get(bubbleJid)
-    if (!sessionId) return // Unknown bubble
+    if (!res.ok) {
+      const data = await res.json().catch(() => ({}))
+      console.warn(`[Rainbow Bridge] Send message failed (${res.status}):`, JSON.stringify(data))
+    }
+  }
 
-    const content: string = msg.content || msg.data || ''
+  /* ---- Rainbow webhook → Visitor ---- */
+
+  async handleWebhookEvent(event: any): Promise<void> {
+    // Handle message events from Rainbow S2S
+    const eventType = event.type || event.event
+    if (eventType !== 'message' && eventType !== 'rainbow_onmessagereceived') {
+      return // Not a message event
+    }
+
+    const message = event.data || event.message || event
+    const content: string = message.body || message.content || ''
     if (!content.trim()) return
 
-    // Echo prevention: skip messages we sent (prefixed with [Visitor]:)
+    // Echo prevention
     if (content.startsWith('[Visitor]:')) return
+    if (content.startsWith('--- Conversation history ---')) return
 
-    // Skip messages from ourselves (the bot)
-    if (msg.fromJid === (this.sdk as any)?._core?._rest?.account?.jid_im) return
+    // Skip messages from the bot itself
+    const senderId = message.fromUserId || message.from?.userId || ''
+    if (senderId && senderId === this.botUserId) return
+
+    // Find session by room
+    const roomId = message.roomId || message.room?.id || message.conversationId || ''
+    const roomJid = message.roomJid || message.room?.jid || ''
+    const sessionId = this.byRoom.get(roomId) || this.byRoom.get(roomJid)
+    if (!sessionId) return
 
     const store = getChatStore()
     const mapping = this.bySession.get(sessionId)!
 
-    // First agent message → add "Agent joined" system message
+    // First agent message → system notification
     if (!mapping.agentJoined) {
       mapping.agentJoined = true
       await store.addMessage(sessionId, 'system', 'An agent has joined the conversation.')
@@ -251,26 +320,6 @@ class RainbowBridgeService {
     }
   }
 
-  /* ---- Affiliation changes (agent joined bubble) ---- */
-
-  private async _handleAffiliationChange(data: any): Promise<void> {
-    const bubbleJid = data?.bubble?.jid || data?.jid
-    if (!bubbleJid) return
-
-    const sessionId = this.byBubble.get(bubbleJid)
-    if (!sessionId) return
-
-    const mapping = this.bySession.get(sessionId)
-    if (!mapping || mapping.agentJoined) return
-
-    // An agent has been added/accepted into the bubble
-    if (data.status === 'accepted' || data.privilege === 'user' || data.privilege === 'moderator') {
-      mapping.agentJoined = true
-      const store = getChatStore()
-      await store.addMessage(sessionId, 'system', 'An agent has joined the conversation.')
-    }
-  }
-
   /* ---- Close session ---- */
 
   async closeSession(sessionId: string): Promise<void> {
@@ -281,50 +330,53 @@ class RainbowBridgeService {
     await store.addMessage(sessionId, 'system', 'The agent has ended this conversation. Thank you for contacting ALE support!')
     await store.updateSessionStatus(sessionId, 'closed')
 
-    // Clean up Rainbow bubble
+    // Delete room
     try {
-      const sdk = await this.ensureConnected()
-      const bubble = sdk.bubbles.getBubbleByJid(mapping.bubbleJid)
-        || sdk.bubbles.getBubbleById(mapping.bubbleId)
-      if (bubble) {
-        await sdk.bubbles.closeAndDeleteBubble(bubble)
-      }
+      const headers = await this.authHeaders()
+      await fetch(`${this.baseUrl}/api/rainbow/enduser/v1.0/rooms/${mapping.roomId}`, {
+        method: 'DELETE',
+        headers,
+      })
     } catch (err: any) {
-      console.warn('[Rainbow Bridge] Error closing bubble:', err.message)
+      console.warn('[Rainbow Bridge] Error deleting room:', err.message)
     }
 
-    // Remove mappings
+    // Clean up
     this.bySession.delete(sessionId)
-    this.byBubble.delete(mapping.bubbleJid)
+    this.byRoom.delete(mapping.roomJid)
+    this.byRoom.delete(mapping.roomId)
 
     console.log(`[Rainbow Bridge] Session ${sessionId} closed`)
   }
 
   /* ---- Restore on restart ---- */
 
-  private async restoreMappings(): Promise<void> {
+  async restoreMappings(): Promise<void> {
     try {
       const store = getChatStore()
       const sessions = await store.getRecentSessions('escalated', 100)
 
       for (const session of sessions) {
         const meta = session.metadata as Record<string, unknown>
-        const bubbleJid = meta?.bubbleJid as string | undefined
-        const bubbleId = meta?.bubbleId as string | undefined
-        if (!bubbleJid || !bubbleId) continue
+        const roomId = meta?.roomId as string | undefined
+        const roomJid = meta?.roomJid as string | undefined
+        const conversationId = meta?.conversationId as string | undefined
+        if (!roomId) continue
 
         const mapping: BridgeMapping = {
           sessionId: session.id,
-          bubbleJid,
-          bubbleId,
-          agentJoined: true, // Assume agent already joined for restored sessions
+          roomId,
+          roomJid: roomJid || '',
+          conversationId: conversationId || roomId,
+          agentJoined: true,
         }
 
         this.bySession.set(session.id, mapping)
-        this.byBubble.set(bubbleJid, session.id)
+        if (roomJid) this.byRoom.set(roomJid, session.id)
+        this.byRoom.set(roomId, session.id)
       }
 
-      if (sessions.length > 0) {
+      if (this.bySession.size > 0) {
         console.log(`[Rainbow Bridge] Restored ${this.bySession.size} escalated session mappings`)
       }
     } catch (err: any) {
@@ -349,10 +401,6 @@ class RainbowBridgeService {
 
 let bridgeInstance: RainbowBridgeService | null = null
 
-/**
- * Returns the bridge singleton, or `null` if Rainbow env vars are missing.
- * Safe to call in any context — graceful fallback.
- */
 export function getRainbowBridge(): RainbowBridgeService | null {
   if (bridgeInstance) return bridgeInstance
 

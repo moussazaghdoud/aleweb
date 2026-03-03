@@ -29,7 +29,6 @@
     "next": "^16.2.0-canary.56",
     "openai": "^6.25.0",
     "payload": "^3.77.0",
-    "rainbow-node-sdk": "^2.42.0-lts.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "sharp": "^0.34.5"
