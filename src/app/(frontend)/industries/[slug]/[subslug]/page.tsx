@@ -59,10 +59,13 @@ const capColors = [
 
 export default async function IndustrySubPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string; subslug: string }>;
+  searchParams: Promise<{ ben?: string }>;
 }) {
   const { slug, subslug } = await params;
+  const { ben: benStyle } = await searchParams;
   const industriesData = await getIndustriesData();
   const parent = industriesData.find((i) => i.slug === slug);
   const subPage = industrySubPagesData.find(
@@ -336,8 +339,30 @@ export default async function IndustrySubPage({
         </section>
       )}
 
-      {/* Benefit Cards */}
-      {subPage.benefitCards && subPage.benefitCards.length > 0 && (
+      {/* Benefit Cards — use ?ben=A|B|C|D|E to preview styles */}
+      {subPage.benefitCards && subPage.benefitCards.length > 0 && (() => {
+        const s = benStyle || "default";
+        const headerStyles: Record<string, [string, string]> = {
+          // [card1, card2]
+          A: ["bg-gradient-to-r from-slate-800 to-indigo-900", "bg-gradient-to-r from-indigo-800 to-purple-900"],
+          B: ["bg-gradient-to-r from-ale to-purple-700", "bg-gradient-to-r from-purple-700 to-indigo-800"],
+          C: ["bg-ale", "bg-ale"],
+          D: ["bg-gradient-to-r from-slate-700 to-slate-800", "bg-gradient-to-r from-slate-700 to-slate-800"],
+          E: ["bg-gradient-to-br from-indigo-600 to-ale", "bg-gradient-to-br from-ale to-indigo-600"],
+          default: ["bg-gradient-to-r from-ale to-ale-dark", "bg-gradient-to-r from-gray-800 to-gray-900"],
+        };
+        const checkStyles: Record<string, [string, string, string, string]> = {
+          // [bg1, text1, bg2, text2]
+          A: ["bg-indigo-100", "text-indigo-600", "bg-purple-100", "text-purple-600"],
+          B: ["bg-ale/10", "text-ale", "bg-purple-100", "text-purple-600"],
+          C: ["bg-ale/10", "text-ale", "bg-ale/10", "text-ale"],
+          D: ["bg-slate-100", "text-slate-600", "bg-slate-100", "text-slate-600"],
+          E: ["bg-indigo-100", "text-indigo-600", "bg-ale/10", "text-ale"],
+          default: ["bg-ale/10", "text-ale", "bg-gray-100", "text-gray-500"],
+        };
+        const [h1, h2] = headerStyles[s] || headerStyles.default;
+        const [cb1, ct1, cb2, ct2] = checkStyles[s] || checkStyles.default;
+        return (
         <section className="py-20 bg-white">
           <div className="mx-auto max-w-[1320px] px-6">
             <div className="text-center mb-14">
@@ -351,8 +376,7 @@ export default async function IndustrySubPage({
             <div className="grid sm:grid-cols-2 gap-8">
               {subPage.benefitCards.map((card, ci) => (
                 <div key={card.audience} className="rounded-2xl overflow-hidden shadow-lg">
-                  {/* Header */}
-                  <div className={`px-7 py-5 ${ci === 0 ? "bg-gradient-to-r from-ale to-ale-dark" : "bg-gradient-to-r from-gray-800 to-gray-900"}`}>
+                  <div className={`px-7 py-5 ${ci === 0 ? h1 : h2}`}>
                     <h3 className="text-lg font-bold text-white flex items-center gap-3">
                       <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
                         {ci === 0 ? (
@@ -364,13 +388,12 @@ export default async function IndustrySubPage({
                       {card.audience}
                     </h3>
                   </div>
-                  {/* Benefits */}
                   <div className="bg-white p-7">
                     <ul className="space-y-4">
                       {card.benefits.map((benefit, j) => (
                         <li key={j} className="flex items-start gap-3">
-                          <div className={`w-5 h-5 rounded-full ${ci === 0 ? "bg-ale/10" : "bg-gray-100"} flex items-center justify-center shrink-0 mt-0.5`}>
-                            <svg className={`w-3 h-3 ${ci === 0 ? "text-ale" : "text-gray-500"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                          <div className={`w-5 h-5 rounded-full ${ci === 0 ? cb1 : cb2} flex items-center justify-center shrink-0 mt-0.5`}>
+                            <svg className={`w-3 h-3 ${ci === 0 ? ct1 : ct2}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
                               <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                             </svg>
                           </div>
@@ -384,7 +407,8 @@ export default async function IndustrySubPage({
             </div>
           </div>
         </section>
-      )}
+        );
+      })()}
 
       {/* Featured Products */}
       <section className="py-20 bg-light-50 relative overflow-hidden">
