@@ -230,23 +230,33 @@ const nextConfig: NextConfig = {
     ];
   },
   async headers() {
+    const securityHeaders = [
+      { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
+      { key: "X-Frame-Options", value: "DENY" },
+      { key: "X-Content-Type-Options", value: "nosniff" },
+      { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+      { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+      { key: "X-XSS-Protection", value: "1; mode=block" },
+    ];
+
     return [
+      // Admin panel — relaxed CSP (trusted users only)
       {
-        source: "/(.*)",
+        source: "/admin/:path*",
+        headers: securityHeaders,
+      },
+      // Public pages — strict CSP
+      {
+        source: "/((?!admin).*)",
         headers: [
-          { key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains; preload" },
-          { key: "X-Frame-Options", value: "DENY" },
-          { key: "X-Content-Type-Options", value: "nosniff" },
-          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-          { key: "X-XSS-Protection", value: "1; mode=block" },
+          ...securityHeaders,
           {
             key: "Content-Security-Policy",
             value: [
               "default-src 'self'",
               "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://cdn.cookiebot.com https://*.onetrust.com",
               "style-src 'self' 'unsafe-inline'",
-              "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://web-assets.al-enterprise.com https://www.al-enterprise.com https://assets.mixkit.co",
+              "img-src 'self' data: blob: https://www.google-analytics.com https://www.googletagmanager.com https://web-assets.al-enterprise.com https://www.al-enterprise.com https://assets.mixkit.co https://www.gravatar.com",
               "font-src 'self' data:",
               "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://*.onetrust.com",
               "media-src 'self' https://web-assets.al-enterprise.com https://assets.mixkit.co blob:",
