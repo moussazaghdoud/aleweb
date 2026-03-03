@@ -64,14 +64,24 @@ const STEP_META: Record<keyof StepsData, { label: string; icon: string; color: s
 
 const STEPS_ORDER: (keyof StepsData)[] = ["challenge", "recommendation", "nextSteps"];
 
+const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
 export function GoalCaptureGlassPanel() {
   const [goal, setGoal] = useState("");
   const [state, setState] = useState<UXState>("idle");
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [revealed, setRevealed] = useState(false);
+
+  // Email capture state
+  const [emailMode, setEmailMode] = useState(false);
+  const [email, setEmail] = useState("");
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
+
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
 
   // Staggered entrance animation on mount
   useEffect(() => {
@@ -133,8 +143,38 @@ export function GoalCaptureGlassPanel() {
     setPlan(null);
     setGoal("");
     setErrorMsg("");
+    setEmailMode(false);
+    setEmail("");
+    setEmailSent(false);
+    setEmailSending(false);
     textareaRef.current?.focus();
   }, []);
+
+  const handleEmailSubmit = useCallback(async () => {
+    if (!email.trim() || !EMAIL_RE.test(email) || emailSending) return;
+
+    setEmailSending(true);
+    try {
+      const res = await fetch("/api/plan/email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: email.trim(),
+          goal: goal.trim(),
+          planJson: plan,
+          locale: document.documentElement.lang || "en",
+        }),
+      });
+
+      if (res.ok) {
+        setEmailSent(true);
+      }
+    } catch {
+      // Silently fail — the user still has the plan on screen
+    } finally {
+      setEmailSending(false);
+    }
+  }, [email, emailSending, goal, plan]);
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
@@ -163,12 +203,24 @@ export function GoalCaptureGlassPanel() {
     }
   }, [goal]);
 
+  // Focus email input when email mode opens
+  useEffect(() => {
+    if (emailMode && !emailSent) {
+      const timer = setTimeout(() => emailInputRef.current?.focus(), 150);
+      return () => clearTimeout(timer);
+    }
+  }, [emailMode, emailSent]);
+
+  const isExpanded = state === "results";
+
   return (
     <div
       ref={panelRef}
       role="region"
       aria-label="Goal capture — describe what you want to achieve"
-      className="w-full max-w-sm lg:max-w-[22rem] backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500"
+      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500 ${
+        isExpanded ? "max-w-[30rem]" : "max-w-sm lg:max-w-[22rem]"
+      }`}
       onKeyDown={handleKeyDown}
     >
       <style>{`
@@ -378,15 +430,16 @@ export function GoalCaptureGlassPanel() {
             </p>
           )}
 
-          {/* 3-step stacked cards */}
-          <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1 scrollbar-thin">
+          {/* 3-step stacked cards with staggered entrance */}
+          <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
             {STEPS_ORDER.map((stepKey, idx) => {
               const meta = STEP_META[stepKey];
 
               return (
                 <div
                   key={stepKey}
-                  className="rounded-xl bg-white/[0.05] border border-white/[0.08] p-3 space-y-2"
+                  className="rounded-xl bg-white/[0.05] border border-white/[0.08] p-3 space-y-2 animate-fade-up"
+                  style={{ animationDelay: `${idx * 120}ms` }}
                 >
                   {/* Step header */}
                   <div className="flex items-center gap-2.5">
@@ -493,32 +546,90 @@ export function GoalCaptureGlassPanel() {
             })}
           </div>
 
-          {/* Bottom CTA */}
-          <div className="flex items-center gap-3 pt-1">
-            {plan.steps!.nextSteps?.cta ? (
-              <a
-                href={plan.steps!.nextSteps.cta.url}
-                className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-full hover:from-purple-600 hover:to-blue-600 transition-all inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-purple-400/60"
+          {/* ── Inline email capture (slide-open) ── */}
+          <div
+            className="grid transition-all duration-300 ease-out"
+            style={{ gridTemplateRows: emailMode ? "1fr" : "0fr" }}
+          >
+            <div className="overflow-hidden">
+              <div className="pt-2">
+                {emailSent ? (
+                  <div className="flex items-center gap-2 py-2 animate-fade-up">
+                    <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                    <span className="text-emerald-300 text-xs font-medium">Plan sent!</span>
+                  </div>
+                ) : (
+                  <form
+                    onSubmit={(e) => { e.preventDefault(); handleEmailSubmit(); }}
+                    className="flex gap-2"
+                  >
+                    <input
+                      ref={emailInputRef}
+                      type="email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      placeholder="you@company.com"
+                      required
+                      style={{ outline: 'none', boxShadow: 'none' }}
+                      className="flex-1 h-9 px-3 text-xs text-white placeholder:text-white/30 bg-white/[0.06] border border-white/[0.12] rounded-lg focus:border-white/40 transition-all"
+                    />
+                    <button
+                      type="submit"
+                      disabled={!email.trim() || !EMAIL_RE.test(email) || emailSending}
+                      className="h-9 px-4 text-xs font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg hover:from-purple-600 hover:to-blue-600 transition-all disabled:opacity-40 focus:outline-none"
+                    >
+                      {emailSending ? "..." : "Send"}
+                    </button>
+                  </form>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* ── 3-button action bar ── */}
+          <div className="space-y-2 pt-1">
+            {/* Row 1: Email CTA — full-width gradient */}
+            {!emailSent && (
+              <button
+                onClick={() => setEmailMode((v) => !v)}
+                className="w-full h-10 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 rounded-full hover:from-violet-700 hover:via-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 inline-flex items-center justify-center gap-2 focus:outline-none"
               >
-                {plan.steps!.nextSteps.cta.label}
                 <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
-              </a>
-            ) : (
-              <a
-                href="/contact"
-                className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-gradient-to-r from-purple-500 to-blue-500 rounded-full hover:from-purple-600 hover:to-blue-600 transition-all inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-purple-400/60"
-              >
-                Talk to an expert
-              </a>
+                Receive details by email
+              </button>
             )}
-            <button
-              onClick={handleReset}
-              className="h-10 px-4 text-xs font-medium text-white/50 hover:text-white/80 bg-white/[0.06] border border-white/[0.1] rounded-full transition-all focus:outline-none focus:ring-2 focus:ring-white/20"
-            >
-              New goal
-            </button>
+
+            {/* Row 2: AI CTA (ghost) + New goal (text) */}
+            <div className="flex items-center gap-3">
+              {plan.steps!.nextSteps?.cta ? (
+                <a
+                  href={plan.steps!.nextSteps.cta.url}
+                  className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-white/30"
+                >
+                  {plan.steps!.nextSteps.cta.label}
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </a>
+              ) : (
+                <a
+                  href="/contact"
+                  className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/30"
+                >
+                  Talk to an expert
+                </a>
+              )}
+              <button
+                onClick={handleReset}
+                className="h-10 px-4 text-xs font-medium text-white/50 hover:text-white/80 transition-colors focus:outline-none"
+              >
+                New goal
+              </button>
+            </div>
           </div>
         </div>
       )}

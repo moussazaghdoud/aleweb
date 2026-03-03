@@ -26,6 +26,7 @@ import { ChatKnowledgeFiles } from './collections/ChatKnowledgeFiles'
 import { ChatSessions } from './collections/ChatSessions'
 import { KnowledgeSources } from './collections/KnowledgeSources'
 import { KnowledgeUploads } from './collections/KnowledgeUploads'
+import { PlanLeads } from './collections/PlanLeads'
 
 // Globals
 import { Navigation } from './globals/Navigation'
@@ -117,6 +118,7 @@ export default buildConfig({
     ChatSessions,
     KnowledgeSources,
     KnowledgeUploads,
+    PlanLeads,
   ],
 
   // ── Globals ──────────────────────────────────────────────────
