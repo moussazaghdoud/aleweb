@@ -224,6 +224,11 @@ export function GoalCaptureGlassPanel() {
       onKeyDown={handleKeyDown}
     >
       <style>{`
+        .goal-panel-scroll::-webkit-scrollbar { width: 4px; }
+        .goal-panel-scroll::-webkit-scrollbar-track { background: transparent; }
+        .goal-panel-scroll::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+        .goal-panel-scroll::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+        .goal-panel-scroll { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
         @keyframes goalDotBounce {
           0%, 100% { transform: translateY(0); }
           50% { transform: translateY(-10px); }
@@ -426,7 +431,7 @@ export function GoalCaptureGlassPanel() {
           )}
 
           {/* 3-step stacked cards with staggered entrance */}
-          <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
+          <div className="goal-panel-scroll space-y-2 max-h-[380px] overflow-y-auto pr-1">
             {STEPS_ORDER.map((stepKey, idx) => {
               const meta = STEP_META[stepKey];
 
