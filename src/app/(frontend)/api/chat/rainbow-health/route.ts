@@ -17,14 +17,14 @@ export async function GET() {
   const bridge = getRainbowBridge()
 
   // Try a test connection if bridge is available
-  let connectionTest: { status: string; error?: string } = { status: 'skipped' }
+  let connectionTest: Record<string, unknown> = { status: 'skipped' }
   if (bridge) {
     try {
       const timeout = new Promise<never>((_, reject) =>
-        setTimeout(() => reject(new Error('Connection timed out after 15s')), 15_000),
+        setTimeout(() => reject(new Error('Worker timed out after 30s')), 30_000),
       )
       const result = await Promise.race([bridge.testConnection(), timeout])
-      connectionTest = { status: 'connected', auth: true, s2s: result?.s2s ?? false }
+      connectionTest = { status: 'connected', ...result }
     } catch (err: any) {
       const errorDetail = err.message || (typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err))
       connectionTest = { status: 'failed', error: errorDetail }

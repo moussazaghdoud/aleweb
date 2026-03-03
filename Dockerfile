@@ -29,9 +29,10 @@ RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Ensure sharp native binaries are available (standalone trace may miss them)
-COPY --from=deps /app/node_modules/sharp ./node_modules/sharp
-COPY --from=deps /app/node_modules/@img ./node_modules/@img
+# Copy full node_modules for sharp + rainbow-node-sdk S2S worker
+COPY --from=deps /app/node_modules ./node_modules
+# Rainbow S2S worker (runs outside Next.js as a separate Node.js process)
+COPY --from=builder /app/scripts ./scripts
 # Payload media uploads directory
 RUN mkdir -p /app/public/media && chown -R nextjs:nodejs /app/public/media
 USER nextjs
