@@ -20,8 +20,11 @@ export async function GET() {
   let connectionTest: { status: string; error?: string } = { status: 'skipped' }
   if (bridge) {
     try {
-      // Attempt to connect — this will reveal auth/network errors
-      await bridge.testConnection()
+      // Attempt to connect with a 15s timeout
+      const timeout = new Promise((_, reject) =>
+        setTimeout(() => reject(new Error('Connection timed out after 15s')), 15_000),
+      )
+      await Promise.race([bridge.testConnection(), timeout])
       connectionTest = { status: 'connected' }
     } catch (err: any) {
       const errorDetail = err.message || (typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err))
