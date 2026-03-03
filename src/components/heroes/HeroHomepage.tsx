@@ -26,7 +26,7 @@ type Props = {
   ctaButtons?: CtaButton[] | null;
 };
 
-const defaultHeading = "Intelligent Networks.\nCloud Services. AI\u00a0Operations.\nOne Platform.";
+const defaultHeading = "Intelligent Networks.\nSecure Cloud Communications.\nAI\u2011Driven Operations.\nBuilt for Every Industry.";
 const defaultSubheading =
   "From OmniSwitch infrastructure and Stellar\u00a0Wi-Fi to Rainbow cloud\u00a0communications and AI\u2011driven operations\u00a0— ALE\u00a0connects, secures, and automates the enterprises that power the\u00a0world.";
 const defaultCtas: CtaButton[] = [
@@ -106,22 +106,19 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
             {/* Headline */}
             <h1
-              className={`text-4xl sm:text-5xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.08] tracking-tight transition-all duration-700 delay-500 ${
+              className={`text-3xl sm:text-4xl lg:text-[2.6rem] xl:text-5xl font-bold text-white leading-[1.12] tracking-tight transition-all duration-700 delay-500 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >
               {headingText.includes('\n') ? (
                 headingText.split('\n').map((line, i, arr) => (
                   <span key={i}>
-                    {i === arr.length - 1 ? (
+                    {/AI.Driven/i.test(line) ? (
+                      <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
+                        {line}
+                      </span>
+                    ) : i === arr.length - 1 ? (
                       <span className="text-white/90">{line}</span>
-                    ) : i === 1 ? (
-                      <>
-                        {line.replace(/AI\s*Operations\.?/, '')}{' '}
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400">
-                          AI&nbsp;Operations.
-                        </span>
-                      </>
                     ) : (
                       line
                     )}
