@@ -185,8 +185,8 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
           {/* ── Right column: Goal Capture Glass Panel ── */}
           <div
-            className={`flex justify-center lg:justify-start transition-all duration-700 delay-[1100ms] ${
-              visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            className={`flex justify-center lg:justify-start transition-all duration-800 ease-out delay-[1300ms] ${
+              visible ? "opacity-100 translate-y-0 scale-100" : "opacity-0 translate-y-6 scale-[0.97]"
             }`}
           >
             <GoalCaptureGlassPanel />

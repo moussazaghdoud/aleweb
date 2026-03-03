@@ -69,8 +69,15 @@ export function GoalCaptureGlassPanel() {
   const [state, setState] = useState<UXState>("idle");
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
+  const [revealed, setRevealed] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
+
+  // Staggered entrance animation on mount
+  useEffect(() => {
+    const timer = setTimeout(() => setRevealed(true), 200);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSubmit = useCallback(async () => {
     const text = goal.trim();
@@ -167,29 +174,48 @@ export function GoalCaptureGlassPanel() {
       {/* ── IDLE / INPUT STATE ── */}
       {(state === "idle" || state === "loading") && (
         <div className="space-y-4">
-          <div>
+          <div
+            className={`transition-all duration-600 ease-out ${
+              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            }`}
+          >
             <h2 className="text-white text-lg font-semibold leading-snug">
               What&apos;s your goal?
             </h2>
-            <p className="text-white/50 text-xs mt-1 leading-relaxed">
-              Describe your goal in one sentence. Example: reduce support workload, modernize Wi-Fi, secure network access.
-            </p>
           </div>
 
-          <textarea
-            ref={textareaRef}
-            value={goal}
-            onChange={(e) => setGoal(e.target.value)}
-            onFocus={pauseVideo}
-            placeholder="Write here what you want to do, What are you looking to solve in your organization"
-            rows={3}
-            maxLength={1000}
-            disabled={state === "loading"}
-            aria-label="Describe your business goal"
-            className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:outline-none focus:ring-1 focus:ring-white/30 focus:border-white/20 transition-all disabled:opacity-50"
-          />
+          <p
+            className={`text-white/50 text-xs leading-relaxed transition-all duration-600 ease-out delay-150 ${
+              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
+            Describe your goal in one sentence. Example: reduce support workload, modernize Wi-Fi, secure network access.
+          </p>
 
-          <div className="flex items-center gap-3">
+          <div
+            className={`transition-all duration-600 ease-out delay-300 ${
+              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
+            <textarea
+              ref={textareaRef}
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              onFocus={pauseVideo}
+              placeholder="Write here what you want to do, What are you looking to solve in your organization"
+              rows={3}
+              maxLength={1000}
+              disabled={state === "loading"}
+              aria-label="Describe your business goal"
+              className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:outline-none focus:ring-1 focus:ring-white/30 focus:border-white/20 transition-all disabled:opacity-50"
+            />
+          </div>
+
+          <div
+            className={`flex items-center gap-3 transition-all duration-600 ease-out delay-[450ms] ${
+              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+            }`}
+          >
             <button
               onClick={handleSubmit}
               disabled={!goal.trim() || state === "loading"}
