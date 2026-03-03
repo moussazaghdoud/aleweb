@@ -218,7 +218,7 @@ export function GoalCaptureGlassPanel() {
       ref={panelRef}
       role="region"
       aria-label="Goal capture — describe what you want to achieve"
-      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500 ${
+      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500 max-h-[calc(100vh-6rem)] overflow-hidden ${
         isExpanded ? "max-w-[30rem]" : "max-w-sm lg:max-w-[22rem]"
       }`}
       onKeyDown={handleKeyDown}
@@ -431,7 +431,7 @@ export function GoalCaptureGlassPanel() {
           )}
 
           {/* 3-step stacked cards with staggered entrance */}
-          <div className="goal-panel-scroll space-y-2 max-h-[380px] overflow-y-auto pr-1">
+          <div className="goal-panel-scroll space-y-2 max-h-[280px] overflow-y-auto pr-3">
             {STEPS_ORDER.map((stepKey, idx) => {
               const meta = STEP_META[stepKey];
 
@@ -588,48 +588,44 @@ export function GoalCaptureGlassPanel() {
             </div>
           </div>
 
-          {/* ── 3-button action bar ── */}
-          <div className="space-y-2 pt-1">
-            {/* Row 1: Email CTA — full-width gradient */}
+          {/* ── Action bar ── */}
+          <div className="flex items-center gap-2 pt-1 flex-wrap">
             {!emailSent && (
               <button
                 onClick={() => setEmailMode((v) => !v)}
-                className="w-full h-10 text-sm font-semibold text-white bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 rounded-full hover:from-violet-700 hover:via-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 inline-flex items-center justify-center gap-2 focus:outline-none"
+                className="h-9 px-5 text-xs font-semibold text-white bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 rounded-full hover:from-violet-700 hover:via-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 inline-flex items-center justify-center gap-1.5 focus:outline-none"
               >
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
-                Receive details by email
+                Email my plan
               </button>
             )}
 
-            {/* Row 2: AI CTA (ghost) + New goal (text) */}
-            <div className="flex items-center gap-3">
-              {plan.steps!.nextSteps?.cta ? (
-                <a
-                  href={plan.steps!.nextSteps.cta.url}
-                  className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-white/30"
-                >
-                  {plan.steps!.nextSteps.cta.label}
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                  </svg>
-                </a>
-              ) : (
-                <a
-                  href="/contact"
-                  className="flex-1 h-10 px-5 text-sm font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-white/30"
-                >
-                  Talk to an expert
-                </a>
-              )}
-              <button
-                onClick={handleReset}
-                className="h-10 px-4 text-xs font-medium text-white/50 hover:text-white/80 transition-colors focus:outline-none"
+            {plan.steps!.nextSteps?.cta ? (
+              <a
+                href={plan.steps!.nextSteps.cta.url}
+                className="h-9 px-4 text-xs font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center gap-1.5 focus:outline-none"
               >
-                New goal
-              </button>
-            </div>
+                {plan.steps!.nextSteps.cta.label}
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </a>
+            ) : (
+              <a
+                href="/contact"
+                className="h-9 px-4 text-xs font-semibold text-white bg-white/[0.08] border border-white/[0.15] rounded-full hover:bg-white/[0.15] transition-all inline-flex items-center justify-center focus:outline-none"
+              >
+                Talk to an expert
+              </a>
+            )}
+            <button
+              onClick={handleReset}
+              className="h-9 px-3 text-xs font-medium text-white/50 hover:text-white/80 transition-colors focus:outline-none"
+            >
+              New goal
+            </button>
           </div>
         </div>
       )}
