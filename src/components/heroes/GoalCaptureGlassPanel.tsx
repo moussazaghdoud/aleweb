@@ -266,7 +266,7 @@ export function GoalCaptureGlassPanel() {
               disabled={state === "loading"}
               aria-label="Describe your business goal"
               style={{ outline: 'none', boxShadow: 'none' }}
-              className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:border-white/40 transition-all disabled:opacity-50"
+              className="w-full resize-none rounded-lg bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:border-white/40 transition-all disabled:opacity-50"
             />
           </div>
 
