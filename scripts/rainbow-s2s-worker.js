@@ -130,14 +130,17 @@ async function handleCommand(cmd) {
       }
 
       case "invite_agents": {
+        console.log(`${LOG} Inviting agents to bubble ${cmd.bubbleId}: ${(cmd.emails || []).join(", ")}`);
         const bubble = sdk.bubbles.getBubbleById(cmd.bubbleId);
         if (!bubble) {
-          respond(id, { ok: false, error: "Bubble not found" });
+          console.warn(`${LOG} Bubble ${cmd.bubbleId} not found in local cache`);
+          respond(id, { ok: false, error: "Bubble not found in cache" });
           break;
         }
         for (const email of (cmd.emails || [])) {
           try {
             await sdk.bubbles.inviteContactsByEmailsToBubble([email], bubble);
+            console.log(`${LOG} Invited ${email}`);
           } catch (err) {
             console.warn(`${LOG} Could not invite ${email}:`, err.message);
           }
@@ -203,8 +206,10 @@ async function start() {
     im: {
       sendReadReceipt: true,
       sendMessageToConnectedUser: false,
-      autoLoadConversations: false,
+      autoLoadConversations: true,
       autoLoadContacts: false,
+      autoInitialGetBubbles: true,
+      autoInitialBubblePresence: true,
       storeMessages: false,
     },
     servicesToStart: {
