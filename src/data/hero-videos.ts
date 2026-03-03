@@ -83,8 +83,8 @@ export const industrySubPageVideos: Record<string, string> = {
   "healthcare/senior-living": v(33307),
   // Education
   "education/higher-education": v(4531),
-  "education/k-12": v(27984),
-  "education/intelligent-campus": v(4531),
+  "education/k-12": v(5886),
+  "education/intelligent-campus": v(4503),
   "education/e-rate": v(27984),
   // Government
   "government/defense": v(44925),
