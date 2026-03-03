@@ -110,7 +110,7 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
       {/* ── Content — two-column on desktop ── */}
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-10 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-6 items-center">
           {/* ── Left column: headline + CTAs ── */}
           <div className="max-w-2xl">
             {/* Pillar badges */}
