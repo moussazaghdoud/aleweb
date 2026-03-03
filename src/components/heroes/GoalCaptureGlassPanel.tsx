@@ -85,7 +85,7 @@ export function GoalCaptureGlassPanel() {
 
   // Staggered entrance animation on mount
   useEffect(() => {
-    const timer = setTimeout(() => setRevealed(true), 200);
+    const timer = setTimeout(() => setRevealed(true), 2200);
     return () => clearTimeout(timer);
   }, []);
 
