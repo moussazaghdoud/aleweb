@@ -87,7 +87,7 @@ export const industrySubPageVideos: Record<string, string> = {
   "education/intelligent-campus": v(4503),
   "education/e-rate": v(27984),
   // Government
-  "government/defense": v(44925),
+  "government/defense": v(7373),
   "government/public-safety": v(1580),
   "government/connected-cities": v(23312),
   "government/smart-buildings": v(49845),
