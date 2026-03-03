@@ -218,9 +218,9 @@ export function GoalCaptureGlassPanel() {
       ref={panelRef}
       role="region"
       aria-label="Goal capture — describe what you want to achieve"
-      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500 max-h-[calc(100vh-6rem)] overflow-hidden ${
+      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-700 max-h-[calc(100vh-6rem)] overflow-hidden ${
         isExpanded ? "max-w-[30rem]" : "max-w-sm lg:max-w-[22rem]"
-      }`}
+      } ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
       onKeyDown={handleKeyDown}
     >
       <style>{`
@@ -237,11 +237,7 @@ export function GoalCaptureGlassPanel() {
       {/* ── IDLE / INPUT STATE ── */}
       {(state === "idle" || state === "loading") && (
         <div className="space-y-3">
-          <div
-            className={`transition-all duration-600 ease-out ${
-              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-            }`}
-          >
+          <div>
             <h2 className="text-white text-lg font-semibold leading-snug">
               What&apos;s your goal?
             </h2>
@@ -250,11 +246,7 @@ export function GoalCaptureGlassPanel() {
             </p>
           </div>
 
-          <div
-            className={`transition-all duration-600 ease-out delay-200 ${
-              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-            }`}
-          >
+          <div>
             <textarea
               ref={textareaRef}
               value={goal}
@@ -270,11 +262,7 @@ export function GoalCaptureGlassPanel() {
             />
           </div>
 
-          <div
-            className={`flex items-center gap-3 transition-all duration-600 ease-out delay-300 ${
-              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-            }`}
-          >
+          <div className="flex items-center gap-3">
             <button
               onClick={handleSubmit}
               disabled={!goal.trim() || state === "loading"}
