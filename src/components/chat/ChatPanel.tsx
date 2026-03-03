@@ -47,6 +47,26 @@ export default function ChatPanel({ config, onClose }: Props) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
+  // On mount, check if existing session is escalated or closed
+  useEffect(() => {
+    if (!sessionId) return;
+    const visitorId = getVisitorId();
+    fetch(`/api/chat/sessions/${sessionId}?visitorId=${visitorId}`)
+      .then((res) => res.ok ? res.json() : null)
+      .then((data) => {
+        if (!data) return;
+        if (data.session?.status === "escalated") {
+          setEscalated(true);
+        } else if (data.session?.status === "closed") {
+          // Stale closed session — clear it so the user gets a fresh start
+          localStorage.removeItem(SESSION_ID_KEY);
+          setSessionId(null);
+        }
+      })
+      .catch(() => {});
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   // Poll for agent/system messages when escalated
   useEffect(() => {
     if (!escalated || !sessionId) return;
@@ -136,7 +156,10 @@ export default function ChatPanel({ config, onClose }: Props) {
           setSessionId(data.sessionId);
           localStorage.setItem(SESSION_ID_KEY, data.sessionId);
         }
-        if (data.error) {
+        if (data.status === "escalated") {
+          // Session is in escalated mode — activate polling for agent messages
+          setEscalated(true);
+        } else if (data.error) {
           setMessages((prev) => [
             ...prev,
             { id: "e_" + Date.now(), role: "system", content: data.error, createdAt: new Date().toISOString() },
