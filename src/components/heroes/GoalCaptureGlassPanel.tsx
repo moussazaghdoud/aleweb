@@ -207,7 +207,8 @@ export function GoalCaptureGlassPanel() {
               maxLength={1000}
               disabled={state === "loading"}
               aria-label="Describe your business goal"
-              className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 outline-none ring-0 focus:ring-0 focus:border-white/40 transition-all disabled:opacity-50"
+              style={{ outline: 'none', boxShadow: 'none' }}
+              className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:border-white/40 transition-all disabled:opacity-50"
             />
           </div>
 
@@ -304,7 +305,8 @@ export function GoalCaptureGlassPanel() {
             onFocus={pauseVideo}
             placeholder="Add more details..."
             rows={2}
-            className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 outline-none ring-0 focus:ring-0 focus:border-white/40 transition-all"
+            style={{ outline: 'none', boxShadow: 'none' }}
+            className="w-full resize-none rounded-xl bg-white/[0.06] border border-white/[0.12] text-white text-sm placeholder:text-white/30 px-4 py-3 focus:border-white/40 transition-all"
             aria-label="Provide additional details"
           />
 
