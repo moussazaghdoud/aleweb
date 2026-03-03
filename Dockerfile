@@ -4,6 +4,11 @@ WORKDIR /app
 COPY package.json package-lock.json* ./
 RUN npm ci --ignore-scripts && npm rebuild sharp
 
+# Stage 1b: Worker deps only (rainbow-node-sdk for S2S worker)
+FROM node:20-alpine AS worker-deps
+WORKDIR /app
+RUN npm init -y > /dev/null 2>&1 && npm install rainbow-node-sdk --omit=dev --ignore-scripts 2>/dev/null
+
 # Stage 2: Build
 FROM node:20-alpine AS builder
 WORKDIR /app
@@ -29,10 +34,13 @@ RUN addgroup --system --gid 1001 nodejs && adduser --system --uid 1001 nextjs
 COPY --from=builder /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-# Copy full node_modules for sharp + rainbow-node-sdk S2S worker
-COPY --from=deps /app/node_modules ./node_modules
-# Rainbow S2S worker (runs outside Next.js as a separate Node.js process)
+# Ensure sharp native binaries are available (standalone trace may miss them)
+COPY --from=deps /app/node_modules/sharp ./node_modules/sharp
+COPY --from=deps /app/node_modules/@img ./node_modules/@img
+# Rainbow S2S worker + its deps (separate from main app)
 COPY --from=builder /app/scripts ./scripts
+COPY --from=worker-deps /app/node_modules ./node_modules_worker
+RUN cp -rn node_modules_worker/* node_modules/ 2>/dev/null || true && rm -rf node_modules_worker
 # Payload media uploads directory
 RUN mkdir -p /app/public/media && chown -R nextjs:nodejs /app/public/media
 USER nextjs
