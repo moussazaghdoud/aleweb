@@ -34,15 +34,77 @@ export default function ChatPanel({ config, onClose }: Props) {
   const [sessionId, setSessionId] = useState<string | null>(() => localStorage.getItem(SESSION_ID_KEY));
   const [input, setInput] = useState("");
   const [escalated, setEscalated] = useState(false);
+  const [agentConnected, setAgentConnected] = useState(false);
   const [feedbackGiven, setFeedbackGiven] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const lastPollTimestamp = useRef<string | null>(null);
+  const seenMessageIds = useRef(new Set<string>());
 
   const greeting = config.greeting || "Hi! How can I help you today?";
 
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
+
+  // Poll for agent/system messages when escalated
+  useEffect(() => {
+    if (!escalated || !sessionId) return;
+
+    const visitorId = getVisitorId();
+    let stopped = false;
+
+    const poll = async () => {
+      if (stopped) return;
+      try {
+        const params = new URLSearchParams({ visitorId });
+        if (lastPollTimestamp.current) params.set("after", lastPollTimestamp.current);
+
+        const res = await fetch(`/api/chat/sessions/${sessionId}?${params}`);
+        if (!res.ok) return;
+
+        const data = await res.json();
+
+        // Filter for new agent/system messages we haven't seen
+        const newMsgs: UIMessage[] = (data.messages || [])
+          .filter((m: any) => (m.role === "agent" || m.role === "system") && !seenMessageIds.current.has(m.id))
+          .map((m: any) => {
+            seenMessageIds.current.add(m.id);
+            return { id: m.id, role: m.role as MessageRole, content: m.content, createdAt: m.createdAt };
+          });
+
+        if (newMsgs.length > 0) {
+          // Track agent connection
+          if (newMsgs.some((m) => m.role === "agent")) {
+            setAgentConnected(true);
+          }
+
+          setMessages((prev) => [...prev, ...newMsgs]);
+
+          // Update poll cursor to latest message timestamp
+          const latest = newMsgs[newMsgs.length - 1];
+          if (latest) lastPollTimestamp.current = latest.createdAt;
+        }
+
+        // Stop polling if session is closed
+        if (data.session?.status === "closed") {
+          stopped = true;
+          setEscalated(false);
+        }
+      } catch {
+        // Ignore poll errors — will retry next interval
+      }
+    };
+
+    // Initial poll immediately, then every 3 seconds
+    poll();
+    const interval = setInterval(poll, 3000);
+
+    return () => {
+      stopped = true;
+      clearInterval(interval);
+    };
+  }, [escalated, sessionId]);
 
   const handleSend = useCallback(async () => {
     const text = input.trim();
@@ -206,7 +268,7 @@ export default function ChatPanel({ config, onClose }: Props) {
         </div>
         <div style={{ flex: 1 }}>
           <div style={{ fontSize: 14, fontWeight: 700, color: "white" }}>ALE Assistant</div>
-          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)" }}>{escalated ? "Connecting to agent..." : "AI-powered support"}</div>
+          <div style={{ fontSize: 10, color: "rgba(255,255,255,0.5)" }}>{escalated ? (agentConnected ? "Connected to agent" : "Connecting to agent...") : "AI-powered support"}</div>
         </div>
         <button onClick={onClose} style={{ width: 28, height: 28, borderRadius: "50%", border: "1px solid rgba(255,255,255,0.1)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.7)", cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center", transition: "background 0.2s" }} aria-label="Close chat">
           <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -245,6 +307,8 @@ export default function ChatPanel({ config, onClose }: Props) {
                   ? { background: "linear-gradient(135deg, #3b82f6, #7c3aed)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
                   : msg.role === "system"
                   ? { background: "rgba(251,191,36,0.12)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.2)", borderRadius: 999, fontSize: 12 }
+                  : msg.role === "agent"
+                  ? { background: "rgba(16,185,129,0.12)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(16,185,129,0.25)" }
                   : { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(255,255,255,0.06)" }),
               }}>
                 {msg.content || "..."}

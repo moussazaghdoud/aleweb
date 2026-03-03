@@ -3,6 +3,7 @@ import { getChatStore } from '@/lib/chat/store'
 import { chatWithRAG } from '@/lib/chat/openai'
 import type { ChatMessage } from '@/lib/chat/types'
 import { logChatEvent } from '@/lib/chat/analytics'
+import { getRainbowBridge } from '@/lib/chat/rainbow-bridge'
 
 export const dynamic = 'force-dynamic'
 
@@ -116,8 +117,14 @@ export async function POST(request: NextRequest) {
 
     // Check if session is escalated (agent is handling)
     if (session.status === 'escalated') {
-      // In escalated mode, just store the message for the agent to see
+      // In escalated mode, store the message and relay to Rainbow bubble
       await store.addMessage(session.id, 'user', message.trim())
+      const bridge = getRainbowBridge()
+      if (bridge) {
+        bridge.relayVisitorMessage(session.id, message.trim()).catch((err) =>
+          console.warn('[Chat] Failed to relay message to Rainbow:', err.message),
+        )
+      }
       return NextResponse.json({ sessionId: session.id, status: 'escalated', message: 'Message sent to agent' })
     }
 

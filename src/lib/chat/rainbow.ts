@@ -3,6 +3,7 @@
 /* ------------------------------------------------------------------ */
 
 import type { EscalationRequest } from './types'
+import { getRainbowBridge } from './rainbow-bridge'
 
 export interface RainbowProvider {
   /** Notify an available agent about a new escalation */
@@ -13,60 +14,28 @@ export interface RainbowProvider {
   ping(): Promise<boolean>
 }
 
-/* ======================== Production: Rainbow REST API ======================== */
+/* ======================== Production: Rainbow Bridge Provider ======================== */
 
-class RainbowWebhookProvider implements RainbowProvider {
-  private apiUrl: string
-  private apiKey: string
-
-  constructor() {
-    this.apiUrl = process.env.RAINBOW_API_URL || 'https://openrainbow.com/api/v1'
-    this.apiKey = process.env.RAINBOW_API_KEY || ''
-  }
-
+class RainbowBridgeProvider implements RainbowProvider {
   async notifyAgent(escalation: EscalationRequest): Promise<void> {
-    // Send notification to Rainbow webhook/API
-    // Exact endpoint TBD based on Rainbow API documentation
-    const res = await fetch(`${this.apiUrl}/notifications`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${this.apiKey}`,
-      },
-      body: JSON.stringify({
-        type: 'chat_escalation',
-        sessionId: escalation.sessionId,
-        reason: escalation.reason,
-        callbackUrl: `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/chat/webhook`,
-        timestamp: escalation.createdAt,
-      }),
-    })
-
-    if (!res.ok) {
-      const text = await res.text().catch(() => '')
-      throw new Error(`Rainbow API error ${res.status}: ${text}`)
+    const bridge = getRainbowBridge()
+    if (!bridge) {
+      throw new Error('Rainbow bridge not available')
     }
+    await bridge.escalateSession(escalation.sessionId, escalation.reason)
   }
 
   async getAvailableAgents(): Promise<Array<{ id: string; name: string; available: boolean }>> {
-    const res = await fetch(`${this.apiUrl}/agents/available`, {
-      headers: { Authorization: `Bearer ${this.apiKey}` },
-    })
-
-    if (!res.ok) return []
-    const data = await res.json()
-    return data.agents || []
+    // Agent availability is managed by Rainbow itself — always report available
+    const agents = (process.env.RAINBOW_SUPPORT_AGENTS || '')
+      .split(',')
+      .map((j) => j.trim())
+      .filter(Boolean)
+    return agents.map((jid, i) => ({ id: jid, name: `Agent ${i + 1}`, available: true }))
   }
 
   async ping(): Promise<boolean> {
-    try {
-      const res = await fetch(`${this.apiUrl}/health`, {
-        headers: { Authorization: `Bearer ${this.apiKey}` },
-      })
-      return res.ok
-    } catch {
-      return false
-    }
+    return getRainbowBridge() !== null
   }
 }
 
@@ -98,11 +67,11 @@ let providerInstance: RainbowProvider | null = null
 export function getRainbowProvider(): RainbowProvider {
   if (providerInstance) return providerInstance
 
-  if (process.env.RAINBOW_API_KEY) {
-    console.log('[Rainbow] Using production Rainbow API provider')
-    providerInstance = new RainbowWebhookProvider()
+  if (process.env.RAINBOW_APP_ID && process.env.RAINBOW_BOT_LOGIN) {
+    console.log('[Rainbow] Using Rainbow Bridge provider (rainbow-node-sdk)')
+    providerInstance = new RainbowBridgeProvider()
   } else {
-    console.log('[Rainbow] Using stub provider (no RAINBOW_API_KEY)')
+    console.log('[Rainbow] Using stub provider (no RAINBOW_APP_ID + RAINBOW_BOT_LOGIN)')
     providerInstance = new StubRainbowProvider()
   }
 
