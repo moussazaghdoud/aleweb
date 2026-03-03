@@ -118,11 +118,13 @@ async function handleCommand(cmd) {
   try {
     switch (cmd.cmd) {
       case "create_bubble": {
+        console.log(`${LOG} Creating bubble: ${cmd.name}`);
         const bubble = await sdk.bubbles.createBubble(
           cmd.name,
           cmd.description || "",
           "all"
         );
+        console.log(`${LOG} Bubble created: id=${bubble.id}, jid=${bubble.jid}`);
         respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid });
         break;
       }
@@ -145,7 +147,9 @@ async function handleCommand(cmd) {
       }
 
       case "send_message": {
-        await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
+        console.log(`${LOG} Sending message to bubble ${cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
+        const result = await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
+        console.log(`${LOG} Message sent, result:`, result ? "ok" : "no result");
         respond(id, { ok: true });
         break;
       }
