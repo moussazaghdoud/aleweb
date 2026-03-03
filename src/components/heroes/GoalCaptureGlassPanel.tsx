@@ -337,7 +337,7 @@ export function GoalCaptureGlassPanel() {
           )}
 
           {/* 3-step stacked cards */}
-          <div className="space-y-2">
+          <div className="space-y-2 max-h-[320px] overflow-y-auto pr-1 scrollbar-thin">
             {STEPS_ORDER.map((stepKey, idx) => {
               const meta = STEP_META[stepKey];
 
