@@ -231,7 +231,7 @@ export function GoalCaptureGlassPanel() {
       `}</style>
       {/* ── IDLE / INPUT STATE ── */}
       {(state === "idle" || state === "loading") && (
-        <div className="space-y-4">
+        <div className="space-y-3">
           <div
             className={`transition-all duration-600 ease-out ${
               revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
@@ -240,18 +240,13 @@ export function GoalCaptureGlassPanel() {
             <h2 className="text-white text-lg font-semibold leading-snug">
               What&apos;s your goal?
             </h2>
+            <p className="text-white/50 text-xs leading-relaxed mt-1">
+              Describe your goal in one sentence. Example: reduce support workload, modernize Wi-Fi, secure network access.
+            </p>
           </div>
 
-          <p
-            className={`text-white/50 text-xs leading-relaxed transition-all duration-600 ease-out delay-150 ${
-              revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
-            }`}
-          >
-            Describe your goal in one sentence. Example: reduce support workload, modernize Wi-Fi, secure network access.
-          </p>
-
           <div
-            className={`transition-all duration-600 ease-out delay-300 ${
+            className={`transition-all duration-600 ease-out delay-200 ${
               revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
@@ -261,7 +256,7 @@ export function GoalCaptureGlassPanel() {
               onChange={(e) => setGoal(e.target.value)}
               onFocus={pauseVideo}
               placeholder="Write here what you want to do, What are you looking to solve in your organization"
-              rows={3}
+              rows={4}
               maxLength={1000}
               disabled={state === "loading"}
               aria-label="Describe your business goal"
@@ -271,7 +266,7 @@ export function GoalCaptureGlassPanel() {
           </div>
 
           <div
-            className={`flex items-center gap-3 transition-all duration-600 ease-out delay-[450ms] ${
+            className={`flex items-center gap-3 transition-all duration-600 ease-out delay-300 ${
               revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
             }`}
           >
