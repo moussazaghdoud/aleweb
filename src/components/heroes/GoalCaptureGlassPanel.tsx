@@ -221,15 +221,16 @@ export function GoalCaptureGlassPanel() {
               onClick={handleSubmit}
               disabled={!goal.trim() || state === "loading"}
               aria-label="Get a plan"
-              className="flex-1 inline-flex items-center justify-center gap-2 h-11 px-6 bg-gradient-to-r from-purple-500 to-blue-500 text-white text-sm font-semibold rounded-full hover:from-purple-600 hover:to-blue-600 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none focus:ring-2 focus:ring-purple-400/60 focus:ring-offset-2 focus:ring-offset-transparent"
+              className="flex-1 inline-flex items-center justify-center gap-2 h-11 px-6 bg-gradient-to-r from-violet-600 via-purple-600 to-blue-600 text-white text-sm font-semibold rounded-full hover:from-violet-700 hover:via-purple-700 hover:to-blue-700 shadow-lg shadow-purple-500/25 hover:shadow-purple-500/40 transition-all duration-300 disabled:opacity-40 disabled:cursor-not-allowed focus:outline-none"
             >
               {state === "loading" ? (
                 <>
-                  <svg className="w-4 h-4 animate-spin" viewBox="0 0 24 24" fill="none">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-                  </svg>
-                  Analyzing your goal...
+                  <span className="inline-flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '0ms', animationDuration: '0.8s' }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '150ms', animationDuration: '0.8s' }} />
+                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '300ms', animationDuration: '0.8s' }} />
+                  </span>
+                  Thinking...
                 </>
               ) : (
                 <>
