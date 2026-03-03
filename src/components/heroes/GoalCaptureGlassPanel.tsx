@@ -171,6 +171,12 @@ export function GoalCaptureGlassPanel() {
       className="w-full max-w-sm lg:max-w-[22rem] backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500"
       onKeyDown={handleKeyDown}
     >
+      <style>{`
+        @keyframes goalDotBounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+      `}</style>
       {/* ── IDLE / INPUT STATE ── */}
       {(state === "idle" || state === "loading") && (
         <div className="space-y-4">
@@ -225,10 +231,17 @@ export function GoalCaptureGlassPanel() {
             >
               {state === "loading" ? (
                 <>
-                  <span className="inline-flex items-center gap-1">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '0ms', animationDuration: '0.8s' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '150ms', animationDuration: '0.8s' }} />
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-bounce" style={{ animationDelay: '300ms', animationDuration: '0.8s' }} />
+                  <span className="inline-flex items-end gap-1 h-4">
+                    {[0, 150, 300].map((delay) => (
+                      <span
+                        key={delay}
+                        className="w-1.5 h-1.5 rounded-full bg-white"
+                        style={{
+                          animation: 'goalDotBounce 0.8s ease-in-out infinite',
+                          animationDelay: `${delay}ms`,
+                        }}
+                      />
+                    ))}
                   </span>
                   Thinking...
                 </>
