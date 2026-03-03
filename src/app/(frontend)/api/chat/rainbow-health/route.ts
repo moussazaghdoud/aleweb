@@ -24,7 +24,8 @@ export async function GET() {
       await bridge.testConnection()
       connectionTest = { status: 'connected' }
     } catch (err: any) {
-      connectionTest = { status: 'failed', error: err.message || String(err) }
+      const errorDetail = err.message || (typeof err === 'object' ? JSON.stringify(err, null, 2) : String(err))
+      connectionTest = { status: 'failed', error: errorDetail }
     }
   }
 
