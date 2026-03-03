@@ -110,7 +110,7 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
       {/* ── Content — two-column on desktop ── */}
       <div className="relative z-10 mx-auto max-w-[1320px] px-6 w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-8 lg:gap-10 items-center">
           {/* ── Left column: headline + CTAs ── */}
           <div className="max-w-2xl">
             {/* Pillar badges */}
@@ -132,7 +132,7 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
 
             {/* Headline */}
             <h1
-              className={`text-3xl sm:text-4xl lg:text-[2.75rem] xl:text-5xl font-bold text-white leading-[1.1] tracking-tight transition-all duration-700 delay-500 ${
+              className={`text-3xl sm:text-4xl lg:text-[2.5rem] xl:text-[2.75rem] font-bold text-white leading-[1.12] tracking-tight transition-all duration-700 delay-500 ${
                 visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
               }`}
             >

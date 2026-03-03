@@ -168,7 +168,7 @@ export function GoalCaptureGlassPanel() {
       ref={panelRef}
       role="region"
       aria-label="Goal capture — describe what you want to achieve"
-      className="w-full max-w-md backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-6 transition-all duration-500"
+      className="w-full max-w-sm lg:max-w-[22rem] backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-500"
       onKeyDown={handleKeyDown}
     >
       {/* ── IDLE / INPUT STATE ── */}
