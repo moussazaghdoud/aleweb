@@ -55,10 +55,8 @@ export default function ChatPanel({ config, onClose }: Props) {
       .then((res) => res.ok ? res.json() : null)
       .then((data) => {
         if (!data) return;
-        if (data.session?.status === "escalated") {
-          setEscalated(true);
-        } else if (data.session?.status === "closed") {
-          // Stale closed session — clear it so the user gets a fresh start
+        if (data.session?.status === "escalated" || data.session?.status === "closed") {
+          // Stale escalated/closed session — clear it so the user gets a fresh start
           localStorage.removeItem(SESSION_ID_KEY);
           setSessionId(null);
         }
