@@ -619,8 +619,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Next-generation public safety communications",
         body: "ALE solutions link different communication methods — radio, SMS, chat, calls, email, video, and more — connecting emergency responders, agencies, and authorities. By sharing information in real-time, responders gain better situational awareness, helping them act faster and send resources where they're needed most. IoT plays a key role, monitoring and alerting when risks arise, while AI can predict potential risks to prevent incidents before they happen.",
-        image: "https://images.unsplash.com/photo-1557426272-fc759fdf7a8d?w=1200&q=80&fit=crop",
-        imageAlt: "Public safety communications connecting emergency responders",
+        image: "https://images.unsplash.com/photo-1599059813005-11265ba4b4ce?w=1200&q=80&fit=crop",
+        imageAlt: "Firefighters in action responding to emergency",
         bullets: [
           "Smart handling of emergency calls with mission-critical communications",
           "Manage large-scale incidents with command and control capabilities",
@@ -631,8 +631,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Resilient and secure network for public safety",
         body: "IoT devices deployed at scale require a resilient, intelligent, and secure network foundation. ALE provides an automated solution that efficiently and securely onboards IoT devices while protecting the network. From surveillance cameras and environmental sensors to emergency call points, every connected device is automatically configured with appropriate security policies.",
-        image: "https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?w=1200&q=80&fit=crop",
-        imageAlt: "Emergency response infrastructure protecting communities",
+        image: "https://images.unsplash.com/photo-1569982175971-d92b01cf8694?w=1200&q=80&fit=crop",
+        imageAlt: "Emergency rescue team with equipment and communications",
         bullets: [
           "Automated, secure IoT device onboarding at scale",
           "AI-powered predictive risk analysis from IoT sensor data",
