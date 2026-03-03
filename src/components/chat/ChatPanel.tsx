@@ -215,8 +215,17 @@ export default function ChatPanel({ config, onClose }: Props) {
         </button>
       </div>
 
+      {/* Discreet scrollbar */}
+      <style>{`
+        .ale-chat-messages::-webkit-scrollbar { width: 4px; }
+        .ale-chat-messages::-webkit-scrollbar-track { background: transparent; }
+        .ale-chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+        .ale-chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
+        .ale-chat-messages { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+      `}</style>
+
       {/* Messages */}
-      <div style={{ flex: 1, overflowY: "auto", padding: 16 }}>
+      <div className="ale-chat-messages" style={{ flex: 1, overflowY: "auto", padding: 16 }}>
         {messages.length === 0 && (
           <div style={{ textAlign: "center", paddingTop: 32 }}>
             <p style={{ fontSize: 14, color: "rgba(255,255,255,0.8)", fontWeight: 500, marginBottom: 4 }}>{greeting}</p>
