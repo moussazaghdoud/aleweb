@@ -841,8 +841,8 @@ export const industrySubPagesData: IndustrySubPageData[] = [
       {
         heading: "Smart building technology for a smarter future",
         body: "Smart building technology transforms buildings into intelligent, efficient, and human-centric spaces that enhance user experience and increase productivity. ALE Digital Age Networking and Communications provide the foundation — a unique set of solutions federating the physical, communications, and application layers to enable connectivity with IoT devices, applications, business processes, and people.",
-        image: "https://web-assets.al-enterprise.com/-/media/assets/internet/images/smart-buildings-blog-image-72dpi-402x226.jpg",
-        imageAlt: "Smart building office with connected technology and IoT devices",
+        image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1200&q=80&fit=crop",
+        imageAlt: "Modern smart building with glass facade and connected technology",
         bullets: [
           "Seamless connectivity between objects, applications, and people",
           "Operational efficiency through automated and self-healing networks",
