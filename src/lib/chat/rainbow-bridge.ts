@@ -59,6 +59,11 @@ class RainbowBridgeService {
       .filter(Boolean)
   }
 
+  /** Test connection — used by health endpoint */
+  async testConnection(): Promise<void> {
+    await this.ensureConnected()
+  }
+
   /* ---- Lazy connection ---- */
 
   private async ensureConnected(): Promise<RainbowSDK> {
