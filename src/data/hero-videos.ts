@@ -48,7 +48,7 @@ export const solutionVideos: Record<string, string> = {
   "purple-on-demand": v(46631),
   "network-as-a-service": v(23219),
   "cloud-communications": v(30565),
-  "collaboration-solutions": v(46635),
+  "collaboration-solutions": v(5609),
   "communications-security": v(22972),
   "private-5g-solution": v(23696),
   "e-services": v(31473),
