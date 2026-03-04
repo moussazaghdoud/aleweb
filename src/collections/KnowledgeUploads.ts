@@ -14,6 +14,7 @@ export const KnowledgeUploads: CollectionConfig = {
       'application/pdf',
       'text/plain',
       'text/markdown',
+      'text/html',
       'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     ],
   },

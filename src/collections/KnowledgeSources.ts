@@ -8,6 +8,9 @@ export const KnowledgeSources: CollectionConfig = {
     defaultColumns: ['name', 'type', 'status', 'lastIndexedAt', 'updatedAt'],
     description: 'Manage knowledge base sources for the AI chatbot. Supports file uploads and URL crawling.',
     group: 'Chat',
+    components: {
+      beforeListTable: ['@/components/admin/BulkUploadButton'],
+    },
   },
   access: adminOnly,
   fields: [
