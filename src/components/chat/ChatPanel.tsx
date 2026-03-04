@@ -43,6 +43,9 @@ export default function ChatPanel({ config, onClose }: Props) {
 
   const greeting = config.greeting || "Hi! How can I help you today?";
 
+  // Input bar style variants: ?chat=A|B|C|D|E
+  const chatVariant = typeof window !== "undefined" ? new URLSearchParams(window.location.search).get("chat") : null;
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
@@ -361,44 +364,87 @@ export default function ChatPanel({ config, onClose }: Props) {
       </div>
 
       {/* Input */}
-      <div style={{ display: "flex", alignItems: "flex-end", gap: 8, padding: 12, borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.15)" }}>
-        <textarea
-          ref={textareaRef}
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onFocus={() => window.dispatchEvent(new CustomEvent("hero-video-pause"))}
-          onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
-          onInput={() => { const el = textareaRef.current; if (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 120) + "px"; } }}
-          disabled={isStreaming}
-          placeholder="Ask about ALE products..."
-          rows={1}
-          style={{ flex: 1, resize: "none", fontSize: 14, padding: "8px 12px", borderRadius: 12, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "white", outline: "none", fontFamily: "inherit" }}
-        />
-        <button
-          onClick={handleSend}
-          disabled={isStreaming || !input.trim()}
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            background: isStreaming || !input.trim() ? "rgba(255,255,255,0.08)" : "linear-gradient(135deg, #3b82f6, #7c3aed, #06b6d4)",
-            color: "white",
-            border: isStreaming || !input.trim() ? "1px solid rgba(255,255,255,0.1)" : "none",
-            cursor: isStreaming || !input.trim() ? "not-allowed" : "pointer",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            boxShadow: isStreaming || !input.trim() ? "none" : "0 2px 8px rgba(124,58,237,0.4)",
-            transition: "all 0.2s",
-          }}
-          aria-label="Send message"
-        >
-          <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
-          </svg>
-        </button>
-      </div>
+      {(() => {
+        // Variant styles for the input bar area
+        const inputStyles: Record<string, { container: React.CSSProperties; textarea: React.CSSProperties; btnOff: React.CSSProperties }> = {
+          // A — Solid white, black text
+          A: {
+            container: { background: "rgba(255,255,255,0.95)", borderTop: "1px solid rgba(0,0,0,0.08)" },
+            textarea: { background: "#ffffff", color: "#1a1a1a", border: "1px solid rgba(0,0,0,0.15)", borderRadius: 12 },
+            btnOff: { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.1)", color: "#999" },
+          },
+          // B — Frosted light glass, dark text
+          B: {
+            container: { background: "rgba(255,255,255,0.22)", backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)", borderTop: "1px solid rgba(255,255,255,0.18)" },
+            textarea: { background: "rgba(255,255,255,0.75)", color: "#1e293b", border: "1px solid rgba(255,255,255,0.35)", borderRadius: 12 },
+            btnOff: { background: "rgba(255,255,255,0.15)", border: "1px solid rgba(255,255,255,0.2)", color: "rgba(255,255,255,0.4)" },
+          },
+          // C — Soft blue tint, dark text
+          C: {
+            container: { background: "rgba(219,234,254,0.30)", borderTop: "1px solid rgba(59,130,246,0.12)" },
+            textarea: { background: "rgba(239,246,255,0.90)", color: "#1e3a5f", border: "1px solid rgba(59,130,246,0.20)", borderRadius: 12 },
+            btnOff: { background: "rgba(59,130,246,0.08)", border: "1px solid rgba(59,130,246,0.15)", color: "rgba(59,130,246,0.35)" },
+          },
+          // D — Warm cream, dark brown text
+          D: {
+            container: { background: "rgba(255,248,235,0.30)", borderTop: "1px solid rgba(180,140,80,0.12)" },
+            textarea: { background: "rgba(255,252,245,0.90)", color: "#3d2e1c", border: "1px solid rgba(180,140,80,0.20)", borderRadius: 12 },
+            btnOff: { background: "rgba(180,140,80,0.08)", border: "1px solid rgba(180,140,80,0.15)", color: "rgba(180,140,80,0.35)" },
+          },
+          // E — Light with gradient border accent
+          E: {
+            container: { background: "rgba(255,255,255,0.12)", borderTop: "1px solid rgba(255,255,255,0.10)" },
+            textarea: { background: "rgba(255,255,255,0.88)", color: "#1a1a2e", border: "2px solid transparent", borderImage: "linear-gradient(135deg, #3b82f6, #7c3aed, #06b6d4) 1", borderRadius: 0, borderTopLeftRadius: 12, borderTopRightRadius: 12, borderBottomLeftRadius: 12, borderBottomRightRadius: 12 },
+            btnOff: { background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.4)" },
+          },
+        };
+        const v = inputStyles[chatVariant || ""] || null;
+        const containerStyle: React.CSSProperties = { display: "flex", alignItems: "flex-end", gap: 8, padding: 12, ...(v ? v.container : { borderTop: "1px solid rgba(255,255,255,0.08)", background: "rgba(0,0,0,0.15)" }) };
+        const textareaStyle: React.CSSProperties = { flex: 1, resize: "none", fontSize: 14, padding: "8px 12px", outline: "none", fontFamily: "inherit", ...(v ? v.textarea : { borderRadius: 12, border: "1px solid rgba(255,255,255,0.12)", background: "rgba(255,255,255,0.06)", color: "white" }) };
+        const disabled = isStreaming || !input.trim();
+
+        return (
+          <div style={containerStyle}>
+            {chatVariant && <div style={{ position: "absolute", top: 48, left: 8, fontSize: 9, color: "rgba(255,255,255,0.4)", zIndex: 1 }}>Variant {chatVariant}</div>}
+            <textarea
+              ref={textareaRef}
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onFocus={() => window.dispatchEvent(new CustomEvent("hero-video-pause"))}
+              onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSend(); } }}
+              onInput={() => { const el = textareaRef.current; if (el) { el.style.height = "auto"; el.style.height = Math.min(el.scrollHeight, 120) + "px"; } }}
+              disabled={isStreaming}
+              placeholder="Ask about ALE products..."
+              rows={1}
+              style={textareaStyle}
+            />
+            <button
+              onClick={handleSend}
+              disabled={disabled}
+              style={{
+                width: 36,
+                height: 36,
+                borderRadius: "50%",
+                background: disabled ? (v ? v.btnOff.background : "rgba(255,255,255,0.08)") : "linear-gradient(135deg, #3b82f6, #7c3aed, #06b6d4)",
+                color: disabled ? (v ? (v.btnOff.color as string) : "white") : "white",
+                border: disabled ? (v ? (v.btnOff.border as string) : "1px solid rgba(255,255,255,0.1)") : "none",
+                cursor: disabled ? "not-allowed" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                boxShadow: disabled ? "none" : "0 2px 8px rgba(124,58,237,0.4)",
+                transition: "all 0.2s",
+              }}
+              aria-label="Send message"
+            >
+              <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+              </svg>
+            </button>
+          </div>
+        );
+      })()}
     </div>
   );
 }
