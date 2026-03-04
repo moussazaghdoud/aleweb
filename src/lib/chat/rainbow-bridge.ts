@@ -218,6 +218,7 @@ class RainbowBridgeService {
       const historyText = `--- Conversation history ---\n${historyLines.join('\n')}\n--- End history ---`
       await this.sendCommand({
         cmd: 'send_message',
+        bubbleId,
         bubbleJid,
         body: historyText,
       }).catch((err: any) => console.warn('[Rainbow Bridge] History send failed:', err.message))
@@ -254,6 +255,7 @@ class RainbowBridgeService {
     await this.ensureWorker()
     await this.sendCommand({
       cmd: 'send_message',
+      bubbleId: mapping.bubbleId,
       bubbleJid: mapping.bubbleJid,
       body: `[Visitor]: ${content}`,
     }).catch((err: any) => console.warn('[Rainbow Bridge] Relay failed:', err.message))

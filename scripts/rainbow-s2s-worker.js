@@ -9,6 +9,11 @@
  * - stdin:  JSON commands (create_bubble, send_message, invite_agents, close_bubble)
  * - stdout: JSON responses and status logs
  * - HTTP POST to webhook: forwards incoming agent messages to Next.js
+ *
+ * IMPORTANT: In S2S mode, sdk.im.sendMessageToBubbleJid() is XMPP-only
+ * and does NOT work. We must use:
+ *   1. sdk.conversations.openConversationForBubble(bubble) → get conversation
+ *   2. sdk.s2s.sendMessageInConversation(conversation.dbId, msg) → send via REST
  */
 
 const LOG = "[RainbowS2S]";
@@ -29,6 +34,10 @@ if (!APP_ID || !APP_SECRET || !HOST_CALLBACK || !LOGIN || !PASSWORD) {
 
 let sdk = null;
 let botUserId = null;
+
+// In-memory stores for bubble objects and their conversation dbIds
+const bubbleCache = new Map();       // bubbleId → bubble object
+const conversationCache = new Map(); // bubbleId → conversation.dbId
 
 // ── Dummy Express engine ─────────────────────────────────
 // The SDK tries to create a local Express server for S2S callbacks,
@@ -63,6 +72,31 @@ async function forwardToWebhook(eventData) {
   }
 }
 
+// ── Get or create conversation dbId for a bubble ─────────
+async function getConversationDbId(bubbleId) {
+  // Check cache first
+  if (conversationCache.has(bubbleId)) {
+    return conversationCache.get(bubbleId);
+  }
+
+  const bubble = bubbleCache.get(bubbleId);
+  if (!bubble) {
+    console.warn(`${LOG} No cached bubble object for ${bubbleId}`);
+    return null;
+  }
+
+  try {
+    const conversation = await sdk.conversations.openConversationForBubble(bubble);
+    const dbId = conversation.dbId || conversation.id;
+    console.log(`${LOG} Opened conversation for bubble ${bubbleId}: dbId=${dbId}`);
+    conversationCache.set(bubbleId, dbId);
+    return dbId;
+  } catch (err) {
+    console.error(`${LOG} Failed to open conversation for bubble ${bubbleId}:`, err.message || err);
+    return null;
+  }
+}
+
 // ── Handle incoming message ──────────────────────────────
 function handleMessage(msg) {
   const content = msg.content || msg.data || "";
@@ -80,7 +114,7 @@ function handleMessage(msg) {
   const bubbleId = msg.fromBubbleId || "";
   if (!bubbleJid && !bubbleId) return; // Not a bubble message
 
-  console.log(`${LOG} Agent message in bubble ${bubbleJid || bubbleId}: ${content.slice(0, 50)}...`);
+  console.log(`${LOG} Agent message in bubble ${bubbleJid || bubbleId}: ${content.slice(0, 80)}`);
 
   forwardToWebhook({
     type: "message",
@@ -125,16 +159,43 @@ async function handleCommand(cmd) {
           "all"
         );
         console.log(`${LOG} Bubble created: id=${bubble.id}, jid=${bubble.jid}`);
+
+        // Cache the bubble object (needed for openConversationForBubble)
+        bubbleCache.set(bubble.id, bubble);
+
+        // In S2S mode, explicitly join the room to enable sending/receiving
+        try {
+          await sdk.s2s.joinRoom(bubble.id, "moderator");
+          console.log(`${LOG} Joined room ${bubble.id} as moderator`);
+        } catch (joinErr) {
+          console.warn(`${LOG} joinRoom warning:`, joinErr.message || joinErr);
+        }
+
+        // Pre-open the conversation so we have the dbId ready for sending
+        try {
+          const convDbId = await getConversationDbId(bubble.id);
+          console.log(`${LOG} Conversation ready: dbId=${convDbId}`);
+        } catch (convErr) {
+          console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
+        }
+
         respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid });
         break;
       }
 
       case "invite_agents": {
         console.log(`${LOG} Inviting agents to bubble ${cmd.bubbleId}: ${(cmd.emails || []).join(", ")}`);
-        const bubble = sdk.bubbles.getBubbleById(cmd.bubbleId);
+        let bubble = bubbleCache.get(cmd.bubbleId);
         if (!bubble) {
-          console.warn(`${LOG} Bubble ${cmd.bubbleId} not found in local cache`);
-          respond(id, { ok: false, error: "Bubble not found in cache" });
+          try {
+            bubble = await sdk.bubbles.getBubbleById(cmd.bubbleId);
+          } catch (e) {
+            console.warn(`${LOG} getBubbleById failed:`, e.message || e);
+          }
+        }
+        if (!bubble) {
+          console.warn(`${LOG} Bubble ${cmd.bubbleId} not found`);
+          respond(id, { ok: false, error: "Bubble not found" });
           break;
         }
         for (const email of (cmd.emails || [])) {
@@ -142,7 +203,7 @@ async function handleCommand(cmd) {
             await sdk.bubbles.inviteContactsByEmailsToBubble([email], bubble);
             console.log(`${LOG} Invited ${email}`);
           } catch (err) {
-            console.warn(`${LOG} Could not invite ${email}:`, err.message);
+            console.warn(`${LOG} Could not invite ${email}:`, err.message || err);
           }
         }
         respond(id, { ok: true });
@@ -150,18 +211,44 @@ async function handleCommand(cmd) {
       }
 
       case "send_message": {
-        console.log(`${LOG} Sending message to bubble ${cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
-        const result = await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
-        console.log(`${LOG} Message sent, result:`, result ? "ok" : "no result");
+        console.log(`${LOG} Sending message to bubble ${cmd.bubbleId || cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
+
+        // S2S mode: use openConversationForBubble + sendMessageInConversation
+        const convDbId = cmd.bubbleId ? await getConversationDbId(cmd.bubbleId) : null;
+
+        if (convDbId) {
+          const msgPayload = {
+            body: cmd.body,
+            lang: "en",
+            subject: "",
+            contents: [],
+          };
+          await sdk.s2s.sendMessageInConversation(convDbId, msgPayload);
+          console.log(`${LOG} Message sent via S2S (conversation dbId=${convDbId})`);
+        } else {
+          // Fallback: try IM method (only works in XMPP mode, unlikely in S2S)
+          console.warn(`${LOG} No conversation dbId — trying IM fallback (may fail in S2S mode)`);
+          const result = await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
+          console.log(`${LOG} IM fallback result:`, result ? "ok" : "no result");
+        }
+
         respond(id, { ok: true });
         break;
       }
 
       case "close_bubble": {
-        const bubble = sdk.bubbles.getBubbleById(cmd.bubbleId);
-        if (bubble) {
-          await sdk.bubbles.closeAndDeleteBubble(bubble);
+        try {
+          const bubble = bubbleCache.get(cmd.bubbleId) || await sdk.bubbles.getBubbleById(cmd.bubbleId);
+          if (bubble) {
+            await sdk.bubbles.closeAndDeleteBubble(bubble);
+            console.log(`${LOG} Bubble ${cmd.bubbleId} closed and deleted`);
+          }
+        } catch (err) {
+          console.warn(`${LOG} close_bubble error:`, err.message || err);
         }
+        // Clean up caches
+        bubbleCache.delete(cmd.bubbleId);
+        conversationCache.delete(cmd.bubbleId);
         respond(id, { ok: true });
         break;
       }
@@ -170,8 +257,8 @@ async function handleCommand(cmd) {
         respond(id, { ok: false, error: `Unknown command: ${cmd.cmd}` });
     }
   } catch (err) {
-    console.error(`${LOG} Command ${cmd.cmd} failed:`, err.message);
-    respond(id, { ok: false, error: err.message });
+    console.error(`${LOG} Command ${cmd.cmd} failed:`, err.message || err);
+    respond(id, { ok: false, error: err.message || String(err) });
   }
 }
 
@@ -214,6 +301,7 @@ async function start() {
     },
     servicesToStart: {
       bubbles: { start_up: true },
+      s2s: { start_up: true },
       telephony: { start_up: false },
       channels: { start_up: false },
       admin: { start_up: false },
@@ -232,6 +320,8 @@ async function start() {
       console.log(`${LOG} Connected as: ${user.displayName || user.loginEmail}`);
       console.log(`${LOG} User ID: ${user.id}`);
     }
+    // Log available services for debugging
+    console.log(`${LOG} Services: s2s=${!!sdk.s2s}, im=${!!sdk.im}, bubbles=${!!sdk.bubbles}, conversations=${!!sdk.conversations}`);
   });
 
   sdk.events.on("rainbow_onconnected", () => {
@@ -239,11 +329,20 @@ async function start() {
   });
 
   sdk.events.on("rainbow_onmessagereceived", (msg) => {
+    console.log(`${LOG} [EVENT] message received — from: ${msg.fromUserId || "?"}, bubble: ${msg.fromBubbleJid || msg.fromBubbleId || "N/A"}, content: ${(msg.content || msg.data || "").slice(0, 80)}`);
     try {
       handleMessage(msg);
     } catch (err) {
       console.error(`${LOG} Error processing message:`, err);
     }
+  });
+
+  sdk.events.on("rainbow_onbubbleaffiliationchanged", (bubble) => {
+    console.log(`${LOG} [EVENT] bubble affiliation changed: ${bubble?.name || bubble?.id}`);
+  });
+
+  sdk.events.on("rainbow_onbubbleinvitationreceived", (bubble) => {
+    console.log(`${LOG} [EVENT] bubble invitation received: ${bubble?.name || bubble?.id}`);
   });
 
   sdk.events.on("rainbow_onstopped", () => {
