@@ -72,8 +72,8 @@ async function forwardToWebhook(eventData) {
   }
 }
 
-// ── Get or create conversation dbId for a bubble ─────────
-async function getConversationDbId(bubbleId) {
+// ── Get or create conversation object for a bubble ───────
+async function getConversation(bubbleId) {
   // Check cache first
   if (conversationCache.has(bubbleId)) {
     return conversationCache.get(bubbleId);
@@ -87,10 +87,9 @@ async function getConversationDbId(bubbleId) {
 
   try {
     const conversation = await sdk.conversations.openConversationForBubble(bubble);
-    const dbId = conversation.dbId || conversation.id;
-    console.log(`${LOG} Opened conversation for bubble ${bubbleId}: dbId=${dbId}`);
-    conversationCache.set(bubbleId, dbId);
-    return dbId;
+    console.log(`${LOG} Opened conversation for bubble ${bubbleId}: id=${conversation.id}, dbId=${conversation.dbId || "(not yet)"}`);
+    conversationCache.set(bubbleId, conversation);
+    return conversation;
   } catch (err) {
     console.error(`${LOG} Failed to open conversation for bubble ${bubbleId}:`, err.message || err);
     return null;
@@ -175,8 +174,8 @@ async function handleCommand(cmd) {
             console.warn(`${LOG} joinRoom warning:`, joinErr.message || joinErr);
           }
           try {
-            const convDbId = await getConversationDbId(bubble.id);
-            console.log(`${LOG} Conversation ready: dbId=${convDbId}`);
+            const conv = await getConversation(bubble.id);
+            console.log(`${LOG} Conversation ready: id=${conv?.id}, dbId=${conv?.dbId || "(pending)"}`);
           } catch (convErr) {
             console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
           }
@@ -215,23 +214,19 @@ async function handleCommand(cmd) {
       case "send_message": {
         console.log(`${LOG} Sending message to bubble ${cmd.bubbleId || cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
 
-        // S2S mode: use openConversationForBubble + sendMessageInConversation
-        const convDbId = cmd.bubbleId ? await getConversationDbId(cmd.bubbleId) : null;
+        // Use im.sendMessageToConversation — handles S2S internally:
+        // 1. Creates server conversation (sets dbId) if needed
+        // 2. Calls s2s.sendMessageInConversation with proper dbId
+        const conversation = cmd.bubbleId ? await getConversation(cmd.bubbleId) : null;
 
-        if (convDbId) {
-          const msgPayload = {
-            body: cmd.body,
-            lang: "en",
-            subject: "",
-            contents: [],
-          };
-          await sdk.s2s.sendMessageInConversation(convDbId, msgPayload);
-          console.log(`${LOG} Message sent via S2S (conversation dbId=${convDbId})`);
+        if (conversation) {
+          const result = await sdk.im.sendMessageToConversation(conversation, cmd.body, "en");
+          console.log(`${LOG} Message sent via conversation (dbId=${conversation.dbId || "auto"}), result:`, result ? "ok" : "no result");
         } else {
-          // Fallback: try IM method (only works in XMPP mode, unlikely in S2S)
-          console.warn(`${LOG} No conversation dbId — trying IM fallback (may fail in S2S mode)`);
-          const result = await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
-          console.log(`${LOG} IM fallback result:`, result ? "ok" : "no result");
+          // Fallback: try bubble JID method (unlikely to work in S2S)
+          console.warn(`${LOG} No conversation object — trying sendMessageToBubbleJid fallback`);
+          await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
+          console.log(`${LOG} Fallback sent`);
         }
 
         respond(id, { ok: true });
