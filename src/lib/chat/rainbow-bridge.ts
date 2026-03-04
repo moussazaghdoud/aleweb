@@ -45,6 +45,8 @@ class RainbowBridgeService {
   private escalatingSessionIds = new Set<string>()
   /** Buffer for unmatched inbound messages (conversation_id not yet mapped) */
   private messageBuffer = new Map<string, { content: string; fromId: string; ts: number }[]>()
+  /** Buffer for /conversation callbacks that arrive before create_bubble returns */
+  private conversationBuffer = new Map<string, string>() // bubbleId → conversationId
 
   private agentEmails: string[]
 
@@ -226,15 +228,37 @@ class RainbowBridgeService {
 
     const bubbleId = result.bubbleId
     const bubbleJid = result.bubbleJid
+    // Worker now creates S2S conversation via REST and returns dbId directly
+    const directConvDbId = result.conversationDbId || undefined
 
     // 2. Store mapping IMMEDIATELY so /conversation webhook callback can find it.
     //    Rainbow fires the callback right after bubble creation — if we wait until
     //    after invite/history, the callback is ignored and we never get the dbId.
-    const mapping: BridgeMapping = { sessionId, bubbleId, bubbleJid, agentJoined: false }
+    const mapping: BridgeMapping = {
+      sessionId, bubbleId, bubbleJid,
+      conversationDbId: directConvDbId,
+      agentJoined: false,
+    }
+    if (directConvDbId) {
+      console.log(`[Rainbow Bridge] Got conversationDbId ${directConvDbId} directly from worker`)
+    }
     this.bySession.set(sessionId, mapping)
     this.byBubble.set(bubbleJid, sessionId)
     this.byBubble.set(bubbleId, sessionId)
-    console.log(`[Rainbow Bridge] Mapping stored for bubble ${bubbleId} → session ${sessionId}`)
+    if (mapping.conversationDbId) {
+      this.byBubble.set(mapping.conversationDbId, sessionId)
+    }
+
+    // Check if a /conversation callback was already buffered (it often arrives
+    // BEFORE create_bubble returns, because Rainbow fires it immediately).
+    const bufferedConvId = this.conversationBuffer.get(bubbleId)
+    if (bufferedConvId && !mapping.conversationDbId) {
+      this.conversationBuffer.delete(bubbleId)
+      mapping.conversationDbId = bufferedConvId
+      this.byBubble.set(bufferedConvId, sessionId)
+      console.log(`[Rainbow Bridge] Applied buffered conversationDbId ${bufferedConvId} for bubble ${bubbleId}`)
+    }
+    console.log(`[Rainbow Bridge] Mapping stored for bubble ${bubbleId} → session ${sessionId} (dbId: ${mapping.conversationDbId || 'pending'})`)
 
     // 3. Invite agents (fire and forget — don't block history send)
     if (this.agentEmails.length > 0) {
@@ -245,18 +269,19 @@ class RainbowBridgeService {
       }).catch((err: any) => console.warn('[Rainbow Bridge] Invite failed:', err.message))
     }
 
-    // 4. Wait for conversationDbId from /conversation webhook callback (up to 15s).
-    //    In S2S mode, openConversationForBubble() does NOT populate dbId — it only
-    //    comes via the webhook callback. The callback sets mapping.conversationDbId.
-    for (let i = 0; i < 30; i++) {
-      if (mapping.conversationDbId) break
-      await new Promise((r) => setTimeout(r, 500))
+    // 4. If conversationDbId not yet available (webhook hasn't arrived), wait briefly.
+    //    Typically the callback arrives within 1-2 seconds of bubble creation.
+    if (!mapping.conversationDbId) {
+      for (let i = 0; i < 20; i++) {
+        if (mapping.conversationDbId) break
+        await new Promise((r) => setTimeout(r, 500))
+      }
     }
     const conversationDbId = mapping.conversationDbId
     if (conversationDbId) {
       console.log(`[Rainbow Bridge] Got conversationDbId ${conversationDbId} for bubble ${bubbleId}`)
     } else {
-      console.warn(`[Rainbow Bridge] No conversationDbId after 15s for bubble ${bubbleId}`)
+      console.warn(`[Rainbow Bridge] No conversationDbId after 10s for bubble ${bubbleId}`)
     }
 
     // 5. Send conversation history using the dbId directly
@@ -378,7 +403,10 @@ class RainbowBridgeService {
           }
         }
       } else {
-        console.log(`[Rainbow Bridge] /conversation callback: bubble ${bubbleId} not in byBubble — ignoring`)
+        // Buffer it — create_bubble hasn't returned yet, so byBubble isn't set.
+        // escalateSession will check this buffer after storing the mapping.
+        this.conversationBuffer.set(bubbleId, convId)
+        console.log(`[Rainbow Bridge] Buffered /conversation callback: ${convId} → bubble ${bubbleId} (mapping not yet stored)`)
       }
       return
     }

@@ -34,6 +34,9 @@ if (!APP_ID || !APP_SECRET || !HOST_CALLBACK || !LOGIN || !PASSWORD) {
 
 let sdk = null;
 let botUserId = null;
+let s2sConnectionId = null; // S2S connection ID for direct REST API calls
+let authToken = null;       // Auth token for direct REST API calls
+let rainbowHost = null;     // Rainbow API host
 
 // In-memory stores for bubble objects and their conversation dbIds
 const bubbleCache = new Map();       // bubbleId → bubble object
@@ -56,6 +59,84 @@ function createNoopExpress() {
   app.set = noop;
   app.engine = noop;
   return app;
+}
+
+// ── Extract SDK internals after connection ────────────────
+function extractSdkInfo() {
+  try {
+    // Try common paths in rainbow-node-sdk internals
+    s2sConnectionId = sdk._core?._s2s?._connectionId
+      || sdk._core?.s2s?.connectionId
+      || sdk.s2s?._connectionId
+      || sdk.s2s?.connectionId
+      || null;
+    authToken = sdk._core?._rest?.token
+      || sdk._core?.token
+      || null;
+    rainbowHost = sdk._core?._rest?.host
+      || sdk._core?.host
+      || "openrainbow.com";
+    console.log(`${LOG} S2S info: cnxId=${s2sConnectionId || "NOT FOUND"}, token=${authToken ? "OK" : "NOT FOUND"}, host=${rainbowHost}`);
+  } catch (err) {
+    console.warn(`${LOG} Could not extract SDK internals:`, err.message);
+  }
+}
+
+// ── Direct REST: Create S2S conversation for a room ───────
+async function createS2SConversation(bubbleId) {
+  if (!s2sConnectionId || !authToken) {
+    console.warn(`${LOG} Cannot create S2S conversation — missing cnxId or token`);
+    return null;
+  }
+  try {
+    const url = `https://${rainbowHost}/api/rainbow/ucs/v1.0/connections/${s2sConnectionId}/conversations`;
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ conversation: { peerId: bubbleId } }),
+    });
+    if (!resp.ok) {
+      const text = await resp.text();
+      console.warn(`${LOG} createS2SConversation failed (${resp.status}):`, text.slice(0, 200));
+      return null;
+    }
+    const data = await resp.json();
+    const cvId = data?.data?.id || data?.id;
+    console.log(`${LOG} Created S2S conversation for bubble ${bubbleId}: cvId=${cvId}`);
+    return cvId;
+  } catch (err) {
+    console.warn(`${LOG} createS2SConversation error:`, err.message);
+    return null;
+  }
+}
+
+// ── Direct REST: Add user to room with auto-accept ────────
+async function addUserToRoom(roomId, userId) {
+  if (!authToken) return false;
+  try {
+    const url = `https://${rainbowHost}/api/rainbow/enduser/v1.0/rooms/${roomId}/users`;
+    const resp = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${authToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId, status: "accepted", privilege: "user" }),
+    });
+    if (!resp.ok) {
+      const text = await resp.text();
+      console.warn(`${LOG} addUserToRoom failed (${resp.status}):`, text.slice(0, 200));
+      return false;
+    }
+    console.log(`${LOG} Added user ${userId} to room ${roomId} with auto-accept`);
+    return true;
+  } catch (err) {
+    console.warn(`${LOG} addUserToRoom error:`, err.message);
+    return false;
+  }
 }
 
 // ── Forward message to Next.js webhook ───────────────────
@@ -179,47 +260,50 @@ async function handleCommand(cmd) {
           "all"
         );
         console.log(`${LOG} Bubble created: id=${bubble.id}, jid=${bubble.jid}`);
-
-        // Cache the bubble object (needed for openConversationForBubble)
         bubbleCache.set(bubble.id, bubble);
 
-        // Respond IMMEDIATELY so the bridge doesn't time out
-        // NOTE: Do NOT call joinRoom or openConversationForBubble here —
-        // the bot is already the bubble owner, and openConversation creates
-        // a visible "conversation" entity that appears as a second bubble
-        // in the agent's Rainbow app. Conversation is opened lazily on
-        // first send_message instead.
-        respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid });
+        // Create S2S conversation via REST API — gives us the dbId immediately
+        // instead of waiting for the /conversation webhook callback.
+        let conversationDbId = null;
+        try {
+          conversationDbId = await createS2SConversation(bubble.id);
+        } catch (err) {
+          console.warn(`${LOG} S2S conversation creation failed:`, err.message);
+        }
 
+        respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid, conversationDbId });
         break;
       }
 
       case "invite_agents": {
         console.log(`${LOG} Inviting agents to bubble ${cmd.bubbleId}: ${(cmd.emails || []).join(", ")}`);
-        let bubble = bubbleCache.get(cmd.bubbleId);
-        if (!bubble) {
-          try {
-            bubble = await sdk.bubbles.getBubbleById(cmd.bubbleId);
-          } catch (e) {
-            console.warn(`${LOG} getBubbleById failed:`, e.message || e);
-          }
-        }
-        if (!bubble) {
-          console.warn(`${LOG} Bubble ${cmd.bubbleId} not found`);
-          respond(id, { ok: false, error: "Bubble not found" });
-          break;
-        }
         for (const email of (cmd.emails || [])) {
           try {
-            // Look up the contact, then add directly (withInvitation=false → auto-accept)
+            // Look up user by email to get userId
             const contact = await sdk.contacts.getContactByLoginEmail(email);
-            if (contact) {
-              await sdk.bubbles.inviteContactToBubble(contact, bubble, false, false, "ALE Support");
-              console.log(`${LOG} Added ${email} directly (no invitation needed)`);
-            } else {
-              // Fallback: invite by email (requires manual accept)
+            const userId = contact?.id || contact?.userId;
+
+            if (userId) {
+              // Direct REST: add user to room with status "accepted" (auto-accept)
+              const added = await addUserToRoom(cmd.bubbleId, userId);
+              if (added) {
+                console.log(`${LOG} Added ${email} (userId=${userId}) with auto-accept`);
+                continue;
+              }
+              // Fallback: SDK method with withInvitation=false
+              const bubble = bubbleCache.get(cmd.bubbleId);
+              if (bubble && contact) {
+                await sdk.bubbles.inviteContactToBubble(contact, bubble, false, false, "ALE Support");
+                console.log(`${LOG} Added ${email} via SDK (no invitation)`);
+                continue;
+              }
+            }
+
+            // Last resort: invite by email (requires manual accept)
+            const bubble = bubbleCache.get(cmd.bubbleId) || await sdk.bubbles.getBubbleById(cmd.bubbleId);
+            if (bubble) {
               await sdk.bubbles.inviteContactsByEmailsToBubble([email], bubble);
-              console.log(`${LOG} Invited ${email} (contact not found — sent invitation)`);
+              console.log(`${LOG} Invited ${email} by email (manual accept needed)`);
             }
           } catch (err) {
             console.warn(`${LOG} Could not add/invite ${email}:`, err.message || err);
@@ -337,7 +421,7 @@ async function start() {
     },
   });
 
-  sdk.events.on("rainbow_onready", () => {
+  sdk.events.on("rainbow_onready", async () => {
     console.log(`${LOG} SDK ready — callback registered at ${HOST_CALLBACK}`);
     const user = sdk.connectedUser;
     if (user) {
@@ -345,7 +429,41 @@ async function start() {
       console.log(`${LOG} Connected as: ${user.displayName || user.loginEmail}`);
       console.log(`${LOG} User ID: ${user.id}`);
     }
-    // Log available services for debugging
+
+    // Extract connection ID and auth token for direct REST API calls
+    extractSdkInfo();
+
+    // CRITICAL (from S2S docs): Set presence to online
+    try {
+      if (sdk.presence && typeof sdk.presence.setPresenceTo === 'function') {
+        await sdk.presence.setPresenceTo('online');
+        console.log(`${LOG} Presence set to ONLINE via SDK`);
+      } else if (s2sConnectionId && authToken) {
+        await fetch(`https://${rainbowHost}/api/rainbow/ucs/v1.0/connections/${s2sConnectionId}/presences`, {
+          method: "PUT",
+          headers: { "Authorization": `Bearer ${authToken}`, "Content-Type": "application/json" },
+          body: JSON.stringify({ presence: { show: "online", status: "Bot ready" } }),
+        });
+        console.log(`${LOG} Presence set to ONLINE via REST`);
+      }
+    } catch (err) {
+      console.warn(`${LOG} Failed to set presence:`, err.message || err);
+    }
+
+    // CRITICAL (from S2S docs): Join all rooms the bot is member of
+    try {
+      if (s2sConnectionId && authToken) {
+        await fetch(`https://${rainbowHost}/api/rainbow/ucs/v1.0/connections/${s2sConnectionId}/rooms/join`, {
+          method: "POST",
+          headers: { "Authorization": `Bearer ${authToken}`, "Content-Type": "application/json" },
+          body: "{}",
+        });
+        console.log(`${LOG} Joined all rooms via REST`);
+      }
+    } catch (err) {
+      console.warn(`${LOG} Failed to join rooms:`, err.message || err);
+    }
+
     console.log(`${LOG} Services: s2s=${!!sdk.s2s}, im=${!!sdk.im}, bubbles=${!!sdk.bubbles}, conversations=${!!sdk.conversations}`);
   });
 
