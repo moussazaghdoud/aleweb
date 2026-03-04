@@ -97,7 +97,7 @@ class RainbowBridgeService {
         if (line.startsWith('__RESP__')) {
           // Response to a command
           try {
-            const resp = JSON.parse(line.slice(7))
+            const resp = JSON.parse(line.slice(8))
             const pending = this.pendingRequests.get(resp.id)
             if (pending) {
               clearTimeout(pending.timer)
@@ -108,7 +108,9 @@ class RainbowBridgeService {
                 pending.reject(new Error(resp.error || 'Command failed'))
               }
             }
-          } catch {}
+          } catch (parseErr: any) {
+            console.error('[Rainbow Bridge] Failed to parse worker response:', line, parseErr.message)
+          }
         } else {
           // Log line from worker
           if (line.includes('SDK ready')) {
