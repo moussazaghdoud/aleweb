@@ -18,7 +18,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    await bridge.handleWebhookEvent(body)
+    await bridge.handleWebhookEvent(body, '/')
   } catch (err: any) {
     console.error('[Rainbow Webhook] Error handling event:', err.message)
   }

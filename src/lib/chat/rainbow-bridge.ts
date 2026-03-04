@@ -18,6 +18,7 @@ interface BridgeMapping {
   sessionId: string
   bubbleId: string
   bubbleJid: string
+  conversationDbId?: string
   agentJoined: boolean
 }
 
@@ -38,7 +39,7 @@ class RainbowBridgeService {
 
   /** sessionId → BridgeMapping */
   private bySession = new Map<string, BridgeMapping>()
-  /** bubbleJid or bubbleId → sessionId */
+  /** bubbleJid or bubbleId or conversationDbId → sessionId */
   private byBubble = new Map<string, string>()
 
   private agentEmails: string[]
@@ -110,6 +111,14 @@ class RainbowBridgeService {
             }
           } catch (parseErr: any) {
             console.error('[Rainbow Bridge] Failed to parse worker response:', line, parseErr.message)
+          }
+        } else if (line.startsWith('__ASYNC__')) {
+          // Async notification from worker (e.g. conversationDbId ready)
+          try {
+            const data = JSON.parse(line.slice(9))
+            this.handleWorkerAsync(data)
+          } catch (parseErr: any) {
+            console.error('[Rainbow Bridge] Failed to parse async notification:', line, parseErr.message)
           }
         } else {
           // Log line from worker
@@ -210,7 +219,8 @@ class RainbowBridgeService {
       }).catch((err: any) => console.warn('[Rainbow Bridge] Invite failed:', err.message))
     }
 
-    // 3. Send conversation history
+    // 3. Send conversation history (and capture conversationDbId)
+    let conversationDbId: string | undefined
     const messages = await store.getMessages(sessionId)
     if (messages.length > 0) {
       const historyLines = messages.map((m) => {
@@ -218,26 +228,35 @@ class RainbowBridgeService {
         return `[${label}]: ${m.content}`
       })
       const historyText = `--- Conversation history ---\n${historyLines.join('\n')}\n--- End history ---`
-      await this.sendCommand({
-        cmd: 'send_message',
-        bubbleId,
-        bubbleJid,
-        body: historyText,
-      }).catch((err: any) => console.warn('[Rainbow Bridge] History send failed:', err.message))
+      try {
+        const sendResult = await this.sendCommand({
+          cmd: 'send_message',
+          bubbleId,
+          bubbleJid,
+          body: historyText,
+        })
+        conversationDbId = sendResult?.conversationDbId || undefined
+      } catch (err: any) {
+        console.warn('[Rainbow Bridge] History send failed:', err.message)
+      }
     }
 
-    // 4. Store mapping
-    const mapping: BridgeMapping = { sessionId, bubbleId, bubbleJid, agentJoined: false }
+    // 4. Store mapping (including conversationDbId for inbound message lookup)
+    const mapping: BridgeMapping = { sessionId, bubbleId, bubbleJid, conversationDbId, agentJoined: false }
     this.bySession.set(sessionId, mapping)
     this.byBubble.set(bubbleJid, sessionId)
     this.byBubble.set(bubbleId, sessionId)
+    if (conversationDbId) {
+      this.byBubble.set(conversationDbId, sessionId)
+      console.log(`[Rainbow Bridge] Mapped conversationDbId ${conversationDbId} → session ${sessionId}`)
+    }
 
     // 5. Persist in DB metadata
     const session = await store.getSession(sessionId)
     if (session) {
       const pool = await this._getPool()
       if (pool) {
-        const metadata = { ...session.metadata, bubbleId, bubbleJid }
+        const metadata = { ...session.metadata, bubbleId, bubbleJid, conversationDbId }
         await pool.query(
           `UPDATE chat_sessions SET metadata = $1, updated_at = NOW() WHERE id = $2`,
           [JSON.stringify(metadata), sessionId],
@@ -263,22 +282,93 @@ class RainbowBridgeService {
     }).catch((err: any) => console.warn('[Rainbow Bridge] Relay failed:', err.message))
   }
 
+  /* ---- Async notifications from worker ---- */
+
+  private handleWorkerAsync(data: any): void {
+    if (data.type === 'conversation_ready' && data.bubbleId && data.conversationDbId) {
+      const sessionId = this.byBubble.get(data.bubbleId)
+      if (sessionId) {
+        const mapping = this.bySession.get(sessionId)
+        if (mapping) {
+          mapping.conversationDbId = data.conversationDbId
+          this.byBubble.set(data.conversationDbId, sessionId)
+          console.log(`[Rainbow Bridge] Mapped conversationDbId ${data.conversationDbId} → session ${sessionId}`)
+        }
+      }
+    }
+  }
+
   /* ---- Rainbow webhook → Visitor (called from webhook route) ---- */
 
-  async handleWebhookEvent(event: any): Promise<void> {
-    if (event.type !== 'message') return
+  async handleWebhookEvent(event: any, subPath?: string): Promise<void> {
+    console.log(`[Rainbow Bridge] handleWebhookEvent (path: ${subPath || '/'}):`, JSON.stringify(event).slice(0, 1000))
 
-    const data = event.data || {}
-    const content: string = data.body || ''
-    if (!content.trim()) return
+    let content = ''
+    let fromId = ''
+    const lookupKeys: string[] = []
 
-    // Echo prevention
+    // Format A: Worker-forwarded { type: "message", data: { body, roomJid, roomId } }
+    if (event.type === 'message' && event.data) {
+      content = event.data.body || ''
+      fromId = event.data.fromUserId || ''
+      if (event.data.roomJid) lookupKeys.push(event.data.roomJid)
+      if (event.data.roomId) lookupKeys.push(event.data.roomId)
+    }
+    // Format B: Rainbow S2S callback { message: { conversationId/conversation_id, body/content, from } }
+    else if (event.message) {
+      const msg = event.message
+      content = msg.body || msg.content || ''
+      fromId = msg.from || msg.fromJid || event.userId || ''
+      if (msg.conversationId) lookupKeys.push(msg.conversationId)
+      if (msg.conversation_id) lookupKeys.push(msg.conversation_id)
+      if (msg.roomId) lookupKeys.push(msg.roomId)
+      if (msg.fromBubbleJid) lookupKeys.push(msg.fromBubbleJid)
+      if (msg.toJid) lookupKeys.push(msg.toJid)
+    }
+    // Format C: Rainbow event { event: "chat/message", data: { content/body, fromJid, ... } }
+    else if (event.event && event.data) {
+      content = event.data.content || event.data.body || ''
+      fromId = event.data.fromJid || event.data.from || ''
+      if (event.data.roomJid) lookupKeys.push(event.data.roomJid)
+      if (event.data.roomId) lookupKeys.push(event.data.roomId)
+      if (event.data.conversationId) lookupKeys.push(event.data.conversationId)
+      if (event.data.conversation_id) lookupKeys.push(event.data.conversation_id)
+    }
+    // Format D: Flat structure from some S2S versions { body, conversationId, ... }
+    else if (event.body || event.content) {
+      content = event.body || event.content || ''
+      fromId = event.from || event.fromJid || event.userId || ''
+      if (event.conversationId) lookupKeys.push(event.conversationId)
+      if (event.conversation_id) lookupKeys.push(event.conversation_id)
+      if (event.roomId) lookupKeys.push(event.roomId)
+      if (event.roomJid) lookupKeys.push(event.roomJid)
+    }
+
+    if (!content.trim()) {
+      console.log('[Rainbow Bridge] No content extracted — skipping')
+      return
+    }
+
+    // Echo prevention — skip bot's own messages
     if (content.startsWith('[Visitor]:')) return
     if (content.startsWith('--- Conversation history ---')) return
 
-    // Find session
-    const sessionId = this.byBubble.get(data.roomJid) || this.byBubble.get(data.roomId)
-    if (!sessionId) return
+    // Find session by trying all available lookup keys
+    let sessionId: string | undefined
+    for (const key of lookupKeys) {
+      sessionId = this.byBubble.get(key)
+      if (sessionId) {
+        console.log(`[Rainbow Bridge] Matched session ${sessionId} via key "${key}"`)
+        break
+      }
+    }
+
+    if (!sessionId) {
+      console.warn(`[Rainbow Bridge] No session found for keys: ${lookupKeys.join(', ')}`)
+      // Log all known mappings for debugging
+      console.warn(`[Rainbow Bridge] Known byBubble keys: ${Array.from(this.byBubble.keys()).join(', ')}`)
+      return
+    }
 
     const store = getChatStore()
     const mapping = this.bySession.get(sessionId)!
@@ -288,6 +378,7 @@ class RainbowBridgeService {
       await store.addMessage(sessionId, 'system', 'An agent has joined the conversation.')
     }
 
+    console.log(`[Rainbow Bridge] Storing agent message for session ${sessionId}: ${content.slice(0, 80)}`)
     await store.addMessage(sessionId, 'agent', content)
 
     const lower = content.toLowerCase().trim()
@@ -314,6 +405,7 @@ class RainbowBridgeService {
     this.bySession.delete(sessionId)
     this.byBubble.delete(mapping.bubbleJid)
     this.byBubble.delete(mapping.bubbleId)
+    if (mapping.conversationDbId) this.byBubble.delete(mapping.conversationDbId)
     console.log(`[Rainbow Bridge] Session ${sessionId} closed`)
   }
 
@@ -328,18 +420,21 @@ class RainbowBridgeService {
         const meta = session.metadata as Record<string, unknown>
         const bubbleId = meta?.bubbleId as string | undefined
         const bubbleJid = meta?.bubbleJid as string | undefined
+        const conversationDbId = meta?.conversationDbId as string | undefined
         if (!bubbleId) continue
 
         const mapping: BridgeMapping = {
           sessionId: session.id,
           bubbleId,
           bubbleJid: bubbleJid || '',
+          conversationDbId,
           agentJoined: true,
         }
 
         this.bySession.set(session.id, mapping)
         if (bubbleJid) this.byBubble.set(bubbleJid, session.id)
         this.byBubble.set(bubbleId, session.id)
+        if (conversationDbId) this.byBubble.set(conversationDbId, session.id)
       }
 
       if (this.bySession.size > 0) {

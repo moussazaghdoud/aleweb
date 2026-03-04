@@ -176,6 +176,10 @@ async function handleCommand(cmd) {
           try {
             const conv = await getConversation(bubble.id);
             console.log(`${LOG} Conversation ready: id=${conv?.id}, dbId=${conv?.dbId || "(pending)"}`);
+            // Notify bridge of conversationDbId for inbound message mapping
+            if (conv && conv.dbId) {
+              process.stdout.write(`__ASYNC__${JSON.stringify({ type: "conversation_ready", bubbleId: bubble.id, conversationDbId: conv.dbId })}\n`);
+            }
           } catch (convErr) {
             console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
           }
@@ -222,14 +226,15 @@ async function handleCommand(cmd) {
         if (conversation) {
           const result = await sdk.im.sendMessageToConversation(conversation, cmd.body, "en");
           console.log(`${LOG} Message sent via conversation (dbId=${conversation.dbId || "auto"}), result:`, result ? "ok" : "no result");
+          respond(id, { ok: true, conversationDbId: conversation.dbId || null });
         } else {
           // Fallback: try bubble JID method (unlikely to work in S2S)
           console.warn(`${LOG} No conversation object — trying sendMessageToBubbleJid fallback`);
           await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
           console.log(`${LOG} Fallback sent`);
+          respond(id, { ok: true });
         }
 
-        respond(id, { ok: true });
         break;
       }
 
