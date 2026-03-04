@@ -165,8 +165,8 @@ class RainbowBridgeService {
       const id = `cmd_${++this.requestCounter}`
       const timer = setTimeout(() => {
         this.pendingRequests.delete(id)
-        reject(new Error('Command timed out (15s)'))
-      }, 15_000)
+        reject(new Error('Command timed out (45s)'))
+      }, 45_000)
 
       this.pendingRequests.set(id, { resolve, reject, timer })
       this.worker.stdin.write(JSON.stringify({ id, ...cmd }) + '\n')

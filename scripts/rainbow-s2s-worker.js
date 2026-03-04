@@ -163,23 +163,25 @@ async function handleCommand(cmd) {
         // Cache the bubble object (needed for openConversationForBubble)
         bubbleCache.set(bubble.id, bubble);
 
-        // In S2S mode, explicitly join the room to enable sending/receiving
-        try {
-          await sdk.s2s.joinRoom(bubble.id, "moderator");
-          console.log(`${LOG} Joined room ${bubble.id} as moderator`);
-        } catch (joinErr) {
-          console.warn(`${LOG} joinRoom warning:`, joinErr.message || joinErr);
-        }
-
-        // Pre-open the conversation so we have the dbId ready for sending
-        try {
-          const convDbId = await getConversationDbId(bubble.id);
-          console.log(`${LOG} Conversation ready: dbId=${convDbId}`);
-        } catch (convErr) {
-          console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
-        }
-
+        // Respond IMMEDIATELY so the bridge doesn't time out
         respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid });
+
+        // Then do joinRoom + conversation setup in background (no await on respond)
+        (async () => {
+          try {
+            await sdk.s2s.joinRoom(bubble.id, "moderator");
+            console.log(`${LOG} Joined room ${bubble.id} as moderator`);
+          } catch (joinErr) {
+            console.warn(`${LOG} joinRoom warning:`, joinErr.message || joinErr);
+          }
+          try {
+            const convDbId = await getConversationDbId(bubble.id);
+            console.log(`${LOG} Conversation ready: dbId=${convDbId}`);
+          } catch (convErr) {
+            console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
+          }
+        })();
+
         break;
       }
 
