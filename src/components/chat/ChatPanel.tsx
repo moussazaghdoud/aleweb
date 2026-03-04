@@ -317,6 +317,13 @@ export default function ChatPanel({ config, onClose }: Props) {
         )}
         {messages.map((msg, idx) => (
           <div key={msg.id}>
+            {msg.role === "system" ? (
+              <div style={{ textAlign: "center", marginBottom: 12, padding: "4px 0" }}>
+                <span style={{ color: "#fbbf24", fontSize: 12, fontStyle: "italic" }}>
+                  {msg.content || "..."}
+                </span>
+              </div>
+            ) : (
             <div style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: 12 }}>
               <div style={{
                 maxWidth: "85%",
@@ -326,8 +333,6 @@ export default function ChatPanel({ config, onClose }: Props) {
                 lineHeight: 1.5,
                 ...(msg.role === "user"
                   ? { background: "linear-gradient(135deg, #3b82f6, #7c3aed)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
-                  : msg.role === "system"
-                  ? { background: "rgba(251,191,36,0.12)", color: "#fbbf24", border: "1px solid rgba(251,191,36,0.2)", borderRadius: 999, fontSize: 12 }
                   : msg.role === "agent"
                   ? { background: "rgba(16,185,129,0.12)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(16,185,129,0.25)" }
                   : { background: "rgba(255,255,255,0.08)", color: "rgba(255,255,255,0.9)", borderBottomLeftRadius: 4, border: "1px solid rgba(255,255,255,0.06)" }),
@@ -335,6 +340,7 @@ export default function ChatPanel({ config, onClose }: Props) {
                 {msg.content || "..."}
               </div>
             </div>
+            )}
             {showFeedbackButtons && idx === lastAssistantIdx && (
               <div style={{ display: "flex", gap: 8, marginBottom: 12, paddingLeft: 4 }}>
                 <button onClick={handleHappy} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(16,185,129,0.3)", background: "rgba(16,185,129,0.15)", color: "#34d399", cursor: "pointer", fontFamily: "inherit", fontWeight: 500, transition: "background 0.2s" }}>
