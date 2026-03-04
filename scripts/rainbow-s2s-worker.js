@@ -163,27 +163,12 @@ async function handleCommand(cmd) {
         bubbleCache.set(bubble.id, bubble);
 
         // Respond IMMEDIATELY so the bridge doesn't time out
+        // NOTE: Do NOT call joinRoom or openConversationForBubble here —
+        // the bot is already the bubble owner, and openConversation creates
+        // a visible "conversation" entity that appears as a second bubble
+        // in the agent's Rainbow app. Conversation is opened lazily on
+        // first send_message instead.
         respond(id, { ok: true, bubbleId: bubble.id, bubbleJid: bubble.jid });
-
-        // Then do joinRoom + conversation setup in background (no await on respond)
-        (async () => {
-          try {
-            await sdk.s2s.joinRoom(bubble.id, "moderator");
-            console.log(`${LOG} Joined room ${bubble.id} as moderator`);
-          } catch (joinErr) {
-            console.warn(`${LOG} joinRoom warning:`, joinErr.message || joinErr);
-          }
-          try {
-            const conv = await getConversation(bubble.id);
-            console.log(`${LOG} Conversation ready: id=${conv?.id}, dbId=${conv?.dbId || "(pending)"}`);
-            // Notify bridge of conversationDbId for inbound message mapping
-            if (conv && conv.dbId) {
-              process.stdout.write(`__ASYNC__${JSON.stringify({ type: "conversation_ready", bubbleId: bubble.id, conversationDbId: conv.dbId })}\n`);
-            }
-          } catch (convErr) {
-            console.warn(`${LOG} Pre-open conversation warning:`, convErr.message || convErr);
-          }
-        })();
 
         break;
       }
