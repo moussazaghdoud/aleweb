@@ -41,6 +41,8 @@ class RainbowBridgeService {
   private bySession = new Map<string, BridgeMapping>()
   /** bubbleJid or bubbleId or conversationDbId → sessionId */
   private byBubble = new Map<string, string>()
+  /** Prevents duplicate escalation (race condition guard) */
+  private escalatingSessionIds = new Set<string>()
 
   private agentEmails: string[]
 
@@ -68,9 +70,17 @@ class RainbowBridgeService {
 
   private async _spawnWorker(): Promise<void> {
     const workerPath = process.cwd() + '/scripts/rainbow-s2s-worker.js'
-    const callbackUrl = process.env.RAINBOW_HOST_CALLBACK
+    // Rainbow appends sub-paths (/message, /receipt, etc.) to the callback URL.
+    // It MUST point to our webhook route so sub-paths hit our catch-all.
+    const baseUrl = process.env.RAINBOW_HOST_CALLBACK
       || process.env.NEXT_PUBLIC_SERVER_URL
       || 'https://aleweb-production-b8f6.up.railway.app'
+    // Ensure the callback URL ends with our webhook path
+    const callbackUrl = baseUrl.includes('/api/chat/rainbow-webhook')
+      ? baseUrl
+      : `${baseUrl.replace(/\/$/, '')}/api/chat/rainbow-webhook`
+
+    console.log(`[Rainbow Bridge] Callback URL for S2S: ${callbackUrl}`)
 
     const { spawn } = _require('child_process') as typeof import('child_process')
 
@@ -195,7 +205,10 @@ class RainbowBridgeService {
 
   async escalateSession(sessionId: string, reason?: string): Promise<void> {
     if (this.bySession.has(sessionId)) return
+    if (this.escalatingSessionIds.has(sessionId)) return // prevent race condition
+    this.escalatingSessionIds.add(sessionId)
 
+    try {
     await this.ensureWorker()
     const store = getChatStore()
 
@@ -265,6 +278,9 @@ class RainbowBridgeService {
     }
 
     console.log(`[Rainbow Bridge] Session ${sessionId} escalated → bubble ${bubbleId}`)
+    } finally {
+      this.escalatingSessionIds.delete(sessionId)
+    }
   }
 
   /* ---- Visitor → Rainbow ---- */

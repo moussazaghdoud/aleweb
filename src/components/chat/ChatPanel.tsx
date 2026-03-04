@@ -226,6 +226,7 @@ export default function ChatPanel({ config, onClose }: Props) {
   }, [onClose]);
 
   const handleEscalate = useCallback(async () => {
+    if (escalated) return; // prevent double-click
     setFeedbackGiven(true);
     setEscalated(true);
     setMessages((prev) => [
