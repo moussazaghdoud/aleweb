@@ -510,5 +510,8 @@ export function getRainbowBridge(): RainbowBridgeService | null {
   }
 
   bridgeInstance = new RainbowBridgeService()
+  // Pre-warm the worker so the SDK connects immediately at server startup,
+  // not on the first escalation (which would add 15-30s delay)
+  bridgeInstance.testConnection().catch(() => {})
   return bridgeInstance
 }
