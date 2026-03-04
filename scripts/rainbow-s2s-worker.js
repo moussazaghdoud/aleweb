@@ -211,10 +211,18 @@ async function handleCommand(cmd) {
         }
         for (const email of (cmd.emails || [])) {
           try {
-            await sdk.bubbles.inviteContactsByEmailsToBubble([email], bubble);
-            console.log(`${LOG} Invited ${email}`);
+            // Look up the contact, then add directly (withInvitation=false → auto-accept)
+            const contact = await sdk.contacts.getContactByLoginEmail(email);
+            if (contact) {
+              await sdk.bubbles.inviteContactToBubble(contact, bubble, false, false, "ALE Support");
+              console.log(`${LOG} Added ${email} directly (no invitation needed)`);
+            } else {
+              // Fallback: invite by email (requires manual accept)
+              await sdk.bubbles.inviteContactsByEmailsToBubble([email], bubble);
+              console.log(`${LOG} Invited ${email} (contact not found — sent invitation)`);
+            }
           } catch (err) {
-            console.warn(`${LOG} Could not invite ${email}:`, err.message || err);
+            console.warn(`${LOG} Could not add/invite ${email}:`, err.message || err);
           }
         }
         respond(id, { ok: true });
