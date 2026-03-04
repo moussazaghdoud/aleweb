@@ -76,7 +76,15 @@ async function forwardToWebhook(eventData) {
 async function getConversation(bubbleId) {
   // Check cache first
   if (conversationCache.has(bubbleId)) {
-    return conversationCache.get(bubbleId);
+    const cached = conversationCache.get(bubbleId);
+    // If cached but still missing dbId, poll again briefly
+    if (!cached.dbId) {
+      for (let i = 0; i < 6; i++) {
+        await new Promise(r => setTimeout(r, 500));
+        if (cached.dbId) break;
+      }
+    }
+    return cached;
   }
 
   const bubble = bubbleCache.get(bubbleId);
@@ -87,7 +95,20 @@ async function getConversation(bubbleId) {
 
   try {
     const conversation = await sdk.conversations.openConversationForBubble(bubble);
-    console.log(`${LOG} Opened conversation for bubble ${bubbleId}: id=${conversation.id}, dbId=${conversation.dbId || "(not yet)"}`);
+
+    // dbId may not be set immediately — poll for up to 5 seconds
+    if (!conversation.dbId) {
+      console.log(`${LOG} Waiting for conversation.dbId...`);
+      for (let i = 0; i < 10; i++) {
+        await new Promise(r => setTimeout(r, 500));
+        if (conversation.dbId) {
+          console.log(`${LOG} dbId ready after ${(i + 1) * 500}ms: ${conversation.dbId}`);
+          break;
+        }
+      }
+    }
+
+    console.log(`${LOG} Conversation for bubble ${bubbleId}: id=${conversation.id}, dbId=${conversation.dbId || "(not set after 5s)"}`);
     conversationCache.set(bubbleId, conversation);
     return conversation;
   } catch (err) {
@@ -203,7 +224,7 @@ async function handleCommand(cmd) {
       case "send_message": {
         console.log(`${LOG} Sending message to bubble ${cmd.bubbleId || cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
 
-        // Use s2s.sendMessageInConversation directly — the im.sendMessageToConversation
+        // ONLY use s2s.sendMessageInConversation — the im.sendMessageToConversation
         // adds an "urgency" field that causes 400206 errors on the UCS REST API.
         const conversation = cmd.bubbleId ? await getConversation(cmd.bubbleId) : null;
         const convDbId = conversation?.dbId;
@@ -219,15 +240,9 @@ async function handleCommand(cmd) {
           console.log(`${LOG} Message sent via S2S (dbId=${convDbId}), result:`, result ? "ok" : "no result");
           respond(id, { ok: true, conversationDbId: convDbId });
         } else {
-          // dbId not yet available — try im method as fallback
-          console.warn(`${LOG} No conversation dbId — trying im.sendMessageToConversation fallback`);
-          if (conversation) {
-            await sdk.im.sendMessageToConversation(conversation, cmd.body, "en");
-            respond(id, { ok: true, conversationDbId: conversation.dbId || null });
-          } else {
-            console.error(`${LOG} No conversation object at all for bubble ${cmd.bubbleId}`);
-            respond(id, { ok: false, error: "No conversation for bubble" });
-          }
+          // dbId not available even after waiting — cannot send
+          console.error(`${LOG} No conversation dbId for bubble ${cmd.bubbleId} after waiting`);
+          respond(id, { ok: false, error: "No conversation dbId available", conversationDbId: null });
         }
 
         break;

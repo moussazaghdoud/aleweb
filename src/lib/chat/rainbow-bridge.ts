@@ -43,6 +43,8 @@ class RainbowBridgeService {
   private byBubble = new Map<string, string>()
   /** Prevents duplicate escalation (race condition guard) */
   private escalatingSessionIds = new Set<string>()
+  /** Buffer for unmatched inbound messages (conversation_id not yet mapped) */
+  private messageBuffer = new Map<string, { content: string; fromId: string; ts: number }[]>()
 
   private agentEmails: string[]
 
@@ -116,7 +118,9 @@ class RainbowBridgeService {
               if (resp.ok) {
                 pending.resolve(resp)
               } else {
-                pending.reject(new Error(resp.error || 'Command failed'))
+                const err = new Error(resp.error || 'Command failed') as any
+                err.data = resp // preserve full response data (e.g. conversationDbId)
+                pending.reject(err)
               }
             }
           } catch (parseErr: any) {
@@ -251,6 +255,8 @@ class RainbowBridgeService {
         conversationDbId = sendResult?.conversationDbId || undefined
       } catch (err: any) {
         console.warn('[Rainbow Bridge] History send failed:', err.message)
+        // Still capture conversationDbId from error response if available
+        conversationDbId = err.data?.conversationDbId || undefined
       }
     }
 
@@ -329,7 +335,7 @@ class RainbowBridgeService {
   async handleWebhookEvent(event: any, subPath?: string): Promise<void> {
     console.log(`[Rainbow Bridge] handleWebhookEvent (path: ${subPath || '/'}):`, JSON.stringify(event).slice(0, 1000))
 
-    // Handle /conversation callbacks — maps agent's conversation_id → bubbleId
+    // Handle /conversation callbacks — maps agent's conversation_id → bubbleId.
     // Rainbow uses per-user conversation IDs, so the agent's conversation_id differs
     // from the bot's. This callback tells us: conversation.id → conversation.peer (bubbleId).
     if (event.conversation && event.conversation.type === 'room' && event.conversation.peer && event.conversation.id) {
@@ -339,6 +345,18 @@ class RainbowBridgeService {
       if (sessionId) {
         this.byBubble.set(convId, sessionId)
         console.log(`[Rainbow Bridge] Mapped agent conversationId ${convId} (bubble ${bubbleId}) → session ${sessionId}`)
+
+        // Replay any buffered messages for this conversation_id
+        const buffered = this.messageBuffer.get(convId)
+        if (buffered?.length) {
+          this.messageBuffer.delete(convId)
+          console.log(`[Rainbow Bridge] Replaying ${buffered.length} buffered message(s) for conversation ${convId}`)
+          for (const msg of buffered) {
+            await this.processIncomingMessage(sessionId, msg.content, msg.fromId)
+          }
+        }
+      } else {
+        console.log(`[Rainbow Bridge] /conversation callback: bubble ${bubbleId} not in byBubble — ignoring`)
       }
       return
     }
@@ -405,13 +423,29 @@ class RainbowBridgeService {
     }
 
     if (!sessionId) {
-      console.warn(`[Rainbow Bridge] No session found for keys: ${lookupKeys.join(', ')}`)
-      console.warn(`[Rainbow Bridge] Known byBubble keys: ${Array.from(this.byBubble.keys()).join(', ')}`)
+      // Buffer the message — the /conversation callback may arrive shortly and map the ID
+      const convId = lookupKeys[0]
+      if (convId && content.trim()) {
+        const buf = this.messageBuffer.get(convId) || []
+        buf.push({ content, fromId, ts: Date.now() })
+        this.messageBuffer.set(convId, buf)
+        console.log(`[Rainbow Bridge] Buffered message for unmatched conversation ${convId}: "${content.slice(0, 60)}"`)
+        // Clean up old buffer entries (>60s) to prevent memory leaks
+        this.cleanMessageBuffer()
+      } else {
+        console.warn(`[Rainbow Bridge] No session found and no key to buffer. Keys: ${lookupKeys.join(', ')}`)
+      }
       return
     }
 
+    await this.processIncomingMessage(sessionId, content, fromId)
+  }
+
+  /** Process a matched incoming agent message — stores it and checks for /close */
+  private async processIncomingMessage(sessionId: string, content: string, _fromId: string): Promise<void> {
     const store = getChatStore()
-    const mapping = this.bySession.get(sessionId)!
+    const mapping = this.bySession.get(sessionId)
+    if (!mapping) return
 
     if (!mapping.agentJoined) {
       mapping.agentJoined = true
@@ -424,6 +458,19 @@ class RainbowBridgeService {
     const lower = content.toLowerCase().trim()
     if (lower === '/close' || lower === '/end') {
       await this.closeSession(sessionId)
+    }
+  }
+
+  /** Remove buffered messages older than 60 seconds */
+  private cleanMessageBuffer(): void {
+    const cutoff = Date.now() - 60_000
+    for (const [key, msgs] of this.messageBuffer) {
+      const fresh = msgs.filter((m) => m.ts > cutoff)
+      if (fresh.length === 0) {
+        this.messageBuffer.delete(key)
+      } else {
+        this.messageBuffer.set(key, fresh)
+      }
     }
   }
 
