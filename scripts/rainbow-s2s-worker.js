@@ -230,12 +230,18 @@ async function handleCommand(cmd) {
       }
 
       case "send_message": {
-        console.log(`${LOG} Sending message to bubble ${cmd.bubbleId || cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
+        console.log(`${LOG} Sending message: ${(cmd.body || "").slice(0, 50)}...`);
 
-        // ONLY use s2s.sendMessageInConversation — the im.sendMessageToConversation
-        // adds an "urgency" field that causes 400206 errors on the UCS REST API.
-        const conversation = cmd.bubbleId ? await getConversation(cmd.bubbleId) : null;
-        const convDbId = conversation?.dbId;
+        // Use conversationDbId directly if provided (from /conversation webhook callback).
+        // In S2S mode, openConversationForBubble() does NOT populate dbId — the only
+        // source of the dbId is the webhook callback handled by the bridge.
+        let convDbId = cmd.conversationDbId || null;
+
+        // Fallback: try getConversation (works if SDK has populated dbId)
+        if (!convDbId && cmd.bubbleId) {
+          const conversation = await getConversation(cmd.bubbleId);
+          convDbId = conversation?.dbId || null;
+        }
 
         if (convDbId) {
           const result = await sdk.s2s.sendMessageInConversation(convDbId, {
@@ -248,8 +254,7 @@ async function handleCommand(cmd) {
           console.log(`${LOG} Message sent via S2S (dbId=${convDbId}), result:`, result ? "ok" : "no result");
           respond(id, { ok: true, conversationDbId: convDbId });
         } else {
-          // dbId not available even after waiting — cannot send
-          console.error(`${LOG} No conversation dbId for bubble ${cmd.bubbleId} after waiting`);
+          console.error(`${LOG} No conversation dbId available`);
           respond(id, { ok: false, error: "No conversation dbId available", conversationDbId: null });
         }
 
@@ -314,7 +319,7 @@ async function start() {
       sendReadReceipt: true,
       sendMessageToConnectedUser: false,
       autoLoadConversations: true,
-      autoLoadContacts: false,
+      autoLoadContacts: true,
       autoInitialGetBubbles: true,
       autoInitialBubblePresence: true,
       storeMessages: false,
@@ -324,7 +329,7 @@ async function start() {
       s2s: { start_up: true },
       telephony: { start_up: false },
       channels: { start_up: false },
-      admin: { start_up: false },
+      admin: { start_up: true },
       fileServer: { start_up: false },
       fileStorage: { start_up: false },
       calllog: { start_up: false },

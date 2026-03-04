@@ -227,50 +227,58 @@ class RainbowBridgeService {
     const bubbleId = result.bubbleId
     const bubbleJid = result.bubbleJid
 
-    // 2. Invite agents
+    // 2. Store mapping IMMEDIATELY so /conversation webhook callback can find it.
+    //    Rainbow fires the callback right after bubble creation — if we wait until
+    //    after invite/history, the callback is ignored and we never get the dbId.
+    const mapping: BridgeMapping = { sessionId, bubbleId, bubbleJid, agentJoined: false }
+    this.bySession.set(sessionId, mapping)
+    this.byBubble.set(bubbleJid, sessionId)
+    this.byBubble.set(bubbleId, sessionId)
+    console.log(`[Rainbow Bridge] Mapping stored for bubble ${bubbleId} → session ${sessionId}`)
+
+    // 3. Invite agents (fire and forget — don't block history send)
     if (this.agentEmails.length > 0) {
-      await this.sendCommand({
+      this.sendCommand({
         cmd: 'invite_agents',
         bubbleId,
         emails: this.agentEmails,
       }).catch((err: any) => console.warn('[Rainbow Bridge] Invite failed:', err.message))
     }
 
-    // 3. Send conversation history (and capture conversationDbId)
-    let conversationDbId: string | undefined
+    // 4. Wait for conversationDbId from /conversation webhook callback (up to 15s).
+    //    In S2S mode, openConversationForBubble() does NOT populate dbId — it only
+    //    comes via the webhook callback. The callback sets mapping.conversationDbId.
+    for (let i = 0; i < 30; i++) {
+      if (mapping.conversationDbId) break
+      await new Promise((r) => setTimeout(r, 500))
+    }
+    const conversationDbId = mapping.conversationDbId
+    if (conversationDbId) {
+      console.log(`[Rainbow Bridge] Got conversationDbId ${conversationDbId} for bubble ${bubbleId}`)
+    } else {
+      console.warn(`[Rainbow Bridge] No conversationDbId after 15s for bubble ${bubbleId}`)
+    }
+
+    // 5. Send conversation history using the dbId directly
     const messages = await store.getMessages(sessionId)
-    if (messages.length > 0) {
+    if (messages.length > 0 && conversationDbId) {
       const historyLines = messages.map((m) => {
         const label = m.role === 'user' ? 'Visitor' : m.role === 'assistant' ? 'Bot' : m.role
         return `[${label}]: ${m.content}`
       })
       const historyText = `--- Conversation history ---\n${historyLines.join('\n')}\n--- End history ---`
       try {
-        const sendResult = await this.sendCommand({
+        await this.sendCommand({
           cmd: 'send_message',
-          bubbleId,
-          bubbleJid,
+          conversationDbId,
           body: historyText,
         })
-        conversationDbId = sendResult?.conversationDbId || undefined
       } catch (err: any) {
         console.warn('[Rainbow Bridge] History send failed:', err.message)
-        // Still capture conversationDbId from error response if available
-        conversationDbId = err.data?.conversationDbId || undefined
       }
     }
 
-    // 4. Store mapping (including conversationDbId for inbound message lookup)
-    const mapping: BridgeMapping = { sessionId, bubbleId, bubbleJid, conversationDbId, agentJoined: false }
-    this.bySession.set(sessionId, mapping)
-    this.byBubble.set(bubbleJid, sessionId)
-    this.byBubble.set(bubbleId, sessionId)
-    if (conversationDbId) {
-      this.byBubble.set(conversationDbId, sessionId)
-      console.log(`[Rainbow Bridge] Mapped conversationDbId ${conversationDbId} → session ${sessionId}`)
-    }
-
-    // 5. Persist in DB metadata
+    // 6. Persist in DB metadata
     const session = await store.getSession(sessionId)
     if (session) {
       const pool = await this._getPool()
@@ -295,20 +303,26 @@ class RainbowBridgeService {
     const mapping = this.bySession.get(sessionId)
     if (!mapping) return
 
+    // Need conversationDbId to send — if not yet available, wait briefly
+    if (!mapping.conversationDbId) {
+      for (let i = 0; i < 10; i++) {
+        await new Promise((r) => setTimeout(r, 500))
+        if (mapping.conversationDbId) break
+      }
+    }
+
+    if (!mapping.conversationDbId) {
+      console.warn(`[Rainbow Bridge] Cannot relay — no conversationDbId for session ${sessionId}`)
+      return
+    }
+
     await this.ensureWorker()
     try {
-      const result = await this.sendCommand({
+      await this.sendCommand({
         cmd: 'send_message',
-        bubbleId: mapping.bubbleId,
-        bubbleJid: mapping.bubbleJid,
+        conversationDbId: mapping.conversationDbId,
         body: `[Visitor]: ${content}`,
       })
-      // Capture conversationDbId if not yet mapped
-      if (result?.conversationDbId && !mapping.conversationDbId) {
-        mapping.conversationDbId = result.conversationDbId
-        this.byBubble.set(result.conversationDbId, sessionId)
-        console.log(`[Rainbow Bridge] Mapped conversationDbId ${result.conversationDbId} → session ${sessionId}`)
-      }
     } catch (err: any) {
       console.warn('[Rainbow Bridge] Relay failed:', err.message)
     }
@@ -343,8 +357,16 @@ class RainbowBridgeService {
       const bubbleId = event.conversation.peer
       const sessionId = this.byBubble.get(bubbleId)
       if (sessionId) {
+        // Map this conversation_id for inbound message lookup
         this.byBubble.set(convId, sessionId)
-        console.log(`[Rainbow Bridge] Mapped agent conversationId ${convId} (bubble ${bubbleId}) → session ${sessionId}`)
+        // Store the dbId on the mapping so escalateSession/relayVisitorMessage can use it
+        const mapping = this.bySession.get(sessionId)
+        if (mapping && !mapping.conversationDbId) {
+          mapping.conversationDbId = convId
+          console.log(`[Rainbow Bridge] Set conversationDbId ${convId} for session ${sessionId} (bubble ${bubbleId})`)
+        } else {
+          console.log(`[Rainbow Bridge] Mapped additional conversationId ${convId} (bubble ${bubbleId}) → session ${sessionId}`)
+        }
 
         // Replay any buffered messages for this conversation_id
         const buffered = this.messageBuffer.get(convId)
