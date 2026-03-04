@@ -66,12 +66,50 @@ const STEPS_ORDER: (keyof StepsData)[] = ["challenge", "recommendation", "nextSt
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+/* ── Panel style variants (compare via ?goal=A|B|C|D|E) ── */
+type PanelVariant = "default" | "A" | "B" | "C" | "D" | "E";
+
+const PANEL_STYLES: Record<PanelVariant, { panel: string; label: string }> = {
+  default: {
+    panel: "backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] shadow-2xl shadow-black/20",
+    label: "Original (7% white)",
+  },
+  A: {
+    panel: "backdrop-blur-xl bg-white/[0.20] border border-white/[0.25] shadow-2xl shadow-black/10",
+    label: "A: Frosted Glass (20% white)",
+  },
+  B: {
+    panel: "backdrop-blur-2xl bg-white/[0.30] border border-white/[0.30] shadow-xl shadow-black/10",
+    label: "B: Light Solid (30% white)",
+  },
+  C: {
+    panel: "backdrop-blur-xl bg-gradient-to-br from-white/[0.22] to-blue-200/[0.15] border border-white/[0.25] shadow-2xl shadow-blue-900/10",
+    label: "C: Blue Gradient Glass",
+  },
+  D: {
+    panel: "backdrop-blur-xl bg-gradient-to-br from-white/[0.18] to-purple-200/[0.12] border border-white/[0.22] shadow-2xl shadow-purple-900/10",
+    label: "D: Purple Gradient Glass",
+  },
+  E: {
+    panel: "backdrop-blur-2xl bg-white/[0.12] border-2 border-white/[0.35] shadow-lg shadow-white/5",
+    label: "E: Bright Outlined (12% + strong border)",
+  },
+};
+
+function getPanelVariant(): PanelVariant {
+  if (typeof window === "undefined") return "default";
+  const p = new URLSearchParams(window.location.search).get("goal");
+  if (p && p in PANEL_STYLES) return p as PanelVariant;
+  return "default";
+}
+
 export function GoalCaptureGlassPanel() {
   const [goal, setGoal] = useState("");
   const [state, setState] = useState<UXState>("idle");
   const [plan, setPlan] = useState<PlanResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [revealed, setRevealed] = useState(false);
+  const [variant] = useState<PanelVariant>(getPanelVariant);
 
   // Email capture state
   const [emailMode, setEmailMode] = useState(false);
@@ -218,7 +256,7 @@ export function GoalCaptureGlassPanel() {
       ref={panelRef}
       role="region"
       aria-label="Goal capture — describe what you want to achieve"
-      className={`w-full backdrop-blur-xl bg-white/[0.07] border border-white/[0.15] rounded-2xl shadow-2xl shadow-black/20 p-5 transition-all duration-700 max-h-[calc(100vh-6rem)] overflow-hidden ${
+      className={`w-full ${PANEL_STYLES[variant].panel} rounded-2xl p-5 transition-all duration-700 max-h-[calc(100vh-6rem)] overflow-hidden ${
         isExpanded ? "max-w-[30rem]" : "max-w-sm lg:max-w-[22rem]"
       } ${revealed ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}
       onKeyDown={handleKeyDown}
@@ -234,6 +272,13 @@ export function GoalCaptureGlassPanel() {
           50% { transform: translateY(-10px); }
         }
       `}</style>
+      {/* Variant label (only shown when ?goal= is set) */}
+      {variant !== "default" && (
+        <div className="mb-2 px-2 py-1 rounded-full bg-white/20 text-white text-[10px] font-bold text-center tracking-wide">
+          {PANEL_STYLES[variant].label}
+        </div>
+      )}
+
       {/* ── IDLE / INPUT STATE ── */}
       {(state === "idle" || state === "loading") && (
         <div className="space-y-3">
