@@ -290,12 +290,22 @@ class RainbowBridgeService {
     if (!mapping) return
 
     await this.ensureWorker()
-    await this.sendCommand({
-      cmd: 'send_message',
-      bubbleId: mapping.bubbleId,
-      bubbleJid: mapping.bubbleJid,
-      body: `[Visitor]: ${content}`,
-    }).catch((err: any) => console.warn('[Rainbow Bridge] Relay failed:', err.message))
+    try {
+      const result = await this.sendCommand({
+        cmd: 'send_message',
+        bubbleId: mapping.bubbleId,
+        bubbleJid: mapping.bubbleJid,
+        body: `[Visitor]: ${content}`,
+      })
+      // Capture conversationDbId if not yet mapped
+      if (result?.conversationDbId && !mapping.conversationDbId) {
+        mapping.conversationDbId = result.conversationDbId
+        this.byBubble.set(result.conversationDbId, sessionId)
+        console.log(`[Rainbow Bridge] Mapped conversationDbId ${result.conversationDbId} → session ${sessionId}`)
+      }
+    } catch (err: any) {
+      console.warn('[Rainbow Bridge] Relay failed:', err.message)
+    }
   }
 
   /* ---- Async notifications from worker ---- */
@@ -319,6 +329,20 @@ class RainbowBridgeService {
   async handleWebhookEvent(event: any, subPath?: string): Promise<void> {
     console.log(`[Rainbow Bridge] handleWebhookEvent (path: ${subPath || '/'}):`, JSON.stringify(event).slice(0, 1000))
 
+    // Handle /conversation callbacks — maps agent's conversation_id → bubbleId
+    // Rainbow uses per-user conversation IDs, so the agent's conversation_id differs
+    // from the bot's. This callback tells us: conversation.id → conversation.peer (bubbleId).
+    if (event.conversation && event.conversation.type === 'room' && event.conversation.peer && event.conversation.id) {
+      const convId = event.conversation.id
+      const bubbleId = event.conversation.peer
+      const sessionId = this.byBubble.get(bubbleId)
+      if (sessionId) {
+        this.byBubble.set(convId, sessionId)
+        console.log(`[Rainbow Bridge] Mapped agent conversationId ${convId} (bubble ${bubbleId}) → session ${sessionId}`)
+      }
+      return
+    }
+
     let content = ''
     let fromId = ''
     const lookupKeys: string[] = []
@@ -330,16 +354,16 @@ class RainbowBridgeService {
       if (event.data.roomJid) lookupKeys.push(event.data.roomJid)
       if (event.data.roomId) lookupKeys.push(event.data.roomId)
     }
-    // Format B: Rainbow S2S callback { message: { conversationId/conversation_id, body/content, from } }
+    // Format B: Rainbow S2S callback { message: { conversation_id, body, from } }
     else if (event.message) {
       const msg = event.message
       content = msg.body || msg.content || ''
       fromId = msg.from || msg.fromJid || event.userId || ''
-      if (msg.conversationId) lookupKeys.push(msg.conversationId)
+      // Add conversation_id — may be bot's or agent's (both mapped via /conversation callback)
       if (msg.conversation_id) lookupKeys.push(msg.conversation_id)
-      if (msg.roomId) lookupKeys.push(msg.roomId)
-      if (msg.fromBubbleJid) lookupKeys.push(msg.fromBubbleJid)
-      if (msg.toJid) lookupKeys.push(msg.toJid)
+      if (msg.conversationId) lookupKeys.push(msg.conversationId)
+      // Also try 'from' field — for bubble system messages, 'from' is the bubbleId
+      if (msg.from) lookupKeys.push(msg.from)
     }
     // Format C: Rainbow event { event: "chat/message", data: { content/body, fromJid, ... } }
     else if (event.event && event.data) {
@@ -350,7 +374,7 @@ class RainbowBridgeService {
       if (event.data.conversationId) lookupKeys.push(event.data.conversationId)
       if (event.data.conversation_id) lookupKeys.push(event.data.conversation_id)
     }
-    // Format D: Flat structure from some S2S versions { body, conversationId, ... }
+    // Format D: Flat structure { body, conversationId, ... }
     else if (event.body || event.content) {
       content = event.body || event.content || ''
       fromId = event.from || event.fromJid || event.userId || ''
@@ -361,13 +385,14 @@ class RainbowBridgeService {
     }
 
     if (!content.trim()) {
-      console.log('[Rainbow Bridge] No content extracted — skipping')
       return
     }
 
     // Echo prevention — skip bot's own messages
     if (content.startsWith('[Visitor]:')) return
     if (content.startsWith('--- Conversation history ---')) return
+    // Skip bubble system messages (join/leave notifications)
+    if (content.includes('has joined the bubble') || content.includes('has left the bubble')) return
 
     // Find session by trying all available lookup keys
     let sessionId: string | undefined
@@ -381,7 +406,6 @@ class RainbowBridgeService {
 
     if (!sessionId) {
       console.warn(`[Rainbow Bridge] No session found for keys: ${lookupKeys.join(', ')}`)
-      // Log all known mappings for debugging
       console.warn(`[Rainbow Bridge] Known byBubble keys: ${Array.from(this.byBubble.keys()).join(', ')}`)
       return
     }
