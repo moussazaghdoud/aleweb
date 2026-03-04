@@ -218,21 +218,31 @@ async function handleCommand(cmd) {
       case "send_message": {
         console.log(`${LOG} Sending message to bubble ${cmd.bubbleId || cmd.bubbleJid}: ${(cmd.body || "").slice(0, 50)}...`);
 
-        // Use im.sendMessageToConversation — handles S2S internally:
-        // 1. Creates server conversation (sets dbId) if needed
-        // 2. Calls s2s.sendMessageInConversation with proper dbId
+        // Use s2s.sendMessageInConversation directly — the im.sendMessageToConversation
+        // adds an "urgency" field that causes 400206 errors on the UCS REST API.
         const conversation = cmd.bubbleId ? await getConversation(cmd.bubbleId) : null;
+        const convDbId = conversation?.dbId;
 
-        if (conversation) {
-          const result = await sdk.im.sendMessageToConversation(conversation, cmd.body, "en");
-          console.log(`${LOG} Message sent via conversation (dbId=${conversation.dbId || "auto"}), result:`, result ? "ok" : "no result");
-          respond(id, { ok: true, conversationDbId: conversation.dbId || null });
+        if (convDbId) {
+          const result = await sdk.s2s.sendMessageInConversation(convDbId, {
+            message: {
+              body: cmd.body,
+              lang: "en",
+              contents: [{ type: "text/markdown", data: cmd.body }],
+            },
+          });
+          console.log(`${LOG} Message sent via S2S (dbId=${convDbId}), result:`, result ? "ok" : "no result");
+          respond(id, { ok: true, conversationDbId: convDbId });
         } else {
-          // Fallback: try bubble JID method (unlikely to work in S2S)
-          console.warn(`${LOG} No conversation object — trying sendMessageToBubbleJid fallback`);
-          await sdk.im.sendMessageToBubbleJid(cmd.body, cmd.bubbleJid, "en");
-          console.log(`${LOG} Fallback sent`);
-          respond(id, { ok: true });
+          // dbId not yet available — try im method as fallback
+          console.warn(`${LOG} No conversation dbId — trying im.sendMessageToConversation fallback`);
+          if (conversation) {
+            await sdk.im.sendMessageToConversation(conversation, cmd.body, "en");
+            respond(id, { ok: true, conversationDbId: conversation.dbId || null });
+          } else {
+            console.error(`${LOG} No conversation object at all for bubble ${cmd.bubbleId}`);
+            respond(id, { ok: false, error: "No conversation for bubble" });
+          }
         }
 
         break;
