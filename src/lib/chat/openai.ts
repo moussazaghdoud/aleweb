@@ -205,27 +205,59 @@ export async function chatWithRAG(
 
   let fullResponse = ''
 
-  const stream = await client.responses.create({
+  // Try Responses API first, fall back to Chat Completions if it fails
+  try {
+    const stream = await client.responses.create({
+      model: activeModel,
+      instructions: activePrompt,
+      input,
+      tools: tools.length > 0 ? tools : undefined,
+      stream: true,
+    })
+
+    async function* streamChunks(): AsyncIterable<string> {
+      for await (const event of stream) {
+        if (event.type === 'response.output_text.delta') {
+          fullResponse += event.delta
+          yield event.delta
+        }
+      }
+    }
+
+    return {
+      type: 'stream',
+      stream: streamChunks(),
+      getFullResponse: () => fullResponse,
+    }
+  } catch (err: any) {
+    console.warn('[Chat] Responses API failed, falling back to Chat Completions:', err.message)
+  }
+
+  // Fallback: standard Chat Completions API (no web search / file search but always works)
+  const messages: Array<{ role: 'system' | 'user' | 'assistant'; content: string }> = [
+    { role: 'system', content: activePrompt },
+    ...input,
+  ]
+
+  const completionStream = await client.chat.completions.create({
     model: activeModel,
-    instructions: activePrompt,
-    input,
-    tools: tools.length > 0 ? tools : undefined,
+    messages,
     stream: true,
   })
 
-  // Create async iterable that yields text chunks
-  async function* streamChunks(): AsyncIterable<string> {
-    for await (const event of stream) {
-      if (event.type === 'response.output_text.delta') {
-        fullResponse += event.delta
-        yield event.delta
+  async function* fallbackChunks(): AsyncIterable<string> {
+    for await (const chunk of completionStream) {
+      const delta = chunk.choices?.[0]?.delta?.content
+      if (delta) {
+        fullResponse += delta
+        yield delta
       }
     }
   }
 
   return {
     type: 'stream',
-    stream: streamChunks(),
+    stream: fallbackChunks(),
     getFullResponse: () => fullResponse,
   }
 }
