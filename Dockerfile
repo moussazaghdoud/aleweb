@@ -43,6 +43,8 @@ COPY --from=worker-deps /app/node_modules ./node_modules_worker
 RUN cp -rn node_modules_worker/* node_modules/ 2>/dev/null || true && rm -rf node_modules_worker
 # Payload media uploads directory
 RUN mkdir -p /app/public/media && chown -R nextjs:nodejs /app/public/media
+# Knowledge uploads (ephemeral, used temporarily before OpenAI indexing)
+RUN mkdir -p /tmp/knowledge-uploads && chown nextjs:nodejs /tmp/knowledge-uploads
 USER nextjs
 EXPOSE 3000
 ENV PORT=3000
