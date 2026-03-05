@@ -9,7 +9,12 @@ export const KnowledgeSources: CollectionConfig = {
     description: 'Manage knowledge base sources for the AI chatbot. Supports file uploads and URL crawling.',
     group: 'Chat',
     components: {
-      beforeListTable: ['@/components/admin/BulkUploadButton'],
+      beforeListTable: [
+        {
+          path: '@/components/admin/BulkUploadButton',
+          exportName: 'default',
+        },
+      ],
     },
   },
   access: adminOnly,
