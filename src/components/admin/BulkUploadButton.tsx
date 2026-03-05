@@ -11,6 +11,12 @@ type FileStatus = {
 
 const ACCEPT = '.pdf,.txt,.md,.docx,.html'
 
+function fetchWithTimeout(url: string, opts: RequestInit, timeoutMs = 30000): Promise<Response> {
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timer))
+}
+
 export default function BulkUploadButton() {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -27,8 +33,8 @@ export default function BulkUploadButton() {
       setUploading(true)
 
       for (let i = 0; i < selected.length; i++) {
-        // Wait between files to avoid overwhelming the server
-        if (i > 0) await new Promise((r) => setTimeout(r, 1500))
+        // Wait between files to let server settle
+        if (i > 0) await new Promise((r) => setTimeout(r, 3000))
 
         const file = selected[i]
         setFiles((prev) =>
@@ -39,26 +45,24 @@ export default function BulkUploadButton() {
           // Step 1: Upload file to knowledge-uploads
           const uploadForm = new FormData()
           uploadForm.append('file', file)
-          const uploadRes = await fetch('/api/knowledge-uploads', {
+          const uploadRes = await fetchWithTimeout('/api/knowledge-uploads', {
             method: 'POST',
             credentials: 'include',
             body: uploadForm,
-          })
+          }, 60000)
           const uploadText = await uploadRes.text()
           let uploadBody: any
           try { uploadBody = JSON.parse(uploadText) } catch {}
 
           if (!uploadRes.ok) {
-            // Show full error detail for debugging
-            const msg = `Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 300)}`
-            throw new Error(msg)
+            throw new Error(`Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 300)}`)
           }
 
           const uploadId = uploadBody?.doc?.id ?? uploadBody?.id
-          if (!uploadId) throw new Error('Upload succeeded but no ID returned')
+          if (!uploadId) throw new Error('Upload OK but no ID returned')
 
           // Step 2: Create knowledge-sources doc linking to the upload
-          const sourceRes = await fetch('/api/knowledge-sources', {
+          const sourceRes = await fetchWithTimeout('/api/knowledge-sources', {
             method: 'POST',
             credentials: 'include',
             headers: { 'Content-Type': 'application/json' },
@@ -67,21 +71,25 @@ export default function BulkUploadButton() {
               type: 'file',
               file: uploadId,
             }),
-          })
+          }, 60000)
           const sourceText = await sourceRes.text()
           let sourceBody: any
           try { sourceBody = JSON.parse(sourceText) } catch {}
 
           if (!sourceRes.ok) {
-            const msg = `Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 300)}`
-            throw new Error(msg)
+            throw new Error(`Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 300)}`)
           }
 
           setFiles((prev) =>
             prev.map((f, idx) => (idx === i ? { ...f, status: 'done' } : f)),
           )
         } catch (err: unknown) {
-          const msg = err instanceof Error ? err.message : String(err)
+          let msg: string
+          if (err instanceof DOMException && err.name === 'AbortError') {
+            msg = 'Timeout (60s) — server may be busy'
+          } else {
+            msg = err instanceof Error ? err.message : String(err)
+          }
           setFiles((prev) =>
             prev.map((f, idx) =>
               idx === i ? { ...f, status: 'error', error: msg } : f,
@@ -134,7 +142,7 @@ export default function BulkUploadButton() {
       {files.length > 0 && (
         <div style={{ marginTop: '12px', fontSize: '13px', lineHeight: '1.6' }}>
           {files.map((f, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', flexWrap: 'wrap' }}>
               <span style={{ flexShrink: 0 }}>
                 {f.status === 'pending' && '\u23F3'}
                 {f.status === 'uploading' && '\u2B06'}
@@ -143,7 +151,7 @@ export default function BulkUploadButton() {
               </span>
               <span style={{ fontWeight: 500 }}>{f.name}</span>
               {f.error && (
-                <span style={{ color: '#e53e3e', fontSize: '12px' }}>— {f.error}</span>
+                <span style={{ color: '#e53e3e', fontSize: '11px', wordBreak: 'break-all' }}>— {f.error}</span>
               )}
             </div>
           ))}
