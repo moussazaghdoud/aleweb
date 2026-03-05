@@ -276,7 +276,7 @@ export default function ChatPanel({ config, onClose }: Props) {
     <div style={{
       position: "fixed",
       bottom: 20,
-      right: 20,
+      right: 140,
       zIndex: 9999,
       width: 380,
       maxWidth: "calc(100vw - 2.5rem)",
