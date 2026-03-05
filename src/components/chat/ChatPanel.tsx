@@ -56,13 +56,17 @@ export default function ChatPanel({ config, onClose }: Props) {
       .then((res) => res.ok ? res.json() : null)
       .then((data) => {
         if (!data) return;
-        // Load existing messages
+        // Load existing messages (filter out empty content)
         if (data.messages?.length > 0) {
-          const loaded: UIMessage[] = data.messages.map((m: any) => {
-            seenMessageIds.current.add(m.id);
-            return { id: m.id, role: m.role as MessageRole, content: m.content, createdAt: m.createdAt };
-          });
+          const loaded: UIMessage[] = data.messages
+            .filter((m: any) => m.content?.trim())
+            .map((m: any) => {
+              seenMessageIds.current.add(m.id);
+              return { id: m.id, role: m.role as MessageRole, content: m.content, createdAt: m.createdAt };
+            });
           setMessages(loaded);
+          // Suppress feedback buttons for loaded history
+          setFeedbackGiven(true);
           // Set poll cursor to latest message
           const latest = loaded[loaded.length - 1];
           if (latest) lastPollTimestamp.current = latest.createdAt;
@@ -212,6 +216,11 @@ export default function ChatPanel({ config, onClose }: Props) {
                 assistantContent += ev.content;
                 setMessages((prev) =>
                   prev.map((m) => (m.id === msgId ? { ...m, content: assistantContent } : m)),
+                );
+              }
+              if (ev.type === "error") {
+                setMessages((prev) =>
+                  prev.map((m) => (m.id === msgId ? { ...m, content: ev.message || "An error occurred. Please try again." } : m)),
                 );
               }
             } catch {}
