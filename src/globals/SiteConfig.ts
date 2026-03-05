@@ -142,6 +142,61 @@ KEY SITES: al-enterprise.com, help.openrainbow.com, openrainbow.com`,
           defaultValue: 50,
           admin: { description: 'Maximum messages per chat session before asking to start a new one.' },
         },
+        {
+          name: 'agentEmails',
+          type: 'array',
+          label: 'Agent Emails (Escalation)',
+          admin: {
+            description: 'Email addresses notified when a visitor requests to speak with a human agent.',
+          },
+          fields: [
+            {
+              name: 'email',
+              type: 'email',
+              required: true,
+            },
+            {
+              name: 'name',
+              type: 'text',
+              admin: { placeholder: 'e.g. John Doe' },
+            },
+          ],
+        },
+      ],
+    },
+    {
+      name: 'knowledgeBase',
+      type: 'group',
+      label: 'Knowledge Base',
+      fields: [
+        {
+          name: 'allowedDomains',
+          type: 'array',
+          label: 'Allowed Domains for URL Crawling',
+          admin: {
+            description: 'Restrict URL crawling to these domains. Leave empty to allow any domain.',
+          },
+          fields: [
+            {
+              name: 'domain',
+              type: 'text',
+              required: true,
+              admin: { placeholder: 'e.g. al-enterprise.com' },
+            },
+          ],
+        },
+        {
+          name: 'maxFileSize',
+          type: 'number',
+          defaultValue: 10485760,
+          admin: { description: 'Maximum file upload size in bytes (default: 10 MB)' },
+        },
+        {
+          name: 'maxSources',
+          type: 'number',
+          defaultValue: 50,
+          admin: { description: 'Maximum number of knowledge sources allowed' },
+        },
       ],
     },
     {
