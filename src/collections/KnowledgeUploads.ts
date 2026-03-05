@@ -9,7 +9,7 @@ import { adminOnly } from '@/access/roles'
 export const KnowledgeUploads: CollectionConfig = {
   slug: 'knowledge-uploads',
   upload: {
-    staticDir: 'knowledge-uploads',
+    staticDir: process.env.NODE_ENV === 'production' ? '/tmp/knowledge-uploads' : 'knowledge-uploads',
     mimeTypes: [
       'application/pdf',
       'text/plain',

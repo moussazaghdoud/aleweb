@@ -204,7 +204,8 @@ export const KnowledgeSources: CollectionConfig = {
               if (!filename) throw new Error('Upload document has no filename')
 
               // Read the file from the static upload directory
-              const filePath = path.resolve('knowledge-uploads', filename)
+              const uploadDir = process.env.NODE_ENV === 'production' ? '/tmp/knowledge-uploads' : 'knowledge-uploads'
+              const filePath = path.resolve(uploadDir, filename)
               const buffer = await readFile(filePath)
 
               const { uploadFileToVectorStore } = await import('@/lib/chat/openai')
