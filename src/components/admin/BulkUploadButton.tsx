@@ -42,10 +42,12 @@ export default function BulkUploadButton() {
             body: formData,
           })
           if (!uploadRes.ok) {
-            const err = await uploadRes.text()
-            throw new Error(err || `Upload failed (${uploadRes.status})`)
+            const errBody = await uploadRes.json().catch(() => null)
+            const msg = errBody?.errors?.[0]?.message || errBody?.message || `Upload failed (${uploadRes.status})`
+            throw new Error(msg)
           }
           const uploadDoc = await uploadRes.json()
+          const uploadId = uploadDoc.doc?.id ?? uploadDoc.id
 
           // 2. Create knowledge-sources doc
           const sourceRes = await fetch('/api/knowledge-sources', {
@@ -55,12 +57,13 @@ export default function BulkUploadButton() {
             body: JSON.stringify({
               name: file.name,
               type: 'file',
-              file: uploadDoc.doc?.id ?? uploadDoc.id,
+              file: uploadId,
             }),
           })
           if (!sourceRes.ok) {
-            const err = await sourceRes.text()
-            throw new Error(err || `Source creation failed (${sourceRes.status})`)
+            const errBody = await sourceRes.json().catch(() => null)
+            const msg = errBody?.errors?.[0]?.message || errBody?.message || `Source creation failed (${sourceRes.status})`
+            throw new Error(msg)
           }
 
           setFiles((prev) =>
