@@ -459,8 +459,23 @@ class RainbowBridgeService {
     // Echo prevention — skip bot's own messages
     if (content.startsWith('[Visitor]:')) return
     if (content.startsWith('--- Conversation history ---')) return
-    // Skip bubble system messages (join/leave notifications)
+    // Skip join/leave notifications
     if (content.includes('has joined the bubble') || content.includes('has left the bubble')) return
+
+    // Room event messages (e.g. "X has been invited to join the bubble") → store as system
+    if (content.includes('has been invited to join the bubble')) {
+      let sessionId: string | undefined
+      for (const key of lookupKeys) {
+        sessionId = this.byBubble.get(key)
+        if (sessionId) break
+      }
+      if (sessionId) {
+        const store = getChatStore()
+        await store.addMessage(sessionId, 'system', content)
+        console.log(`[Rainbow Bridge] Stored room event as system message: "${content.slice(0, 80)}"`)
+      }
+      return
+    }
 
     // Find session by trying all available lookup keys
     let sessionId: string | undefined

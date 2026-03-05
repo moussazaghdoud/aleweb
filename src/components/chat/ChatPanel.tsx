@@ -67,9 +67,10 @@ export default function ChatPanel({ config, onClose }: Props) {
           const latest = loaded[loaded.length - 1];
           if (latest) lastPollTimestamp.current = latest.createdAt;
         }
-        // Restore escalated state
-        if (data.session?.status === "escalated") {
-          setEscalated(true);
+        // If session was escalated or closed, show history but start fresh with AI
+        if (data.session?.status === "escalated" || data.session?.status === "closed") {
+          setSessionId(null);
+          localStorage.removeItem(SESSION_ID_KEY);
         }
       })
       .catch(() => {});
@@ -336,13 +337,22 @@ export default function ChatPanel({ config, onClose }: Props) {
         )}
         {messages.map((msg, idx) => (
           <div key={msg.id}>
-            {msg.role === "system" ? (
-              <div style={{ textAlign: "left", marginBottom: 2, padding: "1px 0" }}>
-                <span style={{ color: "#fbbf24", fontSize: 11 }}>
-                  {msg.content || "..."}
-                </span>
-              </div>
-            ) : (
+            {(() => {
+              const isRoomEvent = msg.content?.includes("has been invited to join the bubble");
+              if (msg.role === "system" || isRoomEvent) {
+                const displayContent = isRoomEvent
+                  ? msg.content.replace(/^.+(?=has been invited)/, "Hugo ")
+                  : msg.content;
+                return (
+                  <div style={{ textAlign: "left", marginBottom: 2, padding: "1px 0" }}>
+                    <span style={{ color: isRoomEvent ? "#67e8f9" : "#fbbf24", fontSize: 11 }}>
+                      {displayContent || "..."}
+                    </span>
+                  </div>
+                );
+              }
+              return null;
+            })() || (msg.role !== "system" && (
             <div style={{ display: "flex", justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: 12 }}>
               <div style={{
                 maxWidth: "85%",
@@ -359,7 +369,7 @@ export default function ChatPanel({ config, onClose }: Props) {
                 {msg.content || "..."}
               </div>
             </div>
-            )}
+            ))}
             {showFeedbackButtons && idx === lastAssistantIdx && (
               <div style={{ display: "flex", gap: 8, marginBottom: 12, paddingLeft: 4 }}>
                 <button onClick={handleHappy} style={{ fontSize: 12, padding: "6px 14px", borderRadius: 999, border: "1px solid rgba(16,185,129,0.3)", background: "rgba(16,185,129,0.15)", color: "#34d399", cursor: "pointer", fontFamily: "inherit", fontWeight: 500, transition: "background 0.2s" }}>
