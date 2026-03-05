@@ -197,8 +197,12 @@ export async function chatWithRAG(
   }
   input.push({ role: 'user', content: message })
 
-  // Tools: web search + optional file search
-  const tools: any[] = [{ type: 'web_search_preview' }]
+  // Tools: web search (with ALE domain priority) + optional file search
+  const tools: any[] = [{
+    type: 'web_search',
+    search_context_size: 'medium',
+    user_location: { type: 'approximate', country: 'FR' },
+  }]
   if (vectorStoreId) {
     tools.push({ type: 'file_search', vector_store_ids: [vectorStoreId] })
   }
