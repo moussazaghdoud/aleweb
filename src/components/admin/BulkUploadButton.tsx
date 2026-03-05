@@ -11,10 +11,9 @@ type FileStatus = {
 
 const ACCEPT = '.pdf,.txt,.md,.docx,.html'
 
-function fetchWithTimeout(url: string, opts: RequestInit, timeoutMs = 30000): Promise<Response> {
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), timeoutMs)
-  return fetch(url, { ...opts, signal: controller.signal }).finally(() => clearTimeout(timer))
+function getPayloadToken(): string | null {
+  const match = document.cookie.match(/payload-token=([^;]+)/)
+  return match ? match[1] : null
 }
 
 export default function BulkUploadButton() {
@@ -25,6 +24,12 @@ export default function BulkUploadButton() {
 
   const handleFiles = useCallback(
     async (selected: FileList) => {
+      const token = getPayloadToken()
+      if (!token) {
+        alert('Not authenticated. Please log in first.')
+        return
+      }
+
       const items: FileStatus[] = Array.from(selected).map((f) => ({
         name: f.name,
         status: 'pending' as const,
@@ -33,8 +38,7 @@ export default function BulkUploadButton() {
       setUploading(true)
 
       for (let i = 0; i < selected.length; i++) {
-        // Wait between files to let server settle
-        if (i > 0) await new Promise((r) => setTimeout(r, 3000))
+        if (i > 0) await new Promise((r) => setTimeout(r, 2000))
 
         const file = selected[i]
         setFiles((prev) =>
@@ -45,39 +49,41 @@ export default function BulkUploadButton() {
           // Step 1: Upload file to knowledge-uploads
           const uploadForm = new FormData()
           uploadForm.append('file', file)
-          const uploadRes = await fetchWithTimeout('/api/knowledge-uploads', {
+          const uploadRes = await fetch('/api/knowledge-uploads', {
             method: 'POST',
-            credentials: 'include',
+            headers: { Authorization: `JWT ${token}` },
             body: uploadForm,
-          }, 60000)
+          })
           const uploadText = await uploadRes.text()
           let uploadBody: any
           try { uploadBody = JSON.parse(uploadText) } catch {}
 
           if (!uploadRes.ok) {
-            throw new Error(`Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 300)}`)
+            throw new Error(`Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 250)}`)
           }
 
           const uploadId = uploadBody?.doc?.id ?? uploadBody?.id
           if (!uploadId) throw new Error('Upload OK but no ID returned')
 
-          // Step 2: Create knowledge-sources doc linking to the upload
-          const sourceRes = await fetchWithTimeout('/api/knowledge-sources', {
+          // Step 2: Create knowledge-sources doc
+          const sourceRes = await fetch('/api/knowledge-sources', {
             method: 'POST',
-            credentials: 'include',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `JWT ${token}`,
+            },
             body: JSON.stringify({
               name: file.name,
               type: 'file',
               file: uploadId,
             }),
-          }, 60000)
+          })
           const sourceText = await sourceRes.text()
           let sourceBody: any
           try { sourceBody = JSON.parse(sourceText) } catch {}
 
           if (!sourceRes.ok) {
-            throw new Error(`Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 300)}`)
+            throw new Error(`Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 250)}`)
           }
 
           setFiles((prev) =>
@@ -86,7 +92,7 @@ export default function BulkUploadButton() {
         } catch (err: unknown) {
           let msg: string
           if (err instanceof DOMException && err.name === 'AbortError') {
-            msg = 'Timeout (60s) — server may be busy'
+            msg = 'Timeout — server busy'
           } else {
             msg = err instanceof Error ? err.message : String(err)
           }
