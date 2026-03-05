@@ -33,29 +33,29 @@ export default function BulkUploadButton() {
         )
 
         try {
-          // 1. Upload file to knowledge-uploads
-          const formData = new FormData()
-          formData.append('file', file)
+          // Step 1: Upload file to knowledge-uploads
+          const uploadForm = new FormData()
+          uploadForm.append('file', file)
           const uploadRes = await fetch('/api/knowledge-uploads', {
             method: 'POST',
             credentials: 'include',
-            body: formData,
+            body: uploadForm,
           })
           const uploadText = await uploadRes.text()
+          let uploadBody: any
+          try { uploadBody = JSON.parse(uploadText) } catch {}
+
           if (!uploadRes.ok) {
-            let msg = `Upload failed (${uploadRes.status})`
-            try {
-              const errBody = JSON.parse(uploadText)
-              msg = errBody?.errors?.[0]?.message || errBody?.message || msg
-            } catch {
-              msg = uploadText?.slice(0, 200) || msg
-            }
+            const msg = uploadBody?.errors?.[0]?.message
+              || uploadBody?.message
+              || `Upload: ${uploadRes.status} - ${uploadText.slice(0, 150)}`
             throw new Error(msg)
           }
-          const uploadDoc = JSON.parse(uploadText)
-          const uploadId = uploadDoc.doc?.id ?? uploadDoc.id
 
-          // 2. Create knowledge-sources doc
+          const uploadId = uploadBody?.doc?.id ?? uploadBody?.id
+          if (!uploadId) throw new Error('Upload succeeded but no ID returned')
+
+          // Step 2: Create knowledge-sources doc linking to the upload
           const sourceRes = await fetch('/api/knowledge-sources', {
             method: 'POST',
             credentials: 'include',
@@ -67,24 +67,24 @@ export default function BulkUploadButton() {
             }),
           })
           const sourceText = await sourceRes.text()
+          let sourceBody: any
+          try { sourceBody = JSON.parse(sourceText) } catch {}
+
           if (!sourceRes.ok) {
-            let msg = `Source failed (${sourceRes.status})`
-            try {
-              const errBody = JSON.parse(sourceText)
-              msg = errBody?.errors?.[0]?.message || errBody?.message || msg
-            } catch {
-              msg = sourceText?.slice(0, 200) || msg
-            }
+            const msg = sourceBody?.errors?.[0]?.message
+              || sourceBody?.message
+              || `Source: ${sourceRes.status} - ${sourceText.slice(0, 150)}`
             throw new Error(msg)
           }
 
           setFiles((prev) =>
             prev.map((f, idx) => (idx === i ? { ...f, status: 'done' } : f)),
           )
-        } catch (err: any) {
+        } catch (err: unknown) {
+          const msg = err instanceof Error ? err.message : String(err)
           setFiles((prev) =>
             prev.map((f, idx) =>
-              idx === i ? { ...f, status: 'error', error: err.message } : f,
+              idx === i ? { ...f, status: 'error', error: msg } : f,
             ),
           )
         }
@@ -109,6 +109,7 @@ export default function BulkUploadButton() {
         style={{ display: 'none' }}
         onChange={(e) => {
           if (e.target.files?.length) handleFiles(e.target.files)
+          if (inputRef.current) inputRef.current.value = ''
         }}
       />
 
@@ -127,28 +128,28 @@ export default function BulkUploadButton() {
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M10 3v11M5 8l5-5 5 5M3 17h14" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        {uploading ? `Uploading ${doneCount + errorCount}/${files.length}…` : 'Bulk Upload Files'}
+        {uploading ? `Uploading ${doneCount + errorCount}/${files.length}...` : 'Bulk Upload Files'}
       </button>
 
       {files.length > 0 && (
         <div style={{ marginTop: '12px', fontSize: '13px', lineHeight: '1.6' }}>
           {files.map((f, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              <span>
-                {f.status === 'pending' && '⏳'}
-                {f.status === 'uploading' && '⬆️'}
-                {f.status === 'done' && '✅'}
-                {f.status === 'error' && '❌'}
+              <span style={{ flexShrink: 0 }}>
+                {f.status === 'pending' && '\u23F3'}
+                {f.status === 'uploading' && '\u2B06'}
+                {f.status === 'done' && '\u2705'}
+                {f.status === 'error' && '\u274C'}
               </span>
-              <span>{f.name}</span>
+              <span style={{ fontWeight: 500 }}>{f.name}</span>
               {f.error && (
-                <span style={{ color: '#e53e3e', fontSize: '12px' }}>{f.error}</span>
+                <span style={{ color: '#e53e3e', fontSize: '12px' }}>— {f.error}</span>
               )}
             </div>
           ))}
-          {!uploading && files.length > 0 && (
+          {!uploading && (
             <div style={{ marginTop: '8px', color: '#718096' }}>
-              {doneCount} uploaded{errorCount > 0 ? `, ${errorCount} failed` : ''}
+              Done: {doneCount} uploaded{errorCount > 0 ? `, ${errorCount} failed` : ''}
             </div>
           )}
         </div>
