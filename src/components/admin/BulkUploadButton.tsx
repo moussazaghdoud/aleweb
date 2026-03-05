@@ -27,6 +27,9 @@ export default function BulkUploadButton() {
       setUploading(true)
 
       for (let i = 0; i < selected.length; i++) {
+        // Wait between files to avoid overwhelming the server
+        if (i > 0) await new Promise((r) => setTimeout(r, 1500))
+
         const file = selected[i]
         setFiles((prev) =>
           prev.map((f, idx) => (idx === i ? { ...f, status: 'uploading' } : f)),
