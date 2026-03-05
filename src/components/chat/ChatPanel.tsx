@@ -48,7 +48,7 @@ export default function ChatPanel({ config, onClose }: Props) {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
-  // On mount, check if existing session is escalated or closed
+  // On mount, load conversation history from server if we have an existing session
   useEffect(() => {
     if (!sessionId) return;
     const visitorId = getVisitorId();
@@ -56,10 +56,20 @@ export default function ChatPanel({ config, onClose }: Props) {
       .then((res) => res.ok ? res.json() : null)
       .then((data) => {
         if (!data) return;
-        if (data.session?.status === "escalated" || data.session?.status === "closed") {
-          // Stale escalated/closed session — clear it so the user gets a fresh start
-          localStorage.removeItem(SESSION_ID_KEY);
-          setSessionId(null);
+        // Load existing messages
+        if (data.messages?.length > 0) {
+          const loaded: UIMessage[] = data.messages.map((m: any) => {
+            seenMessageIds.current.add(m.id);
+            return { id: m.id, role: m.role as MessageRole, content: m.content, createdAt: m.createdAt };
+          });
+          setMessages(loaded);
+          // Set poll cursor to latest message
+          const latest = loaded[loaded.length - 1];
+          if (latest) lastPollTimestamp.current = latest.createdAt;
+        }
+        // Restore escalated state
+        if (data.session?.status === "escalated") {
+          setEscalated(true);
         }
       })
       .catch(() => {});
