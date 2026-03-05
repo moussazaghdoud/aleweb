@@ -174,10 +174,11 @@ export async function POST(request: NextRequest) {
             encoder.encode(`data: ${JSON.stringify({ type: 'done' })}\n\n`),
           )
           controller.close()
-        } catch (err) {
-          console.error('[Chat] Stream error:', err)
+        } catch (err: any) {
+          const errMsg = err?.message || String(err)
+          console.error('[Chat] Stream error:', errMsg, err?.stack || '')
           controller.enqueue(
-            encoder.encode(`data: ${JSON.stringify({ type: 'error', message: 'An error occurred' })}\n\n`),
+            encoder.encode(`data: ${JSON.stringify({ type: 'error', message: errMsg })}\n\n`),
           )
           controller.close()
         }
@@ -192,7 +193,8 @@ export async function POST(request: NextRequest) {
       },
     })
   } catch (err: any) {
-    console.error('[Chat] Error:', err.message, err.stack)
-    return NextResponse.json({ error: err.message || 'Chat service unavailable' }, { status: 503 })
+    const errMsg = err?.message || String(err)
+    console.error('[Chat] Error:', errMsg, err?.stack || '')
+    return NextResponse.json({ error: errMsg || 'Chat service unavailable' }, { status: 503 })
   }
 }
