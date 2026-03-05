@@ -41,12 +41,18 @@ export default function BulkUploadButton() {
             credentials: 'include',
             body: formData,
           })
+          const uploadText = await uploadRes.text()
           if (!uploadRes.ok) {
-            const errBody = await uploadRes.json().catch(() => null)
-            const msg = errBody?.errors?.[0]?.message || errBody?.message || `Upload failed (${uploadRes.status})`
+            let msg = `Upload failed (${uploadRes.status})`
+            try {
+              const errBody = JSON.parse(uploadText)
+              msg = errBody?.errors?.[0]?.message || errBody?.message || msg
+            } catch {
+              msg = uploadText?.slice(0, 200) || msg
+            }
             throw new Error(msg)
           }
-          const uploadDoc = await uploadRes.json()
+          const uploadDoc = JSON.parse(uploadText)
           const uploadId = uploadDoc.doc?.id ?? uploadDoc.id
 
           // 2. Create knowledge-sources doc
@@ -60,9 +66,15 @@ export default function BulkUploadButton() {
               file: uploadId,
             }),
           })
+          const sourceText = await sourceRes.text()
           if (!sourceRes.ok) {
-            const errBody = await sourceRes.json().catch(() => null)
-            const msg = errBody?.errors?.[0]?.message || errBody?.message || `Source creation failed (${sourceRes.status})`
+            let msg = `Source failed (${sourceRes.status})`
+            try {
+              const errBody = JSON.parse(sourceText)
+              msg = errBody?.errors?.[0]?.message || errBody?.message || msg
+            } catch {
+              msg = sourceText?.slice(0, 200) || msg
+            }
             throw new Error(msg)
           }
 
