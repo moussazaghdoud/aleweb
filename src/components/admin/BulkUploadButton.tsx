@@ -11,17 +11,6 @@ type FileStatus = {
 
 const ACCEPT = '.pdf,.txt,.md,.docx,.html'
 
-function getPayloadToken(): string | null {
-  // Try common Payload cookie prefixes
-  for (const prefix of ['payload', 'payload-cms', 'aleweb']) {
-    const match = document.cookie.match(new RegExp(`${prefix}-token=([^;]+)`))
-    if (match) return match[1]
-  }
-  // Fallback: find any cookie ending with -token that looks like a JWT
-  const all = document.cookie.match(/\b[\w-]+-token=(eyJ[^;]+)/i)
-  return all ? all[1] : null
-}
-
 export default function BulkUploadButton() {
   const router = useRouter()
   const inputRef = useRef<HTMLInputElement>(null)
@@ -30,9 +19,6 @@ export default function BulkUploadButton() {
 
   const handleFiles = useCallback(
     async (selected: FileList) => {
-      const token = getPayloadToken()
-      // token may be null if cookie is HttpOnly — that's OK, we'll use credentials: 'include'
-
       const items: FileStatus[] = Array.from(selected).map((f) => ({
         name: f.name,
         status: 'pending' as const,
@@ -40,73 +26,42 @@ export default function BulkUploadButton() {
       setFiles(items)
       setUploading(true)
 
-      for (let i = 0; i < selected.length; i++) {
-        if (i > 0) await new Promise((r) => setTimeout(r, 2000))
+      try {
+        // Mark all as uploading
+        setFiles((prev) => prev.map((f) => ({ ...f, status: 'uploading' as const })))
 
-        const file = selected[i]
-        setFiles((prev) =>
-          prev.map((f, idx) => (idx === i ? { ...f, status: 'uploading' } : f)),
-        )
+        // Send all files in one request to the bulk endpoint
+        const formData = new FormData()
+        for (const file of Array.from(selected)) {
+          formData.append('files', file)
+        }
 
-        try {
-          // Step 1: Upload file to knowledge-uploads
-          const uploadForm = new FormData()
-          uploadForm.append('file', file)
-          const uploadRes = await fetch('/api/knowledge-uploads', {
-            method: 'POST',
-            credentials: 'include',
-            ...(token ? { headers: { Authorization: `JWT ${token}` } } : {}),
-            body: uploadForm,
-          })
-          const uploadText = await uploadRes.text()
-          let uploadBody: any
-          try { uploadBody = JSON.parse(uploadText) } catch {}
+        const res = await fetch('/api/knowledge-bulk', {
+          method: 'POST',
+          credentials: 'include',
+          body: formData,
+        })
 
-          if (!uploadRes.ok) {
-            throw new Error(`Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 250)}`)
-          }
+        const text = await res.text()
+        let body: any
+        try { body = JSON.parse(text) } catch {}
 
-          const uploadId = uploadBody?.doc?.id ?? uploadBody?.id
-          if (!uploadId) throw new Error('Upload OK but no ID returned')
-
-          // Step 2: Create knowledge-sources doc
-          const sourceRes = await fetch('/api/knowledge-sources', {
-            method: 'POST',
-            credentials: 'include',
-            headers: {
-              'Content-Type': 'application/json',
-              ...(token ? { Authorization: `JWT ${token}` } : {}),
-            },
-            body: JSON.stringify({
-              name: file.name,
-              type: 'file',
-              file: uploadId,
+        if (!res.ok) {
+          const msg = body?.error || `Server error ${res.status}: ${text.slice(0, 200)}`
+          setFiles((prev) => prev.map((f) => ({ ...f, status: 'error' as const, error: msg })))
+        } else if (body?.results) {
+          setFiles((prev) =>
+            prev.map((f) => {
+              const result = body.results.find((r: any) => r.name === f.name)
+              if (!result) return { ...f, status: 'error' as const, error: 'No result returned' }
+              if (result.status === 'ok') return { ...f, status: 'done' as const }
+              return { ...f, status: 'error' as const, error: result.error }
             }),
-          })
-          const sourceText = await sourceRes.text()
-          let sourceBody: any
-          try { sourceBody = JSON.parse(sourceText) } catch {}
-
-          if (!sourceRes.ok) {
-            throw new Error(`Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 250)}`)
-          }
-
-          setFiles((prev) =>
-            prev.map((f, idx) => (idx === i ? { ...f, status: 'done' } : f)),
-          )
-        } catch (err: unknown) {
-          let msg: string
-          if (err instanceof DOMException && err.name === 'AbortError') {
-            msg = 'Timeout — server busy'
-          } else {
-            msg = err instanceof Error ? err.message : String(err)
-          }
-          setFiles((prev) =>
-            prev.map((f, idx) =>
-              idx === i ? { ...f, status: 'error', error: msg } : f,
-            ),
           )
         }
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : String(err)
+        setFiles((prev) => prev.map((f) => ({ ...f, status: 'error' as const, error: msg })))
       }
 
       setUploading(false)
@@ -147,7 +102,7 @@ export default function BulkUploadButton() {
         <svg width="16" height="16" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M10 3v11M5 8l5-5 5 5M3 17h14" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
-        {uploading ? `Uploading ${doneCount + errorCount}/${files.length}...` : 'Bulk Upload Files'}
+        {uploading ? `Uploading ${files.length} files...` : 'Bulk Upload Files'}
       </button>
 
       {files.length > 0 && (
