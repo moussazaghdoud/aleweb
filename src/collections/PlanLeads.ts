@@ -45,6 +45,8 @@ export const PlanLeads: CollectionConfig = {
       defaultValue: 'new',
       options: [
         { label: 'New', value: 'new' },
+        { label: 'Emailed', value: 'emailed' },
+        { label: 'Email Failed', value: 'email_failed' },
         { label: 'Contacted', value: 'contacted' },
         { label: 'Converted', value: 'converted' },
       ],
