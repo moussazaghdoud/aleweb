@@ -49,9 +49,8 @@ export default function BulkUploadButton() {
           try { uploadBody = JSON.parse(uploadText) } catch {}
 
           if (!uploadRes.ok) {
-            const msg = uploadBody?.errors?.[0]?.message
-              || uploadBody?.message
-              || `Upload: ${uploadRes.status} - ${uploadText.slice(0, 150)}`
+            // Show full error detail for debugging
+            const msg = `Upload ${uploadRes.status}: ${JSON.stringify(uploadBody || uploadText).slice(0, 300)}`
             throw new Error(msg)
           }
 
@@ -74,9 +73,7 @@ export default function BulkUploadButton() {
           try { sourceBody = JSON.parse(sourceText) } catch {}
 
           if (!sourceRes.ok) {
-            const msg = sourceBody?.errors?.[0]?.message
-              || sourceBody?.message
-              || `Source: ${sourceRes.status} - ${sourceText.slice(0, 150)}`
+            const msg = `Source ${sourceRes.status}: ${JSON.stringify(sourceBody || sourceText).slice(0, 300)}`
             throw new Error(msg)
           }
 
