@@ -310,13 +310,20 @@ export default function ChatPanel({ config, onClose }: Props) {
         </button>
       </div>
 
-      {/* Discreet scrollbar */}
+      {/* Discreet scrollbar + waiting animation */}
       <style>{`
         .ale-chat-messages::-webkit-scrollbar { width: 4px; }
         .ale-chat-messages::-webkit-scrollbar-track { background: transparent; }
         .ale-chat-messages::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
         .ale-chat-messages::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.25); }
         .ale-chat-messages { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.12) transparent; }
+        @keyframes ale-dot-pulse {
+          0%, 80%, 100% { opacity: 0.2; transform: scale(0.8); }
+          40% { opacity: 1; transform: scale(1); }
+        }
+        .ale-waiting-dot { display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: #fbbf24; margin: 0 2px; animation: ale-dot-pulse 1.4s infinite ease-in-out; }
+        .ale-waiting-dot:nth-child(2) { animation-delay: 0.2s; }
+        .ale-waiting-dot:nth-child(3) { animation-delay: 0.4s; }
       `}</style>
 
       {/* Messages */}
@@ -331,7 +338,7 @@ export default function ChatPanel({ config, onClose }: Props) {
           <div key={msg.id}>
             {msg.role === "system" ? (
               <div style={{ textAlign: "left", marginBottom: 2, padding: "1px 0" }}>
-                <span style={{ color: "#fbbf24", fontSize: 14 }}>
+                <span style={{ color: "#fbbf24", fontSize: 11 }}>
                   {msg.content || "..."}
                 </span>
               </div>
@@ -367,6 +374,14 @@ export default function ChatPanel({ config, onClose }: Props) {
         ))}
         {isStreaming && messages[messages.length - 1]?.role !== "assistant" && (
           <div style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, padding: "8px 0" }}>Typing...</div>
+        )}
+        {escalated && !agentConnected && (
+          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 0" }}>
+            <span className="ale-waiting-dot" />
+            <span className="ale-waiting-dot" />
+            <span className="ale-waiting-dot" />
+            <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 11, marginLeft: 2 }}>Waiting for an agent</span>
+          </div>
         )}
         <div ref={messagesEndRef} />
       </div>
