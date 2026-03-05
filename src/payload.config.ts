@@ -52,6 +52,24 @@ const s3Plugin = process.env.S3_BUCKET
     })
   : null
 
+async function ensurePlanLeadsEnum(payload: any) {
+  if (!process.env.DATABASE_URI?.startsWith('postgresql')) return
+  try {
+    const pool = (payload.db as any)?.pool
+    if (!pool) return
+    for (const val of ['emailed', 'email_failed']) {
+      await pool
+        .query(
+          `DO $$ BEGIN IF NOT EXISTS (SELECT 1 FROM pg_enum WHERE enumlabel = '${val}' AND enumtypid = 'enum_plan_leads_status'::regtype) THEN ALTER TYPE enum_plan_leads_status ADD VALUE '${val}'; END IF; END $$;`,
+        )
+        .catch(() => {})
+    }
+    console.log('[PlanLeads] Enum values ensured')
+  } catch {
+    // Enum may already have the values or table doesn't exist yet
+  }
+}
+
 export default buildConfig({
   // ── Plugins ────────────────────────────────────────────────
   plugins: [...(s3Plugin ? [s3Plugin] : [])],
@@ -159,6 +177,11 @@ export default buildConfig({
 
   // ── Image Processing ─────────────────────────────────────────
   sharp,
+
+  // ── Lifecycle ────────────────────────────────────────────────
+  onInit: async (payload) => {
+    await ensurePlanLeadsEnum(payload)
+  },
 
   // ── Security ─────────────────────────────────────────────────
   secret: process.env.PAYLOAD_SECRET || 'CHANGE-ME-IN-PRODUCTION',

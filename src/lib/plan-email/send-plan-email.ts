@@ -92,7 +92,9 @@ export async function sendPlanEmail(
   }
 
   const resend = new Resend(apiKey)
+  // Use onboarding@resend.dev until domain is verified in Resend
   const from = process.env.PLAN_EMAIL_FROM || 'ALE Digital Advisor <onboarding@resend.dev>'
+  console.log('[PlanEmail] Sending from:', from, '| to:', email)
   const subject = SUBJECTS[locale] || SUBJECTS.en
   const dateStr = new Date().toISOString().slice(0, 10)
 
