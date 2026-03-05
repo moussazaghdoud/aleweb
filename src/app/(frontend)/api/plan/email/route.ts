@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { after } from 'next/server'
 import { processAndSendPlan } from '@/lib/plan-email'
+import { getPayload } from '@/lib/payload'
 
 export const dynamic = 'force-dynamic'
 
@@ -20,31 +21,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-    const res = await fetch(`${serverUrl}/api/plan-leads`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
+    // Use Payload local API directly (no HTTP fetch — avoids ECONNREFUSED in Docker)
+    const payload = await getPayload()
+    const lead = await payload.create({
+      collection: 'plan-leads',
+      data: {
         email: email.trim(),
         goal: goal?.trim() || '',
         planJson: planJson || null,
         locale: locale || 'en',
-      }),
+      },
     })
 
-    if (!res.ok) {
-      const data = await res.json().catch(() => ({}))
-      console.error('[PlanEmail] Lead save failed:', res.status, data)
-      return NextResponse.json(
-        { error: data?.errors?.[0]?.message || 'Failed to save lead' },
-        { status: 500 },
-      )
-    }
-
-    // Extract leadId from Payload REST API response: { doc: { id, ... } }
-    const leadData = await res.json().catch(() => ({}))
-    const leadId = leadData?.doc?.id || leadData?.id || null
-
+    const leadId = lead?.id || null
     console.log('[PlanEmail] Lead saved, id:', leadId, '| planJson present:', !!planJson)
 
     // Fire background task: generate detailed plan → PDF → email
@@ -59,8 +48,6 @@ export async function POST(request: NextRequest) {
           leadId: leadId || 'unknown',
         })
       })
-    } else {
-      console.warn('[PlanEmail] No planJson provided, skipping email generation')
     }
 
     return NextResponse.json({ success: true })

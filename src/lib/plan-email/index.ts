@@ -16,11 +16,12 @@ interface ProcessPlanInput {
 
 async function updateLeadStatus(leadId: string | number, status: 'emailed' | 'email_failed'): Promise<void> {
   try {
-    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-    await fetch(`${serverUrl}/api/plan-leads/${leadId}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status }),
+    const { getPayload } = await import('@/lib/payload')
+    const payload = await getPayload()
+    await payload.update({
+      collection: 'plan-leads',
+      id: leadId,
+      data: { status },
     })
   } catch (err) {
     console.error(`[PlanEmail] Failed to update lead ${leadId} status:`, err)
