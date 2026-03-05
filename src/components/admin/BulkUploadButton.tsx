@@ -12,8 +12,14 @@ type FileStatus = {
 const ACCEPT = '.pdf,.txt,.md,.docx,.html'
 
 function getPayloadToken(): string | null {
-  const match = document.cookie.match(/payload-token=([^;]+)/)
-  return match ? match[1] : null
+  // Try common Payload cookie prefixes
+  for (const prefix of ['payload', 'payload-cms', 'aleweb']) {
+    const match = document.cookie.match(new RegExp(`${prefix}-token=([^;]+)`))
+    if (match) return match[1]
+  }
+  // Fallback: find any cookie ending with -token that looks like a JWT
+  const all = document.cookie.match(/\b[\w-]+-token=(eyJ[^;]+)/i)
+  return all ? all[1] : null
 }
 
 export default function BulkUploadButton() {
@@ -25,10 +31,7 @@ export default function BulkUploadButton() {
   const handleFiles = useCallback(
     async (selected: FileList) => {
       const token = getPayloadToken()
-      if (!token) {
-        alert('Not authenticated. Please log in first.')
-        return
-      }
+      // token may be null if cookie is HttpOnly — that's OK, we'll use credentials: 'include'
 
       const items: FileStatus[] = Array.from(selected).map((f) => ({
         name: f.name,
@@ -51,7 +54,8 @@ export default function BulkUploadButton() {
           uploadForm.append('file', file)
           const uploadRes = await fetch('/api/knowledge-uploads', {
             method: 'POST',
-            headers: { Authorization: `JWT ${token}` },
+            credentials: 'include',
+            ...(token ? { headers: { Authorization: `JWT ${token}` } } : {}),
             body: uploadForm,
           })
           const uploadText = await uploadRes.text()
@@ -68,9 +72,10 @@ export default function BulkUploadButton() {
           // Step 2: Create knowledge-sources doc
           const sourceRes = await fetch('/api/knowledge-sources', {
             method: 'POST',
+            credentials: 'include',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `JWT ${token}`,
+              ...(token ? { Authorization: `JWT ${token}` } : {}),
             },
             body: JSON.stringify({
               name: file.name,
