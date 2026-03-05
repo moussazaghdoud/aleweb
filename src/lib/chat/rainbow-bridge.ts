@@ -47,6 +47,8 @@ class RainbowBridgeService {
   private messageBuffer = new Map<string, { content: string; fromId: string; ts: number }[]>()
   /** Buffer for /conversation callbacks that arrive before create_bubble returns */
   private conversationBuffer = new Map<string, string>() // bubbleId → conversationId
+  /** Ring buffer of last 30 webhook events for debugging */
+  private recentWebhooks: Array<{ ts: string; path: string; body: string }> = []
 
   private agentEmails: string[]
 
@@ -371,7 +373,31 @@ class RainbowBridgeService {
 
   /* ---- Rainbow webhook → Visitor (called from webhook route) ---- */
 
+  /** Debug state for /api/chat/rainbow-debug endpoint */
+  getDebugState() {
+    const sessions: any[] = []
+    for (const [sid, m] of this.bySession) {
+      sessions.push({ sessionId: sid, bubbleId: m.bubbleId, bubbleJid: m.bubbleJid, conversationDbId: m.conversationDbId, agentJoined: m.agentJoined })
+    }
+    const bubbleMappings: any[] = []
+    for (const [key, sid] of this.byBubble) {
+      bubbleMappings.push({ key, sessionId: sid })
+    }
+    return {
+      workerReady: this.workerReady,
+      sessions,
+      bubbleMappings,
+      messageBuffer: Array.from(this.messageBuffer.entries()).map(([k, v]) => ({ key: k, count: v.length })),
+      conversationBuffer: Array.from(this.conversationBuffer.entries()),
+      recentWebhooks: this.recentWebhooks,
+    }
+  }
+
   async handleWebhookEvent(event: any, subPath?: string): Promise<void> {
+    // Capture for debugging
+    this.recentWebhooks.push({ ts: new Date().toISOString(), path: subPath || '/', body: JSON.stringify(event).slice(0, 2000) })
+    if (this.recentWebhooks.length > 30) this.recentWebhooks.shift()
+
     console.log(`[Rainbow Bridge] handleWebhookEvent (path: ${subPath || '/'}):`, JSON.stringify(event).slice(0, 1000))
 
     // Handle /conversation callbacks — maps agent's conversation_id → bubbleId.
