@@ -395,11 +395,25 @@ export default function ChatPanel({ config, onClose }: Props) {
           <div style={{ color: "rgba(255,255,255,0.4)", fontSize: 13, padding: "8px 0" }}>Typing...</div>
         )}
         {escalated && !agentConnected && (
-          <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 0" }}>
-            <span className="ale-waiting-dot" />
-            <span className="ale-waiting-dot" />
-            <span className="ale-waiting-dot" />
-            <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 11, marginLeft: 2 }}>Waiting for an agent</span>
+          <div style={{ padding: "6px 0" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <span className="ale-waiting-dot" />
+              <span className="ale-waiting-dot" />
+              <span className="ale-waiting-dot" />
+              <span style={{ color: "rgba(255,255,255,0.4)", fontSize: 11, marginLeft: 2 }}>Waiting for an agent</span>
+            </div>
+            <button
+              onClick={() => {
+                setEscalated(false);
+                setAgentConnected(false);
+                setFeedbackGiven(false);
+                setSessionId(null);
+                localStorage.removeItem(SESSION_ID_KEY);
+              }}
+              style={{ marginTop: 8, fontSize: 11, padding: "4px 12px", borderRadius: 999, border: "1px solid rgba(255,255,255,0.15)", background: "rgba(255,255,255,0.06)", color: "rgba(255,255,255,0.5)", cursor: "pointer", fontFamily: "inherit", transition: "background 0.2s" }}
+            >
+              Back to AI assistant
+            </button>
           </div>
         )}
         <div ref={messagesEndRef} />
