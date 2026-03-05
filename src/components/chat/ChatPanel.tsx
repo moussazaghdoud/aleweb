@@ -369,6 +369,7 @@ export default function ChatPanel({ config, onClose }: Props) {
                 borderRadius: 16,
                 fontSize: 14,
                 lineHeight: 1.5,
+                whiteSpace: "pre-wrap",
                 ...(msg.role === "user"
                   ? { background: "linear-gradient(135deg, #3b82f6, #7c3aed)", color: "white", borderBottomRightRadius: 4, boxShadow: "0 2px 8px rgba(124,58,237,0.3)" }
                   : msg.role === "agent"
