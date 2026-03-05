@@ -321,7 +321,7 @@ export default function ChatPanel({ config, onClose }: Props) {
           <div key={msg.id}>
             {msg.role === "system" ? (
               <div style={{ textAlign: "left", marginBottom: 2, padding: "1px 0" }}>
-                <span style={{ color: "#fbbf24", fontSize: 12 }}>
+                <span style={{ color: "#fbbf24", fontSize: 14 }}>
                   {msg.content || "..."}
                 </span>
               </div>
