@@ -253,12 +253,12 @@ export function GoalCaptureGlassPanel() {
               onChange={(e) => setGoal(e.target.value)}
               onFocus={pauseVideo}
               placeholder="Write here what you want to do, What are you looking to solve in your organization"
-              rows={4}
+              rows={5}
               maxLength={1000}
               disabled={state === "loading"}
               aria-label="Describe your business goal"
               style={{ outline: 'none', boxShadow: 'none' }}
-              className="w-full resize-none rounded-lg bg-white/[0.06] border border-white/[0.12] text-white text-xs placeholder:text-white/30 px-4 py-3 focus:border-white/40 transition-all disabled:opacity-50"
+              className="w-full resize-none rounded-lg bg-white/15 backdrop-blur-md border border-white/20 text-white text-xs placeholder:text-white/40 px-4 py-3 focus:border-white/40 transition-all disabled:opacity-50"
             />
           </div>
 
