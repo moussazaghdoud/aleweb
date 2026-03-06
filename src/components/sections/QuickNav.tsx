@@ -67,28 +67,28 @@ const pillars = [
 
 const pillarColorMap = {
   blue: {
-    border: "border-blue-500/20 hover:border-blue-400/50",
-    bg: "bg-gray-900/70 backdrop-blur-md",
+    border: "border-white/10 hover:border-blue-400/40",
+    bg: "bg-white/5 backdrop-blur-xl",
     numberBg: "bg-blue-500",
-    tag: "bg-blue-500/15 text-blue-300 border-blue-500/30",
+    tag: "bg-blue-500/20 text-blue-200 border-blue-400/30",
     gradient: "from-blue-400/80 to-blue-500/80",
     glow: "bg-blue-500/10",
     tint: "from-blue-600/70 via-blue-500/40 to-transparent",
   },
   purple: {
-    border: "border-purple-500/20 hover:border-purple-400/50",
-    bg: "bg-gray-900/70 backdrop-blur-md",
+    border: "border-white/10 hover:border-purple-400/40",
+    bg: "bg-white/5 backdrop-blur-xl",
     numberBg: "bg-purple-500",
-    tag: "bg-purple-500/15 text-purple-300 border-purple-500/30",
+    tag: "bg-purple-500/20 text-purple-200 border-purple-400/30",
     gradient: "from-purple-400/80 to-purple-500/80",
     glow: "bg-purple-500/10",
     tint: "from-purple-600/70 via-purple-500/40 to-transparent",
   },
   cyan: {
-    border: "border-cyan-500/20 hover:border-cyan-400/50",
-    bg: "bg-gray-900/70 backdrop-blur-md",
+    border: "border-white/10 hover:border-cyan-400/40",
+    bg: "bg-white/5 backdrop-blur-xl",
     numberBg: "bg-cyan-500",
-    tag: "bg-cyan-500/15 text-cyan-300 border-cyan-500/30",
+    tag: "bg-cyan-500/20 text-cyan-200 border-cyan-400/30",
     gradient: "from-cyan-400/80 to-cyan-500/80",
     glow: "bg-cyan-500/10",
     tint: "from-cyan-600/70 via-cyan-500/40 to-transparent",
@@ -347,17 +347,19 @@ export function QuickNav() {
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
       <section className="pt-48 pb-20 relative overflow-hidden">
-        {/* Server room background image */}
-        <Image src="/images/pillars/dc-bg2.jpg" alt="" fill className="object-cover" priority />
-        {/* Blue-tinted overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-blue-950/80 via-gray-900/70 to-gray-950/90" />
-        {/* Horizontal light streak */}
-        <div className="absolute top-[40%] left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-blue-400/20 to-transparent" />
+        {/* Earth from space background */}
+        <Image src="/images/pillars/dc-bg4.jpg" alt="" fill className="object-cover" priority />
+        {/* Light overlay — keeps image visible */}
+        <div className="absolute inset-0 bg-gray-950/40" />
+        {/* Glow blobs */}
+        <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/10 rounded-full blur-[120px]" />
+        <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/10 rounded-full blur-[120px]" />
+        <div className="absolute top-0 right-[12%] w-[350px] h-[300px] bg-cyan-500/10 rounded-full blur-[120px]" />
 
         <div className="relative mx-auto max-w-[1320px] px-6">
           <FadeIn>
             <div className="text-center mb-14">
-              <p className="text-sm font-medium uppercase tracking-widest text-blue-300/50 mb-3">One integrated platform</p>
+              <p className="text-sm font-medium uppercase tracking-widest text-white/50 mb-3">One integrated platform</p>
               <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight">
                 Three pillars. One digital infrastructure.
               </h2>
@@ -383,11 +385,11 @@ export function QuickNav() {
                         <span className={`w-8 h-8 rounded-lg ${c.numberBg} flex items-center justify-center text-white text-sm font-bold`}>
                           {String(i + 1).padStart(2, "0")}
                         </span>
-                        <span className="text-sm font-semibold uppercase tracking-wider text-gray-400">{p.label}</span>
+                        <span className="text-sm font-semibold uppercase tracking-wider text-white/60">{p.label}</span>
                       </div>
 
                       <h3 className="text-xl font-bold text-white mb-3">{p.headline}</h3>
-                      <p className="text-sm text-gray-400 leading-relaxed mb-5">{p.description}</p>
+                      <p className="text-sm text-white/50 leading-relaxed mb-5">{p.description}</p>
 
                       {/* Product tags */}
                       <div className="flex flex-wrap gap-2 mb-6">
