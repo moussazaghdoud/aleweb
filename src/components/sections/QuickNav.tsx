@@ -454,15 +454,6 @@ export function QuickNav() {
                 <span className="text-xs font-semibold text-text group-hover:text-ale transition-colors">{s.title}</span>
               </Link>
             ))}
-            <Link
-              href="/solutions"
-              className="flex items-center gap-1.5 h-10 px-4 rounded-full bg-ale-50 text-ale text-xs font-semibold hover:bg-ale-100 transition-colors"
-            >
-              All Solutions
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-              </svg>
-            </Link>
           </div>
         </div>
       </section>
