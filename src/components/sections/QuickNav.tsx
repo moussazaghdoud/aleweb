@@ -347,10 +347,17 @@ export function QuickNav() {
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
       <section className="pt-32 pb-20 relative overflow-hidden -mt-20">
-        {/* Earth from space background — slow rotation */}
-        <div className="absolute inset-[-20%] animate-[spin_120s_linear_infinite]">
-          <Image src="/images/pillars/dc-bg4.jpg" alt="" fill className="object-cover" />
+        {/* Earth from space background — slow horizontal pan (globe rotation) */}
+        <div className="absolute inset-0 animate-[panX_60s_linear_infinite]">
+          <Image src="/images/pillars/dc-bg4.jpg" alt="" fill className="object-cover scale-[1.3]" />
         </div>
+        <style jsx>{`
+          @keyframes panX {
+            0%   { transform: translateX(0); }
+            50%  { transform: translateX(-10%); }
+            100% { transform: translateX(0); }
+          }
+        `}</style>
         {/* Light overlay — keeps image visible */}
         <div className="absolute inset-0 bg-gray-950/40" />
         {/* Top gradient blending from hero's dark bottom */}
