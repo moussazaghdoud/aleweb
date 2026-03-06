@@ -346,11 +346,13 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="pt-48 pb-20 relative overflow-hidden">
+      <section className="pt-32 pb-20 relative overflow-hidden -mt-20">
         {/* Earth from space background */}
         <Image src="/images/pillars/dc-bg4.jpg" alt="" fill className="object-cover" priority />
         {/* Light overlay — keeps image visible */}
         <div className="absolute inset-0 bg-gray-950/40" />
+        {/* Top gradient blending from hero's dark bottom */}
+        <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/80 to-transparent z-[1]" />
         {/* Glow blobs */}
         <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/10 rounded-full blur-[120px]" />
         <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/10 rounded-full blur-[120px]" />

@@ -221,8 +221,11 @@ export function HeroHomepage({ heading, subheading, videoUrl, ctaButtons }: Prop
         </div>
       </div>
 
+      {/* ── Bottom fade for smooth transition to next section ── */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-b from-transparent to-black/80" />
+
       {/* ── Scroll hint ── */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 z-10">
         <div className="w-5 h-8 rounded-full border border-white/20 flex items-start justify-center p-1.5">
           <div className="w-1 h-2 bg-white/50 rounded-full animate-bounce" />
         </div>
