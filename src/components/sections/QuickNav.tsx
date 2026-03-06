@@ -346,7 +346,7 @@ export function QuickNav() {
   return (
     <>
       {/* ━━━ 1. THREE PILLARS — The core strategic section ━━━ */}
-      <section className="pt-32 pb-40 relative overflow-hidden -mt-20">
+      <section className="pt-32 pb-20 relative overflow-hidden -mt-20">
         {/* Earth from space background — slow horizontal pan (globe rotation) */}
         <div className="absolute inset-0 animate-[panX_60s_linear_infinite]">
           <Image src="/images/pillars/dc-bg4.jpg" alt="" fill className="object-cover scale-[1.3]" />
@@ -363,7 +363,7 @@ export function QuickNav() {
         {/* Top gradient blending from hero's dark bottom */}
         <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-black/80 to-transparent z-[1]" />
         {/* Bottom gradient blending dark into white */}
-        <div className="absolute bottom-0 left-0 right-0 h-60 bg-gradient-to-b from-transparent via-gray-900/60 to-white z-[1]" />
+        <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-b from-transparent to-white z-[1]" />
         {/* Glow blobs */}
         <div className="absolute top-0 left-[15%] w-[400px] h-[300px] bg-blue-500/10 rounded-full blur-[120px]" />
         <div className="absolute top-0 left-[42%] w-[350px] h-[300px] bg-purple-500/10 rounded-full blur-[120px]" />
