@@ -309,6 +309,49 @@ function AnimatedStat({ value, label }: { value: string; label: string }) {
 }
 
 /* ═══════════════════════════════════════════════════════════════════ */
+/*  STICKY SOLUTIONS BAR — blue pastel bg when stuck                  */
+/* ═══════════════════════════════════════════════════════════════════ */
+
+function StickyBar() {
+  const sentinelRef = useRef<HTMLDivElement>(null);
+  const [stuck, setStuck] = useState(false);
+
+  useEffect(() => {
+    const el = sentinelRef.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => setStuck(!entry.isIntersecting),
+      { threshold: 0 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <>
+      {/* Invisible sentinel — when it scrolls out of view, the bar is stuck */}
+      <div ref={sentinelRef} className="h-0" />
+      <section className={`py-5 border-b border-light-200 sticky top-[72px] z-30 transition-colors duration-300 ${stuck ? "bg-blue-50" : "bg-white"}`}>
+        <div className="mx-auto max-w-[1320px] px-6">
+          <div className="flex flex-wrap gap-2">
+            {solutions.map((s) => (
+              <Link
+                key={s.title}
+                href={s.href}
+                className={`group flex items-center gap-2.5 h-10 px-4 rounded-full border transition-all ${stuck ? "border-blue-200 hover:border-blue-300 hover:bg-blue-100" : "border-light-200 hover:border-ale-200 hover:bg-ale-50"}`}
+              >
+                <s.Icon className="w-4 h-4 text-ale" />
+                <span className="text-xs font-semibold text-text group-hover:text-ale transition-colors">{s.title}</span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+/* ═══════════════════════════════════════════════════════════════════ */
 /*  SCROLL FADE — fades in children when scrolled into view           */
 /* ═══════════════════════════════════════════════════════════════════ */
 
@@ -441,22 +484,7 @@ export function QuickNav() {
       </section>
 
       {/* ━━━ 2. SOLUTIONS BAR (sticky) ━━━ */}
-      <section className="py-5 bg-white border-b border-light-200 sticky top-[72px] z-30">
-        <div className="mx-auto max-w-[1320px] px-6">
-          <div className="flex flex-wrap gap-2">
-            {solutions.map((s) => (
-              <Link
-                key={s.title}
-                href={s.href}
-                className="group flex items-center gap-2.5 h-10 px-4 rounded-full border border-light-200 hover:border-ale-200 hover:bg-ale-50 transition-all"
-              >
-                <s.Icon className="w-4 h-4 text-ale" />
-                <span className="text-xs font-semibold text-text group-hover:text-ale transition-colors">{s.title}</span>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <StickyBar />
 
       {/* ━━━ 3. PLATFORM SHOWCASE GRID ━━━ */}
       <section className="py-16 bg-white">
