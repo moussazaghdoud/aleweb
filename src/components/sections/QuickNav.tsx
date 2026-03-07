@@ -331,17 +331,17 @@ function StickyBar() {
     <>
       {/* Invisible sentinel — when it scrolls out of view, the bar is stuck */}
       <div ref={sentinelRef} className="h-0" />
-      <section className={`py-5 border-b border-light-200 sticky top-[72px] z-30 transition-colors duration-300 ${stuck ? "bg-blue-50" : "bg-white"}`}>
+      <section className="py-5 border-b border-light-200 sticky top-[72px] z-30 bg-white transition-colors duration-300">
         <div className="mx-auto max-w-[1320px] px-6">
           <div className="flex flex-wrap gap-2">
             {solutions.map((s) => (
               <Link
                 key={s.title}
                 href={s.href}
-                className={`group flex items-center gap-2.5 h-10 px-4 rounded-full border transition-all ${stuck ? "border-blue-200 hover:border-blue-300 hover:bg-blue-100" : "border-light-200 hover:border-ale-200 hover:bg-ale-50"}`}
+                className={`group flex items-center gap-2.5 h-10 px-4 rounded-full border transition-all duration-300 ${stuck ? "bg-blue-50 border-blue-200 hover:bg-blue-100 hover:border-blue-300" : "bg-white border-light-200 hover:border-ale-200 hover:bg-ale-50"}`}
               >
-                <s.Icon className="w-4 h-4 text-ale" />
-                <span className="text-xs font-semibold text-text group-hover:text-ale transition-colors">{s.title}</span>
+                <s.Icon className={`w-4 h-4 transition-colors duration-300 ${stuck ? "text-blue-600" : "text-ale"}`} />
+                <span className={`text-xs font-semibold transition-colors duration-300 ${stuck ? "text-blue-800 group-hover:text-blue-900" : "text-text group-hover:text-ale"}`}>{s.title}</span>
               </Link>
             ))}
           </div>
